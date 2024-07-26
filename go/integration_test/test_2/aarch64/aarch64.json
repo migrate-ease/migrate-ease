@@ -1,0 +1,69 @@
+{
+    "arch": "aarch64",
+    "branch": null,
+    "commit": null,
+    "errors": [],
+    "file_summary": {
+        "go": {
+            "count": 4,
+            "fileName": "Golang \u6587\u4ef6",
+            "loc": 4992
+        },
+        "libs": {
+            "count": 0,
+            "fileName": "Lib \u6587\u4ef6",
+            "loc": 0
+        },
+        "s": {
+            "count": 0,
+            "fileName": "Asm \u6587\u4ef6",
+            "loc": 0
+        }
+    },
+    "git_repo": null,
+    "issue_summary": {
+        "AsmIssue": {
+            "count": 0,
+            "des": "\u68c0\u6d4b\u5230\u5728\u6c47\u7f16\u6e90\u6587\u4ef6\u4e2d\u53ef\u80fd\u5b58\u5728\u5904\u7406\u5668\u67b6\u6784\u76f8\u5173\u7684\u6c47\u7f16\u4ee3\u7801, \u9700\u8981\u4eba\u5de5\u8fdb\u884c\u68c0\u67e5."
+        },
+        "Error": {
+            "count": 0,
+            "des": "\u8868\u793a\u672c\u4ee3\u7801\u626b\u63cf\u7a0b\u5e8f\u5728\u626b\u63cf\u8fc7\u7a0b\u4e2d\u9047\u5230\u7684\u5f02\u5e38, \u975e\u4ee3\u7801\u903b\u8f91\u672c\u8eab\u7684\u95ee\u9898, \u7528\u6237\u53ef\u5ffd\u7565."
+        },
+        "GolangInlineAsmIssue": {
+            "count": 0,
+            "des": "\u68c0\u6d4b\u5230\u5728\u76ee\u6807\u5e73\u53f0\u4e2d\u4f7f\u7528\u5185\u8054\u6c47\u7f16, \u53ef\u80fd\u5b58\u5728\u5e73\u53f0\u517c\u5bb9\u6027\u95ee\u9898."
+        },
+        "GolangIntrinsicIssue": {
+            "count": 0,
+            "des": "\u68c0\u6d4b\u5230\u4f7f\u7528\u4e86\u548c\u76ee\u6807\u5e73\u53f0\u5b58\u5728\u517c\u5bb9\u6027\u95ee\u9898\u7684 Intrinsic \u51fd\u6570."
+        },
+        "GolangLinkLibraryIssue": {
+            "count": 0,
+            "des": "\u68c0\u6d4b\u5230\u4f7f\u7528\u4e86\u548c\u76ee\u6807\u5e73\u53f0\u4e0d\u517c\u5bb9\u7684\u5e93."
+        },
+        "OtherIssue": {
+            "count": 0,
+            "des": "\u5f53\u4ee3\u7801\u626b\u63cf\u5de5\u5177\u4f7f\u7528\u4e86\u626b\u63cf\u95ee\u9898\u6570\u91cf\u9650\u5236\u9009\u9879\u7684\u65f6\u5019, \u8d85\u51fa\u6570\u91cf\u9650\u5236\u7684\u95ee\u9898\u4f1a\u88ab\u5f52\u7c7b\u5230 OtherIssue."
+        }
+    },
+    "issue_type_config": null,
+    "issues": [
+    ],
+    "language_type": "go",
+    "march": null,
+    "output": null,
+    "progress": true,
+    "quiet": false,
+    "remarks": [],
+    "root_directory": "./aarch64",
+    "source_dirs": [
+        "./aarch64"
+    ],
+    "source_files": [
+        "./aarch64/aarch64_intrinsics.go",
+        "./aarch64/common_intrinsics.go"
+    ],
+    "target_os": "OpenAnolis",
+    "total_issue_count": 0
+}

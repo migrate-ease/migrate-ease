@@ -1,0 +1,336 @@
+# Python extension packages available for arm/arm64/aarch64 and X86/X86-64
+COMMON_AARCH64_AND_X86_PYTHON_EXTENSION_PACKAGES:
+    - pattern: (.*)(keystone-engine)(?![a-zA-Z0-9-])
+      help: |+
+          Keystone 是一个轻量级的多平台、多架构的汇编程序框架。
+          支持多种架构，包括Arm, Arm64 (AArch64/Armv8), Ethereum Virtual Machine, Hexagon, Mips, PowerPC, Sparc, SystemZ & X86 (include 16/32/64bit)
+
+          详见： https://pypi.org/project/keystone-engine/
+
+    - pattern: (.*)(fibers)(?![a-zA-Z0-9-])
+      help: |+
+          Fibers是 Python 中用于协作多任务处理的轻量级原语， 提供了代码运行时暂停和恢复的方法
+          目前支持的架构包括86, x86-64, ARM, MIPS64, PPC64 和 s390x
+
+          详见： https://pypi.org/project/fibers/
+
+# Python extension packages only available for arm/arm64/aarch64 
+AARCH64_PYTHON_EXTENSION_PACKAGES:
+    - pattern: (.*)(pycuda-arm-linux)(?![a-zA-Z0-9-])
+      help: |+
+          PyCUDA 是 CUDA 的 Python 编程环境, 支持从 Python 访问 Nvidia 的 CUDA 并行计算 API。
+
+          详见： https://pypi.org/project/pycuda-arm-linux/
+    
+    - pattern: (.*)(HTSeq-arm-linux)(?![a-zA-Z0-9-])
+      help: |+
+          一个 Python 库，用于促进高通量测序 (HTS) 实验数据的处理和分析。
+
+          详见： https://pypi.org/project/HTSeq-arm-linux/
+    
+    - pattern: (.*)(wlauto)(?![a-zA-Z0-9-])
+      help: |+
+          用于在 ARM 设备上自动化工作负载执行和测量收集的框架。
+
+          详见： https://pypi.org/project/wlauto/
+
+# Python extension packages only available for x86/x86-64
+X86_PYTHON_EXTENSION_PACKAGES:
+    - pattern: (.*)(PyQBDI)(?![a-zA-Z0-9-])
+      help: |+
+          QuarkslaB Dynamic binary Instrumentation (QBDI) 是一个模块化、跨平台和跨架构的 DBI 框架。
+          目前仅支持在 x86、x86-64 架构上运行的 Linux、macOS、Android 和 Windows 操作系统。
+          支持 ARM 和 AArch64 指令集，但它们仍需要在 x86 和 x86-64 集成。
+
+          详见： https://pypi.org/project/PyQBDI/
+    
+    - pattern: (.*)(onednn-cpu-iomp)(?![a-zA-Z0-9-])
+      help: |+
+          intel oneDNN 是一个用于深度学习应用的性能库。
+          该库包括为英特尔架构的处理器和显卡优化的神经网络的基本构建块。
+          
+          适用处理器:
+          ·Intel Atom® processors with Intel® Streaming SIMD Extensions
+          ·Intel® Core™ processors
+          ·Intel® Xeon® processors
+          ·Intel® Xeon® Scalable processors
+
+          详见： https://pypi.org/project/onednn-cpu-iomp/
+                https://software.intel.com/content/www/us/en/develop/tools/oneapi/components/onednn.html#gs.d1geey
+
+    - pattern: (.*)(onednn-cpu-vcomp)(?![a-zA-Z0-9-])
+      help: |+
+          intel oneDNN 是一个用于深度学习应用的性能库。
+          该库包括为英特尔架构的处理器和显卡优化的神经网络的基本构建块。
+
+          适用处理器:
+          ·Intel Atom® processors with Intel® Streaming SIMD Extensions
+          ·Intel® Core™ processors
+          ·Intel® Xeon® processors
+          ·Intel® Xeon® Scalable processors
+
+          详见： https://pypi.org/project/onednn-cpu-vcomp/
+                https://software.intel.com/content/www/us/en/develop/tools/oneapi/components/onednn.html#gs.d1efte
+    
+    - pattern: (.*)(onednn-cpu-tbb)(?![a-zA-Z0-9-])
+      help: |+
+          intel oneDNN 是一个用于深度学习应用的性能库。
+          该库包括为英特尔架构的处理器和显卡优化的神经网络的基本构建块。
+
+          适用处理器:
+          ·Intel Atom® processors with Intel® Streaming SIMD Extensions
+          ·Intel® Core™ processors
+          ·Intel® Xeon® processors
+          ·Intel® Xeon® Scalable processors
+
+          详见： https://pypi.org/project/onednn-cpu-tbb/
+                https://software.intel.com/content/www/us/en/develop/tools/oneapi/components/onednn.html#gs.dlgzr3
+    
+    - pattern: (.*)(onednn-devel-cpu-vcomp)(?![a-zA-Z0-9-])
+      help: |+
+          intel oneDNN 是一个用于深度学习应用的性能库。
+          该库包括为英特尔架构的处理器和显卡优化的神经网络的基本构建块。
+
+          适用处理器:
+          ·Intel Atom® processors with Intel® Streaming SIMD Extensions
+          ·Intel® Core™ processors
+          ·Intel® Xeon® processors
+          ·Intel® Xeon® Scalable processors
+
+          详见： https://pypi.org/project/onednn-devel-cpu-vcomp/
+                https://software.intel.com/content/www/us/en/develop/tools/oneapi/components/onednn.html#gs.dlh28m
+    
+    - pattern: (.*)(onednn-devel-cpu-tbb)(?![a-zA-Z0-9-])
+      help: |+
+          intel oneDNN 是一个用于深度学习应用的性能库。
+          该库包括为英特尔架构的处理器和显卡优化的神经网络的基本构建块。
+
+          适用处理器:
+          ·Intel Atom® processors with Intel® Streaming SIMD Extensions
+          ·Intel® Core™ processors
+          ·Intel® Xeon® processors
+          ·Intel® Xeon® Scalable processors
+
+          详见： https://pypi.org/project/onednn-devel-cpu-tbb/
+                https://software.intel.com/content/www/us/en/develop/tools/oneapi/components/onednn.html#gs.dlh5hz
+    
+    - pattern: (.*)(onednn-devel-cpu-iomp)(?![a-zA-Z0-9-])
+      help: |+
+          intel oneDNN 是一个用于深度学习应用的性能库。
+          该库包括为英特尔架构的处理器和显卡优化的神经网络的基本构建块。
+
+          适用处理器:
+          ·Intel Atom® processors with Intel® Streaming SIMD Extensions
+          ·Intel® Core™ processors
+          ·Intel® Xeon® processors
+          ·Intel® Xeon® Scalable processors
+
+          详见： https://pypi.org/project/onednn-devel-cpu-iomp/
+                https://software.intel.com/content/www/us/en/develop/tools/oneapi/components/onednn.html#gs.dlh9cd
+
+    - pattern: (.*)(onednn-cpu-dpcpp-gpu-dpcpp)(?![a-zA-Z0-9-])
+      help: |+
+          intel oneDNN 是一个用于深度学习应用的性能库。
+          该库包括为英特尔架构的处理器和显卡优化的神经网络的基本构建块。
+
+          适用处理器:
+          ·Intel Atom® processors with Intel® Streaming SIMD Extensions
+          ·Intel® Core™ processors
+          ·Intel® Xeon® processors
+          ·Intel® Xeon® Scalable processors
+
+          详见： https://pypi.org/project/onednn-cpu-dpcpp-gpu-dpcpp/
+                https://software.intel.com/content/www/us/en/develop/tools/oneapi/components/onednn.html#gs.dlhd1f
+    
+    - pattern: (.*)(onednn-devel-cpu-dpcpp-gpu-dpcpp)(?![a-zA-Z0-9])
+      help: |+
+          intel oneDNN 是一个用于深度学习应用的性能库。
+          该库包括为英特尔架构的处理器和显卡优化的神经网络的基本构建块。
+
+          适用处理器:
+          ·Intel Atom® processors with Intel® Streaming SIMD Extensions
+          ·Intel® Core™ processors
+          ·Intel® Xeon® processors
+          ·Intel® Xeon® Scalable processors
+
+          详见： https://pypi.org/project/onednn-devel-cpu-dpcpp-gpu-dpcpp/
+                https://software.intel.com/content/www/us/en/develop/tools/oneapi/components/onednn.html#gs.dlkzkl
+
+    - pattern: (.*)(daal4py)(?![a-zA-Z0-9-])
+      help: |+
+          Intel oneAPI Data Analytics Library 库
+          旨在提供对Intel oneAPI 数据分析库的抽象，以便直接使用或集成到自己的框架中。
+
+          详见： https://pypi.org/project/daal4py/
+
+    - pattern: (.*)(daal-static)(?![a-zA-Z0-9-])
+      help: |+
+          Intel oneAPI Data Analytics Library 库
+          旨在提供对Intel oneAPI 数据分析库的抽象，以便直接使用或集成到自己的框架中。
+
+          适用处理器:
+          ·Intel® Core™ processors
+          ·Intel® Xeon® processors
+
+          详见： https://pypi.org/project/daal-static/
+                https://software.intel.com/content/www/us/en/develop/tools/oneapi/components/onedal.html#gs.dlmryu
+
+    - pattern: (.*)(daal-include)(?![a-zA-Z0-9-])
+      help: |+
+          Intel oneAPI Data Analytics Library 库
+          旨在提供对Intel oneAPI 数据分析库的抽象，以便直接使用或集成到自己的框架中。
+
+          适用处理器:
+          ·Intel® Core™ processors
+          ·Intel® Xeon® processors
+
+          详见： https://pypi.org/project/daal-include/
+                https://software.intel.com/content/www/us/en/develop/tools/oneapi/components/onedal.html#gs.dlmxrf
+
+    - pattern: (.*)(daal)(?![a-zA-Z0-9-])
+      help: |+
+          Intel oneAPI Data Analytics Library 库
+          旨在提供对Intel oneAPI 数据分析库的抽象，以便直接使用或集成到自己的框架中。
+
+          适用处理器:
+          ·Intel® Core™ processors
+          ·Intel® Xeon® processors
+
+          详见： https://pypi.org/project/daal/
+                https://software.intel.com/content/www/us/en/develop/tools/oneapi/components/onedal.html#gs.dlmzj9
+
+    - pattern: (.*)(daal-devel)(?![a-zA-Z0-9-])
+      help: |+
+          Intel oneAPI Data Analytics Library 库
+          旨在提供对Intel oneAPI 数据分析库的抽象，以便直接使用或集成到自己的框架中。
+
+          适用处理器:
+          ·Intel® Core™ processors
+          ·Intel® Xeon® processors
+
+          详见： https://pypi.org/project/daal-devel/
+                https://software.intel.com/content/www/us/en/develop/tools/oneapi/components/onedal.html#gs.dln2ht
+    
+    - pattern: (.*)(scikit-learn-intelex)(?![a-zA-Z0-9-])
+      help: |+
+          Intel(R) Extension for Scikit-learn 是一种加速 Scikit-learn 应用程序的方式。
+          加速是通过使用Intel oneAPI 数据分析库 (oneDAL) 实现的。
+
+          详见： https://pypi.org/project/scikit-learn-intelex/
+
+    - pattern: (.*)(intel-openmp)(?![a-zA-Z0-9-])
+      help: |+
+          Intel OpenMP* Runtime 库，Windows系统上的X86动态库
+
+          详见： https://pypi.org/project/intel-openmp/
+                https://software.intel.com/content/www/us/en/develop/tools/opencl-sdk.html
+    
+    - pattern: (.*)(intel-opencl-rt)(?![a-zA-Z0-9-])
+      help: |+
+          Intel oneAPI OpenCL* Runtime 库
+
+          详见： https://pypi.org/project/intel-opencl-rt/
+                https://software.intel.com/content/www/us/en/develop/tools/opencl-sdk.html
+
+    - pattern: (.*)(intel-fortran-rt)(?![a-zA-Z0-9-])
+      help: |+
+          Intel® oneAPI Fortran Compiler Runtime 库
+
+          适用处理器:
+          ·Intel® Core™ processors
+          ·Intel® Xeon® processor family
+          ·Intel® Xeon® Scalable processors
+
+          详见： https://pypi.org/project/intel-fortran-rt/
+                https://software.intel.com/content/www/us/en/develop/tools/oneapi/components/fortran-compiler.html#gs.dlk9ew
+    
+    - pattern: (.*)(mkl-devel)(?![a-zA-Z0-9-])
+      help: |+
+          Intel® oneAPI Math Kernel Library，一个计算数学库，适用于需要最高性能的应用程序
+
+          适用处理器:
+          ·Intel Atom® processors
+          ·Intel® Core™ processors
+          ·Intel® Xeon® Scalable processors
+
+          详见： https://pypi.org/project/mkl-devel/
+                https://software.intel.com/content/www/us/en/develop/tools/oneapi/components/onemkl.html#gs.dlo33g
+
+    - pattern: (.*)(mkl-dpcpp)(?![a-zA-Z0-9-])
+      help: |+
+          Intel® oneAPI Math Kernel Library，一个计算数学库，适用于需要最高性能的应用程序
+
+          适用处理器:
+          ·Intel Atom® processors
+          ·Intel® Core™ processors
+          ·Intel® Xeon® Scalable processors
+
+          详见： https://pypi.org/project/mkl-dpcpp/
+                https://software.intel.com/content/www/us/en/develop/tools/oneapi/components/onemkl.html#gs.dlm4qc
+
+    - pattern: (.*)(mkl-include)(?![a-zA-Z0-9-])
+      help: |+
+          Intel® oneAPI Math Kernel Library，一个计算数学库，适用于需要最高性能的应用程序
+
+          适用处理器:
+          ·Intel Atom® processors
+          ·Intel® Core™ processors
+          ·Intel® Xeon® Scalable processors
+
+          详见： https://pypi.org/project/mkl-include/
+                https://software.intel.com/content/www/us/en/develop/tools/oneapi/components/onemkl.html#gs.dlm7el
+
+    - pattern: (.*)(mkl-static)(?![a-zA-Z0-9-])
+      help: |+
+          Intel® oneAPI Math Kernel Library，一个计算数学库，适用于需要最高性能的应用程序
+
+          适用处理器:
+          ·Intel Atom® processors
+          ·Intel® Core™ processors
+          ·Intel® Xeon® Scalable processors
+
+          详见： https://pypi.org/project/mkl-static/
+                https://software.intel.com/content/www/us/en/develop/tools/oneapi/components/onemkl.html#gs.dlmajs
+
+    - pattern: (.*)(mkl)(?![a-zA-Z0-9-])
+      help: |+
+          Intel® oneAPI Math Kernel Library，一个计算数学库，适用于需要最高性能的应用程序
+
+          适用处理器:
+          ·Intel Atom® processors
+          ·Intel® Core™ processors
+          ·Intel® Xeon® Scalable processors
+
+          详见： https://pypi.org/project/mkl/
+                https://software.intel.com/content/www/us/en/develop/tools/oneapi/components/onemkl.html#gs.dlmdkk
+
+    - pattern: (.*)(mkl-devel-dpcpp)(?![a-zA-Z0-9-])
+      help: |+
+          Intel® oneAPI Math Kernel Library，一个计算数学库，适用于需要最高性能的应用程序
+
+          适用处理器:
+          ·Intel Atom® processors
+          ·Intel® Core™ processors
+          ·Intel® Xeon® Scalable processors
+
+          详见： https://pypi.org/project/mkl-devel-dpcpp/
+                https://software.intel.com/content/www/us/en/develop/tools/oneapi/components/onemkl.html#gs.dlmfwo
+    
+    - pattern: (.*)(dpcpp-cpp-rt)(?![a-zA-Z0-9-])
+      help: |+
+          Intel® oneAPI DPC++/C++ Compiler Runtime
+
+          适用处理器:
+          ·Intel® Core™ processors
+          ·Intel® Xeon® processor family
+          ·Intel® Xeon® Scalable processors
+
+          详见： https://pypi.org/project/dpcpp-cpp-rt/
+                https://software.intel.com/content/www/us/en/develop/tools/oneapi/components/dpc-compiler.html#gs.dlq4sa
+
+    - pattern: (.*)(iced-x86)(?![a-zA-Z0-9-])
+      help: |+
+          iced-x86 是一个极快且正确的 x86/x64 反汇编器、汇编器和指令解码器
+          支持所有Intel和AMD的指令
+
+          详见： https://pypi.org/project/iced-x86/

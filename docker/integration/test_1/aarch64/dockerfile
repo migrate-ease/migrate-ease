@@ -1,0 +1,47 @@
+FROM debian:stretch //expect: ImageIssue
+
+RUN apt-get update
+RUN apt-get install -y gcc libc6-dev make wget
+RUN wget -O redis.tar.gz "http://download.redis.io/releases/redis-5.0.3.tar.gz"
+RUN mkdir -p /usr/src/redis
+RUN tar -xzf redis.tar.gz -C /usr/src/redis --strip-components=1
+RUN make -C /usr/src/redis
+RUN make -C /usr/src/redis install
+
+# Python extension packages available for arm/arm64/aarch64 and X86/X86-64
+RUN pip install keystone-engine
+RUN pip install fibers
+
+# Python extension packages only available for arm/arm64/aarch64 
+RUN pip install pycuda-arm-linux
+RUN pip install HTSeq-arm-linux
+RUN pip install wlauto
+
+# Python extension packages only available for x86/x86-64
+RUN pip install PyQBDI //expect: PluginIssue
+RUN pip install onednn-cpu-iomp //expect: PluginIssue
+RUN pip install onednn-cpu-tbb //expect: PluginIssue
+RUN pip install onednn-devel-cpu-vcomp //expect: PluginIssue
+RUN pip install onednn-devel-cpu-tbb //expect: PluginIssue
+RUN pip install onednn-devel-cpu-iomp //expect: PluginIssue
+RUN pip install onednn-cpu-dpcpp-gpu-dpcpp //expect: PluginIssue
+RUN pip install onednn-devel-cpu-dpcpp-gpu-dpcpp //expect: PluginIssue
+RUN pip install daal4py //expect: PluginIssue
+RUN pip install daal-static //expect: PluginIssue
+RUN pip install daal-include //expect: PluginIssue
+RUN pip install daal //expect: PluginIssue
+RUN pip install daal-devel //expect: PluginIssue
+RUN pip install scikit-learn-intelex //expect: PluginIssue
+RUN pip install intel-openmp //expect: PluginIssue
+RUN pip install intel-opencl-rt //expect: PluginIssue
+RUN pip install intel-fortran-rt //expect: PluginIssue
+RUN pip install mkl-devel //expect: PluginIssue
+RUN pip install mkl-dpcpp //expect: PluginIssue
+RUN pip install mkl-include //expect: PluginIssue
+RUN pip install mkl-static //expect: PluginIssue
+RUN pip install mkl //expect: PluginIssue
+RUN pip install mkl-devel-dpcpp //expect: PluginIssue
+RUN pip install dpcpp-cpp-rt //expect: PluginIssue
+RUN pip install iced-x86 //expect: PluginIssue
+
+LABEL aarch x86_64 //expect: ConfigurationInfoIssue
