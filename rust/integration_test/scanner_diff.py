@@ -42,8 +42,7 @@ for i in range(nof_issues):
 for filename in os.listdir(args.src_dir):
 
     if os.path.splitext(filename)[1] != ".json":
-
-        if args.test_dir == 'test_1':
+        if args.test_dir == 'test_1' or args.test_dir == "./test_1":
             issue = ''
 
             lib_aarch = ['cygrpc_arm.so', 'libhello_arm.so', 'libnumber_aarch.a', 'libotsclient_aarch.a']
@@ -67,7 +66,6 @@ for filename in os.listdir(args.src_dir):
             with open(os.path.join(args.src_dir, filename)) as f1:
 
                 lno = 0  # the line number of var l in file "cc_filename"
-
                 for l in f1.readlines():
 
                     lno += 1

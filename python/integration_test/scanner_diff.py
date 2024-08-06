@@ -43,7 +43,7 @@ for filename in os.listdir(args.src_dir):
 
     if os.path.splitext(filename)[1] != ".json":
 
-        if args.test_dir == 'test_1':
+        if args.test_dir == 'test_1' or args.test_dir == './test_1':
             issue = ''
 
             lib_aarch = ['cygrpc_arm.so', 'libhello_arm.so', 'libnumber_aarch.a', 'libotsclient_aarch.a']
