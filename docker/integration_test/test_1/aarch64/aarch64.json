@@ -18,7 +18,7 @@
         },
         "Error": {
             "count": 0,
-            "des": "NO_ISSUES_FOUND_REMARK"
+            "des": "\u8868\u793a\u672c\u4ee3\u7801\u626b\u63cf\u7a0b\u5e8f\u5728\u626b\u63cf\u8fc7\u7a0b\u4e2d\u9047\u5230\u7684\u5f02\u5e38, \u975e\u4ee3\u7801\u903b\u8f91\u672c\u8eab\u7684\u95ee\u9898, \u7528\u6237\u53ef\u5ffd\u7565."
         },
         "ImageIssue": {
             "count": 1,
@@ -26,7 +26,7 @@
         },
         "OtherIssue": {
             "count": 0,
-            "des": "NO_ISSUES_FOUND_REMARK"
+            "des": "\u5f53\u4ee3\u7801\u626b\u63cf\u5de5\u5177\u4f7f\u7528\u4e86\u626b\u63cf\u95ee\u9898\u6570\u91cf\u9650\u5236\u9009\u9879\u7684\u65f6\u5019, \u8d85\u51fa\u6570\u91cf\u9650\u5236\u7684\u95ee\u9898\u4f1a\u88ab\u5f52\u7c7b\u5230 OtherIssue."
         },
         "PluginIssue": {
             "count": 25,
