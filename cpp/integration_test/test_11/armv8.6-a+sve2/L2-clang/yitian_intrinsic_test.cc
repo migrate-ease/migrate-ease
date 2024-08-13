@@ -2523,58 +2523,7 @@ void aarch64_intrinsic_test()
 }
 
 // shall generate issue in N2
-void sw64_intrinsic_test()
-{
-    __builtin_alpha_implver (); //expect: IntrinsicIssue
-    __builtin_alpha_rpcc (); //expect: IntrinsicIssue
-    __builtin_alpha_amask (); //expect: IntrinsicIssue
-    __builtin_alpha_cmpbge (); //expect: IntrinsicIssue
-    __builtin_alpha_extbl (); //expect: IntrinsicIssue
-    __builtin_alpha_extwl (); //expect: IntrinsicIssue
-    __builtin_alpha_extll (); //expect: IntrinsicIssue
-    __builtin_alpha_extql (); //expect: IntrinsicIssue
-    __builtin_alpha_extwh (); //expect: IntrinsicIssue
-    __builtin_alpha_extlh (); //expect: IntrinsicIssue
-    __builtin_alpha_extqh (); //expect: IntrinsicIssue
-    __builtin_alpha_insbl (); //expect: IntrinsicIssue
-    __builtin_alpha_inswl (); //expect: IntrinsicIssue
-    __builtin_alpha_insll (); //expect: IntrinsicIssue
-    __builtin_alpha_insql (); //expect: IntrinsicIssue
-    __builtin_alpha_inswh (); //expect: IntrinsicIssue
-    __builtin_alpha_inslh (); //expect: IntrinsicIssue
-    __builtin_alpha_insqh (); //expect: IntrinsicIssue
-    __builtin_alpha_mskbl (); //expect: IntrinsicIssue
-    __builtin_alpha_mskwl (); //expect: IntrinsicIssue
-    __builtin_alpha_mskll (); //expect: IntrinsicIssue
-    __builtin_alpha_mskql (); //expect: IntrinsicIssue
-    __builtin_alpha_mskwh (); //expect: IntrinsicIssue
-    __builtin_alpha_msklh (); //expect: IntrinsicIssue
-    __builtin_alpha_mskqh (); //expect: IntrinsicIssue
-    __builtin_alpha_umulh (); //expect: IntrinsicIssue
-    __builtin_alpha_zap (); //expect: IntrinsicIssue
-    __builtin_alpha_zapnot (); //expect: IntrinsicIssue
-    __builtin_alpha_pklb (); //expect: IntrinsicIssue
-    __builtin_alpha_pkwb (); //expect: IntrinsicIssue
-    __builtin_alpha_unpkbl (); //expect: IntrinsicIssue
-    __builtin_alpha_unpkbw (); //expect: IntrinsicIssue
-    __builtin_alpha_minub8 (); //expect: IntrinsicIssue
-    __builtin_alpha_minsb8 (); //expect: IntrinsicIssue
-    __builtin_alpha_minuw4 (); //expect: IntrinsicIssue
-    __builtin_alpha_minsw4 (); //expect: IntrinsicIssue
-    __builtin_alpha_maxub8 (); //expect: IntrinsicIssue
-    __builtin_alpha_maxsb8 (); //expect: IntrinsicIssue
-    __builtin_alpha_maxuw4 (); //expect: IntrinsicIssue
-    __builtin_alpha_maxsw4 (); //expect: IntrinsicIssue
-    __builtin_alpha_perr (); //expect: IntrinsicIssue
-    __builtin_alpha_cttz (); //expect: IntrinsicIssue
-    __builtin_alpha_ctlz (); //expect: IntrinsicIssue
-    __builtin_alpha_ctpop (); //expect: IntrinsicIssue
-    __builtin_thread_pointer (); //expect: IntrinsicIssue
-    __builtin_set_thread_pointer (); //expect: IntrinsicIssue
-}
-
-// shall generate issue in N2
-// shall generate issue in aarch64 and sw64
+// shall generate issue in aarch64
 void x86_intrinsic_test()
 {
     _mm_srli_epi64(); //expect: IntrinsicIssue
@@ -4960,7 +4909,7 @@ void x86_intrinsic_test()
     _xsetbv(); //expect: IntrinsicIssue
 }
 
-// shall generate issue in aarch64 and sw64
+// shall generate issue in aarch64
 void OTHER_ARCH_INTRINSICS()
 {
     _addcary(); //expect: IntrinsicIssue

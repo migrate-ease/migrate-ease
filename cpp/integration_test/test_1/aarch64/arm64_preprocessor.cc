@@ -957,82 +957,7 @@
 #error "macro (x86_64) test FAILED!!"
 #elif defined(aarch64)
 #error "macro (aarch64) test PASSED!!" //expect: PreprocessorErrorIssue
-#else
-#error "macro (x86_64) test FAILED!!"
 #endif
-
-#if defined(sw_64)
-#error "macro (sw_64) test FAILED!!"
-#elif defined(aarch64)
-#error "macro (aarch64) test PASSED!!" //expect: PreprocessorErrorIssue
-#else
-#error "macro (sw_64) test FAILED!!"
-#endif
-
-#if defined(_sw_64_)
-#error "macro (sw_64) test FAILED!!"
-#elif defined(aarch64)
-#error "macro (aarch64) test PASSED!!" //expect: PreprocessorErrorIssue
-#else
-#error "macro (sw_64) test FAILED!!"
-#endif
-
-#if defined(__sw_64__)
-#error "macro (sw_64) test FAILED!!"
-#elif defined(aarch64)
-#error "macro (aarch64) test PASSED!!" //expect: PreprocessorErrorIssue
-#else
-#error "macro (sw_64) test FAILED!!"
-#endif
-
-#if defined(sw64)
-#error "macro (sw64) test FAILED!!"
-#elif defined(aarch64)
-#error "macro (aarch64) test PASSED!!" //expect: PreprocessorErrorIssue
-#else
-#error "macro (sw64) test FAILED!!"
-#endif
-
-#if defined(_sw64_)
-#error "macro (sw64) test FAILED!!"
-#elif defined(aarch64)
-#error "macro (aarch64) test PASSED!!" //expect: PreprocessorErrorIssue
-#else
-#error "macro (sw64) test FAILED!!"
-#endif
-
-#if defined(__sw64__)
-#error "macro (sw64) test FAILED!!"
-#elif defined(aarch64)
-#error "macro (aarch64) test PASSED!!" //expect: PreprocessorErrorIssue
-#else
-#error "macro (sw64) test FAILED!!"
-#endif
-
-#if defined(sw)
-#error "macro (sw) test FAILED!!"
-#elif defined(aarch64)
-#error "macro (aarch64) test PASSED!!" //expect: PreprocessorErrorIssue
-#else
-#error "macro (sw) test FAILED!!"
-#endif
-
-#if defined(_sw_)
-#error "macro (sw) test FAILED!!"
-#elif defined(aarch64)
-#error "macro (aarch64) test PASSED!!" //expect: PreprocessorErrorIssue
-#else
-#error "macro (sw) test FAILED!!"
-#endif
-
-#if defined(__sw__)
-#error "macro (sw) test FAILED!!"
-#elif defined(aarch64)
-#error "macro (aarch64) test PASSED!!" //expect: PreprocessorErrorIssue
-#else
-#error "macro (sw) test FAILED!!"
-#endif
-
 
 #ifdef aarch64
 #error "macro (aarch64) test PASSED!!" //expect: PreprocessorErrorIssue
@@ -1062,24 +987,6 @@
 #error "macro (sve) test PASSED!!" //expect: PreprocessorErrorIssue
 #else
 #error "macro (sve) test FAILED!!"
-#endif
-
-#ifdef sw_64
-#error "macro (sw_64) test FAILED!!"
-#else
-#error "macro (sw_64) test PASSED!!" //expect: PreprocessorErrorIssue
-#endif
-
-#ifdef sw64
-#error "macro (sw64) test FAILED!!"
-#else
-#error "macro (sw64) test PASSED!!" //expect: PreprocessorErrorIssue
-#endif
-
-#ifdef sw
-#error "macro (sw) test FAILED!!"
-#else
-#error "macro (sw) test PASSED!!" //expect: PreprocessorErrorIssue
 #endif
 
 #ifdef alpha
@@ -1320,24 +1227,6 @@
 #error "macro (sve) test FAILED!!"
 #else
 #error "macro (sve) test PASSED!!" //expect: PreprocessorErrorIssue
-#endif
-
-#ifndef sw_64
-#error "macro (sw_64) test PASSED!!" //expect: PreprocessorErrorIssue
-#else
-#error "macro (sw_64) test FAILED!!"
-#endif
-
-#ifndef sw64
-#error "macro (sw64) test PASSED!!" //expect: PreprocessorErrorIssue
-#else
-#error "macro (sw64) test FAILED!!"
-#endif
-
-#ifndef sw
-#error "macro (sw) test PASSED!!" //expect: PreprocessorErrorIssue
-#else
-#error "macro (sw) test FAILED!!"
 #endif
 
 #ifndef alpha
