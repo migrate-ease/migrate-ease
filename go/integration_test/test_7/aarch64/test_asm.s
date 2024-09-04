@@ -14,39 +14,6 @@
     WORD
     LAST
 
-// PLAN9_GOLANG_SW64_AND_X86
-    ADDL //expect: AsmIssue
-    SUBL //expect: AsmIssue
-
-// PLAN9_GOLANG_SW64_AND_AARCH64
-    BEQ
-    BNE
-    BLT
-    BLE
-    BGT
-    BGE
-    MOVBU
-    MOVH
-    MOVHU
-    MOVWU
-    MOVF
-    MOVD
-    UMULH
-    FADDS
-    FSUBS
-    FMULS
-    FDIVS
-    FCVTSD
-    FCVTDS
-    FSQRTS
-    FSQRTD
-    AND
-    BIC
-    SLL
-    SRL
-    SRA
-    NOOP
-
 // PLAN9_GOLANG_X86_AND_AARCH64
     MULSD
     ADCW
@@ -98,6 +65,8 @@
     ANDPD //expect: AsmIssue
     ANDPS //expect: AsmIssue
     ANDQ //expect: AsmIssue
+    ADDL //expect: AsmIssue
+    SUBL //expect: AsmIssue
     ARPL //expect: AsmIssue
     BEXTRL //expect: AsmIssue
     BEXTRQ //expect: AsmIssue
@@ -2204,161 +2173,30 @@
     VUADDW2
     VUADDW
     VUSRA
-
-// PLAN9_GOLANG_SW64
-    SYS_CALL //expect: AsmIssue
-    SYS_CALL_B //expect: AsmIssue
-    EXCB //expect: AsmIssue
-    BR //expect: AsmIssue
-    BSR //expect: AsmIssue
-    BLBC //expect: AsmIssue
-    BLBS //expect: AsmIssue
-    FBEQ //expect: AsmIssue
-    FBNE //expect: AsmIssue
-    FBLT //expect: AsmIssue
-    FBLE //expect: AsmIssue
-    FBGT //expect: AsmIssue
-    FBGE //expect: AsmIssue
-    MOVV //expect: AsmIssue
-    LDBU //expect: AsmIssue
-    LDHU //expect: AsmIssue
-    LDW //expect: AsmIssue
-    LDL //expect: AsmIssue
-    LDL_U //expect: AsmIssue
-    STB //expect: AsmIssue
-    STH //expect: AsmIssue
-    STW //expect: AsmIssue
-    STL //expect: AsmIssue
-    STL_U //expect: AsmIssue
-    FLDS //expect: AsmIssue
-    FLDD //expect: AsmIssue
-    FSTS //expect: AsmIssue
-    FSTD //expect: AsmIssue
-    LDI //expect: AsmIssue
-    LDF //expect: AsmIssue
-    LDIH //expect: AsmIssue
-    S4ADDW //expect: AsmIssue
-    S4SUBW //expect: AsmIssue
-    S8ADDW //expect: AsmIssue
-    S8SUBW //expect: AsmIssue
-    S4ADDL //expect: AsmIssue
-    S4SUBL //expect: AsmIssue
-    S8ADDL //expect: AsmIssue
-    S8SUBL //expect: AsmIssue
-    CTPOP //expect: AsmIssue
-    CTLZ //expect: AsmIssue
-    CTTZ //expect: AsmIssue
-    ZAP //expect: AsmIssue
-    ZAPNOT //expect: AsmIssue
-    SEXTB //expect: AsmIssue
-    SEXTH //expect: AsmIssue
-    FMAS //expect: AsmIssue
-    FMAD //expect: AsmIssue
-    FMSS //expect: AsmIssue
-    FMSD //expect: AsmIssue
-    FNMAS //expect: AsmIssue
-    FNMAD //expect: AsmIssue
-    FNMSS //expect: AsmIssue
-    FNMSD //expect: AsmIssue
-    FSELEQ //expect: AsmIssue
-    FSELNE //expect: AsmIssue
-    FSELLT //expect: AsmIssue
-    FSELLE //expect: AsmIssue
-    FSELGT //expect: AsmIssue
-    FSELGE //expect: AsmIssue
-    FCPYS //expect: AsmIssue
-    FCVTDL //expect: AsmIssue
-    FCVTLS //expect: AsmIssue
-    FCVTLD //expect: AsmIssue
-    FCVTLW //expect: AsmIssue
-    FCVTWL //expect: AsmIssue
-    FCVTDL_Z //expect: AsmIssue
-    FCVTDL_P //expect: AsmIssue
-    FCVTDL_G //expect: AsmIssue
-    FCVTDL_N //expect: AsmIssue
-    FCMPLE //expect: AsmIssue
-    FCMPLT //expect: AsmIssue
-    FCMPEQ //expect: AsmIssue
-    FCMPUN //expect: AsmIssue
-    FCPYSN //expect: AsmIssue
-    FCPYSE //expect: AsmIssue
-    IFMOVS //expect: AsmIssue
-    IFMOVD //expect: AsmIssue
-    FIMOVS //expect: AsmIssue
-    FIMOVD //expect: AsmIssue
-    RFPCR //expect: AsmIssue
-    WFPCR //expect: AsmIssue
-    SETFPEC0 //expect: AsmIssue
-    SETFPEC1 //expect: AsmIssue
-    SETFPEC2 //expect: AsmIssue
-    SETFPEC3 //expect: AsmIssue
-    MEMB //expect: AsmIssue
-    IMEMB //expect: AsmIssue
-    RTC //expect: AsmIssue
-    RCID //expect: AsmIssue
-    HALT //expect: AsmIssue
-    RD_F //expect: AsmIssue
-    WR_F //expect: AsmIssue
-    RTID //expect: AsmIssue
-    LLDW //expect: AsmIssue
-    LLDL //expect: AsmIssue
-    LDW_INC //expect: AsmIssue
-    LDL_INC //expect: AsmIssue
-    LDW_DEC //expect: AsmIssue
-    LDL_DEC //expect: AsmIssue
-    LDW_SET //expect: AsmIssue
-    LDL_SET //expect: AsmIssue
-    LSTW //expect: AsmIssue
-    LSTL //expect: AsmIssue
-    LDW_NC //expect: AsmIssue
-    LDL_NC //expect: AsmIssue
-    LDD_NC //expect: AsmIssue
-    STW_NC //expect: AsmIssue
-    STL_NC //expect: AsmIssue
-    STD_NC //expect: AsmIssue
-    CMPEQ //expect: AsmIssue
-    CMPLT //expect: AsmIssue
-    CMPLE //expect: AsmIssue
-    CMPULT //expect: AsmIssue
-    CMPULE //expect: AsmIssue
-    BIS //expect: AsmIssue
-    ORNOT //expect: AsmIssue
-    XOR //expect: AsmIssue
-    EQV //expect: AsmIssue
-    INSLB //expect: AsmIssue
-    INSLH //expect: AsmIssue
-    INSLW //expect: AsmIssue
-    INSLL //expect: AsmIssue
-    INSHB //expect: AsmIssue
-    INSHH //expect: AsmIssue
-    INSHW //expect: AsmIssue
-    INSHL //expect: AsmIssue
-    EXTLB //expect: AsmIssue
-    EXTLH //expect: AsmIssue
-    EXTLW //expect: AsmIssue
-    EXTLL //expect: AsmIssue
-    EXTHB //expect: AsmIssue
-    EXTHH //expect: AsmIssue
-    EXTHW //expect: AsmIssue
-    EXTHL //expect: AsmIssue
-    MASKLB //expect: AsmIssue
-    MASKLH //expect: AsmIssue
-    MASKLW //expect: AsmIssue
-    MASKLL //expect: AsmIssue
-    MASKHB //expect: AsmIssue
-    MASKHH //expect: AsmIssue
-    MASKHW //expect: AsmIssue
-    MASKHL //expect: AsmIssue
-    CMPGEB //expect: AsmIssue
-    SELEQ //expect: AsmIssue
-    SELGE //expect: AsmIssue
-    SELGT //expect: AsmIssue
-    SELLE //expect: AsmIssue
-    SELLT //expect: AsmIssue
-    SELNE //expect: AsmIssue
-    SELLBC //expect: AsmIssue
-    SELLBS //expect: AsmIssue
-    PRI_ST //expect: AsmIssue
-    PRI_LD //expect: AsmIssue
-    SYMADDR //expect: AsmIssue
-    LDGP //expect: AsmIssue
+    BEQ
+    BNE
+    BLT
+    BLE
+    BGT
+    BGE
+    MOVBU
+    MOVH
+    MOVHU
+    MOVWU
+    MOVF
+    MOVD
+    UMULH
+    FADDS
+    FSUBS
+    FMULS
+    FDIVS
+    FCVTSD
+    FCVTDS
+    FSQRTS
+    FSQRTD
+    AND
+    BIC
+    SLL
+    SRL
+    SRA
+    NOOP

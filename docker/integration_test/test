@@ -19,7 +19,7 @@ for c in $test_folders ; do
         continue
     fi
 
-    #Currently the test cases in rust module are only for aarch64 architecture.
+    #Currently the test cases in docker module are only for aarch64 architecture.
     arch="aarch64"
     if [ ! -d "./aarch64" ]; then
         echo "$GREEN""$c/$arch is empty, skip.""$ENDMARK"

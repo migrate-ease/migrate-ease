@@ -35,7 +35,7 @@ class NaiveCommentParser:
         Returns:
             bool: Is this line a comment?
         """
-        if line.lstrip().startswith('#'):
+        if line.lstrip().startswith('//') :
             return True
         else:
             return False

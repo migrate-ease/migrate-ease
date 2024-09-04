@@ -6828,7 +6828,7 @@ PLAN9_GOLANG_X86_AND_AARCH64:
 PLAN9_GOLANG_X86:
     - pattern: (^|\s+)(AAA|AAD|AAM|AAS)($|\s)
     - pattern: (^|\s+)(ADCB|ADCL|ADCQ|ADCXL|ADCXQ)($|\s)
-    - pattern: (^|\s+)(ADDB|ADDPD|ADDPS|ADDQ)($|\s)
+    - pattern: (^|\s+)(ADDB|ADDPD|ADDPS|ADDQ|ADDL)($|\s)
     - pattern: (^|\s+)(ADDSD|ADDSS|ADDSUBPD|ADDSUBPS)($|\s)
     - pattern: (^|\s+)(ADJSP|ADOXL|ADOXQ)($|\s)
     - pattern: (^|\s+)(AESDEC|AESDECLAST|AESENC|AESENCLAST|AESKEYGENASSIST)($|\s)
@@ -7027,7 +7027,7 @@ PLAN9_GOLANG_X86:
     - pattern: (^|\s+)(STAC|STC|STD|STI)($|\s)
     - pattern: (^|\s+)(STMXCSR|STOSB|STOSL|STOSQ|STOSW)($|\s)
     - pattern: (^|\s+)(STRL|STRQ|STRW)($|\s)
-    - pattern: (^|\s+)(SUBB|SUBPD|SUBPS|SUBQ|SUBSD|SUBSS|SWAPGS)($|\s)
+    - pattern: (^|\s+)(SUBB|SUBPD|SUBPS|SUBQ|SUBL|SUBSD|SUBSS|SWAPGS)($|\s)
     - pattern: (^|\s+)(SYSCALL|SYSENTER|SYSENTER64|SYSEXIT|SYSEXIT64|SYSRET)($|\s)
     - pattern: (^|\s+)(TESTB|TESTL|TESTQ|TESTW)($|\s)
     - pattern: (^|\s+)(TPAUSE|TZCNTL|TZCNTQ|TZCNTW)($|\s)

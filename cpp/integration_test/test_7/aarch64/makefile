@@ -34,15 +34,11 @@ LIBS=libcmt.lib // works only when --target-os: windows
 LIBS=libcmtd.lib // works only when --target-os: windows
 
 # scanner: other PROCESSOR_ARCHITECTURE archs related lines
-	$(CPU) == "sw_64"  //expect: HostCpuDetectionIssue
-	$(CPU) == "sw64"  //expect: HostCpuDetectionIssue
-	$(CPU) == "sw"  //expect: HostCpuDetectionIssue
 	$(CPU) == "amd64"  //expect: HostCpuDetectionIssue
 	$(CPU) == "x86_64"  //expect: HostCpuDetectionIssue
 	$(CPU) == "x86-64"  //expect: HostCpuDetectionIssue
 	$(CPU) == "x86"  //expect: HostCpuDetectionIssue
 	$(CPU) == "x64"  //expect: HostCpuDetectionIssue
-	$(CPU) == "hygon"  //expect: HostCpuDetectionIssue
 	$(CPU) == "amd64"  //expect: HostCpuDetectionIssue
 	$(CPU) == "avx"  //expect: HostCpuDetectionIssue
 	$(CPU) == "avx2"  //expect: HostCpuDetectionIssue
@@ -81,15 +77,11 @@ LIBS=libcmtd.lib // works only when --target-os: windows
 	$(CPU) == "sparc"  //expect: HostCpuDetectionIssue
 	$(CPU) == "tile"  //expect: HostCpuDetectionIssue
 
-	$(PROCESSOR_ARCHITECTURE) == "sw_64"  //expect: HostCpuDetectionIssue
-	$(PROCESSOR_ARCHITECTURE) == "sw64"  //expect: HostCpuDetectionIssue
-	$(PROCESSOR_ARCHITECTURE) == "sw"  //expect: HostCpuDetectionIssue
 	$(PROCESSOR_ARCHITECTURE) == "amd64"  //expect: HostCpuDetectionIssue
 	$(PROCESSOR_ARCHITECTURE) == "x86_64"  //expect: HostCpuDetectionIssue
 	$(PROCESSOR_ARCHITECTURE) == "x86-64"  //expect: HostCpuDetectionIssue
 	$(PROCESSOR_ARCHITECTURE) == "x86"  //expect: HostCpuDetectionIssue
 	$(PROCESSOR_ARCHITECTURE) == "x64"  //expect: HostCpuDetectionIssue
-	$(PROCESSOR_ARCHITECTURE) == "hygon"  //expect: HostCpuDetectionIssue
 	$(PROCESSOR_ARCHITECTURE) == "amd64"  //expect: HostCpuDetectionIssue
 	$(PROCESSOR_ARCHITECTURE) == "avx"  //expect: HostCpuDetectionIssue
 	$(PROCESSOR_ARCHITECTURE) == "avx2"  //expect: HostCpuDetectionIssue
@@ -130,15 +122,11 @@ LIBS=libcmtd.lib // works only when --target-os: windows
 	$(PROCESSOR_ARCHITECTURE) == "tile"  //expect: HostCpuDetectionIssue
 
 # scanner: non-ARM/ARM64 architecture macro definition
-	-Dsw_64   //expect: DefineOtherArchIssue
-	-Dsw64  //expect: DefineOtherArchIssue
-	-Dsw  //expect: DefineOtherArchIssue
 	-Damd64  //expect: DefineOtherArchIssue
 	-Dx86_64  //expect: DefineOtherArchIssue
 	-Dx86-64  //expect: DefineOtherArchIssue
 	-Dx86  //expect: DefineOtherArchIssue
 	-Dx64  //expect: DefineOtherArchIssue
-	-Dhygon  //expect: DefineOtherArchIssue
 	-Damd64  //expect: DefineOtherArchIssue
 	-Davx  //expect: DefineOtherArchIssue
 	-Davx2  //expect: DefineOtherArchIssue
@@ -177,15 +165,11 @@ LIBS=libcmtd.lib // works only when --target-os: windows
 	-Dsparc  //expect: DefineOtherArchIssue
 	-Dtile  //expect: DefineOtherArchIssue
 
-	-DSW_64   //expect: DefineOtherArchIssue
-	-DSW64  //expect: DefineOtherArchIssue
-	-DSW  //expect: DefineOtherArchIssue
 	-DAMD64  //expect: DefineOtherArchIssue
 	-Dx86_64  //expect: DefineOtherArchIssue
 	-Dx86-64  //expect: DefineOtherArchIssue
 	-Dx86  //expect: DefineOtherArchIssue
 	-Dx64  //expect: DefineOtherArchIssue
-	-DHYGON  //expect: DefineOtherArchIssue
 	-DAMD64  //expect: DefineOtherArchIssue
 	-DAVX  //expect: DefineOtherArchIssue
 	-DAVX2  //expect: DefineOtherArchIssue
@@ -224,15 +208,11 @@ LIBS=libcmtd.lib // works only when --target-os: windows
 	-DSPARC  //expect: DefineOtherArchIssue
 	-DTILE  //expect: DefineOtherArchIssue
 
-	-D_sw_64_  //expect: DefineOtherArchIssue
-	-D_sw64_  //expect: DefineOtherArchIssue
-	-D_sw_  //expect: DefineOtherArchIssue
 	-D_amd64_  //expect: DefineOtherArchIssue
 	-D_x86_64_  //expect: DefineOtherArchIssue
 	-D_x86-64_  //expect: DefineOtherArchIssue
 	-D_x86_  //expect: DefineOtherArchIssue
 	-D_x64_  //expect: DefineOtherArchIssue
-	-D_hygon_  //expect: DefineOtherArchIssue
 	-D_amd64_  //expect: DefineOtherArchIssue
 	-D_avx_  //expect: DefineOtherArchIssue
 	-D_avx2_  //expect: DefineOtherArchIssue
@@ -271,15 +251,11 @@ LIBS=libcmtd.lib // works only when --target-os: windows
 	-D_sparc_  //expect: DefineOtherArchIssue
 	-D_tile_  //expect: DefineOtherArchIssue
 
-	-D_SW_64_  //expect: DefineOtherArchIssue
-	-D_SW64_  //expect: DefineOtherArchIssue
-	-D_SW_  //expect: DefineOtherArchIssue
 	-D_AMD64_  //expect: DefineOtherArchIssue
 	-D_x86_64_  //expect: DefineOtherArchIssue
 	-D_x86-64_  //expect: DefineOtherArchIssue
 	-D_x86_  //expect: DefineOtherArchIssue
 	-D_x64_  //expect: DefineOtherArchIssue
-	-D_HYGON_  //expect: DefineOtherArchIssue
 	-D_AMD64_  //expect: DefineOtherArchIssue
 	-D_AVX_  //expect: DefineOtherArchIssue
 	-D_AVX2_  //expect: DefineOtherArchIssue
@@ -318,15 +294,11 @@ LIBS=libcmtd.lib // works only when --target-os: windows
 	-D_SPARC_  //expect: DefineOtherArchIssue
 	-D_TILE_  //expect: DefineOtherArchIssue
 
-	-D__sw_64__  //expect: DefineOtherArchIssue
-	-D__sw64__  //expect: DefineOtherArchIssue
-	-D__sw__  //expect: DefineOtherArchIssue
 	-D__amd64__  //expect: DefineOtherArchIssue
 	-D__x86_64__  //expect: DefineOtherArchIssue
 	-D__x86-64__  //expect: DefineOtherArchIssue
 	-D__x86__  //expect: DefineOtherArchIssue
 	-D__x64__  //expect: DefineOtherArchIssue
-	-D__hygon__  //expect: DefineOtherArchIssue
 	-D__amd64__  //expect: DefineOtherArchIssue
 	-D__avx__  //expect: DefineOtherArchIssue
 	-D__avx2__  //expect: DefineOtherArchIssue
@@ -365,15 +337,11 @@ LIBS=libcmtd.lib // works only when --target-os: windows
 	-D__sparc__  //expect: DefineOtherArchIssue
 	-D__tile__  //expect: DefineOtherArchIssue
 
-	-D__SW_64__  //expect: DefineOtherArchIssue
-	-D__SW64__  //expect: DefineOtherArchIssue
-	-D__SW__  //expect: DefineOtherArchIssue
 	-D__AMD64__  //expect: DefineOtherArchIssue
 	-D__x86_64__  //expect: DefineOtherArchIssue
 	-D__x86-64__  //expect: DefineOtherArchIssue
 	-D__x86__  //expect: DefineOtherArchIssue
 	-D__x64__  //expect: DefineOtherArchIssue
-	-D__HYGON__  //expect: DefineOtherArchIssue
 	-D__AMD64__  //expect: DefineOtherArchIssue
 	-D__AVX__  //expect: DefineOtherArchIssue
 	-D__AVX2__  //expect: DefineOtherArchIssue
@@ -412,15 +380,11 @@ LIBS=libcmtd.lib // works only when --target-os: windows
 	-D__SPARC__  //expect: DefineOtherArchIssue
 	-D__TILE__  //expect: DefineOtherArchIssue
 
-	/Dsw_64  //expect: DefineOtherArchIssue
-	/Dsw64  //expect: DefineOtherArchIssue
-	/Dsw  //expect: DefineOtherArchIssue
 	/Damd64  //expect: DefineOtherArchIssue
 	/Dx86_64  //expect: DefineOtherArchIssue
 	/Dx86-64  //expect: DefineOtherArchIssue
 	/Dx86  //expect: DefineOtherArchIssue
 	/Dx64  //expect: DefineOtherArchIssue
-	/Dhygon  //expect: DefineOtherArchIssue
 	/Damd64  //expect: DefineOtherArchIssue
 	/Davx  //expect: DefineOtherArchIssue
 	/Davx2  //expect: DefineOtherArchIssue
@@ -460,15 +424,11 @@ LIBS=libcmtd.lib // works only when --target-os: windows
 	/Dsparc  //expect: DefineOtherArchIssue
 	/Dtile  //expect: DefineOtherArchIssue
 
-	/DSW_64   //expect: DefineOtherArchIssue
-	/DSW64  //expect: DefineOtherArchIssue
-	/DSW  //expect: DefineOtherArchIssue
 	/DAMD64  //expect: DefineOtherArchIssue
 	/Dx86_64  //expect: DefineOtherArchIssue
 	/Dx86-64  //expect: DefineOtherArchIssue
 	/Dx86  //expect: DefineOtherArchIssue
 	/Dx64  //expect: DefineOtherArchIssue
-	/DHYGON  //expect: DefineOtherArchIssue
 	/DAMD64  //expect: DefineOtherArchIssue
 	/DAVX  //expect: DefineOtherArchIssue
 	/DAVX2  //expect: DefineOtherArchIssue
@@ -507,15 +467,11 @@ LIBS=libcmtd.lib // works only when --target-os: windows
 	/DSPARC  //expect: DefineOtherArchIssue
 	/DTILE  //expect: DefineOtherArchIssue
 
-	/D_sw_64_  //expect: DefineOtherArchIssue
-	/D_sw64_  //expect: DefineOtherArchIssue
-	/D_sw_  //expect: DefineOtherArchIssue
 	/D_amd64_  //expect: DefineOtherArchIssue
 	/D_x86_64_  //expect: DefineOtherArchIssue
 	/D_x86-64_  //expect: DefineOtherArchIssue
 	/D_x86_  //expect: DefineOtherArchIssue
 	/D_x64_  //expect: DefineOtherArchIssue
-	/D_hygon_  //expect: DefineOtherArchIssue
 	/D_amd64_  //expect: DefineOtherArchIssue
 	/D_avx_  //expect: DefineOtherArchIssue
 	/D_avx2_  //expect: DefineOtherArchIssue
@@ -554,15 +510,11 @@ LIBS=libcmtd.lib // works only when --target-os: windows
 	/D_sparc_  //expect: DefineOtherArchIssue
 	/D_tile_  //expect: DefineOtherArchIssue
 
-	/D_SW_64_  //expect: DefineOtherArchIssue
-	/D_SW64_  //expect: DefineOtherArchIssue
-	/D_SW_  //expect: DefineOtherArchIssue
 	/D_AMD64_  //expect: DefineOtherArchIssue
 	/D_x86_64_  //expect: DefineOtherArchIssue
 	/D_x86-64_  //expect: DefineOtherArchIssue
 	/D_x86_  //expect: DefineOtherArchIssue
 	/D_x64_  //expect: DefineOtherArchIssue
-	/D_HYGON_  //expect: DefineOtherArchIssue
 	/D_AMD64_  //expect: DefineOtherArchIssue
 	/D_AVX_  //expect: DefineOtherArchIssue
 	/D_AVX2_  //expect: DefineOtherArchIssue
@@ -601,15 +553,11 @@ LIBS=libcmtd.lib // works only when --target-os: windows
 	/D_SPARC_  //expect: DefineOtherArchIssue
 	/D_TILE_  //expect: DefineOtherArchIssue
 
-	/D__sw_64__  //expect: DefineOtherArchIssue
-	/D__sw64__  //expect: DefineOtherArchIssue
-	/D__sw__  //expect: DefineOtherArchIssue
 	/D__amd64__  //expect: DefineOtherArchIssue
 	/D__x86_64__  //expect: DefineOtherArchIssue
 	/D__x86-64__  //expect: DefineOtherArchIssue
 	/D__x86__  //expect: DefineOtherArchIssue
 	/D__x64__  //expect: DefineOtherArchIssue
-	/D__hygon__  //expect: DefineOtherArchIssue
 	/D__amd64__  //expect: DefineOtherArchIssue
 	/D__avx__  //expect: DefineOtherArchIssue
 	/D__avx2__  //expect: DefineOtherArchIssue
@@ -648,15 +596,11 @@ LIBS=libcmtd.lib // works only when --target-os: windows
 	/D__sparc__  //expect: DefineOtherArchIssue
 	/D__tile__  //expect: DefineOtherArchIssue
 
-	/D__SW_64__  //expect: DefineOtherArchIssue
-	/D__SW64__  //expect: DefineOtherArchIssue
-	/D__SW__  //expect: DefineOtherArchIssue
 	/D__AMD64__  //expect: DefineOtherArchIssue
 	/D__x86_64__  //expect: DefineOtherArchIssue
 	/D__x86-64__  //expect: DefineOtherArchIssue
 	/D__x86__  //expect: DefineOtherArchIssue
 	/D__x64__  //expect: DefineOtherArchIssue
-	/D__HYGON__  //expect: DefineOtherArchIssue
 	/D__AMD64__  //expect: DefineOtherArchIssue
 	/D__AVX__  //expect: DefineOtherArchIssue
 	/D__AVX2__  //expect: DefineOtherArchIssue
@@ -744,14 +688,6 @@ void GCC_compiler_option_check()
 	=-m64 //expect: BuildCommandIssue
 	 -m64  //expect: BuildCommandIssue
 	"-m64" //expect: BuildCommandIssue
-	 -march= //expect: BuildCommandIssue
-	"-march=" //expect: BuildCommandIssue
-	=-march= //expect: BuildCommandIssue
-	=-march=aarch64 //expect: BuildCommandIssue
-	=-march=aarch64 -mtune= //expect: BuildCommandIssue
-	=-mtune= //expect: BuildCommandIssue
-	 -mtune= //expect: BuildCommandIssue
-	"-mtune=" //expect: BuildCommandIssue
 	=-O2  //expect: BuildCommandIssue
 	 -O2  //expect: BuildCommandIssue
 	"-O2" //expect: BuildCommandIssue

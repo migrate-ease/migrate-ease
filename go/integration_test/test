@@ -1,54 +1,35 @@
-#!/usr/local/bin/bash
+#!/usr/bin/env bash
 
-test_root=$(cd `dirname $0`; pwd)
-cpp_scanner_dir="${test_root}/.."
-
-RED=$(printf '\033[0;31m')
-RED_BOLD=$(printf '\033[1;31m')
-RED_LIGHT=$(printf '\033[91m')
+script_dir=$(realpath "$(dirname "$0")")
+main_dir="${script_dir}/.."
 
 GREEN=$(printf '\033[0;32m')
-GREEN_BOLD=$(printf '\033[1;32m')
-GREEN_LIGHT=$(printf '\033[92m')
 ENDMARK=$(printf '\033[m')
 
-cases="$@"
-[[ "$cases" = "" ]] && cases=$(ls | grep "test_[0-9]")
+# Note that you need to run it in the directory where the test script is located.
+test_folders="$*"
+[[ "$test_folders" = "" ]] && test_folders=$(find -L . -type d -name 'test_*')
 
-for c in $cases ; do
-
-    echo "=============== Running $c ... ==============="
-
-    cd "$c"
+for c in $test_folders ; do
+    echo "=============== Running cases in $c ... ==============="
+    cd "$script_dir"/"$c" || { echo "Failure"; exit 1; }
 
     if [[ -e "disabled" ]]; then
-        echo $GREEN"$c is disabled, skip."$ENDMARK
-        cd "$test_root"
+        echo "$GREEN""$c is disabled, skip.""$ENDMARK"
         continue
     fi
 
-    archs=
-
-    if [[ -d "./aarch64" ]]; then
-        archs="aarch64"
-    fi
-
-
-    if [[ "$archs" = "" ]]; then
-        echo $GREEN"$c is empty, skip."$ENDMARK
-        cd "$test_root"
+    #Currently the test cases in go module are only for aarch64 architecture.
+    arch="aarch64"
+    if [ ! -d "./aarch64" ]; then
+        echo "$GREEN""$c/$arch is empty, skip.""$ENDMARK"
         continue
     fi
 
-    for arch in $archs; do
-        echo "running sub-test: $arch"
-
-        python3 "$test_root"/../go_scanner.py --output-format json --output "./$arch/$arch.json" --arch "$arch" ./"$arch"
-
-        if [[ "$?" = "0" ]]; then
-            python3 "$test_root"/scanner_diff.py --src-dir "./$arch/" --json-report "./$arch/$arch.json" --test-dir "$c"
-        fi
-    done
-
-    cd "$test_root"
+    echo "running sub-test for $arch"
+    python3 "$main_dir"/__main__.py --output-format json --output "./$arch/$arch.json" --arch "$arch" ./"$arch"
+    if [[ $? -eq 0 ]]; then
+        echo "running scanner diff"
+        python3 "$script_dir"/scanner_diff.py --src-dir "./$arch/" --json-report "./$arch/$arch.json" --test-dir "$c"
+    fi
 done

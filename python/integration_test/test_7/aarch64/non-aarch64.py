@@ -1,30 +1,4 @@
     # Python extension packages only available for x86/x86-64
-    //expect: PythonPackageIssue
-    -cpu-iomp //expect: PythonPackageIssue
-    -cpu-vcomp //expect: PythonPackageIssue
-    -cpu-tbb //expect: PythonPackageIssue
-    -devel-cpu-tbb //expect: PythonPackageIssue
-    -devel-cpu-iomp //expect: PythonPackageIssue
-    -cpu-dpcpp-gpu-dpcpp //expect: PythonPackageIssue
-    -devel-cpu-dpcpp-gpu-dpcpp //expect: PythonPackageIssue
-    //expect: PythonPackageIssue
-    -static //expect: PythonPackageIssue
-    -include //expect: PythonPackageIssue
-    //expect: PythonPackageIssue
-    -devel //expect: PythonPackageIssue
-    -learn-intelex //expect: PythonPackageIssue
-    -openmp //expect: PythonPackageIssue
-    -opencl-rt //expect: PythonPackageIssue
-    -fortran-rt //expect: PythonPackageIssue
-    -devel //expect: PythonPackageIssue
-    -dpcpp //expect: PythonPackageIssue
-    -include //expect: PythonPackageIssue
-    -static //expect: PythonPackageIssue
-    //expect: PythonPackageIssue
-    -devel-dpcpp //expect: PythonPackageIssue
-    import dpcpp-cpp-rt //expect: PythonPackageIssue
-    -x86 //expect: PythonPackageIssue
-    
     from pyqbdi import //expect: PythonPackageIssue
     from onednn-cpu-iomp import //expect: PythonPackageIssue
     from onednn-cpu-vcomp import //expect: PythonPackageIssue
