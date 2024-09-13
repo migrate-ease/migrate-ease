@@ -415,6 +415,7 @@ class NaiveCpp(object):
                 if state != State.UNSUPPORT:
                     s = State.UNKNOWN
             self.branches[-1].append(s)
+            self._update_level_state(None)
             if self.arch == N2_MARCH:
                 return PreprocessorDirective(directive_type=PreprocessorDirective.TYPE_CONDITIONAL,
                                              is_support=self._get_support_state(), is_start=False, is_end=True)
