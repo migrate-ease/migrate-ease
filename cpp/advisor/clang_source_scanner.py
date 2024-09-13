@@ -24,7 +24,7 @@ from common.checkpoint import Checkpoint
 from common.continuation_parser import ContinuationParser
 from common.find_port import find_matching_line_num
 from common.issue import Issue
-from common.naive_comment_parser import NaiveCommentParser
+from .naive_comment_parser import NaiveCommentParser
 from common.report_factory import ReportOutputFormat
 from .checkpoints import AARCH64_INCOMPATIBLE_INTRINSICS, AARCH64_INLINE_ASSEMBLY_CHECKPOINTS, CPP_STD_CODES, \
     INCOMPATIBLE_HEADER_FILE, N2_CLANG_INCOMPATIBLE_INTRINSICS, N2_GCC_INCOMPATIBLE_INTRINSICS, X86_PRAGMA
