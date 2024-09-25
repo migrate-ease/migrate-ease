@@ -1,49 +1,49 @@
 //aarch_64 inline assembly
-#if defined(aarch64)
+#if defined(__aarch64__)
 #define barrier() __sync_synchronize()
-__asm__ __volatile__("dmb ish" : : : "memory"); 
+__asm__ __volatile__("dmb ish" : : : "memory");
 #endif
 
-#if defined(aarch64)
+#if defined(__aarch64__)
 __asm__ __volatile__("dmb ishst" : : : "memory");
 #endif
 
-#if defined(aarch64)
+#if defined(__aarch64__)
 __asm__ __volatile__("dmb ishld" : : : "memory");
 #endif
 
-#if defined(aarch64)
+#if defined(__aarch64__)
 __asm__ __volatile__("crc32cb %w[c], %w[c], %w[v]":[c]"+r"(crc):[v]"r"(value));
 #endif
 
-#if defined(aarch64)
+#if defined(__aarch64__)
 __asm__ __volatile__("crc32ch %w[c], %w[c], %w[v]":[c]"+r"(crc):[v]"r"(value));
 #endif
 
-#if defined(aarch64)
+#if defined(__aarch64__)
 __asm__ __volatile__("crc32cw %w[c], %w[c], %w[v]":[c]"+r"(crc):[v]"r"(value));
 #endif
 
-#if defined(aarch64)
+#if defined(__aarch64__)
 __asm__ __volatile__("crc32cx %w[c], %w[c], %x[v]":[c]"+r"(crc):[v]"r"(value));
 #endif
 
-#if defined(aarch64)
+#if defined(__aarch64__)
 __asm__ __volatile__("rev %w[dst], %w[src]" : [dst]"=r"(val) : [src]"r"(val));
 #endif
 
 
-#if defined(aarch64)
+#if defined(__aarch64__)
 #define __nops(n) ".rept " #n "\nnop\n.endr\n"
 #define nops(n) asm volatile(__nops(n))
 #endif
 
-#if defined(aarch64)
+#if defined(__aarch64__)
 __asm__ __volatile__("yield" : : : "memory");//there esist an error
 __asm__ __volatile__("yield");
 #endif
 
-#if defined(aarch64)
+#if defined(__aarch64__)
 __asm__ __volatile__("mrs %0, cntvct_el0" : "=r" (count_num));
 static uint64_t Rdtsc()
     {
@@ -59,7 +59,7 @@ static uint64_t Rdtsc()
     }
 #endif
 
-#if defined(aarch64)
+#if defined(__aarch64__)
 #include <arm_neon.h>
 static inline int POPCNT_popcnt_u64(uint64_t x)
     {
@@ -80,7 +80,7 @@ static inline int POPCNT_popcnt_u64(uint64_t x)
 }
 #endif
 
-#if defined(aarch64)
+#if defined(__aarch64__)
 __sync_add_and_fetch(&_value.counter,1)
 void atomic_add(int i)
 {
@@ -97,7 +97,7 @@ void atomic_add(int i)
 }
 #endif
 
-#if defined(aarch64)
+#if defined(__aarch64__)
 __sync_sub_and_fetch(&_value.counter,1);
 void atomic_sub (int i)
 {
@@ -114,7 +114,7 @@ void atomic_sub (int i)
 }
 #endif
 
-#if defined(aarch64)
+#if defined(__aarch64__)
 __sync_sub_and_fetch(&_value.counter, i)
 static inline int atomic_sub_return(int i, atomic_t *v)
 {
@@ -135,7 +135,7 @@ static inline int atomic_sub_return(int i, atomic_t *v)
 }
 #endif
 
-#if defined(aarch64)
+#if defined(__aarch64__)
 __sync_add_and_fetch(&_value.counter, i)
 {
     unsigned long tmp;
@@ -156,14 +156,14 @@ __sync_add_and_fetch(&_value.counter, i)
 }
 #endif
 
-#if defined(aarch64)
+#if defined(__aarch64__)
 static __inline__ long atomic64_add_and_return(long i, atomic64_t *v)
 {
     return __sync_add_and_fetch(&((v)->counter), i); //expect: CPPStdCodes
 }
 #endif
 
-#if defined(aarch64)
+#if defined(__aarch64__)
 #include <arm_neon.h>
 typedef union __attribute__((aligned(16))) __oword
 {
@@ -191,7 +191,7 @@ static inline uint16_t SSE4_cmpestrm(int32x4_t str1, int len1, int32x4_t str2, i
 }
 #endif
 
-#if defined(aarch64)
+#if defined(__aarch64__)
 #include <arm_neon.h>
 template<int MODE>
 static inline int SSE4_cmpestri(int32x4_t str1, int len1, int32x4_t str2, int len2)
@@ -223,19 +223,19 @@ static inline int SSE4_cmpestri(int32x4_t str1, int len1, int32x4_t str2, int le
 }
 #endif
 
-#if defined(aarch64)
+#if defined(__aarch64__)
 LDP Xt1, Xt2, addr
 STP Xt1, Xt2, addr
 #endif
 
-#if defined(aarch64)
+#if defined(__aarch64__)
 AND Vd.<T>, Vn.<T>, Vm.<T>
 #endif
 
-#if defined(aarch64)
+#if defined(__aarch64__)
 EOR Vd.<T>, Vn.<T>, Vm.<T>
 #endif
 
-#if defined(aarch64)
+#if defined(__aarch64__)
 TBL Vd.<T>, {Vn*.16B}, Vm.<T>2
 #endif

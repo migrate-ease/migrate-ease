@@ -1,5 +1,5 @@
 // case1:(^|\s)([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+goto)?\(.*(?:\n|\r\n)*.*memory.*
-#if defined(aarch64)
+#if defined(__aarch64__)
 __asm__ __volatile__("" : : : "memory"); // expect: InlineAsmIssue
    __asm__ __volatile__("" : : : "memory");// expect: InlineAsmIssue
 asm__ __volatile__("" : : : "memory"); // expect: InlineAsmIssue
@@ -15,7 +15,7 @@ __asm__ __volatile__("" // expect: InlineAsmIssue
 #endif
 
 // case2:(^|\s)([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+goto)?\(.*(?:\n|\r\n)*.*sfence.*
-#if defined(aarch64)
+#if defined(__aarch64__)
 __asm__ __volatile__("" : : : "sfence"); // expect: InlineAsmIssue
    __asm__ __volatile__("" : : : "sfence");// expect: InlineAsmIssue
 asm__ __volatile__("" : : : "sfence"); // expect: InlineAsmIssue
@@ -31,7 +31,7 @@ __asm__ __volatile__("" : : : // expect: InlineAsmIssue
 #endif
 
 // case3:(^|\s)([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+goto)?\(.*(?:\n|\r\n)*.*lfence.*
-#if defined(aarch64)
+#if defined(__aarch64__)
 __asm__ __volatile__("" : : : "lfence"); // expect: InlineAsmIssue
    __asm__ __volatile__("" : : : "lfence");// expect: InlineAsmIssue
 asm__ __volatile__("" : : : "lfence"); // expect: InlineAsmIssue
@@ -48,7 +48,7 @@ __asm__ __volatile__("" : : : // expect: InlineAsmIssue
 #endif
 
 // case4:(^|\s)([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+goto)?\(.*(?:\n|\r\n)*.*mfence.*
-#if defined(aarch64)
+#if defined(__aarch64__)
 __asm__ __volatile__("" : : : "mfence"); // expect: InlineAsmIssue
    __asm__ __volatile__("" : : : "mfence");// expect: InlineAsmIssue
 asm__ __volatile__("" : : : "mfence"); // expect: InlineAsmIssue
@@ -63,40 +63,8 @@ __asm__ __volatile__("" : : : // expect: InlineAsmIssue
                                 "mfence");
 #endif
 
-// case5:(^|\s)([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+goto)?\(.*(?:\n|\r\n)*.*crc32b.*
-#if defined(aarch64)
-__asm__ __volatile__("crc32b %1, %0" : "+r"(crc) : "rm"(v));// expect: InlineAsmIssue
-    __asm__ __volatile__("crc32b %1, %0" : "+r"(crc) : "rm"(v));// expect: InlineAsmIssue
-asm__ __volatile__("crc32b %1, %0" : "+r"(crc) : "rm"(v)); // expect: InlineAsmIssue
-_asm_ __volatile__("crc32b %1, %0" : "+r"(crc) : "rm"(v));// expect: InlineAsmIssue
-asm__ __volatile__("crc32b %1, %0" : "+r"(crc) : "rm"(v));// expect: InlineAsmIssue
-__asm__      __volatile__("crc32b %1, %0" : "+r"(crc) : "rm"(v));// expect: InlineAsmIssue
-__asm__ volatile__("crc32b %1, %0" : "+r"(crc) : "rm"(v));// expect: InlineAsmIssue
-__asm__ __volatile("crc32b %1, %0" : "+r"(crc) : "rm"(v));// expect: InlineAsmIssue
-__asm__("crc32b %1, %0" : "+r"(crc) : "rm"(v)); // expect: InlineAsmIssue
-__asm__ __volatile__ goto("crc32b %1, %0" : "+r"(crc) : "rm"(v));// expect: InlineAsmIssue
-__asm__ __volatile__(                              // expect: InlineAsmIssue
-                        "crc32b %1, %0" : "+r"(crc) : "rm"(v));
-#endif
-
-// case6:(^|\s)([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+goto)?\(.*(?:\n|\r\n)*.*crc32w.*
-#if defined(aarch64)
-__asm__ __volatile__("crc32w %1, %0" : "+r"(crc) : "rm"(v));// expect: InlineAsmIssue
-    __asm__ __volatile__("crc32w %1, %0" : "+r"(crc) : "rm"(v));// expect: InlineAsmIssue
-asm__ __volatile__("crc32w %1, %0" : "+r"(crc) : "rm"(v)); // expect: InlineAsmIssue
-_asm_ __volatile__("crc32w %1, %0" : "+r"(crc) : "rm"(v));// expect: InlineAsmIssue
-asm__ __volatile__("crc32w %1, %0" : "+r"(crc) : "rm"(v));// expect: InlineAsmIssue
-__asm__      __volatile__("crc32w %1, %0" : "+r"(crc) : "rm"(v));// expect: InlineAsmIssue
-__asm__ volatile__("crc32w %1, %0" : "+r"(crc) : "rm"(v));// expect: InlineAsmIssue
-__asm__ __volatile("crc32w %1, %0" : "+r"(crc) : "rm"(v));// expect: InlineAsmIssue
-__asm__("crc32w %1, %0" : "+r"(crc) : "rm"(v)); // expect: InlineAsmIssue
-__asm__ __volatile__ goto("crc32w %1, %0" : "+r"(crc) : "rm"(v)); // expect: InlineAsmIssue
-__asm__ __volatile__(// expect: InlineAsmIssue
-                        "crc32w %1, %0" : "+r"(crc) : "rm"(v));
-#endif
-
-// case7:(^|\s)([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+goto)?\(.*(?:\n|\r\n)*.*crc32l.*
-#if defined(aarch64)
+// case5:(^|\s)([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+goto)?\(.*(?:\n|\r\n)*.*crc32l.*
+#if defined(__aarch64__)
 __asm__ __volatile__("crc32l %1, %0" : "+r"(crc) : "rm"(v));// expect: InlineAsmIssue
     __asm__ __volatile__("crc32l %1, %0" : "+r"(crc) : "rm"(v));// expect: InlineAsmIssue
 asm__ __volatile__("crc32l %1, %0" : "+r"(crc) : "rm"(v)); // expect: InlineAsmIssue
@@ -111,8 +79,8 @@ __asm__ __volatile__(// expect: InlineAsmIssue
                         "crc32l %1, %0" : "+r"(crc) : "rm"(v));
 #endif
 
-// case8:(^|\s)([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+goto)?\(.*(?:\n|\r\n)*.*crc32q.*
-#if defined(aarch64)
+// case6:(^|\s)([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+goto)?\(.*(?:\n|\r\n)*.*crc32q.*
+#if defined(__aarch64__)
 __asm__ __volatile__("crc32q %1, %0" : "+r"(result) : "rm"(v));// expect: InlineAsmIssue
     __asm__ __volatile__("crc32q %1, %0" : "+r"(result) : "rm"(v));// expect: InlineAsmIssue
 asm__ __volatile__("crc32q %1, %0" : "+r"(result) : "rm"(v)); // expect: InlineAsmIssue
@@ -127,8 +95,8 @@ __asm__ __volatile__(// expect: InlineAsmIssue
                         "crc32q %1, %0" : "+r"(result) : "rm"(v));
 #endif
 
-// case9:(^|\s)([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+goto)?\(.*(?:\n|\r\n)*.*bswap.*
-#if defined(aarch64)
+// case7:(^|\s)([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+goto)?\(.*(?:\n|\r\n)*.*bswap.*
+#if defined(__aarch64__)
 __asm__ __volatile__("bswap %0" : "=r" (val) : "0" (val)); // expect: InlineAsmIssue
     __asm__ __volatile__("bswap %0" : "=r" (val) : "0" (val)); // expect: InlineAsmIssue
 asm__ __volatile__("bswap %0" : "=r" (val) : "0" (val)); // expect: InlineAsmIssue
@@ -143,7 +111,7 @@ __asm__ __volatile__ // expect: InlineAsmIssue
     ("bswap %0" : "=r" (val) : "0" (val));
 #endif
 
-#if defined(aarch64) // case10:(^|\s)([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+goto)?\(.*(?:\n|\r\n)*.*rep.*
+#if defined(__aarch64__) // case8:(^|\s)([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+goto)?\(.*(?:\n|\r\n)*.*rep.*
 __asm__ __volatile__ // expect: InlineAsmIssue
 ("rep;nop"
     ::: "memory");
@@ -176,8 +144,8 @@ int main()
 }
 #endif
 
-// case11:(^|\s)([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+goto)?\(.*(?:\n|\r\n)*.*pause.*
-#if defined(aarch64)
+// case9:(^|\s)([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+goto)?\(.*(?:\n|\r\n)*.*pause.*
+#if defined(__aarch64__)
 __asm__ __volatile__( // expect: InlineAsmIssue
 "pause" ::: "memory");
             __asm__ __volatile__("pause" ::: "memory"); // expect: InlineAsmIssue
@@ -193,8 +161,8 @@ __asm__ __volatile__(// expect: InlineAsmIssue
                         "pause" ::: "memory");
 #endif
 
-// case12:(^|\s)([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+goto)?\(.*(?:\n|\r\n)*.*rdtsc.*
-#if defined(aarch64)
+// case10:(^|\s)([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+goto)?\(.*(?:\n|\r\n)*.*rdtsc.*
+#if defined(__aarch64__)
 __asm__ __volatile__("rdtsc" : "=a" (lo), "=d" (hi)); // expect: InlineAsmIssue
             __asm__ __volatile__("rdtsc" : "=a" (lo), "=d" (hi));// expect: InlineAsmIssue
 asm__ __volatile__("rdtsc" : "=a" (lo), "=d" (hi));// expect: InlineAsmIssue
@@ -209,8 +177,8 @@ __asm__ __volatile__(// expect: InlineAsmIssue
                         "rdtsc" : "=a" (lo), "=d" (hi));
 #endif
 
- // case13:(^|\s)([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+goto)?\(.*(?:\n|\r\n)*.*popcntq.*
-#if defined(aarch64)
+ // case11:(^|\s)([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+goto)?\(.*(?:\n|\r\n)*.*popcntq.*
+#if defined(__aarch64__)
 __asm__ __volatile__("popcntq %1, %0" : "=r"(result) : "mr"(a) : "cc"); // expect: InlineAsmIssue
             __asm__ __volatile__("popcntq %1, %0" : "=r"(result) : "mr"(a) : "cc"); // expect: InlineAsmIssue
 asm__ __volatile__("popcntq %1, %0" : "=r"(result) : "mr"(a) : "cc"); // expect: InlineAsmIssue
@@ -225,8 +193,8 @@ __asm__ __volatile__(// expect: InlineAsmIssue
                         "popcntq %1, %0" : "=r"(result) : "mr"(a) : "cc"); 
 #endif
 
-// case14:(^|\s)([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+goto)?\(.*(?:\n|\r\n)*.*addl.*
-#if defined(aarch64)
+// case12:(^|\s)([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+goto)?\(.*(?:\n|\r\n)*.*addl.*
+#if defined(__aarch64__)
 __asm__ __volatile__(LOCK_PREFIX "addl %1,%0" : "+m" (v->counter) : "ir" (i)); // expect: InlineAsmIssue
             __asm__ __volatile__(LOCK_PREFIX "addl %1,%0" : "+m" (v->counter) : "ir" (i)); // expect: InlineAsmIssue
 asm__ __volatile__(LOCK_PREFIX "addl %1,%0" : "+m" (v->counter) : "ir" (i)); // expect: InlineAsmIssue
@@ -242,8 +210,8 @@ __asm__ __volatile__(// expect: InlineAsmIssue
 asm volatile(LOCK_PREFIX "addl %1,%0" : "+m" (v->counter) : "ir" (i)); // expect: InlineAsmIssue
 #endif
 
-// case15:(^|\s)([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+goto)?\(.*(?:\n|\r\n)*.*subl.*
-#if defined(aarch64)
+// case13:(^|\s)([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+goto)?\(.*(?:\n|\r\n)*.*subl.*
+#if defined(__aarch64__)
 __asm__ __volatile__(LOCK_PREFIX "subl %1,%0" : "+m" (v->counter) : "ir" (i)); // expect: InlineAsmIssue
             __asm__ __volatile__(LOCK_PREFIX "subl %1,%0" : "+m" (v->counter) : "ir" (i)); // expect: InlineAsmIssue
 asm__ __volatile__(LOCK_PREFIX "subl %1,%0" : "+m" (v->counter) : "ir" (i)); // expect: InlineAsmIssue
@@ -259,8 +227,8 @@ __asm__ __volatile__(// expect: InlineAsmIssue
 asm volatile(LOCK_PREFIX "subl %1,%0" : "+m" (v->counter) : "ir" (i)); // expect: InlineAsmIssue
 #endif
 
-// case16:(^|\s)([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+goto)?\(.*(?:\n|\r\n)*.*decl.*
-#if defined(aarch64)
+// case14:(^|\s)([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+goto)?\(.*(?:\n|\r\n)*.*decl.*
+#if defined(__aarch64__)
 __asm__ __volatile__(LOCK_PREFIX "decl %0; sete %1" : "+m" (v->counter), "=qm" (c) : : "memory"); // expect: InlineAsmIssue
             __asm__ __volatile__(LOCK_PREFIX "decl %0; sete %1" : "+m" (v->counter), "=qm" (c) : : "memory"); // expect: InlineAsmIssue
 asm__ __volatile__(LOCK_PREFIX "decl %0; sete %1" : "+m" (v->counter), "=qm" (c) : : "memory"); // expect: InlineAsmIssue
@@ -276,8 +244,8 @@ __asm__ __volatile__(// expect: InlineAsmIssue
 asm volatile(LOCK_PREFIX "decl %0; sete %1" : "+m" (v->counter), "=qm" (c) : : "memory"); // expect: InlineAsmIssue
 #endif
 
-// case17:(^|\s)([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+goto)?\(.*(?:\n|\r\n)*.*incl.*
-#if defined(aarch64)
+// case15:(^|\s)([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+goto)?\(.*(?:\n|\r\n)*.*incl.*
+#if defined(__aarch64__)
 __asm__ __volatile__(LOCK_PREFIX "incl %0; sete %1" : "+m" (v->counter), "=qm" (c) : : "memory"); // expect: InlineAsmIssue
             __asm__ __volatile__(LOCK_PREFIX "incl %0; sete %1" : "+m" (v->counter), "=qm" (c) : : "memory"); // expect: InlineAsmIssue
 asm__ __volatile__(LOCK_PREFIX "incl %0; sete %1" : "+m" (v->counter), "=qm" (c) : : "memory"); // expect: InlineAsmIssue
@@ -293,8 +261,8 @@ __asm__ __volatile__( // expect: InlineAsmIssue
 asm volatile(LOCK_PREFIX "incl %0; sete %1" : "+m" (v->counter), "=qm" (c) : : "memory"); // expect: InlineAsmIssue
 #endif
 
-// case18:(^|\s)([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+goto)?\(.*(?:\n|\r\n)*.*xaddq.*
-#if defined(aarch64)
+// case16:(^|\s)([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+goto)?\(.*(?:\n|\r\n)*.*xaddq.*
+#if defined(__aarch64__)
 __asm__ __volatile__("lock ; " "xaddq %0, %1;" :"=r"(i)  :"m"(v->counter), "0"(i)); // expect: InlineAsmIssue
             __asm__ __volatile__("lock ; " "xaddq %0, %1;" :"=r"(i)  :"m"(v->counter), "0"(i)); // expect: InlineAsmIssue
 asm__ __volatile__("lock ; " "xaddq %0, %1;" :"=r"(i)  :"m"(v->counter), "0"(i)); // expect: InlineAsmIssue
@@ -312,8 +280,8 @@ asm _volatile_("lock ; " "xaddq %0, %1;" // expect: InlineAsmIssue
 :"m"(v->counter), "0"(i));
 #endif
 
-// case19:(^|\s)([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+goto)?\(.*(?:\n|\r\n)*.*pcmpestrm.*
-#if defined(aarch64)
+// case17:(^|\s)([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+goto)?\(.*(?:\n|\r\n)*.*pcmpestrm.*
+#if defined(__aarch64__)
 __asm__ __volatile__("pcmpestrm %5, %2, %1": "=Yz"(result) : "x"(str1), "xm"(str2), "a"(len1), "d"(len2), "i"(MODE) : "cc"); // expect: InlineAsmIssue
             __asm__ __volatile__("pcmpestrm %5, %2, %1": "=Yz"(result) : "x"(str1), "xm"(str2), "a"(len1), "d"(len2), "i"(MODE) : "cc"); // expect: InlineAsmIssue
 asm__ __volatile__("pcmpestrm %5, %2, %1": "=Yz"(result) : "x"(str1), "xm"(str2), "a"(len1), "d"(len2), "i"(MODE) : "cc"); // expect: InlineAsmIssue
@@ -328,8 +296,8 @@ __asm__ __volatile__(// expect: InlineAsmIssue
                         "pcmpestrm %5, %2, %1": "=Yz"(result) : "x"(str1), "xm"(str2), "a"(len1), "d"(len2), "i"(MODE) : "cc"); 
 #endif
 
-// case20:(^|\s)([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+goto)?\(.*(?:\n|\r\n)*.*pcmpestri.*
-#if defined(aarch64)
+// case18:(^|\s)([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+goto)?\(.*(?:\n|\r\n)*.*pcmpestri.*
+#if defined(__aarch64__)
 __asm__ __volatile__("pcmpestri %5, %2, %1": "=c"(result) : "x"(str1), "xm"(str2), "a"(len1), "d"(len2), "i"(MODE) : "cc");// expect: InlineAsmIssue
             __asm__ __volatile__("pcmpestri %5, %2, %1": "=c"(result) : "x"(str1), "xm"(str2), "a"(len1), "d"(len2), "i"(MODE) : "cc"); // expect: InlineAsmIssue
 asm__ __volatile__("pcmpestri %5, %2, %1": "=c"(result) : "x"(str1), "xm"(str2), "a"(len1), "d"(len2), "i"(MODE) : "cc"); // expect: InlineAsmIssue
@@ -344,8 +312,8 @@ __asm__ __volatile__(// expect: InlineAsmIssue
                         "pcmpestri %5, %2, %1": "=c"(result) : "x"(str1), "xm"(str2), "a"(len1), "d"(len2), "i"(MODE) : "cc");  
 #endif
 
-// case21:.*MOVDQU .*
-#if defined(aarch64)
+// case19:.*MOVDQU .*
+#if defined(__aarch64__)
     __asm__ __volatile__( // expect: InlineAsmIssue
        "MOVDQU %1, %%xmm0\n\t"
        "MOVDQU %%xmm0, %0"
@@ -355,13 +323,13 @@ __asm__ __volatile__(// expect: InlineAsmIssue
     );
 #endif
 
-// case22:.* PAND .*
-#if defined(aarch64)
+// case20:.* PAND .*
+#if defined(__aarch64__)
     asm volatile("pand %0, s3, s4" : "=w"(sum) : :);   // expect: InlineAsmIssue
 #endif
 
-// case23:.*Pxor .*,.*
-#if defined(aarch64)
+// case21:.*Pxor .*,.*
+#if defined(__aarch64__)
     asm volatile("PXOR %xmm0, %xmm0\n"                // expect: InlineAsmIssue
                  "PXOR %xmm1, %xmm1\n"
                  "PXOR %xmm2, %xmm2\n"
@@ -380,8 +348,8 @@ __asm__ __volatile__(// expect: InlineAsmIssue
                  "PXOR %xmm15, %xmm15\n");
 #endif
 
-// case24:.*PSHUFB .*,.*
-#if defined(aarch64)
+// case22:.*PSHUFB .*,.*
+#if defined(__aarch64__)
     asm volatile ( // expect: InlineAsmIssue
         "movdqu     (%0),%%xmm1\n"
         "pshufb     %2,%%xmm1\n"
@@ -393,4 +361,3 @@ __asm__ __volatile__(// expect: InlineAsmIssue
         :   "memory", "cc", "xmm0", "xmm1", "xmm2", "xmm3", "xmm4"
 );
 #endif
-

@@ -1,11 +1,11 @@
-#ifndef aarch64
+#ifndef __aarch64__
 #pragma simd
 #endif
 void add_floats(float *a, float *b, float *c, float *d, float *e, int n)
 {
 	int i;
 
-#ifndef aarch64
+#ifndef __aarch64__
 #pragma simd
 #endif
 	for (i=0; i<n; i++)
@@ -14,7 +14,7 @@ void add_floats(float *a, float *b, float *c, float *d, float *e, int n)
 	}
 }
 
-#ifdef aarch64
+#ifdef __aarch64__
 #pragma simd // expect: PragmaIssue
 #endif
 void add_floats2(float *a, float *b, float *c, float *d, float *e, int n)

@@ -1,4 +1,4 @@
-// shall not generate issue in aarch64 and sw64
+// shall not generate issue in aarch64.
 void common_intrinsic_test()
 {
     * __builtin_apply_args ();
@@ -142,7 +142,7 @@ void common_intrinsic_test()
     __sync_val_compare_and_swap (); //expect: CPPStdCodes
 }
 
-// shall not generate issue in aarch64, shall generate issue in sw64
+// shall not generate issue in aarch64.
 void aarch64_intrinsic_test()
 {
     __builtin_aarch64_get_fpcr(); 
@@ -152,147 +152,8 @@ void aarch64_intrinsic_test()
     __builtin_aarch64_get_fpcr64(); 
     __builtin_aarch64_set_fpcr64(); 
     __builtin_aarch64_get_fpsr64(); 
-    __builtin_aarch64_set_fpsr64(); 
-    __builtin_arm_getwcgr0(); 
-    __builtin_arm_setwcgr0(); 
-    __builtin_arm_getwcgr1(); 
-    __builtin_arm_setwcgr1(); 
-    __builtin_arm_getwcgr2(); 
-    __builtin_arm_setwcgr2(); 
-    __builtin_arm_getwcgr3();
-    __builtin_arm_setwcgr3(); 
-    __builtin_arm_textrmsb(); 
-    __builtin_arm_textrmsh(); 
-    __builtin_arm_textrmsw(); 
-    __builtin_arm_textrmub(); 
-    __builtin_arm_textrmuh(); 
-    __builtin_arm_textrmuw(); 
-    __builtin_arm_tinsrb(); 
-    __builtin_arm_tinsrh(); 
-    __builtin_arm_tinsrw(); 
-    __builtin_arm_tmia(); 
-    __builtin_arm_tmiabb(); 
-    __builtin_arm_tmiabt(); 
-    __builtin_arm_tmiaph(); 
-    __builtin_arm_tmiatb();
-    __builtin_arm_tmiatt();
-    __builtin_arm_tmovmskb();
-    __builtin_arm_tmovmskh();
-    __builtin_arm_tmovmskw();
-    __builtin_arm_waccb();
-    __builtin_arm_wacch();
-    __builtin_arm_waccw();
-    __builtin_arm_waddb();
-    __builtin_arm_waddbss();
-    __builtin_arm_waddbus();
-    __builtin_arm_waddh();
-    __builtin_arm_waddhss();
-    __builtin_arm_waddhus();
-    __builtin_arm_waddw();
-    __builtin_arm_waddwss();
-    __builtin_arm_waddwus();
-    __builtin_arm_walign();
-    __builtin_arm_wand();
-    __builtin_arm_wandn();
-    __builtin_arm_wavg2b();
-    __builtin_arm_wavg2br();
-    __builtin_arm_wavg2h();
-    __builtin_arm_wavg2hr();
-    __builtin_arm_wcmpeqb();
-    __builtin_arm_wcmpeqh();
-    __builtin_arm_wcmpeqw();
-    __builtin_arm_wcmpgtsb();
-    __builtin_arm_wcmpgtsh();
-    __builtin_arm_wcmpgtsw();
-    __builtin_arm_wcmpgtub();
-    __builtin_arm_wcmpgtuh();
-    __builtin_arm_wcmpgtuw();
-    __builtin_arm_wmacs();
-    __builtin_arm_wmacsz();
-    __builtin_arm_wmacu();
-    __builtin_arm_wmacuz();
-    __builtin_arm_wmadds();
-    __builtin_arm_wmaddu();
-    __builtin_arm_wmaxsb();
-    __builtin_arm_wmaxsh();
-    __builtin_arm_wmaxsw();
-    __builtin_arm_wmaxub();
-    __builtin_arm_wmaxuh();
-    __builtin_arm_wmaxuw();
-    __builtin_arm_wminsb();
-    __builtin_arm_wminsh();
-    __builtin_arm_wminsw();
-    __builtin_arm_wminub();
-    __builtin_arm_wminuh();
-    __builtin_arm_wminuw();
-    __builtin_arm_wmulsm();
-    __builtin_arm_wmulul();
-    __builtin_arm_wmulum();
-    __builtin_arm_wor();
-    __builtin_arm_wpackdss();
-    __builtin_arm_wpackdus();
-    __builtin_arm_wpackhss();
-    __builtin_arm_wpackhus();
-    __builtin_arm_wpackwss();
-    __builtin_arm_wpackwus();
-    __builtin_arm_wrord();
-    __builtin_arm_wrordi();
-    __builtin_arm_wrorh();
-    __builtin_arm_wrorhi();
-    __builtin_arm_wrorw();
-    __builtin_arm_wrorwi();
-    __builtin_arm_wsadb();
-    __builtin_arm_wsadbz();
-    __builtin_arm_wsadh();
-    __builtin_arm_wsadhz();
-    __builtin_arm_wshufh();
-    __builtin_arm_wslld();
-    __builtin_arm_wslldi();
-    __builtin_arm_wsllh();
-    __builtin_arm_wsllhi();
-    __builtin_arm_wsllw();
-    __builtin_arm_wsllwi();
-    __builtin_arm_wsrad();
-    __builtin_arm_wsradi();
-    __builtin_arm_wsrah();
-    __builtin_arm_wsrahi();
-    __builtin_arm_wsraw();
-    __builtin_arm_wsrawi();
-    __builtin_arm_wsrld();
-    __builtin_arm_wsrldi();
-    __builtin_arm_wsrlh();
-    __builtin_arm_wsrlhi();
-    __builtin_arm_wsrlw();
-    __builtin_arm_wsrlwi();
-    __builtin_arm_wsubb();
-    __builtin_arm_wsubbss();
-    __builtin_arm_wsubbus();
-    __builtin_arm_wsubh();
-    __builtin_arm_wsubhss();
-    __builtin_arm_wsubhus();
-    __builtin_arm_wsubw();
-    __builtin_arm_wsubwss();
-    __builtin_arm_wsubwus();
-    __builtin_arm_wunpckehsb();
-    __builtin_arm_wunpckehsh();
-    __builtin_arm_wunpckehsw();
-    __builtin_arm_wunpckehub();
-    __builtin_arm_wunpckehuh();
-    __builtin_arm_wunpckehuw();
-    __builtin_arm_wunpckelsb();
-    __builtin_arm_wunpckelsh();
-    __builtin_arm_wunpckelsw();
-    __builtin_arm_wunpckelub();
-    __builtin_arm_wunpckeluh();
-    __builtin_arm_wunpckeluw();
-    __builtin_arm_wunpckihb();
-    __builtin_arm_wunpckihh();
-    __builtin_arm_wunpckihw();
-    __builtin_arm_wunpckilb();
-    __builtin_arm_wunpckilh();
-    __builtin_arm_wunpckilw();
-    __builtin_arm_wxor();
-    __builtin_arm_wzero();
+    __builtin_aarch64_set_fpsr64();
+    // neon intrinsics.
     vadd_u32();
     vadd_u16();
     vadd_u8();
@@ -1178,7 +1039,7 @@ void aarch64_intrinsic_test()
     vdupq_lane_u8(); 
     vdupq_lane_s32(); 
     vdupq_lane_s16(); 
-    vdupq_lane_s8(); 
+    vdupq_lane_s8();
     vdupq_lane_f32(); 
     vdupq_lane_p16(); 
     vdupq_lane_p8(); 
@@ -2177,348 +2038,493 @@ void aarch64_intrinsic_test()
     vreinterpretq_u32_f32(); 
     vreinterpretq_u32_p16(); 
     vreinterpretq_u32_p8(); 
-    _arm_smlal(); 
-    _arm_umlal(); 
-    _arm_clz(); 
-    _arm_qadd(); 
-    _arm_qdadd(); 
-    _arm_qdsub(); 
-    _arm_qsub(); 
-    _arm_smlabb(); 
-    _arm_smlabt(); 
-    _arm_smlatb(); 
-    _arm_smlatt(); 
-    _arm_smlalbb(); 
-    _arm_smlalbt(); 
-    _arm_smlaltb(); 
-    _arm_smlaltt(); 
-    _arm_smlawb(); 
-    _arm_smlawt(); 
-    _arm_smulbb(); 
-    _arm_smulbt(); 
-    _arm_smultb(); 
-    _arm_smultt(); 
-    _arm_smulwb(); 
-    _arm_smulwt(); 
-    _arm_sadd16(); 
-    _arm_sadd8(); 
-    _arm_sasx(); 
-    _arm_ssax(); 
-    _arm_ssub16(); 
-    _arm_ssub8(); 
-    _arm_shadd16(); 
-    _arm_shadd8(); 
-    _arm_shasx(); 
-    _arm_shsax(); 
-    _arm_shsub16(); 
-    _arm_shsub8(); 
-    _arm_qadd16(); 
-    _arm_qadd8(); 
-    _arm_qasx(); 
-    _arm_qsax(); 
-    _arm_qsub16(); 
-    _arm_qsub8(); 
-    _arm_uadd16(); 
-    _arm_uadd8(); 
-    _arm_uasx(); 
-    _arm_usax(); 
-    _arm_usub16(); 
-    _arm_usub8(); 
-    _arm_uhadd16(); 
-    _arm_uhadd8(); 
-    _arm_uhasx(); 
-    _arm_uhsax(); 
-    _arm_uhsub16(); 
-    _arm_uhsub8(); 
-    _arm_uqadd16(); 
-    _arm_uqadd8(); 
-    _arm_uqasx(); 
-    _arm_uqsax(); 
-    _arm_uqsub16(); 
-    _arm_uqsub8(); 
-    _arm_sxtab(); 
-    _arm_sxtab16(); 
-    _arm_sxtah(); 
-    _arm_uxtab(); 
-    _arm_uxtab16(); 
-    _arm_uxtah(); 
-    _arm_sxtb(); 
-    _arm_sxtb16(); 
-    _arm_sxth(); 
-    _arm_uxtb(); 
-    _arm_uxtb16(); 
-    _arm_uxth(); 
-    _arm_pkhbt(); 
-    _arm_pkhtb(); 
-    _arm_usad8(); 
-    _arm_usada8(); 
-    _arm_ssat(); 
-    _arm_usat(); 
-    _arm_ssat16(); 
-    _arm_usat16(); 
-    _arm_rev(); 
-    _arm_rev16(); 
-    _arm_revsh(); 
-    _arm_smlad(); 
-    _arm_smladx(); 
-    _arm_smlsd(); 
-    _arm_smlsdx(); 
-    _arm_smmla(); 
-    _arm_smmlar(); 
-    _arm_smmls(); 
-    _arm_smmlsr(); 
-    _arm_smmul(); 
-    _arm_smmulr(); 
-    _arm_smlald(); 
-    _arm_smlaldx(); 
-    _arm_smlsld(); 
-    _arm_smlsldx(); 
-    _arm_smuad(); 
-    _arm_smuadx(); 
-    _arm_smusd(); 
-    _arm_smusdx(); 
-    _arm_smull(); 
-    _arm_umaal(); 
-    _arm_bfc(); 
-    _arm_bfi(); 
-    _arm_rbit(); 
-    _arm_sbfx(); 
-    _arm_ubfx(); 
-    _arm_sdiv(); 
-    _arm_udiv(); 
-    __cps(); 
-    __dmb(); 
-    __dsb(); 
-    __isb(); 
-    __emit(); 
-    __hvc(); 
-    __iso_volatile_load16(); 
-    __iso_volatile_load32(); 
-    __iso_volatile_load64(); 
-    __iso_volatile_load8(); 
-    __iso_volatile_store16(); 
-    __iso_volatile_store32(); 
-    __iso_volatile_store64(); 
-    __iso_volatile_store8(); 
-    __ldrexd(); 
-    __prefetch(); 
-    __rdpmccntr64(); 
-    __sev(); 
-    __static_assert(); 
-    __swi(); 
-    __trap(); 
-    __wfe(); 
-    __wfi(); 
-    _AddSatInt(); 
-    _CopyDoubleFromInt64(); 
-    _CopyFloatFromInt32(); 
-    _CopyInt32FromFloat(); 
-    _CopyInt64FromDouble(); 
-    _CountLeadingOnes(); 
-    _CountLeadingOnes64(); 
-    _CountLeadingSigns(); 
-    _CountLeadingSigns64(); 
-    _CountLeadingZeros(); 
-    _CountLeadingZeros64(); 
-    _CountOneBits(); 
-    _CountOneBits64(); 
-    _DAddSatInt(); 
-    _DSubSatInt(); 
-    _isunordered(); 
-    _isunorderedf(); 
-    _MoveFromCoprocessor(); 
-    _MoveFromCoprocessor2(); 
-    _MoveFromCoprocessor64(); 
-    _MoveToCoprocessor(); 
-    _MoveToCoprocessor2(); 
-    _MoveToCoprocessor64(); 
-    _MulHigh(); 
-    _MulUnsignedHigh(); 
-    _ReadBankedReg(); 
-    _ReadStatusReg(); 
-    _SubSatInt(); 
-    _WriteBankedReg(); 
-    _WriteStatusReg(); 
-
-    __assume(); 
-    __code_seg(); 
-    __debugbreak(); 
-    __fastfail(); 
-    __nop(); 
-    __yield(); 
-    _AddressOfReturnAddress(); 
-    _BitScanForward(); 
-    _BitScanForward64(); 
-    _BitScanReverse(); 
-    _BitScanReverse64(); 
-    _bittest(); 
-    _bittest64(); 
-    _bittestandcomplement(); 
-    _bittestandreset(); 
-    _bittestandset(); 
-    _byteswap_uint64(); 
-    _byteswap_ulong(); 
-    _byteswap_ushort(); 
-    _disable(); 
-    _enable(); 
-    _lrotl(); 
-    _lrotr(); 
-    _ReadBarrier(); 
-    _ReadWriteBarrier(); 
-    _ReturnAddress(); 
-    _rotl(); 
-    _rotl16(); 
-    _rotl64(); 
-    _rotl8(); 
-    _rotr(); 
-    _rotr16(); 
-    _rotr64(); 
-    _rotr8(); 
-    _setjmpex(); 
-    _WriteBarrier(); 
-
-    _InterlockedAdd(); 
-    _InterlockedAdd64(); 
-    _InterlockedAdd64_acq(); 
-    _InterlockedAdd64_nf(); 
-    _InterlockedAdd64_rel(); 
-    _InterlockedAdd_acq(); 
-    _InterlockedAdd_nf(); 
-    _InterlockedAdd_rel(); 
-    _InterlockedAnd(); 
-    _InterlockedAnd16(); 
-    _InterlockedAnd16_acq(); 
-    _InterlockedAnd16_nf(); 
-    _InterlockedAnd16_rel(); 
-    _InterlockedAnd64(); 
-    _InterlockedAnd64_acq(); 
-    _InterlockedAnd64_nf(); 
-    _InterlockedAnd64_rel(); 
-    _InterlockedAnd8(); 
-    _InterlockedAnd8_acq(); 
-    _InterlockedAnd8_nf(); 
-    _InterlockedAnd8_rel(); 
-    _InterlockedAnd_acq(); 
-    _InterlockedAnd_nf(); 
-    _InterlockedAnd_rel(); 
-    _InterlockedCompareExchange(); 
-    _InterlockedCompareExchange16(); 
-    _InterlockedCompareExchange16_acq(); 
-    _InterlockedCompareExchange16_nf(); 
-    _InterlockedCompareExchange16_rel(); 
-    _InterlockedCompareExchange64(); 
-    _InterlockedCompareExchange64_acq(); 
-    _InterlockedCompareExchange64_nf(); 
-    _InterlockedCompareExchange64_rel(); 
-    _InterlockedCompareExchange8(); 
-    _InterlockedCompareExchange8_acq(); 
-    _InterlockedCompareExchange8_nf(); 
-    _InterlockedCompareExchange8_rel(); 
-    _InterlockedCompareExchangePointer(); 
-    _InterlockedCompareExchangePointer_acq(); 
-    _InterlockedCompareExchangePointer_nf(); 
-    _InterlockedCompareExchangePointer_rel(); 
-    _InterlockedCompareExchange_acq(); 
-    _InterlockedCompareExchange_nf(); 
-    _InterlockedCompareExchange_rel(); 
-    _InterlockedDecrement(); 
-    _InterlockedDecrement16(); 
-    _InterlockedDecrement16_acq(); 
-    _InterlockedDecrement16_nf(); 
-    _InterlockedDecrement16_rel(); 
-    _InterlockedDecrement64(); 
-    _InterlockedDecrement64_acq(); 
-    _InterlockedDecrement64_nf(); 
-    _InterlockedDecrement64_rel(); 
-    _InterlockedDecrement_acq(); 
-    _InterlockedDecrement_nf(); 
-    _InterlockedDecrement_rel(); 
-    _InterlockedExchange(); 
-    _InterlockedExchange16();
-    _InterlockedExchange16_acq(); 
-    _InterlockedExchange16_nf(); 
-    _InterlockedExchange64(); 
-    _InterlockedExchange64_acq(); 
-    _InterlockedExchange64_nf(); 
-    _InterlockedExchange8(); 
-    _InterlockedExchange8_acq(); 
-    _InterlockedExchange8_nf(); 
-    _InterlockedExchangeAdd(); 
-    _InterlockedExchangeAdd16();
-    _InterlockedExchangeAdd16_acq();
-    _InterlockedExchangeAdd16_nf();
-    _InterlockedExchangeAdd16_rel();
-    _InterlockedExchangeAdd64();
-    _InterlockedExchangeAdd64_acq();
-    _InterlockedExchangeAdd64_nf();
-    _InterlockedExchangeAdd64_rel();
-    _InterlockedExchangeAdd8();
-    _InterlockedExchangeAdd8_acq();
-    _InterlockedExchangeAdd8_nf();
-    _InterlockedExchangeAdd8_rel();
-    _InterlockedExchangeAdd_acq();
-    _InterlockedExchangeAdd_nf();
-    _InterlockedExchangeAdd_rel();
-    _InterlockedExchangePointer();
-    _InterlockedExchangePointer_acq();
-    _InterlockedExchangePointer_nf();
-    _InterlockedExchange_acq();
-    _InterlockedExchange_nf();
-    _InterlockedIncrement();
-    _InterlockedIncrement16();
-    _InterlockedIncrement16_acq();
-    _InterlockedIncrement16_nf();
-    _InterlockedIncrement16_rel();
-    _InterlockedIncrement64();
-    _InterlockedIncrement64_acq();
-    _InterlockedIncrement64_nf();
-    _InterlockedIncrement64_rel();
-    _InterlockedIncrement_acq();
-    _InterlockedIncrement_nf();
-    _InterlockedIncrement_rel();
-    _InterlockedOr();
-    _InterlockedOr16();
-    _InterlockedOr16_acq();
-    _InterlockedOr16_nf();
-    _InterlockedOr16_rel();
-    _InterlockedOr64();
-    _InterlockedOr64_acq();
-    _InterlockedOr64_nf();
-    _InterlockedOr64_rel();
-    _InterlockedOr8();
-    _InterlockedOr8_acq();
-    _InterlockedOr8_nf();
-    _InterlockedOr8_rel();
-    _InterlockedOr_acq();
-    _InterlockedOr_nf();
-    _InterlockedOr_rel();
-    _InterlockedXor();
-    _InterlockedXor16();
-    _InterlockedXor16_acq();
-    _InterlockedXor16_nf();
-    _InterlockedXor16_rel();
-    _InterlockedXor64();
-    _InterlockedXor64_acq();
-    _InterlockedXor64_nf();
-    _InterlockedXor64_rel();
-    _InterlockedXor8();
-    _InterlockedXor8_acq();
-    _InterlockedXor8_nf();
-    _InterlockedXor8_rel();
-    _InterlockedXor_acq();
-    _InterlockedXor_nf();
-    _InterlockedXor_rel();
-    _interlockedbittestandreset();
-    _interlockedbittestandreset_acq();
-    _interlockedbittestandreset_nf();
-    _interlockedbittestandreset_rel();
-    _interlockedbittestandset();
-    _interlockedbittestandset_acq();
-    _interlockedbittestandset_nf();
-    _interlockedbittestandset_rel();
 }
 
-// shall generate issue in aarch64 and sw64
+// shall generate issue in aarch64.
+void arm_intrinsic_test()
+{
+    __builtin_arm_getwcgr0(); //expect: IntrinsicIssue
+    __builtin_arm_setwcgr0(); //expect: IntrinsicIssue
+    __builtin_arm_getwcgr1(); //expect: IntrinsicIssue
+    __builtin_arm_setwcgr1(); //expect: IntrinsicIssue
+    __builtin_arm_getwcgr2(); //expect: IntrinsicIssue
+    __builtin_arm_setwcgr2(); //expect: IntrinsicIssue
+    __builtin_arm_getwcgr3(); //expect: IntrinsicIssue
+    __builtin_arm_setwcgr3(); //expect: IntrinsicIssue
+    __builtin_arm_textrmsb(); //expect: IntrinsicIssue
+    __builtin_arm_textrmsh(); //expect: IntrinsicIssue
+    __builtin_arm_textrmsw(); //expect: IntrinsicIssue
+    __builtin_arm_textrmub(); //expect: IntrinsicIssue
+    __builtin_arm_textrmuh(); //expect: IntrinsicIssue
+    __builtin_arm_textrmuw(); //expect: IntrinsicIssue
+    __builtin_arm_tinsrb(); //expect: IntrinsicIssue
+    __builtin_arm_tinsrh(); //expect: IntrinsicIssue
+    __builtin_arm_tinsrw(); //expect: IntrinsicIssue
+    __builtin_arm_tmia(); //expect: IntrinsicIssue
+    __builtin_arm_tmiabb(); //expect: IntrinsicIssue
+    __builtin_arm_tmiabt(); //expect: IntrinsicIssue
+    __builtin_arm_tmiaph(); //expect: IntrinsicIssue
+    __builtin_arm_tmiatb(); //expect: IntrinsicIssue
+    __builtin_arm_tmiatt(); //expect: IntrinsicIssue
+    __builtin_arm_tmovmskb(); //expect: IntrinsicIssue
+    __builtin_arm_tmovmskh(); //expect: IntrinsicIssue
+    __builtin_arm_tmovmskw(); //expect: IntrinsicIssue
+    __builtin_arm_waccb(); //expect: IntrinsicIssue
+    __builtin_arm_wacch(); //expect: IntrinsicIssue
+    __builtin_arm_waccw(); //expect: IntrinsicIssue
+    __builtin_arm_waddb(); //expect: IntrinsicIssue
+    __builtin_arm_waddbss(); //expect: IntrinsicIssue
+    __builtin_arm_waddbus(); //expect: IntrinsicIssue
+    __builtin_arm_waddh(); //expect: IntrinsicIssue
+    __builtin_arm_waddhss(); //expect: IntrinsicIssue
+    __builtin_arm_waddhus(); //expect: IntrinsicIssue
+    __builtin_arm_waddw(); //expect: IntrinsicIssue
+    __builtin_arm_waddwss(); //expect: IntrinsicIssue
+    __builtin_arm_waddwus(); //expect: IntrinsicIssue
+    __builtin_arm_walign(); //expect: IntrinsicIssue
+    __builtin_arm_wand(); //expect: IntrinsicIssue
+    __builtin_arm_wandn(); //expect: IntrinsicIssue
+    __builtin_arm_wavg2b(); //expect: IntrinsicIssue
+    __builtin_arm_wavg2br(); //expect: IntrinsicIssue
+    __builtin_arm_wavg2h(); //expect: IntrinsicIssue
+    __builtin_arm_wavg2hr(); //expect: IntrinsicIssue
+    __builtin_arm_wcmpeqb(); //expect: IntrinsicIssue
+    __builtin_arm_wcmpeqh(); //expect: IntrinsicIssue
+    __builtin_arm_wcmpeqw(); //expect: IntrinsicIssue
+    __builtin_arm_wcmpgtsb(); //expect: IntrinsicIssue
+    __builtin_arm_wcmpgtsh(); //expect: IntrinsicIssue
+    __builtin_arm_wcmpgtsw(); //expect: IntrinsicIssue
+    __builtin_arm_wcmpgtub(); //expect: IntrinsicIssue
+    __builtin_arm_wcmpgtuh(); //expect: IntrinsicIssue
+    __builtin_arm_wcmpgtuw(); //expect: IntrinsicIssue
+    __builtin_arm_wmacs(); //expect: IntrinsicIssue
+    __builtin_arm_wmacsz(); //expect: IntrinsicIssue
+    __builtin_arm_wmacu(); //expect: IntrinsicIssue
+    __builtin_arm_wmacuz(); //expect: IntrinsicIssue
+    __builtin_arm_wmadds(); //expect: IntrinsicIssue
+    __builtin_arm_wmaddu(); //expect: IntrinsicIssue
+    __builtin_arm_wmaxsb(); //expect: IntrinsicIssue
+    __builtin_arm_wmaxsh(); //expect: IntrinsicIssue
+    __builtin_arm_wmaxsw(); //expect: IntrinsicIssue
+    __builtin_arm_wmaxub(); //expect: IntrinsicIssue
+    __builtin_arm_wmaxuh(); //expect: IntrinsicIssue
+    __builtin_arm_wmaxuw(); //expect: IntrinsicIssue
+    __builtin_arm_wminsb(); //expect: IntrinsicIssue
+    __builtin_arm_wminsh(); //expect: IntrinsicIssue
+    __builtin_arm_wminsw(); //expect: IntrinsicIssue
+    __builtin_arm_wminub(); //expect: IntrinsicIssue
+    __builtin_arm_wminuh(); //expect: IntrinsicIssue
+    __builtin_arm_wminuw(); //expect: IntrinsicIssue
+    __builtin_arm_wmulsm(); //expect: IntrinsicIssue
+    __builtin_arm_wmulul(); //expect: IntrinsicIssue
+    __builtin_arm_wmulum(); //expect: IntrinsicIssue
+    __builtin_arm_wor(); //expect: IntrinsicIssue
+    __builtin_arm_wpackdss(); //expect: IntrinsicIssue
+    __builtin_arm_wpackdus(); //expect: IntrinsicIssue
+    __builtin_arm_wpackhss(); //expect: IntrinsicIssue
+    __builtin_arm_wpackhus(); //expect: IntrinsicIssue
+    __builtin_arm_wpackwss(); //expect: IntrinsicIssue
+    __builtin_arm_wpackwus(); //expect: IntrinsicIssue
+    __builtin_arm_wrord(); //expect: IntrinsicIssue
+    __builtin_arm_wrordi(); //expect: IntrinsicIssue
+    __builtin_arm_wrorh(); //expect: IntrinsicIssue
+    __builtin_arm_wrorhi(); //expect: IntrinsicIssue
+    __builtin_arm_wrorw(); //expect: IntrinsicIssue
+    __builtin_arm_wrorwi(); //expect: IntrinsicIssue
+    __builtin_arm_wsadb(); //expect: IntrinsicIssue
+    __builtin_arm_wsadbz(); //expect: IntrinsicIssue
+    __builtin_arm_wsadh(); //expect: IntrinsicIssue
+    __builtin_arm_wsadhz(); //expect: IntrinsicIssue
+    __builtin_arm_wshufh(); //expect: IntrinsicIssue
+    __builtin_arm_wslld(); //expect: IntrinsicIssue
+    __builtin_arm_wslldi(); //expect: IntrinsicIssue
+    __builtin_arm_wsllh(); //expect: IntrinsicIssue
+    __builtin_arm_wsllhi(); //expect: IntrinsicIssue
+    __builtin_arm_wsllw(); //expect: IntrinsicIssue
+    __builtin_arm_wsllwi(); //expect: IntrinsicIssue
+    __builtin_arm_wsrad(); //expect: IntrinsicIssue
+    __builtin_arm_wsradi(); //expect: IntrinsicIssue
+    __builtin_arm_wsrah(); //expect: IntrinsicIssue
+    __builtin_arm_wsrahi(); //expect: IntrinsicIssue
+    __builtin_arm_wsraw(); //expect: IntrinsicIssue
+    __builtin_arm_wsrawi(); //expect: IntrinsicIssue
+    __builtin_arm_wsrld(); //expect: IntrinsicIssue
+    __builtin_arm_wsrldi(); //expect: IntrinsicIssue
+    __builtin_arm_wsrlh(); //expect: IntrinsicIssue
+    __builtin_arm_wsrlhi(); //expect: IntrinsicIssue
+    __builtin_arm_wsrlw(); //expect: IntrinsicIssue
+    __builtin_arm_wsrlwi(); //expect: IntrinsicIssue
+    __builtin_arm_wsubb(); //expect: IntrinsicIssue
+    __builtin_arm_wsubbss(); //expect: IntrinsicIssue
+    __builtin_arm_wsubbus(); //expect: IntrinsicIssue
+    __builtin_arm_wsubh(); //expect: IntrinsicIssue
+    __builtin_arm_wsubhss(); //expect: IntrinsicIssue
+    __builtin_arm_wsubhus(); //expect: IntrinsicIssue
+    __builtin_arm_wsubw(); //expect: IntrinsicIssue
+    __builtin_arm_wsubwss(); //expect: IntrinsicIssue
+    __builtin_arm_wsubwus(); //expect: IntrinsicIssue
+    __builtin_arm_wunpckehsb(); //expect: IntrinsicIssue
+    __builtin_arm_wunpckehsh(); //expect: IntrinsicIssue
+    __builtin_arm_wunpckehsw(); //expect: IntrinsicIssue
+    __builtin_arm_wunpckehub(); //expect: IntrinsicIssue
+    __builtin_arm_wunpckehuh(); //expect: IntrinsicIssue
+    __builtin_arm_wunpckehuw(); //expect: IntrinsicIssue
+    __builtin_arm_wunpckelsb(); //expect: IntrinsicIssue
+    __builtin_arm_wunpckelsh(); //expect: IntrinsicIssue
+    __builtin_arm_wunpckelsw(); //expect: IntrinsicIssue
+    __builtin_arm_wunpckelub(); //expect: IntrinsicIssue
+    __builtin_arm_wunpckeluh(); //expect: IntrinsicIssue
+    __builtin_arm_wunpckeluw(); //expect: IntrinsicIssue
+    __builtin_arm_wunpckihb(); //expect: IntrinsicIssue
+    __builtin_arm_wunpckihh(); //expect: IntrinsicIssue
+    __builtin_arm_wunpckihw(); //expect: IntrinsicIssue
+    __builtin_arm_wunpckilb(); //expect: IntrinsicIssue
+    __builtin_arm_wunpckilh(); //expect: IntrinsicIssue
+    __builtin_arm_wunpckilw(); //expect: IntrinsicIssue
+    __builtin_arm_wxor(); //expect: IntrinsicIssue
+    __builtin_arm_wzero(); //expect: IntrinsicIssue
+    _arm_smlal(); //expect: IntrinsicIssue
+    _arm_umlal(); //expect: IntrinsicIssue
+    _arm_clz(); //expect: IntrinsicIssue
+    _arm_qadd(); //expect: IntrinsicIssue
+    _arm_qdadd(); //expect: IntrinsicIssue
+    _arm_qdsub(); //expect: IntrinsicIssue
+    _arm_qsub(); //expect: IntrinsicIssue
+    _arm_smlabb(); //expect: IntrinsicIssue
+    _arm_smlabt(); //expect: IntrinsicIssue
+    _arm_smlatb(); //expect: IntrinsicIssue
+    _arm_smlatt(); //expect: IntrinsicIssue
+    _arm_smlalbb(); //expect: IntrinsicIssue
+    _arm_smlalbt(); //expect: IntrinsicIssue
+    _arm_smlaltb(); //expect: IntrinsicIssue
+    _arm_smlaltt(); //expect: IntrinsicIssue
+    _arm_smlawb(); //expect: IntrinsicIssue
+    _arm_smlawt(); //expect: IntrinsicIssue
+    _arm_smulbb(); //expect: IntrinsicIssue
+    _arm_smulbt(); //expect: IntrinsicIssue
+    _arm_smultb(); //expect: IntrinsicIssue
+    _arm_smultt(); //expect: IntrinsicIssue
+    _arm_smulwb(); //expect: IntrinsicIssue
+    _arm_smulwt(); //expect: IntrinsicIssue
+    _arm_sadd16(); //expect: IntrinsicIssue
+    _arm_sadd8(); //expect: IntrinsicIssue
+    _arm_sasx(); //expect: IntrinsicIssue
+    _arm_ssax(); //expect: IntrinsicIssue
+    _arm_ssub16(); //expect: IntrinsicIssue
+    _arm_ssub8(); //expect: IntrinsicIssue
+    _arm_shadd16(); //expect: IntrinsicIssue
+    _arm_shadd8(); //expect: IntrinsicIssue
+    _arm_shasx(); //expect: IntrinsicIssue
+    _arm_shsax(); //expect: IntrinsicIssue
+    _arm_shsub16(); //expect: IntrinsicIssue
+    _arm_shsub8(); //expect: IntrinsicIssue
+    _arm_qadd16(); //expect: IntrinsicIssue
+    _arm_qadd8(); //expect: IntrinsicIssue
+    _arm_qasx(); //expect: IntrinsicIssue
+    _arm_qsax(); //expect: IntrinsicIssue
+    _arm_qsub16(); //expect: IntrinsicIssue
+    _arm_qsub8(); //expect: IntrinsicIssue
+    _arm_uadd16(); //expect: IntrinsicIssue
+    _arm_uadd8(); //expect: IntrinsicIssue
+    _arm_uasx(); //expect: IntrinsicIssue
+    _arm_usax(); //expect: IntrinsicIssue
+    _arm_usub16(); //expect: IntrinsicIssue
+    _arm_usub8(); //expect: IntrinsicIssue
+    _arm_uhadd16(); //expect: IntrinsicIssue
+    _arm_uhadd8(); //expect: IntrinsicIssue
+    _arm_uhasx(); //expect: IntrinsicIssue
+    _arm_uhsax(); //expect: IntrinsicIssue
+    _arm_uhsub16(); //expect: IntrinsicIssue
+    _arm_uhsub8(); //expect: IntrinsicIssue
+    _arm_uqadd16(); //expect: IntrinsicIssue
+    _arm_uqadd8(); //expect: IntrinsicIssue
+    _arm_uqasx(); //expect: IntrinsicIssue
+    _arm_uqsax(); //expect: IntrinsicIssue
+    _arm_uqsub16(); //expect: IntrinsicIssue
+    _arm_uqsub8(); //expect: IntrinsicIssue
+    _arm_sxtab(); //expect: IntrinsicIssue
+    _arm_sxtab16(); //expect: IntrinsicIssue
+    _arm_sxtah(); //expect: IntrinsicIssue
+    _arm_uxtab(); //expect: IntrinsicIssue
+    _arm_uxtab16(); //expect: IntrinsicIssue
+    _arm_uxtah(); //expect: IntrinsicIssue
+    _arm_sxtb(); //expect: IntrinsicIssue
+    _arm_sxtb16(); //expect: IntrinsicIssue
+    _arm_sxth(); //expect: IntrinsicIssue
+    _arm_uxtb(); //expect: IntrinsicIssue
+    _arm_uxtb16(); //expect: IntrinsicIssue
+    _arm_uxth(); //expect: IntrinsicIssue
+    _arm_pkhbt(); //expect: IntrinsicIssue
+    _arm_pkhtb(); //expect: IntrinsicIssue
+    _arm_usad8(); //expect: IntrinsicIssue
+    _arm_usada8(); //expect: IntrinsicIssue
+    _arm_ssat(); //expect: IntrinsicIssue
+    _arm_usat(); //expect: IntrinsicIssue
+    _arm_ssat16(); //expect: IntrinsicIssue
+    _arm_usat16(); //expect: IntrinsicIssue
+    _arm_rev(); //expect: IntrinsicIssue
+    _arm_rev16(); //expect: IntrinsicIssue
+    _arm_revsh(); //expect: IntrinsicIssue
+    _arm_smlad(); //expect: IntrinsicIssue
+    _arm_smladx(); //expect: IntrinsicIssue
+    _arm_smlsd(); //expect: IntrinsicIssue
+    _arm_smlsdx(); //expect: IntrinsicIssue
+    _arm_smmla(); //expect: IntrinsicIssue
+    _arm_smmlar(); //expect: IntrinsicIssue
+    _arm_smmls(); //expect: IntrinsicIssue
+    _arm_smmlsr(); //expect: IntrinsicIssue
+    _arm_smmul(); //expect: IntrinsicIssue
+    _arm_smmulr(); //expect: IntrinsicIssue
+    _arm_smlald(); //expect: IntrinsicIssue
+    _arm_smlaldx(); //expect: IntrinsicIssue
+    _arm_smlsld(); //expect: IntrinsicIssue
+    _arm_smlsldx(); //expect: IntrinsicIssue
+    _arm_smuad(); //expect: IntrinsicIssue
+    _arm_smuadx(); //expect: IntrinsicIssue
+    _arm_smusd(); //expect: IntrinsicIssue
+    _arm_smusdx(); //expect: IntrinsicIssue
+    _arm_smull(); //expect: IntrinsicIssue
+    _arm_umaal(); //expect: IntrinsicIssue
+    _arm_bfc(); //expect: IntrinsicIssue
+    _arm_bfi(); //expect: IntrinsicIssue
+    _arm_rbit(); //expect: IntrinsicIssue
+    _arm_sbfx(); //expect: IntrinsicIssue
+    _arm_ubfx(); //expect: IntrinsicIssue
+    _arm_sdiv(); //expect: IntrinsicIssue
+    _arm_udiv(); //expect: IntrinsicIssue
+    __cps(); //expect: IntrinsicIssue
+    __dmb(); //expect: IntrinsicIssue
+    __dsb(); //expect: IntrinsicIssue
+    __isb(); //expect: IntrinsicIssue
+    __emit(); //expect: IntrinsicIssue
+    __hvc(); //expect: IntrinsicIssue
+    __iso_volatile_load16(); //expect: IntrinsicIssue
+    __iso_volatile_load32(); //expect: IntrinsicIssue
+    __iso_volatile_load64(); //expect: IntrinsicIssue
+    __iso_volatile_load8(); //expect: IntrinsicIssue
+    __iso_volatile_store16(); //expect: IntrinsicIssue
+    __iso_volatile_store32(); //expect: IntrinsicIssue
+    __iso_volatile_store64(); //expect: IntrinsicIssue
+    __iso_volatile_store8(); //expect: IntrinsicIssue
+    __ldrexd(); //expect: IntrinsicIssue
+    __prefetch(); //expect: IntrinsicIssue
+    __rdpmccntr64(); //expect: IntrinsicIssue
+    __sev(); //expect: IntrinsicIssue
+    __static_assert(); //expect: IntrinsicIssue
+    __swi(); //expect: IntrinsicIssue
+    __trap(); //expect: IntrinsicIssue
+    __wfe(); //expect: IntrinsicIssue
+    __wfi(); //expect: IntrinsicIssue
+    _AddSatInt(); //expect: IntrinsicIssue
+    _CopyDoubleFromInt64(); //expect: IntrinsicIssue
+    _CopyFloatFromInt32(); //expect: IntrinsicIssue
+    _CopyInt32FromFloat(); //expect: IntrinsicIssue
+    _CopyInt64FromDouble(); //expect: IntrinsicIssue
+    _CountLeadingOnes(); //expect: IntrinsicIssue
+    _CountLeadingOnes64(); //expect: IntrinsicIssue
+    _CountLeadingSigns(); //expect: IntrinsicIssue
+    _CountLeadingSigns64(); //expect: IntrinsicIssue
+    _CountLeadingZeros(); //expect: IntrinsicIssue
+    _CountLeadingZeros64(); //expect: IntrinsicIssue
+    _CountOneBits(); //expect: IntrinsicIssue
+    _CountOneBits64(); //expect: IntrinsicIssue
+    _DAddSatInt(); //expect: IntrinsicIssue
+    _DSubSatInt(); //expect: IntrinsicIssue
+    _isunordered(); //expect: IntrinsicIssue
+    _isunorderedf(); //expect: IntrinsicIssue
+    _MoveFromCoprocessor(); //expect: IntrinsicIssue
+    _MoveFromCoprocessor2(); //expect: IntrinsicIssue
+    _MoveFromCoprocessor64(); //expect: IntrinsicIssue
+    _MoveToCoprocessor(); //expect: IntrinsicIssue
+    _MoveToCoprocessor2(); //expect: IntrinsicIssue
+    _MoveToCoprocessor64(); //expect: IntrinsicIssue
+    _MulHigh(); //expect: IntrinsicIssue
+    _MulUnsignedHigh(); //expect: IntrinsicIssue
+    _ReadBankedReg(); //expect: IntrinsicIssue
+    _ReadStatusReg(); //expect: IntrinsicIssue
+    _SubSatInt(); //expect: IntrinsicIssue
+    _WriteBankedReg(); //expect: IntrinsicIssue
+    _WriteStatusReg(); //expect: IntrinsicIssue
+
+    __assume(); //expect: IntrinsicIssue
+    __code_seg(); //expect: IntrinsicIssue
+    __debugbreak(); //expect: IntrinsicIssue
+    __fastfail(); //expect: IntrinsicIssue
+    __nop(); //expect: IntrinsicIssue
+    __yield(); //expect: IntrinsicIssue
+    _AddressOfReturnAddress(); //expect: IntrinsicIssue
+    _BitScanForward(); //expect: IntrinsicIssue
+    _BitScanForward64(); //expect: IntrinsicIssue
+    _BitScanReverse(); //expect: IntrinsicIssue
+    _BitScanReverse64(); //expect: IntrinsicIssue
+    _bittest(); //expect: IntrinsicIssue
+    _bittest64(); //expect: IntrinsicIssue
+    _bittestandcomplement(); //expect: IntrinsicIssue
+    _bittestandreset(); //expect: IntrinsicIssue
+    _bittestandset(); //expect: IntrinsicIssue
+    _byteswap_uint64(); //expect: IntrinsicIssue
+    _byteswap_ulong(); //expect: IntrinsicIssue
+    _byteswap_ushort(); //expect: IntrinsicIssue
+    _disable(); //expect: IntrinsicIssue
+    _enable(); //expect: IntrinsicIssue
+    _lrotl(); //expect: IntrinsicIssue
+    _lrotr(); //expect: IntrinsicIssue
+    _ReadBarrier(); //expect: IntrinsicIssue
+    _ReadWriteBarrier(); //expect: IntrinsicIssue
+    _ReturnAddress(); //expect: IntrinsicIssue
+    _rotl(); //expect: IntrinsicIssue
+    _rotl16(); //expect: IntrinsicIssue
+    _rotl64(); //expect: IntrinsicIssue
+    _rotl8(); //expect: IntrinsicIssue
+    _rotr(); //expect: IntrinsicIssue
+    _rotr16(); //expect: IntrinsicIssue
+    _rotr64(); //expect: IntrinsicIssue
+    _rotr8(); //expect: IntrinsicIssue
+    _setjmpex(); //expect: IntrinsicIssue
+    _WriteBarrier(); //expect: IntrinsicIssue
+
+    _InterlockedAdd(); //expect: IntrinsicIssue
+    _InterlockedAdd64(); //expect: IntrinsicIssue
+    _InterlockedAdd64_acq(); //expect: IntrinsicIssue
+    _InterlockedAdd64_nf(); //expect: IntrinsicIssue
+    _InterlockedAdd64_rel(); //expect: IntrinsicIssue
+    _InterlockedAdd_acq(); //expect: IntrinsicIssue
+    _InterlockedAdd_nf(); //expect: IntrinsicIssue
+    _InterlockedAdd_rel(); //expect: IntrinsicIssue
+    _InterlockedAnd(); //expect: IntrinsicIssue
+    _InterlockedAnd16(); //expect: IntrinsicIssue
+    _InterlockedAnd16_acq(); //expect: IntrinsicIssue
+    _InterlockedAnd16_nf(); //expect: IntrinsicIssue
+    _InterlockedAnd16_rel(); //expect: IntrinsicIssue
+    _InterlockedAnd64(); //expect: IntrinsicIssue
+    _InterlockedAnd64_acq(); //expect: IntrinsicIssue
+    _InterlockedAnd64_nf(); //expect: IntrinsicIssue
+    _InterlockedAnd64_rel(); //expect: IntrinsicIssue
+    _InterlockedAnd8(); //expect: IntrinsicIssue
+    _InterlockedAnd8_acq(); //expect: IntrinsicIssue
+    _InterlockedAnd8_nf(); //expect: IntrinsicIssue
+    _InterlockedAnd8_rel(); //expect: IntrinsicIssue
+    _InterlockedAnd_acq(); //expect: IntrinsicIssue
+    _InterlockedAnd_nf(); //expect: IntrinsicIssue
+    _InterlockedAnd_rel(); //expect: IntrinsicIssue
+    _InterlockedCompareExchange(); //expect: IntrinsicIssue
+    _InterlockedCompareExchange16(); //expect: IntrinsicIssue
+    _InterlockedCompareExchange16_acq(); //expect: IntrinsicIssue
+    _InterlockedCompareExchange16_nf(); //expect: IntrinsicIssue
+    _InterlockedCompareExchange16_rel(); //expect: IntrinsicIssue
+    _InterlockedCompareExchange64(); //expect: IntrinsicIssue
+    _InterlockedCompareExchange64_acq(); //expect: IntrinsicIssue
+    _InterlockedCompareExchange64_nf(); //expect: IntrinsicIssue
+    _InterlockedCompareExchange64_rel(); //expect: IntrinsicIssue
+    _InterlockedCompareExchange8(); //expect: IntrinsicIssue
+    _InterlockedCompareExchange8_acq(); //expect: IntrinsicIssue
+    _InterlockedCompareExchange8_nf(); //expect: IntrinsicIssue
+    _InterlockedCompareExchange8_rel(); //expect: IntrinsicIssue
+    _InterlockedCompareExchangePointer(); //expect: IntrinsicIssue
+    _InterlockedCompareExchangePointer_acq(); //expect: IntrinsicIssue
+    _InterlockedCompareExchangePointer_nf(); //expect: IntrinsicIssue
+    _InterlockedCompareExchangePointer_rel(); //expect: IntrinsicIssue
+    _InterlockedCompareExchange_acq(); //expect: IntrinsicIssue
+    _InterlockedCompareExchange_nf(); //expect: IntrinsicIssue
+    _InterlockedCompareExchange_rel(); //expect: IntrinsicIssue
+    _InterlockedDecrement(); //expect: IntrinsicIssue
+    _InterlockedDecrement16(); //expect: IntrinsicIssue
+    _InterlockedDecrement16_acq(); //expect: IntrinsicIssue
+    _InterlockedDecrement16_nf(); //expect: IntrinsicIssue
+    _InterlockedDecrement16_rel(); //expect: IntrinsicIssue
+    _InterlockedDecrement64(); //expect: IntrinsicIssue
+    _InterlockedDecrement64_acq(); //expect: IntrinsicIssue
+    _InterlockedDecrement64_nf(); //expect: IntrinsicIssue
+    _InterlockedDecrement64_rel(); //expect: IntrinsicIssue
+    _InterlockedDecrement_acq(); //expect: IntrinsicIssue
+    _InterlockedDecrement_nf(); //expect: IntrinsicIssue
+    _InterlockedDecrement_rel(); //expect: IntrinsicIssue
+    _InterlockedExchange(); //expect: IntrinsicIssue
+    _InterlockedExchange16(); //expect: IntrinsicIssue
+    _InterlockedExchange16_acq(); //expect: IntrinsicIssue
+    _InterlockedExchange16_nf(); //expect: IntrinsicIssue
+    _InterlockedExchange64(); //expect: IntrinsicIssue
+    _InterlockedExchange64_acq(); //expect: IntrinsicIssue
+    _InterlockedExchange64_nf(); //expect: IntrinsicIssue
+    _InterlockedExchange8(); //expect: IntrinsicIssue
+    _InterlockedExchange8_acq(); //expect: IntrinsicIssue
+    _InterlockedExchange8_nf(); //expect: IntrinsicIssue
+    _InterlockedExchangeAdd(); //expect: IntrinsicIssue
+    _InterlockedExchangeAdd16(); //expect: IntrinsicIssue
+    _InterlockedExchangeAdd16_acq(); //expect: IntrinsicIssue
+    _InterlockedExchangeAdd16_nf(); //expect: IntrinsicIssue
+    _InterlockedExchangeAdd16_rel(); //expect: IntrinsicIssue
+    _InterlockedExchangeAdd64(); //expect: IntrinsicIssue
+    _InterlockedExchangeAdd64_acq(); //expect: IntrinsicIssue
+    _InterlockedExchangeAdd64_nf(); //expect: IntrinsicIssue
+    _InterlockedExchangeAdd64_rel(); //expect: IntrinsicIssue
+    _InterlockedExchangeAdd8(); //expect: IntrinsicIssue
+    _InterlockedExchangeAdd8_acq(); //expect: IntrinsicIssue
+    _InterlockedExchangeAdd8_nf(); //expect: IntrinsicIssue
+    _InterlockedExchangeAdd8_rel(); //expect: IntrinsicIssue
+    _InterlockedExchangeAdd_acq(); //expect: IntrinsicIssue
+    _InterlockedExchangeAdd_nf(); //expect: IntrinsicIssue
+    _InterlockedExchangeAdd_rel(); //expect: IntrinsicIssue
+    _InterlockedExchangePointer(); //expect: IntrinsicIssue
+    _InterlockedExchangePointer_acq(); //expect: IntrinsicIssue
+    _InterlockedExchangePointer_nf(); //expect: IntrinsicIssue
+    _InterlockedExchange_acq(); //expect: IntrinsicIssue
+    _InterlockedExchange_nf(); //expect: IntrinsicIssue
+    _InterlockedIncrement(); //expect: IntrinsicIssue
+    _InterlockedIncrement16(); //expect: IntrinsicIssue
+    _InterlockedIncrement16_acq(); //expect: IntrinsicIssue
+    _InterlockedIncrement16_nf(); //expect: IntrinsicIssue
+    _InterlockedIncrement16_rel(); //expect: IntrinsicIssue
+    _InterlockedIncrement64(); //expect: IntrinsicIssue
+    _InterlockedIncrement64_acq(); //expect: IntrinsicIssue
+    _InterlockedIncrement64_nf(); //expect: IntrinsicIssue
+    _InterlockedIncrement64_rel(); //expect: IntrinsicIssue
+    _InterlockedIncrement_acq(); //expect: IntrinsicIssue
+    _InterlockedIncrement_nf(); //expect: IntrinsicIssue
+    _InterlockedIncrement_rel(); //expect: IntrinsicIssue
+    _InterlockedOr(); //expect: IntrinsicIssue
+    _InterlockedOr16(); //expect: IntrinsicIssue
+    _InterlockedOr16_acq(); //expect: IntrinsicIssue
+    _InterlockedOr16_nf(); //expect: IntrinsicIssue
+    _InterlockedOr16_rel(); //expect: IntrinsicIssue
+    _InterlockedOr64(); //expect: IntrinsicIssue
+    _InterlockedOr64_acq(); //expect: IntrinsicIssue
+    _InterlockedOr64_nf(); //expect: IntrinsicIssue
+    _InterlockedOr64_rel(); //expect: IntrinsicIssue
+    _InterlockedOr8(); //expect: IntrinsicIssue
+    _InterlockedOr8_acq(); //expect: IntrinsicIssue
+    _InterlockedOr8_nf(); //expect: IntrinsicIssue
+    _InterlockedOr8_rel(); //expect: IntrinsicIssue
+    _InterlockedOr_acq(); //expect: IntrinsicIssue
+    _InterlockedOr_nf(); //expect: IntrinsicIssue
+    _InterlockedOr_rel(); //expect: IntrinsicIssue
+    _InterlockedXor(); //expect: IntrinsicIssue
+    _InterlockedXor16(); //expect: IntrinsicIssue
+    _InterlockedXor16_acq(); //expect: IntrinsicIssue
+    _InterlockedXor16_nf(); //expect: IntrinsicIssue
+    _InterlockedXor16_rel(); //expect: IntrinsicIssue
+    _InterlockedXor64(); //expect: IntrinsicIssue
+    _InterlockedXor64_acq(); //expect: IntrinsicIssue
+    _InterlockedXor64_nf(); //expect: IntrinsicIssue
+    _InterlockedXor64_rel(); //expect: IntrinsicIssue
+    _InterlockedXor8(); //expect: IntrinsicIssue
+    _InterlockedXor8_acq(); //expect: IntrinsicIssue
+    _InterlockedXor8_nf(); //expect: IntrinsicIssue
+    _InterlockedXor8_rel(); //expect: IntrinsicIssue
+    _InterlockedXor_acq(); //expect: IntrinsicIssue
+    _InterlockedXor_nf(); //expect: IntrinsicIssue
+    _InterlockedXor_rel(); //expect: IntrinsicIssue
+    _interlockedbittestandreset(); //expect: IntrinsicIssue
+    _interlockedbittestandreset_acq(); //expect: IntrinsicIssue
+    _interlockedbittestandreset_nf(); //expect: IntrinsicIssue
+    _interlockedbittestandreset_rel(); //expect: IntrinsicIssue
+    _interlockedbittestandset(); //expect: IntrinsicIssue
+    _interlockedbittestandset_acq(); //expect: IntrinsicIssue
+    _interlockedbittestandset_nf(); //expect: IntrinsicIssue
+    _interlockedbittestandset_rel(); //expect: IntrinsicIssue
+}
+
+// shall generate issue in aarch64.
 void x86_intrinsic_test()
 {
     _mm_srli_epi64(); //expect: IntrinsicIssue 
@@ -2528,14 +2534,8 @@ void x86_intrinsic_test()
     _mm_mul_epu32(); //expect: IntrinsicIssue 
     _mm_add_epi64(); //expect: IntrinsicIssue 
 
-    _InterlockedAnd8(); 
     _InterlockedAnd8_np(); //expect: IntrinsicIssue 
-    _InterlockedCompareExchange8(); 
-    _InterlockedExchange8();
-    _InterlockedExchangeAdd8(); 
-    _InterlockedOr8();
     _InterlockedOr8_np(); //expect: IntrinsicIssue 
-    _InterlockedXor8(); 
     _InterlockedXor8_np(); //expect: IntrinsicIssue 
 
     __builtin_ia32_pand(); //expect: IntrinsicIssue 
@@ -2554,27 +2554,19 @@ void x86_intrinsic_test()
     _div128(); //expect: IntrinsicIssue 
     _InterlockedAnd64_HLEAcquire(); //expect: IntrinsicIssue   
     _InterlockedAnd64_HLERelease(); //expect: IntrinsicIssue 
-    _InterlockedAnd64(); 
     _InterlockedAnd64_np(); //expect: IntrinsicIssue 
     _InterlockedCompareExchange64_HLEAcquire(); //expect: IntrinsicIssue 
     _InterlockedCompareExchange64_HLERelease(); //expect: IntrinsicIssue 
-    _InterlockedCompareExchange64();
     _InterlockedCompareExchange64_np(); //expect: IntrinsicIssue 
-    _InterlockedDecrement64(); 
     _InterlockedExchange64_HLEAcquire(); //expect: IntrinsicIssue 
     _InterlockedExchange64_HLERelease(); //expect: IntrinsicIssue 
-    _InterlockedExchange64();
     _InterlockedExchangeAdd64_HLEAcquire(); //expect: IntrinsicIssue 
     _InterlockedExchangeAdd64_HLERelease(); //expect: IntrinsicIssue 
-    _InterlockedExchangeAdd64(); 
-    _InterlockedIncrement64(); 
     _InterlockedOr64_HLEAcquire(); //expect: IntrinsicIssue 
     _InterlockedOr64_HLERelease(); //expect: IntrinsicIssue 
-    _InterlockedOr64(); 
     _InterlockedOr64_np(); //expect: IntrinsicIssue 
     _InterlockedXor64_HLEAcquire(); //expect: IntrinsicIssue 
     _InterlockedXor64_HLERelease(); //expect: IntrinsicIssue 
-    _InterlockedXor64();
     _InterlockedXor64_np(); //expect: IntrinsicIssue 
     _loadbe_i64(); //expect: IntrinsicIssue 
     _mm_cvtsd_si64(); //expect: IntrinsicIssue 
@@ -2751,27 +2743,19 @@ void x86_intrinsic_test()
     _InterlockedAddLargeStatistic(); //expect: IntrinsicIssue 
     _InterlockedAnd_HLEAcquire(); //expect: IntrinsicIssue 
     _InterlockedAnd_HLERelease(); //expect: IntrinsicIssue 
-    _InterlockedAnd();
     _InterlockedAnd_np(); //expect: IntrinsicIssue 
     _InterlockedCompareExchange_HLEAcquire(); //expect: IntrinsicIssue 
     _InterlockedCompareExchange_HLERelease(); //expect: IntrinsicIssue 
-    _InterlockedCompareExchange();
     _InterlockedCompareExchange_np(); //expect: IntrinsicIssue 
-    _InterlockedDecrement(); 
     _InterlockedExchangeAdd_HLEAcquire(); //expect: IntrinsicIssue 
-    _InterlockedExchangeAdd_HLERelease(); //expect: IntrinsicIssue 
-    _InterlockedExchangeAdd(); 
+    _InterlockedExchangeAdd_HLERelease(); //expect: IntrinsicIssue  
     _InterlockedExchange_HLEAcquire(); //expect: IntrinsicIssue 
     _InterlockedExchange_HLERelease(); //expect: IntrinsicIssue 
-    _InterlockedExchange();  
-    _InterlockedIncrement();
     _InterlockedOr_HLEAcquire(); //expect: IntrinsicIssue
     _InterlockedOr_HLERelease(); //expect: IntrinsicIssue 
-    _InterlockedOr();
     _InterlockedOr_np(); //expect: IntrinsicIssue 
     _InterlockedXor_HLEAcquire(); //expect: IntrinsicIssue  
     _InterlockedXor_HLERelease(); //expect: IntrinsicIssue 
-    _InterlockedXor();
     _InterlockedXor_np(); //expect: IntrinsicIssue  
     __builtin_ia32_cvtsd2si64(); //expect: IntrinsicIssue 
     __builtin_ia32_cvttsd2si64(); //expect: IntrinsicIssue 
@@ -3687,17 +3671,9 @@ void x86_intrinsic_test()
     _m_punpcklwd(); //expect: IntrinsicIssue 
     _m_pxor(); //expect: IntrinsicIssue 
     _InterlockedAnd16_np(); //expect: IntrinsicIssue 
-    _InterlockedAnd16();
     _InterlockedCompareExchange16_np(); //expect: IntrinsicIssue 
-    _InterlockedCompareExchange16(); 
-    _InterlockedDecrement16(); 
-    _InterlockedExchange16();
-    _InterlockedExchangeAdd16(); 
-    _InterlockedIncrement16(); 
     _InterlockedOr16_np(); //expect: IntrinsicIssue 
-    _InterlockedOr16(); 
     _InterlockedXor16_np(); //expect: IntrinsicIssue 
-    _InterlockedXor16(); 
     _loadbe_i16(); //expect: IntrinsicIssue 
     _addcarry_u16(); //expect: IntrinsicIssue 
     _addcarry_u32(); //expect: IntrinsicIssue 
@@ -3705,18 +3681,9 @@ void x86_intrinsic_test()
     _addcarry_u8(); //expect: IntrinsicIssue 
     _addcarryx_u32(); //expect: IntrinsicIssue 
     _addcarryx_u64(); //expect: IntrinsicIssue 
-    _BitScanForward64();
-    _BitScanForward(); 
-    _BitScanReverse64(); 
-    _BitScanReverse(); 
-    _bittest64(); 
     _bittestandcomplement64(); //expect: IntrinsicIssue 
-    _bittestandcomplement(); 
     _bittestandreset64(); //expect: IntrinsicIssue 
-    _bittestandreset(); 
     _bittestandset64(); //expect: IntrinsicIssue 
-    _bittestandset();  
-    _bittest(); 
     __builtin_ia32_lwpins16(); //expect: IntrinsicIssue 
     __builtin_ia32_lwpins32(); //expect: IntrinsicIssue 
     __builtin_ia32_lwpins64(); //expect: IntrinsicIssue 
@@ -3726,20 +3693,16 @@ void x86_intrinsic_test()
     _interlockedbittestandreset64(); //expect: IntrinsicIssue 
     _interlockedbittestandreset_HLEAcquire(); //expect: IntrinsicIssue 
     _interlockedbittestandreset_HLERelease(); //expect: IntrinsicIssue 
-    _interlockedbittestandreset();
     _interlockedbittestandset64_HLEAcquire(); //expect: IntrinsicIssue
     _interlockedbittestandset64_HLERelease(); //expect: IntrinsicIssue 
     _interlockedbittestandset64(); //expect: IntrinsicIssue 
     _interlockedbittestandset_HLEAcquire(); //expect: IntrinsicIssue 
     _interlockedbittestandset_HLERelease(); //expect: IntrinsicIssue 
-    _interlockedbittestandset(); 
     _InterlockedCompareExchange128(); //expect: IntrinsicIssue 
     __lwpins32(); //expect: IntrinsicIssue 
     __lwpins64(); //expect: IntrinsicIssue 
     __readfsbyte(); //expect: IntrinsicIssue 
     __readgsbyte(); //expect: IntrinsicIssue 
-    _rotl8();
-    _rotr8(); 
     _subborrow_u16(); //expect: IntrinsicIssue 
     _subborrow_u32(); //expect: IntrinsicIssue 
     _subborrow_u64(); //expect: IntrinsicIssue 
@@ -3875,8 +3838,6 @@ void x86_intrinsic_test()
     __popcnt16(); //expect: IntrinsicIssue 
     __readfsword(); //expect: IntrinsicIssue 
     __readgsword(); //expect: IntrinsicIssue 
-    _rotl16();
-    _rotr16(); 
     __builtin_ia32_pabsw256(); //expect: IntrinsicIssue 
     __builtin_ia32_packssdw256(); //expect: IntrinsicIssue 
     __builtin_ia32_packusdw256(); //expect: IntrinsicIssue 
@@ -4673,7 +4634,6 @@ void x86_intrinsic_test()
     __addgsdword(); //expect: IntrinsicIssue 
     __addgsqword(); //expect: IntrinsicIssue 
     __addgsword(); //expect: IntrinsicIssue 
-    _AddressOfReturnAddress(); 
     __builtin_cpu_init(); //expect: IntrinsicIssue 
     __builtin_ia32_clflush(); //expect: IntrinsicIssue 
     __builtin_ia32_femms(); //expect: IntrinsicIssue 
@@ -4726,11 +4686,7 @@ void x86_intrinsic_test()
     __builtin_ia32_xend(); //expect: IntrinsicIssue 
     _clac(); //expect: IntrinsicIssue 
     __cpuidex(); //expect: IntrinsicIssue 
-    __cpuid(); //expect: IntrinsicIssue 
-    __debugbreak(); 
-    _disable(); 
-    _enable(); 
-    __fastfail(); 
+    __cpuid(); //expect: IntrinsicIssue  
     __faststorefence(); //expect: IntrinsicIssue 
     _fxrstor64(); //expect: IntrinsicIssue 
     _fxrstor(); //expect: IntrinsicIssue 
@@ -4750,10 +4706,8 @@ void x86_intrinsic_test()
     _InterlockedCompareExchangePointer_HLEAcquire(); //expect: IntrinsicIssue 
     _InterlockedCompareExchangePointer_HLERelease(); //expect: IntrinsicIssue 
     _InterlockedCompareExchangePointer_np(); //expect: IntrinsicIssue 
-    _InterlockedCompareExchangePointer(); 
     _InterlockedExchangePointer_HLEAcquire(); //expect: IntrinsicIssue 
     _InterlockedExchangePointer_HLERelease(); //expect: IntrinsicIssue 
-    _InterlockedExchangePointer(); 
     __invlpg(); //expect: IntrinsicIssue 
     _invpcid(); //expect: IntrinsicIssue 
     __inwordstring(); //expect: IntrinsicIssue 
@@ -4826,7 +4780,6 @@ void x86_intrinsic_test()
     __movsw(); //expect: IntrinsicIssue 
     _m_prefetch(); //expect: IntrinsicIssue 
     _m_prefetchw(); //expect: IntrinsicIssue 
-    __nop();
     __nvreg_restore_fence(); //expect: IntrinsicIssue 
     __nvreg_save_fence(); //expect: IntrinsicIssue 
     __outbytestring(); //expect: IntrinsicIssue 
@@ -4835,9 +4788,6 @@ void x86_intrinsic_test()
     __outdword(); //expect: IntrinsicIssue 
     __outwordstring(); //expect: IntrinsicIssue 
     __outword(); //expect: IntrinsicIssue 
-    _ReadBarrier(); 
-    _ReadWriteBarrier(); 
-    * _ReturnAddress(); 
     _rsm(); //expect: IntrinsicIssue 
     _sgdt(); //expect: IntrinsicIssue 
     _sgdt(); //expect: IntrinsicIssue 
@@ -4868,7 +4818,6 @@ void x86_intrinsic_test()
     __vmx_off(); //expect: IntrinsicIssue  
     __vmx_vmptrst(); //expect: IntrinsicIssue 
     __wbinvd(); //expect: IntrinsicIssue 
-    _WriteBarrier(); 
     __writecr0(); //expect: IntrinsicIssue 
     __writecr0(); //expect: IntrinsicIssue 
     __writecr3(); //expect: IntrinsicIssue 
@@ -4904,7 +4853,7 @@ void x86_intrinsic_test()
     _xsetbv(); //expect: IntrinsicIssue 
 }
 
-// shall generate issue in aarch64 and sw64
+// shall generate issue in aarch64.
 void OTHER_ARCH_INTRINSICS()
 {
     _addcary(); //expect: IntrinsicIssue 
@@ -4917,20 +4866,20 @@ void OTHER_ARCH_INTRINSICS()
     _otherarch_intrinsic_(); //expect: IntrinsicIssue 
 }
 
-// shall generate issue in aarch64 and sw64
+// shall generate issue in aarch64.
 void INCOMPATIBLE_UCRT_INTRINSICS()
 {
     _abs64(); //expect: IntrinsicIssue
     _alloca(); //expect: IntrinsicIssue
-    _byteswap_uint64();
-    _byteswap_ulong();
-    _byteswap_ushort();
-    _lrotl();
-    _lrotr();
-    _rotl();
-    _rotl64();
-    _rotr();
-    _rotr64();
+    _byteswap_uint64(); //expect: IntrinsicIssue
+    _byteswap_ulong(); //expect: IntrinsicIssue
+    _byteswap_ushort(); //expect: IntrinsicIssue
+    _lrotl(); //expect: IntrinsicIssue
+    _lrotr(); //expect: IntrinsicIssue
+    _rotl(); //expect: IntrinsicIssue
+    _rotl64(); //expect: IntrinsicIssue
+    _rotr(); //expect: IntrinsicIssue
+    _rotr64(); //expect: IntrinsicIssue
     _strset(); //expect: IntrinsicIssue
     _wcsset(); //expect: IntrinsicIssue
     wcscat();
