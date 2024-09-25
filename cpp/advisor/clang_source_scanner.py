@@ -26,8 +26,9 @@ from common.find_port import find_matching_line_num
 from common.issue import Issue
 from .naive_comment_parser import NaiveCommentParser
 from common.report_factory import ReportOutputFormat
-from .checkpoints import AARCH64_INCOMPATIBLE_INTRINSICS, AARCH64_INLINE_ASSEMBLY_CHECKPOINTS, CPP_STD_CODES, \
-    INCOMPATIBLE_HEADER_FILE, N2_CLANG_INCOMPATIBLE_INTRINSICS, N2_GCC_INCOMPATIBLE_INTRINSICS, X86_PRAGMA
+from .checkpoints import ARM_INCOMPATIBLE_INTRINSICS, AARCH64_INLINE_ASSEMBLY_CHECKPOINTS, CPP_STD_CODES, \
+    INCOMPATIBLE_HEADER_FILE, N2_CLANG_INCOMPATIBLE_INTRINSICS, N2_GCC_INCOMPATIBLE_INTRINSICS, X86_PRAGMA, \
+    AARCH64_GCC_INCOMPATIBLE_INTRINSICS, AARCH64_CLANG_INCOMPATIBLE_INTRINSICS
 from .cpp_scanner import CppScanner
 from .cpp_std_issue import CPPStdCodesIssue
 from .incompatible_header_file_issue import IncompatibleHeaderFileIssue
@@ -63,9 +64,13 @@ class ClangSourceScanner(CppScanner):
         self.with_highlights = bool(
             output_format == ReportOutputFormat.HTML or self.output_format == ReportOutputFormat.JSON)
 
-        if self.arch == N2_MARCH:
+        if self.arch == N2_MARCH or self.arch == AARCH64_ARCH:
+            if self.arch == N2_MARCH:
+                json_file = 'macros_n2.json'
+            else:
+                json_file= 'macros_aarch64.json'
             cur_dir = os.path.dirname(__file__)
-            re_path = os.path.join('..', 'db', 'macros_n2.json')
+            re_path = os.path.join('..', 'db', json_file)
             path = os.path.join(cur_dir, re_path)
             with open(path) as file:
                 macros = json.load(file)
@@ -96,7 +101,7 @@ class ClangSourceScanner(CppScanner):
         function_parser = NaiveFunctionParser()
 
         # migration to N2 need to pass the additional information
-        if self.arch == N2_MARCH:
+        if self.arch == N2_MARCH or self.arch == AARCH64_ARCH:
             naive_cpp = NaiveCpp(arch=self.arch, march=self.march, macros=self.macros,
                                  warning_level=self.warning_level)
         else:
@@ -110,8 +115,13 @@ class ClangSourceScanner(CppScanner):
                     ARCH_INCOMPATIBLE_INTRINSICS = N2_GCC_INCOMPATIBLE_INTRINSICS
                 else:
                     ARCH_INCOMPATIBLE_INTRINSICS = N2_CLANG_INCOMPATIBLE_INTRINSICS
+            elif self.arch == AARCH64_ARCH:
+                if self.compiler == 'gcc':
+                    ARCH_INCOMPATIBLE_INTRINSICS = AARCH64_GCC_INCOMPATIBLE_INTRINSICS
+                else:
+                    ARCH_INCOMPATIBLE_INTRINSICS = AARCH64_CLANG_INCOMPATIBLE_INTRINSICS
             else:
-                ARCH_INCOMPATIBLE_INTRINSICS = AARCH64_INCOMPATIBLE_INTRINSICS
+                ARCH_INCOMPATIBLE_INTRINSICS = ARM_INCOMPATIBLE_INTRINSICS
             ASSEMBLY_CHECKPOINTS = AARCH64_INLINE_ASSEMBLY_CHECKPOINTS
             PRAGMA_CHECKPOINTS = X86_PRAGMA
 
@@ -254,9 +264,7 @@ class ClangSourceScanner(CppScanner):
 
         #  intrinsics check
         for c in ARCH_INCOMPATIBLE_INTRINSICS:
-
             match = c.pattern_compiled.search(line)
-
             if match and not naive_cpp.in_other_arch_specific_code():
                 issues.append(IntrinsicIssue(filename,
                                              lineno=find_matching_line_num(lines, lineno, c.pattern),

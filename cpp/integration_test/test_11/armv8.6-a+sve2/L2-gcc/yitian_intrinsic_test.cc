@@ -155,8 +155,1897 @@ void N2_gcc_intrinsic_test()
     __builtin_aarch64_set_fpsr64();
 }
 
+void N2_intrinsic_test()
+{
+    // neon intrinsics.
+    vadd_u32();
+    vadd_u16(); 
+    vadd_u8(); 
+    vadd_s32(); 
+    vadd_s16(); 
+    vadd_s8(); 
+    vadd_f32(); 
+    vadd_u64(); 
+    vadd_s64(); 
+    vaddq_u32(); 
+    vaddq_u16(); 
+    vaddq_u8(); 
+    vaddq_s32(); 
+    vaddq_s16(); 
+    vaddq_s8(); 
+    vaddq_u64(); 
+    vaddq_s64(); 
+    vaddq_f32(); 
+    vaddl_u32(); 
+    vaddl_u16(); 
+    vaddl_u8(); 
+    vaddl_s32(); 
+    vaddl_s16(); 
+    vaddl_s8(); 
+    vaddw_u32(); 
+    vaddw_u16(); 
+    vaddw_u8(); 
+    vaddw_s32(); 
+    vaddw_s16(); 
+    vaddw_s8(); 
+    vhadd_u32(); 
+    vhadd_u16(); 
+    vhadd_u8(); 
+    vhadd_s32(); 
+    vhadd_s16(); 
+    vhadd_s8(); 
+    vhaddq_u32(); 
+    vhaddq_u16(); 
+    vhaddq_u8(); 
+    vhaddq_s32(); 
+    vhaddq_s16(); 
+    vhaddq_s8(); 
+    vrhadd_u32(); 
+    vrhadd_u16(); 
+    vrhadd_u8(); 
+    vrhadd_s32(); 
+    vrhadd_s16(); 
+    vrhadd_s8(); 
+    vrhaddq_u32(); 
+    vrhaddq_u16(); 
+    vrhaddq_u8(); 
+    vrhaddq_s32(); 
+    vrhaddq_s16(); 
+    vrhaddq_s8(); 
+    vqadd_u32(); 
+    vqadd_u16(); 
+    vqadd_u8(); 
+    vqadd_s32(); 
+    vqadd_s16(); 
+    vqadd_s8(); 
+    vqadd_u64(); 
+    vqadd_s64(); 
+    vqaddq_u32(); 
+    vqaddq_u16(); 
+    vqaddq_u8(); 
+    vqaddq_s32(); 
+    vqaddq_s16(); 
+    vqaddq_s8(); 
+    vqaddq_u64(); 
+    vqaddq_s64(); 
+    vaddhn_u64(); 
+    vaddhn_u32(); 
+    vaddhn_u16(); 
+    vaddhn_s64(); 
+    vaddhn_s32(); 
+    vaddhn_s16(); 
+    vraddhn_u64(); 
+    vraddhn_u32(); 
+    vraddhn_u16(); 
+    vraddhn_s64(); 
+    vraddhn_s32(); 
+    vraddhn_s16(); 
+    vmul_u32(); 
+    vmul_u16(); 
+    vmul_u8(); 
+    vmul_s32(); 
+    vmul_s16(); 
+    vmul_s8(); 
+    vmul_f32(); 
+    vmul_p8(); 
+    vmulq_u32(); 
+    vmulq_u16(); 
+    vmulq_u8(); 
+    vmulq_s32(); 
+    vmulq_s16(); 
+    vmulq_s8(); 
+    vmulq_f32(); 
+    vmulq_p8(); 
+    vqdmulh_s32(); 
+    vqdmulh_s16(); 
+    vqdmulhq_s32(); 
+    vqdmulhq_s16(); 
+    vqrdmulh_s32(); 
+    vqrdmulh_s16(); 
+    vqrdmulhq_s32(); 
+    vqrdmulhq_s16(); 
+    vmull_u32(); 
+    vmull_u16(); 
+    vmull_u8(); 
+    vmull_s32(); 
+    vmull_s16(); 
+    vmull_s8(); 
+    vmull_p8(); 
+    vqdmull_s32(); 
+    vqdmull_s16(); 
+    vmla_u32(); 
+    vmla_u16(); 
+    vmla_u8(); 
+    vmla_s32(); 
+    vmla_s16(); 
+    vmla_s8(); 
+    vmla_f32(); 
+    vmlaq_u32(); 
+    vmlaq_u16(); 
+    vmlaq_u8(); 
+    vmlaq_s32(); 
+    vmlaq_s16(); 
+    vmlaq_s8(); 
+    vmlaq_f32(); 
+    vmlal_u32(); 
+    vmlal_u16(); 
+    vmlal_u8(); 
+    vmlal_s32(); 
+    vmlal_s16(); 
+    vmlal_s8(); 
+    vqdmlal_s32(); 
+    vqdmlal_s16(); 
+    vmls_u32(); 
+    vmls_u16(); 
+    vmls_u8(); 
+    vmls_s32(); 
+    vmls_s16(); 
+    vmls_s8(); 
+    vmls_f32(); 
+    vmlsq_u32(); 
+    vmlsq_u16(); 
+    vmlsq_u8(); 
+    vmlsq_s32(); 
+    vmlsq_s16(); 
+    vmlsq_s8(); 
+    vmlsq_f32(); 
+    vmlsl_u32(); 
+    vmlsl_u16(); 
+    vmlsl_u8(); 
+    vmlsl_s32(); 
+    vmlsl_s16(); 
+    vmlsl_s8(); 
+    vqdmlsl_s32(); 
+    vqdmlsl_s16(); 
+    vfma_f32(); 
+    vfmaq_f32(); 
+    vfms_f32(); 
+    vfmsq_f32(); 
+    vrndn_f32(); 
+    vrndqn_f32(); 
+    vrnda_f32(); 
+    vrndqa_f32(); 
+    vrndp_f32(); 
+    vrndqp_f32(); 
+    vrndm_f32(); 
+    vrndqm_f32(); 
+    vrnd_f32(); 
+    vrndq_f32(); 
+    vsub_u32(); 
+    vsub_u16(); 
+    vsub_u8(); 
+    vsub_s32(); 
+    vsub_s16(); 
+    vsub_s8(); 
+    vsub_f32(); 
+    vsub_u64(); 
+    vsub_s64(); 
+    vsubq_u32(); 
+    vsubq_u16(); 
+    vsubq_u8(); 
+    vsubq_s32(); 
+    vsubq_s16(); 
+    vsubq_s8(); 
+    vsubq_u64(); 
+    vsubq_s64(); 
+    vsubq_f32(); 
+    vsubl_u32(); 
+    vsubl_u16(); 
+    vsubl_u8(); 
+    vsubl_s32(); 
+    vsubl_s16(); 
+    vsubl_s8(); 
+    vsubw_u32(); 
+    vsubw_u16(); 
+    vsubw_u8(); 
+    vsubw_s32(); 
+    vsubw_s16(); 
+    vsubw_s8(); 
+    vhsub_u32(); 
+    vhsub_u16(); 
+    vhsub_u8(); 
+    vhsub_s32(); 
+    vhsub_s16(); 
+    vhsub_s8(); 
+    vhsubq_u32(); 
+    vhsubq_u16(); 
+    vhsubq_u8(); 
+    vhsubq_s32(); 
+    vhsubq_s16(); 
+    vhsubq_s8(); 
+    vqsub_u32(); 
+    vqsub_u16(); 
+    vqsub_u8(); 
+    vqsub_s32(); 
+    vqsub_s16(); 
+    vqsub_s8(); 
+    vqsub_u64(); 
+    vqsub_s64(); 
+    vqsubq_u32(); 
+    vqsubq_u16(); 
+    vqsubq_u8(); 
+    vqsubq_s32(); 
+    vqsubq_s16(); 
+    vqsubq_s8(); 
+    vqsubq_u64(); 
+    vqsubq_s64(); 
+    vsubhn_u64(); 
+    vsubhn_u32(); 
+    vsubhn_u16(); 
+    vsubhn_s64(); 
+    vsubhn_s32(); 
+    vsubhn_s16(); 
+    vrsubhn_u64(); 
+    vrsubhn_u32(); 
+    vrsubhn_u16(); 
+    vrsubhn_s64(); 
+    vrsubhn_s32(); 
+    vrsubhn_s16(); 
+    vceq_u32(); 
+    vceq_u16(); 
+    vceq_u8(); 
+    vceq_s32(); 
+    vceq_s16(); 
+    vceq_s8(); 
+    vceq_f32(); 
+    vceq_p8(); 
+    vceqq_u32(); 
+    vceqq_u16(); 
+    vceqq_u8(); 
+    vceqq_s32(); 
+    vceqq_s16(); 
+    vceqq_s8(); 
+    vceqq_f32(); 
+    vceqq_p8(); 
+    vcge_s32(); 
+    vcge_s16(); 
+    vcge_s8(); 
+    vcge_f32(); 
+    vcge_u32(); 
+    vcge_u16(); 
+    vcge_u8(); 
+    vcgeq_s32(); 
+    vcgeq_s16(); 
+    vcgeq_s8(); 
+    vcgeq_f32(); 
+    vcgeq_u32(); 
+    vcgeq_u16(); 
+    vcgeq_u8(); 
+    vcle_s32(); 
+    vcle_s16(); 
+    vcle_s8(); 
+    vcle_f32(); 
+    vcle_u32(); 
+    vcle_u16(); 
+    vcle_u8(); 
+    vcleq_s32(); 
+    vcleq_s16(); 
+    vcleq_s8(); 
+    vcleq_f32(); 
+    vcleq_u32(); 
+    vcleq_u16(); 
+    vcleq_u8(); 
+    vcgt_s32(); 
+    vcgt_s16(); 
+    vcgt_s8(); 
+    vcgt_f32(); 
+    vcgt_u32(); 
+    vcgt_u16(); 
+    vcgt_u8(); 
+    vcgtq_s32(); 
+    vcgtq_s16(); 
+    vcgtq_s8(); 
+    vcgtq_f32(); 
+    vcgtq_u32(); 
+    vcgtq_u16(); 
+    vcgtq_u8(); 
+    vclt_s32(); 
+    vclt_s16(); 
+    vclt_s8(); 
+    vclt_f32(); 
+    vclt_u32(); 
+    vclt_u16(); 
+    vclt_u8(); 
+    vcltq_s32(); 
+    vcltq_s16(); 
+    vcltq_s8(); 
+    vcltq_f32(); 
+    vcltq_u32(); 
+    vcltq_u16(); 
+    vcltq_u8(); 
+    vcage_f32(); 
+    vcageq_f32(); 
+    vcale_f32(); 
+    vcaleq_f32(); 
+    vcagt_f32(); 
+    vcagtq_f32(); 
+    vcalt_f32(); 
+    vcaltq_f32(); 
+    vtst_u32(); 
+    vtst_u16(); 
+    vtst_u8(); 
+    vtst_s32(); 
+    vtst_s16(); 
+    vtst_s8(); 
+    vtst_p8(); 
+    vtstq_u32(); 
+    vtstq_u16(); 
+    vtstq_u8(); 
+    vtstq_s32(); 
+    vtstq_s16(); 
+    vtstq_s8(); 
+    vtstq_p8(); 
+    vabd_u32(); 
+    vabd_u16(); 
+    vabd_u8(); 
+    vabd_s32(); 
+    vabd_s16(); 
+    vabd_s8(); 
+    vabd_f32(); 
+    vabdq_u32(); 
+    vabdq_u16(); 
+    vabdq_u8(); 
+    vabdq_s32(); 
+    vabdq_s16(); 
+    vabdq_s8(); 
+    vabdq_f32(); 
+    vabdl_u32(); 
+    vabdl_u16(); 
+    vabdl_u8(); 
+    vabdl_s32(); 
+    vabdl_s16(); 
+    vabdl_s8(); 
+    vaba_u32(); 
+    vaba_u16(); 
+    vaba_u8(); 
+    vaba_s32(); 
+    vaba_s16(); 
+    vaba_s8(); 
+    vabaq_u32(); 
+    vabaq_u16(); 
+    vabaq_u8(); 
+    vabaq_s32(); 
+    vabaq_s16(); 
+    vabaq_s8(); 
+    vabal_u32(); 
+    vabal_u16(); 
+    vabal_u8(); 
+    vabal_s32(); 
+    vabal_s16(); 
+    vabal_s8(); 
+    vmax_u32(); 
+    vmax_u16(); 
+    vmax_u8(); 
+    vmax_s32(); 
+    vmax_s16(); 
+    vmax_s8(); 
+    vmax_f32(); 
+    vmaxq_u32(); 
+    vmaxq_u16(); 
+    vmaxq_u8(); 
+    vmaxq_s32(); 
+    vmaxq_s16(); 
+    vmaxq_s8(); 
+    vmaxq_f32(); 
+    vmin_u32(); 
+    vmin_u16(); 
+    vmin_u8(); 
+    vmin_s32(); 
+    vmin_s16(); 
+    vmin_s8(); 
+    vmin_f32(); 
+    vminq_u32(); 
+    vminq_u16(); 
+    vminq_u8(); 
+    vminq_s32(); 
+    vminq_s16(); 
+    vminq_s8(); 
+    vminq_f32(); 
+    vpadd_u32(); 
+    vpadd_u16(); 
+    vpadd_u8(); 
+    vpadd_s32(); 
+    vpadd_s16(); 
+    vpadd_s8(); 
+    vpadd_f32(); 
+    vpaddl_u32(); 
+    vpaddl_u16(); 
+    vpaddl_u8(); 
+    vpaddl_s32(); 
+    vpaddl_s16(); 
+    vpaddl_s8(); 
+    vpaddlq_u32(); 
+    vpaddlq_u16(); 
+    vpaddlq_u8(); 
+    vpaddlq_s32(); 
+    vpaddlq_s16(); 
+    vpaddlq_s8(); 
+    vpadal_u32(); 
+    vpadal_u16(); 
+    vpadal_u8(); 
+    vpadal_s32(); 
+    vpadal_s16(); 
+    vpadal_s8(); 
+    vpadalq_u32(); 
+    vpadalq_u16(); 
+    vpadalq_u8(); 
+    vpadalq_s32(); 
+    vpadalq_s16(); 
+    vpadalq_s8(); 
+    vpmax_u32(); 
+    vpmax_u16(); 
+    vpmax_u8(); 
+    vpmax_s32(); 
+    vpmax_s16(); 
+    vpmax_s8(); 
+    vpmax_f32(); 
+    vpmin_u32(); 
+    vpmin_u16(); 
+    vpmin_u8(); 
+    vpmin_s32(); 
+    vpmin_s16(); 
+    vpmin_s8(); 
+    vpmin_f32(); 
+    vrecps_f32(); 
+    vrecpsq_f32(); 
+    vrsqrts_f32(); 
+    vrsqrtsq_f32(); 
+    vshl_u32(); 
+    vshl_u16(); 
+    vshl_u8(); 
+    vshl_s32(); 
+    vshl_s16(); 
+    vshl_s8(); 
+    vshl_u64(); 
+    vshl_s64(); 
+    vshlq_u32(); 
+    vshlq_u16(); 
+    vshlq_u8(); 
+    vshlq_s32(); 
+    vshlq_s16(); 
+    vshlq_s8(); 
+    vshlq_u64(); 
+    vshlq_s64(); 
+    vrshl_u32(); 
+    vrshl_u16(); 
+    vrshl_u8(); 
+    vrshl_s32(); 
+    vrshl_s16(); 
+    vrshl_s8(); 
+    vrshl_u64(); 
+    vrshl_s64(); 
+    vrshlq_u32(); 
+    vrshlq_u16(); 
+    vrshlq_u8(); 
+    vrshlq_s32(); 
+    vrshlq_s16(); 
+    vrshlq_s8(); 
+    vrshlq_u64(); 
+    vrshlq_s64(); 
+    vqshl_u32(); 
+    vqshl_u16(); 
+    vqshl_u8(); 
+    vqshl_s32(); 
+    vqshl_s16(); 
+    vqshl_s8(); 
+    vqshl_u64(); 
+    vqshl_s64(); 
+    vqshlq_u32(); 
+    vqshlq_u16(); 
+    vqshlq_u8(); 
+    vqshlq_s32(); 
+    vqshlq_s16(); 
+    vqshlq_s8(); 
+    vqshlq_u64(); 
+    vqshlq_s64(); 
+    vqrshl_u32(); 
+    vqrshl_u16(); 
+    vqrshl_u8(); 
+    vqrshl_s32(); 
+    vqrshl_s16(); 
+    vqrshl_s8(); 
+    vqrshl_u64(); 
+    vqrshl_s64(); 
+    vqrshlq_u32(); 
+    vqrshlq_u16(); 
+    vqrshlq_u8(); 
+    vqrshlq_s32(); 
+    vqrshlq_s16(); 
+    vqrshlq_s8(); 
+    vqrshlq_u64(); 
+    vqrshlq_s64(); 
+    vshl_n_u32(); 
+    vshl_n_u16(); 
+    vshl_n_u8(); 
+    vshl_n_s32(); 
+    vshl_n_s16(); 
+    vshl_n_s8(); 
+    vshl_n_u64(); 
+    vshl_n_s64(); 
+    vshlq_n_u32(); 
+    vshlq_n_u16(); 
+    vshlq_n_u8(); 
+    vshlq_n_s32(); 
+    vshlq_n_s16(); 
+    vshlq_n_s8(); 
+    vshlq_n_u64(); 
+    vshlq_n_s64(); 
+    vqshl_n_u32(); 
+    vqshl_n_u16(); 
+    vqshl_n_u8(); 
+    vqshl_n_s32(); 
+    vqshl_n_s16(); 
+    vqshl_n_s8(); 
+    vqshl_n_u64(); 
+    vqshl_n_s64(); 
+    vqshlq_n_u32(); 
+    vqshlq_n_u16(); 
+    vqshlq_n_u8(); 
+    vqshlq_n_s32(); 
+    vqshlq_n_s16(); 
+    vqshlq_n_s8(); 
+    vqshlq_n_u64(); 
+    vqshlq_n_s64(); 
+    vqshlu_n_s64(); 
+    vqshlu_n_s32(); 
+    vqshlu_n_s16(); 
+    vqshlu_n_s8(); 
+    vqshluq_n_s64(); 
+    vqshluq_n_s32(); 
+    vqshluq_n_s16(); 
+    vqshluq_n_s8(); 
+    vshll_n_u32(); 
+    vshll_n_u16(); 
+    vshll_n_u8(); 
+    vshll_n_s32(); 
+    vshll_n_s16(); 
+    vshll_n_s8(); 
+    vshr_n_u32(); 
+    vshr_n_u16(); 
+    vshr_n_u8(); 
+    vshr_n_s32(); 
+    vshr_n_s16(); 
+    vshr_n_s8(); 
+    vshr_n_u64(); 
+    vshr_n_s64(); 
+    vshrq_n_u32(); 
+    vshrq_n_u16(); 
+    vshrq_n_u8(); 
+    vshrq_n_s32(); 
+    vshrq_n_s16(); 
+    vshrq_n_s8(); 
+    vshrq_n_u64(); 
+    vshrq_n_s64(); 
+    vrshr_n_u32(); 
+    vrshr_n_u16(); 
+    vrshr_n_u8(); 
+    vrshr_n_s32(); 
+    vrshr_n_s16(); 
+    vrshr_n_s8(); 
+    vrshr_n_u64(); 
+    vrshr_n_s64(); 
+    vrshrq_n_u32(); 
+    vrshrq_n_u16(); 
+    vrshrq_n_u8(); 
+    vrshrq_n_s32(); 
+    vrshrq_n_s16(); 
+    vrshrq_n_s8(); 
+    vrshrq_n_u64(); 
+    vrshrq_n_s64(); 
+    vshrn_n_u64(); 
+    vshrn_n_u32(); 
+    vshrn_n_u16(); 
+    vshrn_n_s64(); 
+    vshrn_n_s32(); 
+    vshrn_n_s16(); 
+    vrshrn_n_u64(); 
+    vrshrn_n_u32(); 
+    vrshrn_n_u16(); 
+    vrshrn_n_s64(); 
+    vrshrn_n_s32(); 
+    vrshrn_n_s16(); 
+    vqshrn_n_u64(); 
+    vqshrn_n_u32(); 
+    vqshrn_n_u16(); 
+    vqshrn_n_s64(); 
+    vqshrn_n_s32(); 
+    vqshrn_n_s16(); 
+    vqrshrn_n_u64(); 
+    vqrshrn_n_u32(); 
+    vqrshrn_n_u16(); 
+    vqrshrn_n_s64(); 
+    vqrshrn_n_s32(); 
+    vqrshrn_n_s16(); 
+    vqshrun_n_s64(); 
+    vqshrun_n_s32(); 
+    vqshrun_n_s16(); 
+    vqrshrun_n_s64(); 
+    vqrshrun_n_s32(); 
+    vqrshrun_n_s16(); 
+    vsra_n_u32(); 
+    vsra_n_u16(); 
+    vsra_n_u8(); 
+    vsra_n_s32(); 
+    vsra_n_s16(); 
+    vsra_n_s8(); 
+    vsra_n_u64(); 
+    vsra_n_s64(); 
+    vsraq_n_u32(); 
+    vsraq_n_u16(); 
+    vsraq_n_u8(); 
+    vsraq_n_s32(); 
+    vsraq_n_s16(); 
+    vsraq_n_s8(); 
+    vsraq_n_u64(); 
+    vsraq_n_s64(); 
+    vrsra_n_u32(); 
+    vrsra_n_u16(); 
+    vrsra_n_u8(); 
+    vrsra_n_s32(); 
+    vrsra_n_s16(); 
+    vrsra_n_s8(); 
+    vrsra_n_u64(); 
+    vrsra_n_s64(); 
+    vrsraq_n_u32(); 
+    vrsraq_n_u16(); 
+    vrsraq_n_u8(); 
+    vrsraq_n_s32(); 
+    vrsraq_n_s16(); 
+    vrsraq_n_s8(); 
+    vrsraq_n_u64(); 
+    vrsraq_n_s64(); 
+    vsri_n_u32(); 
+    vsri_n_u16(); 
+    vsri_n_u8(); 
+    vsri_n_s32(); 
+    vsri_n_s16(); 
+    vsri_n_s8(); 
+    vsri_n_u64(); 
+    vsri_n_s64(); 
+    vsri_n_p16(); 
+    vsri_n_p8(); 
+    vsriq_n_u32(); 
+    vsriq_n_u16(); 
+    vsriq_n_u8(); 
+    vsriq_n_s32(); 
+    vsriq_n_s16(); 
+    vsriq_n_s8(); 
+    vsriq_n_u64(); 
+    vsriq_n_s64(); 
+    vsriq_n_p16(); 
+    vsriq_n_p8(); 
+    vsli_n_u32(); 
+    vsli_n_u16(); 
+    vsli_n_u8(); 
+    vsli_n_s32(); 
+    vsli_n_s16(); 
+    vsli_n_s8(); 
+    vsli_n_u64(); 
+    vsli_n_s64(); 
+    vsli_n_p16(); 
+    vsli_n_p8(); 
+    vsliq_n_u32(); 
+    vsliq_n_u16(); 
+    vsliq_n_u8(); 
+    vsliq_n_s32(); 
+    vsliq_n_s16(); 
+    vsliq_n_s8(); 
+    vsliq_n_u64(); 
+    vsliq_n_s64(); 
+    vsliq_n_p16(); 
+    vsliq_n_p8(); 
+    vabs_f32(); 
+    vabs_s32(); 
+    vabs_s16(); 
+    vabs_s8(); 
+    vabsq_f32(); 
+    vabsq_s32(); 
+    vabsq_s16(); 
+    vabsq_s8(); 
+    vqabs_s32(); 
+    vqabs_s16(); 
+    vqabs_s8(); 
+    vqabsq_s32(); 
+    vqabsq_s16(); 
+    vqabsq_s8(); 
+    vneg_f32(); 
+    vneg_s32(); 
+    vneg_s16(); 
+    vneg_s8(); 
+    vnegq_f32(); 
+    vnegq_s32(); 
+    vnegq_s16(); 
+    vnegq_s8(); 
+    vqneg_s32(); 
+    vqneg_s16(); 
+    vqneg_s8(); 
+    vqnegq_s32(); 
+    vqnegq_s16(); 
+    vqnegq_s8(); 
+    vmvn_u32(); 
+    vmvn_u16(); 
+    vmvn_u8(); 
+    vmvn_s32(); 
+    vmvn_s16(); 
+    vmvn_s8(); 
+    vmvn_p8(); 
+    vmvnq_u32(); 
+    vmvnq_u16(); 
+    vmvnq_u8(); 
+    vmvnq_s32(); 
+    vmvnq_s16(); 
+    vmvnq_s8(); 
+    vmvnq_p8(); 
+    vcls_s32(); 
+    vcls_s16(); 
+    vcls_s8(); 
+    vclsq_s32(); 
+    vclsq_s16(); 
+    vclsq_s8(); 
+    vclz_u32(); 
+    vclz_u16(); 
+    vclz_u8(); 
+    vclz_s32(); 
+    vclz_s16(); 
+    vclz_s8(); 
+    vclzq_u32(); 
+    vclzq_u16(); 
+    vclzq_u8(); 
+    vclzq_s32(); 
+    vclzq_s16(); 
+    vclzq_s8(); 
+    vcnt_u8(); 
+    vcnt_s8(); 
+    vcnt_p8(); 
+    vcntq_u8(); 
+    vcntq_s8(); 
+    vcntq_p8(); 
+    vrecpe_f32(); 
+    vrecpe_u32(); 
+    vrecpeq_f32(); 
+    vrecpeq_u32(); 
+    vrsqrte_f32(); 
+    vrsqrte_u32(); 
+    vrsqrteq_f32(); 
+    vrsqrteq_u32(); 
+    vget_lane_u32(); 
+    vget_lane_u16(); 
+    vget_lane_u8(); 
+    vget_lane_s32(); 
+    vget_lane_s16(); 
+    vget_lane_s8(); 
+    vget_lane_f32(); 
+    vget_lane_p16(); 
+    vget_lane_p8(); 
+    vget_lane_u64(); 
+    vget_lane_s64(); 
+    vgetq_lane_u32(); 
+    vgetq_lane_u16(); 
+    vgetq_lane_u8(); 
+    vgetq_lane_s32(); 
+    vgetq_lane_s16(); 
+    vgetq_lane_s8(); 
+    vgetq_lane_f32(); 
+    vgetq_lane_p16(); 
+    vgetq_lane_p8(); 
+    vgetq_lane_u64(); 
+    vgetq_lane_s64(); 
+    vset_lane_u32(); 
+    vset_lane_u16(); 
+    vset_lane_u8(); 
+    vset_lane_s32(); 
+    vset_lane_s16(); 
+    vset_lane_s8(); 
+    vset_lane_f32(); 
+    vset_lane_p16(); 
+    vset_lane_p8(); 
+    vset_lane_u64(); 
+    vset_lane_s64(); 
+    vsetq_lane_u32(); 
+    vsetq_lane_u16(); 
+    vsetq_lane_u8(); 
+    vsetq_lane_s32(); 
+    vsetq_lane_s16(); 
+    vsetq_lane_s8(); 
+    vsetq_lane_f32(); 
+    vsetq_lane_p16(); 
+    vsetq_lane_p8(); 
+    vsetq_lane_u64(); 
+    vsetq_lane_s64(); 
+    vcreate_u32(); 
+    vcreate_u16(); 
+    vcreate_u8(); 
+    vcreate_s32(); 
+    vcreate_s16(); 
+    vcreate_s8(); 
+    vcreate_u64(); 
+    vcreate_s64(); 
+    vcreate_f32(); 
+    vcreate_p16(); 
+    vcreate_p8(); 
+    vdup_n_u32(); 
+    vdup_n_u16(); 
+    vdup_n_u8(); 
+    vdup_n_s32(); 
+    vdup_n_s16(); 
+    vdup_n_s8(); 
+    vdup_n_f32(); 
+    vdup_n_p16(); 
+    vdup_n_p8(); 
+    vdup_n_u64(); 
+    vdup_n_s64(); 
+    vdupq_n_u32(); 
+    vdupq_n_u16(); 
+    vdupq_n_u8(); 
+    vdupq_n_s32(); 
+    vdupq_n_s16(); 
+    vdupq_n_s8(); 
+    vdupq_n_f32(); 
+    vdupq_n_p16(); 
+    vdupq_n_p8(); 
+    vdupq_n_u64(); 
+    vdupq_n_s64(); 
+    vmov_n_u32(); 
+    vmov_n_u16(); 
+    vmov_n_u8(); 
+    vmov_n_s32(); 
+    vmov_n_s16(); 
+    vmov_n_s8(); 
+    vmov_n_f32(); 
+    vmov_n_p16(); 
+    vmov_n_p8(); 
+    vmov_n_u64(); 
+    vmov_n_s64(); 
+    vmovq_n_u32(); 
+    vmovq_n_u16(); 
+    vmovq_n_u8(); 
+    vmovq_n_s32(); 
+    vmovq_n_s16(); 
+    vmovq_n_s8(); 
+    vmovq_n_f32(); 
+    vmovq_n_p16(); 
+    vmovq_n_p8(); 
+    vmovq_n_u64(); 
+    vmovq_n_s64(); 
+    vdup_lane_u32(); 
+    vdup_lane_u16(); 
+    vdup_lane_u8(); 
+    vdup_lane_s32(); 
+    vdup_lane_s16(); 
+    vdup_lane_s8(); 
+    vdup_lane_f32(); 
+    vdup_lane_p16(); 
+    vdup_lane_p8(); 
+    vdup_lane_u64(); 
+    vdup_lane_s64(); 
+    vdupq_lane_u32(); 
+    vdupq_lane_u16(); 
+    vdupq_lane_u8(); 
+    vdupq_lane_s32(); 
+    vdupq_lane_s16(); 
+    vdupq_lane_s8(); 
+    vdupq_lane_f32(); 
+    vdupq_lane_p16(); 
+    vdupq_lane_p8(); 
+    vdupq_lane_u64(); 
+    vdupq_lane_s64(); 
+    vcombine_u32(); 
+    vcombine_u16(); 
+    vcombine_u8(); 
+    vcombine_s32(); 
+    vcombine_s16(); 
+    vcombine_s8(); 
+    vcombine_u64(); 
+    vcombine_s64(); 
+    vcombine_f32(); 
+    vcombine_p16(); 
+    vcombine_p8(); 
+    vget_high_u32(); 
+    vget_high_u16(); 
+    vget_high_u8(); 
+    vget_high_s32(); 
+    vget_high_s16(); 
+    vget_high_s8(); 
+    vget_high_u64(); 
+    vget_high_s64(); 
+    vget_high_f32(); 
+    vget_high_p16(); 
+    vget_high_p8(); 
+    vget_low_u32(); 
+    vget_low_u16(); 
+    vget_low_u8(); 
+    vget_low_s32(); 
+    vget_low_s16(); 
+    vget_low_s8(); 
+    vget_low_f32(); 
+    vget_low_p16(); 
+    vget_low_p8(); 
+    vget_low_u64(); 
+    vget_low_s64(); 
+    vcvt_f32_u32(); 
+    vcvt_f32_s32(); 
+    vcvt_u32_f32(); 
+    vcvt_s32_f32(); 
+    vcvtq_f32_u32(); 
+    vcvtq_f32_s32(); 
+    vcvtq_u32_f32(); 
+    vcvtq_s32_f32(); 
+    vcvt_n_f32_u32(); 
+    vcvt_n_f32_s32(); 
+    vcvt_n_u32_f32(); 
+    vcvt_n_s32_f32(); 
+    vcvtq_n_f32_u32(); 
+    vcvtq_n_f32_s32(); 
+    vcvtq_n_u32_f32(); 
+    vcvtq_n_s32_f32(); 
+    vmovn_u64(); 
+    vmovn_u32(); 
+    vmovn_u16(); 
+    vmovn_s64(); 
+    vmovn_s32(); 
+    vmovn_s16(); 
+    vqmovn_u64(); 
+    vqmovn_u32(); 
+    vqmovn_u16(); 
+    vqmovn_s64(); 
+    vqmovn_s32(); 
+    vqmovn_s16(); 
+    vqmovun_s64(); 
+    vqmovun_s32(); 
+    vqmovun_s16(); 
+    vmovl_u32(); 
+    vmovl_u16(); 
+    vmovl_u8(); 
+    vmovl_s32(); 
+    vmovl_s16(); 
+    vmovl_s8(); 
+    vtbl1_p8(); 
+    vtbl1_s8(); 
+    vtbl1_u8(); 
+    vtbl2_p8(); 
+    vtbl2_s8(); 
+    vtbl2_u8(); 
+    vtbl3_p8(); 
+    vtbl3_s8(); 
+    vtbl3_u8(); 
+    vtbl4_p8(); 
+    vtbl4_s8(); 
+    vtbl4_u8(); 
+    vtbx1_p8(); 
+    vtbx1_s8(); 
+    vtbx1_u8(); 
+    vtbx2_p8(); 
+    vtbx2_s8(); 
+    vtbx2_u8(); 
+    vtbx3_p8(); 
+    vtbx3_s8(); 
+    vtbx3_u8(); 
+    vtbx4_p8(); 
+    vtbx4_s8(); 
+    vtbx4_u8(); 
+    vmul_lane_f32(); 
+    vmul_lane_u32(); 
+    vmul_lane_u16(); 
+    vmul_lane_s32(); 
+    vmul_lane_s16(); 
+    vmulq_lane_f32(); 
+    vmulq_lane_u32(); 
+    vmulq_lane_u16(); 
+    vmulq_lane_s32(); 
+    vmulq_lane_s16(); 
+    vmull_lane_u32(); 
+    vmull_lane_u16(); 
+    vmull_lane_s32(); 
+    vmull_lane_s16(); 
+    vqdmull_lane_s32(); 
+    vqdmull_lane_s16(); 
+    vqdmulhq_lane_s32(); 
+    vqdmulhq_lane_s16(); 
+    vqdmulh_lane_s32(); 
+    vqdmulh_lane_s16(); 
+    vqrdmulhq_lane_s32(); 
+    vqrdmulhq_lane_s16(); 
+    vqrdmulh_lane_s32(); 
+    vqrdmulh_lane_s16(); 
+    vmla_lane_f32(); 
+    vmla_lane_u32(); 
+    vmla_lane_u16(); 
+    vmla_lane_s32(); 
+    vmla_lane_s16(); 
+    vmlaq_lane_f32(); 
+    vmlaq_lane_u32(); 
+    vmlaq_lane_u16(); 
+    vmlaq_lane_s32(); 
+    vmlaq_lane_s16(); 
+    vmlal_lane_u32(); 
+    vmlal_lane_u16(); 
+    vmlal_lane_s32(); 
+    vmlal_lane_s16(); 
+    vqdmlal_lane_s32(); 
+    vqdmlal_lane_s16(); 
+    vmls_lane_f32(); 
+    vmls_lane_u32(); 
+    vmls_lane_u16(); 
+    vmls_lane_s32(); 
+    vmls_lane_s16(); 
+    vmlsq_lane_f32(); 
+    vmlsq_lane_u32(); 
+    vmlsq_lane_u16(); 
+    vmlsq_lane_s32(); 
+    vmlsq_lane_s16(); 
+    vmlsl_lane_u32(); 
+    vmlsl_lane_u16(); 
+    vmlsl_lane_s32(); 
+    vmlsl_lane_s16(); 
+    vqdmlsl_lane_s32(); 
+    vqdmlsl_lane_s16(); 
+    vmul_n_f32(); 
+    vmul_n_u32(); 
+    vmul_n_u16(); 
+    vmul_n_s32(); 
+    vmul_n_s16(); 
+    vmulq_n_f32(); 
+    vmulq_n_u32(); 
+    vmulq_n_u16(); 
+    vmulq_n_s32(); 
+    vmulq_n_s16(); 
+    vmull_n_u32(); 
+    vmull_n_u16(); 
+    vmull_n_s32(); 
+    vmull_n_s16(); 
+    vqdmull_n_s32(); 
+    vqdmull_n_s16(); 
+    vqdmulhq_n_s32(); 
+    vqdmulhq_n_s16(); 
+    vqdmulh_n_s32(); 
+    vqdmulh_n_s16(); 
+    vqrdmulhq_n_s32(); 
+    vqrdmulhq_n_s16(); 
+    vqrdmulh_n_s32(); 
+    vqrdmulh_n_s16(); 
+    vmla_n_f32(); 
+    vmla_n_u32(); 
+    vmla_n_u16(); 
+    vmla_n_s32(); 
+    vmla_n_s16(); 
+    vmlaq_n_f32(); 
+    vmlaq_n_u32(); 
+    vmlaq_n_u16(); 
+    vmlaq_n_s32(); 
+    vmlaq_n_s16(); 
+    vmlal_n_u32(); 
+    vmlal_n_u16(); 
+    vmlal_n_s32(); 
+    vmlal_n_s16(); 
+    vqdmlal_n_s32(); 
+    vqdmlal_n_s16(); 
+    vmls_n_f32(); 
+    vmls_n_u32(); 
+    vmls_n_u16(); 
+    vmls_n_s32(); 
+    vmls_n_s16(); 
+    vmlsq_n_f32(); 
+    vmlsq_n_u32(); 
+    vmlsq_n_u16(); 
+    vmlsq_n_s32(); 
+    vmlsq_n_s16(); 
+    vmlsl_n_u32(); 
+    vmlsl_n_u16(); 
+    vmlsl_n_s32(); 
+    vmlsl_n_s16(); 
+    vqdmlsl_n_s32(); 
+    vqdmlsl_n_s16(); 
+    vext_u32(); 
+    vext_u16(); 
+    vext_u8(); 
+    vext_s32(); 
+    vext_s16(); 
+    vext_s8(); 
+    vext_u64(); 
+    vext_s64(); 
+    vext_f32(); 
+    vext_p16(); 
+    vext_p8(); 
+    vextq_u32(); 
+    vextq_u16(); 
+    vextq_u8(); 
+    vextq_s32(); 
+    vextq_s16(); 
+    vextq_s8(); 
+    vextq_u64(); 
+    vextq_s64(); 
+    vextq_f32(); 
+    vextq_p16(); 
+    vextq_p8(); 
+    vrev64_u32(); 
+    vrev64_u16(); 
+    vrev64_u8(); 
+    vrev64_s32(); 
+    vrev64_s16(); 
+    vrev64_s8(); 
+    vrev64_f32(); 
+    vrev64_p16(); 
+    vrev64_p8(); 
+    vrev64q_u32(); 
+    vrev64q_u16(); 
+    vrev64q_u8(); 
+    vrev64q_s32(); 
+    vrev64q_s16(); 
+    vrev64q_s8(); 
+    vrev64q_f32(); 
+    vrev64q_p16(); 
+    vrev64q_p8(); 
+    vrev32_u16(); 
+    vrev32_s16(); 
+    vrev32_u8(); 
+    vrev32_s8(); 
+    vrev32_p16(); 
+    vrev32_p8(); 
+    vrev32q_u16(); 
+    vrev32q_s16(); 
+    vrev32q_u8(); 
+    vrev32q_s8(); 
+    vrev32q_p16(); 
+    vrev32q_p8(); 
+    vrev16_u8(); 
+    vrev16_s8(); 
+    vrev16_p8(); 
+    vrev16q_u8(); 
+    vrev16q_s8(); 
+    vrev16q_p8(); 
+    vbsl_u32(); 
+    vbsl_u16(); 
+    vbsl_u8(); 
+    vbsl_s32(); 
+    vbsl_s16(); 
+    vbsl_s8(); 
+    vbsl_u64(); 
+    vbsl_s64(); 
+    vbsl_f32(); 
+    vbsl_p16(); 
+    vbsl_p8(); 
+    vbslq_u32(); 
+    vbslq_u16(); 
+    vbslq_u8(); 
+    vbslq_s32(); 
+    vbslq_s16(); 
+    vbslq_s8(); 
+    vbslq_u64(); 
+    vbslq_s64(); 
+    vbslq_f32(); 
+    vbslq_p16(); 
+    vbslq_p8(); 
+    vtrn_u16(); 
+    vtrn_u8(); 
+    vtrn_s16(); 
+    vtrn_s8(); 
+    vtrn_p16(); 
+    vtrn_p8(); 
+    vtrn_f32(); 
+    vtrn_u32(); 
+    vtrn_s32(); 
+    vtrnq_u32(); 
+    vtrnq_u16(); 
+    vtrnq_u8(); 
+    vtrnq_s32(); 
+    vtrnq_s16(); 
+    vtrnq_s8(); 
+    vtrnq_f32(); 
+    vtrnq_p16(); 
+    vtrnq_p8(); 
+    vzip_u16(); 
+    vzip_u8(); 
+    vzip_s16(); 
+    vzip_s8(); 
+    vzip_p16(); 
+    vzip_p8(); 
+    vzip_f32(); 
+    vzip_u32(); 
+    vzip_s32(); 
+    vzipq_u32(); 
+    vzipq_u16(); 
+    vzipq_u8(); 
+    vzipq_s32(); 
+    vzipq_s16(); 
+    vzipq_s8(); 
+    vzipq_f32(); 
+    vzipq_p16(); 
+    vzipq_p8(); 
+    vuzp_u32(); 
+    vuzp_u16(); 
+    vuzp_u8(); 
+    vuzp_s32(); 
+    vuzp_s16(); 
+    vuzp_s8(); 
+    vuzp_f32(); 
+    vuzp_p16(); 
+    vuzp_p8(); 
+    vuzpq_u32(); 
+    vuzpq_u16(); 
+    vuzpq_u8(); 
+    vuzpq_s32(); 
+    vuzpq_s16(); 
+    vuzpq_s8(); 
+    vuzpq_f32(); 
+    vuzpq_p16(); 
+    vuzpq_p8(); 
+    vld1_u32(); 
+    vld1_u16(); 
+    vld1_u8(); 
+    vld1_s32(); 
+    vld1_s16(); 
+    vld1_s8(); 
+    vld1_u64(); 
+    vld1_s64(); 
+    vld1_f32(); 
+    vld1_p16(); 
+    vld1_p8(); 
+    vld1q_u32(); 
+    vld1q_u16(); 
+    vld1q_u8(); 
+    vld1q_s32(); 
+    vld1q_s16(); 
+    vld1q_s8(); 
+    vld1q_u64(); 
+    vld1q_s64(); 
+    vld1q_f32(); 
+    vld1q_p16(); 
+    vld1q_p8(); 
+    vld1_lane_u32(); 
+    vld1_lane_u16(); 
+    vld1_lane_u8(); 
+    vld1_lane_s32(); 
+    vld1_lane_s16(); 
+    vld1_lane_s8(); 
+    vld1_lane_f32(); 
+    vld1_lane_p16(); 
+    vld1_lane_p8(); 
+    vld1_lane_u64(); 
+    vld1_lane_s64(); 
+    vld1q_lane_u32(); 
+    vld1q_lane_u16(); 
+    vld1q_lane_u8(); 
+    vld1q_lane_s32(); 
+    vld1q_lane_s16(); 
+    vld1q_lane_s8(); 
+    vld1q_lane_f32(); 
+    vld1q_lane_p16(); 
+    vld1q_lane_p8(); 
+    vld1q_lane_u64(); 
+    vld1q_lane_s64(); 
+    vld1_dup_u32(); 
+    vld1_dup_u16(); 
+    vld1_dup_u8(); 
+    vld1_dup_s32(); 
+    vld1_dup_s16(); 
+    vld1_dup_s8(); 
+    vld1_dup_f32(); 
+    vld1_dup_p16(); 
+    vld1_dup_p8(); 
+    vld1_dup_u64(); 
+    vld1_dup_s64(); 
+    vld1q_dup_u32(); 
+    vld1q_dup_u16(); 
+    vld1q_dup_u8(); 
+    vld1q_dup_s32(); 
+    vld1q_dup_s16(); 
+    vld1q_dup_s8(); 
+    vld1q_dup_f32(); 
+    vld1q_dup_p16(); 
+    vld1q_dup_p8(); 
+    vld1q_dup_u64(); 
+    vld1q_dup_s64(); 
+    vst1_u32(); 
+    vst1_u16(); 
+    vst1_u8(); 
+    vst1_s32(); 
+    vst1_s16(); 
+    vst1_s8(); 
+    vst1_u64(); 
+    vst1_s64(); 
+    vst1_f32(); 
+    vst1_p16(); 
+    vst1_p8(); 
+    vst1q_u32(); 
+    vst1q_u16(); 
+    vst1q_u8(); 
+    vst1q_s32(); 
+    vst1q_s16(); 
+    vst1q_s8(); 
+    vst1q_u64(); 
+    vst1q_s64(); 
+    vst1q_f32(); 
+    vst1q_p16(); 
+    vst1q_p8(); 
+    vst1_lane_u32(); 
+    vst1_lane_u16(); 
+    vst1_lane_u8(); 
+    vst1_lane_s32(); 
+    vst1_lane_s16(); 
+    vst1_lane_s8(); 
+    vst1_lane_f32(); 
+    vst1_lane_p16(); 
+    vst1_lane_p8(); 
+    vst1_lane_s64(); 
+    vst1_lane_u64(); 
+    vst1q_lane_u32(); 
+    vst1q_lane_u16(); 
+    vst1q_lane_u8(); 
+    vst1q_lane_s32(); 
+    vst1q_lane_s16(); 
+    vst1q_lane_s8(); 
+    vst1q_lane_f32(); 
+    vst1q_lane_p16(); 
+    vst1q_lane_p8(); 
+    vst1q_lane_s64(); 
+    vst1q_lane_u64(); 
+    vld2_u32(); 
+    vld2_u16(); 
+    vld2_u8(); 
+    vld2_s32(); 
+    vld2_s16(); 
+    vld2_s8(); 
+    vld2_f32(); 
+    vld2_p16(); 
+    vld2_p8(); 
+    vld2_u64(); 
+    vld2_s64(); 
+    vld2q_u32(); 
+    vld2q_u16(); 
+    vld2q_u8(); 
+    vld2q_s32(); 
+    vld2q_s16(); 
+    vld2q_s8(); 
+    vld2q_f32(); 
+    vld2q_p16(); 
+    vld2q_p8(); 
+    vld2_lane_u32(); 
+    vld2_lane_u16(); 
+    vld2_lane_u8(); 
+    vld2_lane_s32(); 
+    vld2_lane_s16(); 
+    vld2_lane_s8(); 
+    vld2_lane_f32(); 
+    vld2_lane_p16(); 
+    vld2_lane_p8(); 
+    vld2q_lane_s32(); 
+    vld2q_lane_s16(); 
+    vld2q_lane_u32(); 
+    vld2q_lane_u16(); 
+    vld2q_lane_f32(); 
+    vld2q_lane_p16(); 
+    vld2_dup_u32(); 
+    vld2_dup_u16(); 
+    vld2_dup_u8(); 
+    vld2_dup_s32(); 
+    vld2_dup_s16(); 
+    vld2_dup_s8(); 
+    vld2_dup_f32(); 
+    vld2_dup_p16(); 
+    vld2_dup_p8(); 
+    vld2_dup_u64(); 
+    vld2_dup_s64(); 
+    vst2_u32(); 
+    vst2_u16(); 
+    vst2_u8(); 
+    vst2_s32(); 
+    vst2_s16(); 
+    vst2_s8(); 
+    vst2_f32(); 
+    vst2_p16(); 
+    vst2_p8(); 
+    vst2_u64(); 
+    vst2_s64(); 
+    vst2q_u32(); 
+    vst2q_u16(); 
+    vst2q_u8(); 
+    vst2q_s32(); 
+    vst2q_s16(); 
+    vst2q_s8(); 
+    vst2q_f32(); 
+    vst2q_p16(); 
+    vst2q_p8(); 
+    vst2_lane_u32(); 
+    vst2_lane_u16(); 
+    vst2_lane_u8(); 
+    vst2_lane_s32(); 
+    vst2_lane_s16(); 
+    vst2_lane_s8(); 
+    vst2_lane_f32(); 
+    vst2_lane_p16(); 
+    vst2_lane_p8(); 
+    vst2q_lane_s32(); 
+    vst2q_lane_s16(); 
+    vst2q_lane_u32(); 
+    vst2q_lane_u16(); 
+    vst2q_lane_f32(); 
+    vst2q_lane_p16(); 
+    vld3_u32(); 
+    vld3_u16(); 
+    vld3_u8(); 
+    vld3_s32(); 
+    vld3_s16(); 
+    vld3_s8(); 
+    vld3_f32(); 
+    vld3_p16(); 
+    vld3_p8(); 
+    vld3_u64(); 
+    vld3_s64(); 
+    vld3q_u32(); 
+    vld3q_u16(); 
+    vld3q_u8(); 
+    vld3q_s32(); 
+    vld3q_s16(); 
+    vld3q_s8(); 
+    vld3q_f32(); 
+    vld3q_p16(); 
+    vld3q_p8(); 
+    vld3_lane_u32(); 
+    vld3_lane_u16(); 
+    vld3_lane_u8(); 
+    vld3_lane_s32(); 
+    vld3_lane_s16(); 
+    vld3_lane_s8(); 
+    vld3_lane_f32(); 
+    vld3_lane_p16(); 
+    vld3_lane_p8(); 
+    vld3q_lane_s32(); 
+    vld3q_lane_s16(); 
+    vld3q_lane_u32(); 
+    vld3q_lane_u16(); 
+    vld3q_lane_f32(); 
+    vld3q_lane_p16(); 
+    vld3_dup_u32(); 
+    vld3_dup_u16(); 
+    vld3_dup_u8(); 
+    vld3_dup_s32(); 
+    vld3_dup_s16(); 
+    vld3_dup_s8(); 
+    vld3_dup_f32(); 
+    vld3_dup_p16(); 
+    vld3_dup_p8(); 
+    vld3_dup_u64(); 
+    vld3_dup_s64(); 
+    vst3_u32(); 
+    vst3_u16(); 
+    vst3_u8(); 
+    vst3_s32(); 
+    vst3_s16(); 
+    vst3_s8(); 
+    vst3_f32(); 
+    vst3_p16(); 
+    vst3_p8(); 
+    vst3_u64(); 
+    vst3_s64(); 
+    vst3q_u32(); 
+    vst3q_u16(); 
+    vst3q_u8(); 
+    vst3q_s32(); 
+    vst3q_s16(); 
+    vst3q_s8(); 
+    vst3q_f32(); 
+    vst3q_p16(); 
+    vst3q_p8(); 
+    vst3_lane_u32(); 
+    vst3_lane_u16(); 
+    vst3_lane_u8(); 
+    vst3_lane_s32(); 
+    vst3_lane_s16(); 
+    vst3_lane_s8(); 
+    vst3_lane_f32(); 
+    vst3_lane_p16(); 
+    vst3_lane_p8(); 
+    vst3q_lane_s32(); 
+    vst3q_lane_s16(); 
+    vst3q_lane_u32(); 
+    vst3q_lane_u16(); 
+    vst3q_lane_f32(); 
+    vst3q_lane_p16(); 
+    vld4_u32(); 
+    vld4_u16(); 
+    vld4_u8(); 
+    vld4_s32(); 
+    vld4_s16(); 
+    vld4_s8(); 
+    vld4_f32(); 
+    vld4_p16(); 
+    vld4_p8(); 
+    vld4_u64(); 
+    vld4_s64(); 
+    vld4q_u32(); 
+    vld4q_u16(); 
+    vld4q_u8(); 
+    vld4q_s32(); 
+    vld4q_s16(); 
+    vld4q_s8(); 
+    vld4q_f32(); 
+    vld4q_p16(); 
+    vld4q_p8(); 
+    vld4_lane_u32(); 
+    vld4_lane_u16(); 
+    vld4_lane_u8(); 
+    vld4_lane_s32(); 
+    vld4_lane_s16(); 
+    vld4_lane_s8(); 
+    vld4_lane_f32(); 
+    vld4_lane_p16(); 
+    vld4_lane_p8(); 
+    vld4q_lane_s32(); 
+    vld4q_lane_s16(); 
+    vld4q_lane_u32(); 
+    vld4q_lane_u16(); 
+    vld4q_lane_f32(); 
+    vld4q_lane_p16(); 
+    vld4_dup_u32(); 
+    vld4_dup_u16(); 
+    vld4_dup_u8(); 
+    vld4_dup_s32(); 
+    vld4_dup_s16(); 
+    vld4_dup_s8(); 
+    vld4_dup_f32(); 
+    vld4_dup_p16(); 
+    vld4_dup_p8(); 
+    vld4_dup_u64(); 
+    vld4_dup_s64(); 
+    vst4_u32(); 
+    vst4_u16(); 
+    vst4_u8(); 
+    vst4_s32(); 
+    vst4_s16(); 
+    vst4_s8(); 
+    vst4_f32(); 
+    vst4_p16(); 
+    vst4_p8(); 
+    vst4_u64(); 
+    vst4_s64(); 
+    vst4q_u32(); 
+    vst4q_u16(); 
+    vst4q_u8(); 
+    vst4q_s32(); 
+    vst4q_s16(); 
+    vst4q_s8(); 
+    vst4q_f32(); 
+    vst4q_p16(); 
+    vst4q_p8(); 
+    vst4_lane_u32(); 
+    vst4_lane_u16(); 
+    vst4_lane_u8(); 
+    vst4_lane_s32(); 
+    vst4_lane_s16(); 
+    vst4_lane_s8(); 
+    vst4_lane_f32(); 
+    vst4_lane_p16(); 
+    vst4_lane_p8(); 
+    vst4q_lane_s32(); 
+    vst4q_lane_s16(); 
+    vst4q_lane_u32(); 
+    vst4q_lane_u16(); 
+    vst4q_lane_f32(); 
+    vst4q_lane_p16(); 
+    vand_u32(); 
+    vand_u16(); 
+    vand_u8(); 
+    vand_s32(); 
+    vand_s16(); 
+    vand_s8(); 
+    vand_u64(); 
+    vand_s64(); 
+    vandq_u32(); 
+    vandq_u16(); 
+    vandq_u8(); 
+    vandq_s32(); 
+    vandq_s16(); 
+    vandq_s8(); 
+    vandq_u64(); 
+    vandq_s64(); 
+    vorr_u32(); 
+    vorr_u16(); 
+    vorr_u8(); 
+    vorr_s32(); 
+    vorr_s16(); 
+    vorr_s8(); 
+    vorr_u64(); 
+    vorr_s64(); 
+    vorrq_u32(); 
+    vorrq_u16(); 
+    vorrq_u8(); 
+    vorrq_s32(); 
+    vorrq_s16(); 
+    vorrq_s8(); 
+    vorrq_u64(); 
+    vorrq_s64(); 
+    veor_u32(); 
+    veor_u16(); 
+    veor_u8(); 
+    veor_s32(); 
+    veor_s16(); 
+    veor_s8(); 
+    veor_u64(); 
+    veor_s64(); 
+    veorq_u32(); 
+    veorq_u16(); 
+    veorq_u8(); 
+    veorq_s32(); 
+    veorq_s16(); 
+    veorq_s8(); 
+    veorq_u64(); 
+    veorq_s64(); 
+    vbic_u32(); 
+    vbic_u16(); 
+    vbic_u8(); 
+    vbic_s32(); 
+    vbic_s16(); 
+    vbic_s8(); 
+    vbic_u64(); 
+    vbic_s64(); 
+    vbicq_u32(); 
+    vbicq_u16(); 
+    vbicq_u8(); 
+    vbicq_s32(); 
+    vbicq_s16(); 
+    vbicq_s8(); 
+    vbicq_u64(); 
+    vbicq_s64(); 
+    vorn_u32(); 
+    vorn_u16(); 
+    vorn_u8(); 
+    vorn_s32(); 
+    vorn_s16(); 
+    vorn_s8(); 
+    vorn_u64(); 
+    vorn_s64(); 
+    vornq_u32(); 
+    vornq_u16(); 
+    vornq_u8(); 
+    vornq_s32(); 
+    vornq_s16(); 
+    vornq_s8(); 
+    vornq_u64(); 
+    vornq_s64(); 
+    vreinterpret_p8_u32(); 
+    vreinterpret_p8_u16(); 
+    vreinterpret_p8_u8(); 
+    vreinterpret_p8_s32(); 
+    vreinterpret_p8_s16(); 
+    vreinterpret_p8_s8(); 
+    vreinterpret_p8_u64(); 
+    vreinterpret_p8_s64(); 
+    vreinterpret_p8_f32(); 
+    vreinterpret_p8_p16(); 
+    vreinterpretq_p8_u32(); 
+    vreinterpretq_p8_u16(); 
+    vreinterpretq_p8_u8(); 
+    vreinterpretq_p8_s32(); 
+    vreinterpretq_p8_s16(); 
+    vreinterpretq_p8_s8(); 
+    vreinterpretq_p8_u64(); 
+    vreinterpretq_p8_s64(); 
+    vreinterpretq_p8_f32(); 
+    vreinterpretq_p8_p16(); 
+    vreinterpret_p16_u32(); 
+    vreinterpret_p16_u16(); 
+    vreinterpret_p16_u8(); 
+    vreinterpret_p16_s32(); 
+    vreinterpret_p16_s16(); 
+    vreinterpret_p16_s8(); 
+    vreinterpret_p16_u64(); 
+    vreinterpret_p16_s64(); 
+    vreinterpret_p16_f32(); 
+    vreinterpret_p16_p8(); 
+    vreinterpretq_p16_u32(); 
+    vreinterpretq_p16_u16(); 
+    vreinterpretq_p16_u8(); 
+    vreinterpretq_p16_s32(); 
+    vreinterpretq_p16_s16(); 
+    vreinterpretq_p16_s8(); 
+    vreinterpretq_p16_u64(); 
+    vreinterpretq_p16_s64(); 
+    vreinterpretq_p16_f32(); 
+    vreinterpretq_p16_p8(); 
+    vreinterpret_f32_u32(); 
+    vreinterpret_f32_u16(); 
+    vreinterpret_f32_u8(); 
+    vreinterpret_f32_s32(); 
+    vreinterpret_f32_s16(); 
+    vreinterpret_f32_s8(); 
+    vreinterpret_f32_u64(); 
+    vreinterpret_f32_s64(); 
+    vreinterpret_f32_p16(); 
+    vreinterpret_f32_p8(); 
+    vreinterpretq_f32_u32(); 
+    vreinterpretq_f32_u16(); 
+    vreinterpretq_f32_u8(); 
+    vreinterpretq_f32_s32(); 
+    vreinterpretq_f32_s16(); 
+    vreinterpretq_f32_s8(); 
+    vreinterpretq_f32_u64(); 
+    vreinterpretq_f32_s64(); 
+    vreinterpretq_f32_p16(); 
+    vreinterpretq_f32_p8(); 
+    vreinterpret_s64_u32(); 
+    vreinterpret_s64_u16(); 
+    vreinterpret_s64_u8(); 
+    vreinterpret_s64_s32(); 
+    vreinterpret_s64_s16(); 
+    vreinterpret_s64_s8(); 
+    vreinterpret_s64_u64(); 
+    vreinterpret_s64_f32(); 
+    vreinterpret_s64_p16(); 
+    vreinterpret_s64_p8(); 
+    vreinterpretq_s64_u32(); 
+    vreinterpretq_s64_u16(); 
+    vreinterpretq_s64_u8(); 
+    vreinterpretq_s64_s32(); 
+    vreinterpretq_s64_s16(); 
+    vreinterpretq_s64_s8(); 
+    vreinterpretq_s64_u64(); 
+    vreinterpretq_s64_f32(); 
+    vreinterpretq_s64_p16(); 
+    vreinterpretq_s64_p8(); 
+    vreinterpret_u64_u32(); 
+    vreinterpret_u64_u16(); 
+    vreinterpret_u64_u8(); 
+    vreinterpret_u64_s32(); 
+    vreinterpret_u64_s16(); 
+    vreinterpret_u64_s8(); 
+    vreinterpret_u64_s64(); 
+    vreinterpret_u64_f32(); 
+    vreinterpret_u64_p16(); 
+    vreinterpret_u64_p8(); 
+    vreinterpretq_u64_u32(); 
+    vreinterpretq_u64_u16(); 
+    vreinterpretq_u64_u8(); 
+    vreinterpretq_u64_s32(); 
+    vreinterpretq_u64_s16(); 
+    vreinterpretq_u64_s8(); 
+    vreinterpretq_u64_s64(); 
+    vreinterpretq_u64_f32(); 
+    vreinterpretq_u64_p16(); 
+    vreinterpretq_u64_p8(); 
+    vreinterpret_s8_u32(); 
+    vreinterpret_s8_u16(); 
+    vreinterpret_s8_u8(); 
+    vreinterpret_s8_s32(); 
+    vreinterpret_s8_s16(); 
+    vreinterpret_s8_u64(); 
+    vreinterpret_s8_s64(); 
+    vreinterpret_s8_f32(); 
+    vreinterpret_s8_p16(); 
+    vreinterpret_s8_p8(); 
+    vreinterpretq_s8_u32(); 
+    vreinterpretq_s8_u16(); 
+    vreinterpretq_s8_u8(); 
+    vreinterpretq_s8_s32(); 
+    vreinterpretq_s8_s16(); 
+    vreinterpretq_s8_u64(); 
+    vreinterpretq_s8_s64(); 
+    vreinterpretq_s8_f32(); 
+    vreinterpretq_s8_p16(); 
+    vreinterpretq_s8_p8(); 
+    vreinterpret_s16_u32(); 
+    vreinterpret_s16_u16(); 
+    vreinterpret_s16_u8(); 
+    vreinterpret_s16_s32(); 
+    vreinterpret_s16_s8(); 
+    vreinterpret_s16_u64(); 
+    vreinterpret_s16_s64(); 
+    vreinterpret_s16_f32(); 
+    vreinterpret_s16_p16(); 
+    vreinterpret_s16_p8(); 
+    vreinterpretq_s16_u32(); 
+    vreinterpretq_s16_u16(); 
+    vreinterpretq_s16_u8(); 
+    vreinterpretq_s16_s32(); 
+    vreinterpretq_s16_s8(); 
+    vreinterpretq_s16_u64(); 
+    vreinterpretq_s16_s64(); 
+    vreinterpretq_s16_f32(); 
+    vreinterpretq_s16_p16(); 
+    vreinterpretq_s16_p8(); 
+    vreinterpret_s32_u32(); 
+    vreinterpret_s32_u16(); 
+    vreinterpret_s32_u8(); 
+    vreinterpret_s32_s16(); 
+    vreinterpret_s32_s8(); 
+    vreinterpret_s32_u64(); 
+    vreinterpret_s32_s64(); 
+    vreinterpret_s32_f32(); 
+    vreinterpret_s32_p16(); 
+    vreinterpret_s32_p8(); 
+    vreinterpretq_s32_u32(); 
+    vreinterpretq_s32_u16(); 
+    vreinterpretq_s32_u8(); 
+    vreinterpretq_s32_s16(); 
+    vreinterpretq_s32_s8(); 
+    vreinterpretq_s32_u64(); 
+    vreinterpretq_s32_s64(); 
+    vreinterpretq_s32_f32(); 
+    vreinterpretq_s32_p16(); 
+    vreinterpretq_s32_p8(); 
+    vreinterpret_u8_u32(); 
+    vreinterpret_u8_u16(); 
+    vreinterpret_u8_s32(); 
+    vreinterpret_u8_s16(); 
+    vreinterpret_u8_s8(); 
+    vreinterpret_u8_u64(); 
+    vreinterpret_u8_s64(); 
+    vreinterpret_u8_f32(); 
+    vreinterpret_u8_p16(); 
+    vreinterpret_u8_p8(); 
+    vreinterpretq_u8_u32(); 
+    vreinterpretq_u8_u16(); 
+    vreinterpretq_u8_s32(); 
+    vreinterpretq_u8_s16(); 
+    vreinterpretq_u8_s8(); 
+    vreinterpretq_u8_u64(); 
+    vreinterpretq_u8_s64(); 
+    vreinterpretq_u8_f32(); 
+    vreinterpretq_u8_p16(); 
+    vreinterpretq_u8_p8(); 
+    vreinterpret_u16_u32(); 
+    vreinterpret_u16_u8(); 
+    vreinterpret_u16_s32(); 
+    vreinterpret_u16_s16(); 
+    vreinterpret_u16_s8(); 
+    vreinterpret_u16_u64(); 
+    vreinterpret_u16_s64(); 
+    vreinterpret_u16_f32(); 
+    vreinterpret_u16_p16(); 
+    vreinterpret_u16_p8(); 
+    vreinterpretq_u16_u32(); 
+    vreinterpretq_u16_u8(); 
+    vreinterpretq_u16_s32(); 
+    vreinterpretq_u16_s16(); 
+    vreinterpretq_u16_s8(); 
+    vreinterpretq_u16_u64(); 
+    vreinterpretq_u16_s64(); 
+    vreinterpretq_u16_f32(); 
+    vreinterpretq_u16_p16(); 
+    vreinterpretq_u16_p8(); 
+    vreinterpret_u32_u16(); 
+    vreinterpret_u32_u8(); 
+    vreinterpret_u32_s32(); 
+    vreinterpret_u32_s16(); 
+    vreinterpret_u32_s8(); 
+    vreinterpret_u32_u64(); 
+    vreinterpret_u32_s64(); 
+    vreinterpret_u32_f32(); 
+    vreinterpret_u32_p16(); 
+    vreinterpret_u32_p8(); 
+    vreinterpretq_u32_u16(); 
+    vreinterpretq_u32_u8(); 
+    vreinterpretq_u32_s32(); 
+    vreinterpretq_u32_s16(); 
+    vreinterpretq_u32_s8(); 
+    vreinterpretq_u32_u64(); 
+    vreinterpretq_u32_s64(); 
+    vreinterpretq_u32_f32(); 
+    vreinterpretq_u32_p16(); 
+    vreinterpretq_u32_p8(); 
+}
+
 // shall generate issue in N2
-void aarch64_intrinsic_test()
+void arm_intrinsic_test()
 {
     __builtin_arm_getwcgr0(); //expect: IntrinsicIssue
     __builtin_arm_setwcgr0(); //expect: IntrinsicIssue
@@ -298,1890 +2187,6 @@ void aarch64_intrinsic_test()
     __builtin_arm_wunpckilw(); //expect: IntrinsicIssue
     __builtin_arm_wxor(); //expect: IntrinsicIssue
     __builtin_arm_wzero(); //expect: IntrinsicIssue
-    vadd_u32(); //expect: IntrinsicIssue
-    vadd_u16(); //expect: IntrinsicIssue
-    vadd_u8(); //expect: IntrinsicIssue
-    vadd_s32(); //expect: IntrinsicIssue
-    vadd_s16(); //expect: IntrinsicIssue
-    vadd_s8(); //expect: IntrinsicIssue
-    vadd_f32(); //expect: IntrinsicIssue
-    vadd_u64(); //expect: IntrinsicIssue
-    vadd_s64(); //expect: IntrinsicIssue
-    vaddq_u32(); //expect: IntrinsicIssue
-    vaddq_u16(); //expect: IntrinsicIssue
-    vaddq_u8(); //expect: IntrinsicIssue
-    vaddq_s32(); //expect: IntrinsicIssue
-    vaddq_s16(); //expect: IntrinsicIssue
-    vaddq_s8(); //expect: IntrinsicIssue
-    vaddq_u64(); //expect: IntrinsicIssue
-    vaddq_s64(); //expect: IntrinsicIssue
-    vaddq_f32(); //expect: IntrinsicIssue
-    vaddl_u32(); //expect: IntrinsicIssue
-    vaddl_u16(); //expect: IntrinsicIssue
-    vaddl_u8(); //expect: IntrinsicIssue
-    vaddl_s32(); //expect: IntrinsicIssue
-    vaddl_s16(); //expect: IntrinsicIssue
-    vaddl_s8(); //expect: IntrinsicIssue
-    vaddw_u32(); //expect: IntrinsicIssue
-    vaddw_u16(); //expect: IntrinsicIssue
-    vaddw_u8(); //expect: IntrinsicIssue
-    vaddw_s32(); //expect: IntrinsicIssue
-    vaddw_s16(); //expect: IntrinsicIssue
-    vaddw_s8(); //expect: IntrinsicIssue
-    vhadd_u32(); //expect: IntrinsicIssue
-    vhadd_u16(); //expect: IntrinsicIssue
-    vhadd_u8(); //expect: IntrinsicIssue
-    vhadd_s32(); //expect: IntrinsicIssue
-    vhadd_s16(); //expect: IntrinsicIssue
-    vhadd_s8(); //expect: IntrinsicIssue
-    vhaddq_u32(); //expect: IntrinsicIssue
-    vhaddq_u16(); //expect: IntrinsicIssue
-    vhaddq_u8(); //expect: IntrinsicIssue
-    vhaddq_s32(); //expect: IntrinsicIssue
-    vhaddq_s16(); //expect: IntrinsicIssue
-    vhaddq_s8(); //expect: IntrinsicIssue
-    vrhadd_u32(); //expect: IntrinsicIssue
-    vrhadd_u16(); //expect: IntrinsicIssue
-    vrhadd_u8(); //expect: IntrinsicIssue
-    vrhadd_s32(); //expect: IntrinsicIssue
-    vrhadd_s16(); //expect: IntrinsicIssue
-    vrhadd_s8(); //expect: IntrinsicIssue
-    vrhaddq_u32(); //expect: IntrinsicIssue
-    vrhaddq_u16(); //expect: IntrinsicIssue
-    vrhaddq_u8(); //expect: IntrinsicIssue
-    vrhaddq_s32(); //expect: IntrinsicIssue
-    vrhaddq_s16(); //expect: IntrinsicIssue
-    vrhaddq_s8(); //expect: IntrinsicIssue
-    vqadd_u32(); //expect: IntrinsicIssue
-    vqadd_u16(); //expect: IntrinsicIssue
-    vqadd_u8(); //expect: IntrinsicIssue
-    vqadd_s32(); //expect: IntrinsicIssue
-    vqadd_s16(); //expect: IntrinsicIssue
-    vqadd_s8(); //expect: IntrinsicIssue
-    vqadd_u64(); //expect: IntrinsicIssue
-    vqadd_s64(); //expect: IntrinsicIssue
-    vqaddq_u32(); //expect: IntrinsicIssue
-    vqaddq_u16(); //expect: IntrinsicIssue
-    vqaddq_u8(); //expect: IntrinsicIssue
-    vqaddq_s32(); //expect: IntrinsicIssue
-    vqaddq_s16(); //expect: IntrinsicIssue
-    vqaddq_s8(); //expect: IntrinsicIssue
-    vqaddq_u64(); //expect: IntrinsicIssue
-    vqaddq_s64(); //expect: IntrinsicIssue
-    vaddhn_u64(); //expect: IntrinsicIssue
-    vaddhn_u32(); //expect: IntrinsicIssue
-    vaddhn_u16(); //expect: IntrinsicIssue
-    vaddhn_s64(); //expect: IntrinsicIssue
-    vaddhn_s32(); //expect: IntrinsicIssue
-    vaddhn_s16(); //expect: IntrinsicIssue
-    vraddhn_u64(); //expect: IntrinsicIssue
-    vraddhn_u32(); //expect: IntrinsicIssue
-    vraddhn_u16(); //expect: IntrinsicIssue
-    vraddhn_s64(); //expect: IntrinsicIssue
-    vraddhn_s32(); //expect: IntrinsicIssue
-    vraddhn_s16(); //expect: IntrinsicIssue
-    vmul_u32(); //expect: IntrinsicIssue
-    vmul_u16(); //expect: IntrinsicIssue
-    vmul_u8(); //expect: IntrinsicIssue
-    vmul_s32(); //expect: IntrinsicIssue
-    vmul_s16(); //expect: IntrinsicIssue
-    vmul_s8(); //expect: IntrinsicIssue
-    vmul_f32(); //expect: IntrinsicIssue
-    vmul_p8(); //expect: IntrinsicIssue
-    vmulq_u32(); //expect: IntrinsicIssue
-    vmulq_u16(); //expect: IntrinsicIssue
-    vmulq_u8(); //expect: IntrinsicIssue
-    vmulq_s32(); //expect: IntrinsicIssue
-    vmulq_s16(); //expect: IntrinsicIssue
-    vmulq_s8(); //expect: IntrinsicIssue
-    vmulq_f32(); //expect: IntrinsicIssue
-    vmulq_p8(); //expect: IntrinsicIssue
-    vqdmulh_s32(); //expect: IntrinsicIssue
-    vqdmulh_s16(); //expect: IntrinsicIssue
-    vqdmulhq_s32(); //expect: IntrinsicIssue
-    vqdmulhq_s16(); //expect: IntrinsicIssue
-    vqrdmulh_s32(); //expect: IntrinsicIssue
-    vqrdmulh_s16(); //expect: IntrinsicIssue
-    vqrdmulhq_s32(); //expect: IntrinsicIssue
-    vqrdmulhq_s16(); //expect: IntrinsicIssue
-    vmull_u32(); //expect: IntrinsicIssue
-    vmull_u16(); //expect: IntrinsicIssue
-    vmull_u8(); //expect: IntrinsicIssue
-    vmull_s32(); //expect: IntrinsicIssue
-    vmull_s16(); //expect: IntrinsicIssue
-    vmull_s8(); //expect: IntrinsicIssue
-    vmull_p8(); //expect: IntrinsicIssue
-    vqdmull_s32(); //expect: IntrinsicIssue
-    vqdmull_s16(); //expect: IntrinsicIssue
-    vmla_u32(); //expect: IntrinsicIssue
-    vmla_u16(); //expect: IntrinsicIssue
-    vmla_u8(); //expect: IntrinsicIssue
-    vmla_s32(); //expect: IntrinsicIssue
-    vmla_s16(); //expect: IntrinsicIssue
-    vmla_s8(); //expect: IntrinsicIssue
-    vmla_f32(); //expect: IntrinsicIssue
-    vmlaq_u32(); //expect: IntrinsicIssue
-    vmlaq_u16(); //expect: IntrinsicIssue
-    vmlaq_u8(); //expect: IntrinsicIssue
-    vmlaq_s32(); //expect: IntrinsicIssue
-    vmlaq_s16(); //expect: IntrinsicIssue
-    vmlaq_s8(); //expect: IntrinsicIssue
-    vmlaq_f32(); //expect: IntrinsicIssue
-    vmlal_u32(); //expect: IntrinsicIssue
-    vmlal_u16(); //expect: IntrinsicIssue
-    vmlal_u8(); //expect: IntrinsicIssue
-    vmlal_s32(); //expect: IntrinsicIssue
-    vmlal_s16(); //expect: IntrinsicIssue
-    vmlal_s8(); //expect: IntrinsicIssue
-    vqdmlal_s32(); //expect: IntrinsicIssue
-    vqdmlal_s16(); //expect: IntrinsicIssue
-    vmls_u32(); //expect: IntrinsicIssue
-    vmls_u16(); //expect: IntrinsicIssue
-    vmls_u8(); //expect: IntrinsicIssue
-    vmls_s32(); //expect: IntrinsicIssue
-    vmls_s16(); //expect: IntrinsicIssue
-    vmls_s8(); //expect: IntrinsicIssue
-    vmls_f32(); //expect: IntrinsicIssue
-    vmlsq_u32(); //expect: IntrinsicIssue
-    vmlsq_u16(); //expect: IntrinsicIssue
-    vmlsq_u8(); //expect: IntrinsicIssue
-    vmlsq_s32(); //expect: IntrinsicIssue
-    vmlsq_s16(); //expect: IntrinsicIssue
-    vmlsq_s8(); //expect: IntrinsicIssue
-    vmlsq_f32(); //expect: IntrinsicIssue
-    vmlsl_u32(); //expect: IntrinsicIssue
-    vmlsl_u16(); //expect: IntrinsicIssue
-    vmlsl_u8(); //expect: IntrinsicIssue
-    vmlsl_s32(); //expect: IntrinsicIssue
-    vmlsl_s16(); //expect: IntrinsicIssue
-    vmlsl_s8(); //expect: IntrinsicIssue
-    vqdmlsl_s32(); //expect: IntrinsicIssue
-    vqdmlsl_s16(); //expect: IntrinsicIssue
-    vfma_f32(); //expect: IntrinsicIssue
-    vfmaq_f32(); //expect: IntrinsicIssue
-    vfms_f32(); //expect: IntrinsicIssue
-    vfmsq_f32(); //expect: IntrinsicIssue
-    vrndn_f32(); //expect: IntrinsicIssue
-    vrndqn_f32(); //expect: IntrinsicIssue
-    vrnda_f32(); //expect: IntrinsicIssue
-    vrndqa_f32(); //expect: IntrinsicIssue
-    vrndp_f32(); //expect: IntrinsicIssue
-    vrndqp_f32(); //expect: IntrinsicIssue
-    vrndm_f32(); //expect: IntrinsicIssue
-    vrndqm_f32(); //expect: IntrinsicIssue
-    vrnd_f32(); //expect: IntrinsicIssue
-    vrndq_f32(); //expect: IntrinsicIssue
-    vsub_u32(); //expect: IntrinsicIssue
-    vsub_u16(); //expect: IntrinsicIssue
-    vsub_u8(); //expect: IntrinsicIssue
-    vsub_s32(); //expect: IntrinsicIssue
-    vsub_s16(); //expect: IntrinsicIssue
-    vsub_s8(); //expect: IntrinsicIssue
-    vsub_f32(); //expect: IntrinsicIssue
-    vsub_u64(); //expect: IntrinsicIssue
-    vsub_s64(); //expect: IntrinsicIssue
-    vsubq_u32(); //expect: IntrinsicIssue
-    vsubq_u16(); //expect: IntrinsicIssue
-    vsubq_u8(); //expect: IntrinsicIssue
-    vsubq_s32(); //expect: IntrinsicIssue
-    vsubq_s16(); //expect: IntrinsicIssue
-    vsubq_s8(); //expect: IntrinsicIssue
-    vsubq_u64(); //expect: IntrinsicIssue
-    vsubq_s64(); //expect: IntrinsicIssue
-    vsubq_f32(); //expect: IntrinsicIssue
-    vsubl_u32(); //expect: IntrinsicIssue
-    vsubl_u16(); //expect: IntrinsicIssue
-    vsubl_u8(); //expect: IntrinsicIssue
-    vsubl_s32(); //expect: IntrinsicIssue
-    vsubl_s16(); //expect: IntrinsicIssue
-    vsubl_s8(); //expect: IntrinsicIssue
-    vsubw_u32(); //expect: IntrinsicIssue
-    vsubw_u16(); //expect: IntrinsicIssue
-    vsubw_u8(); //expect: IntrinsicIssue
-    vsubw_s32(); //expect: IntrinsicIssue
-    vsubw_s16(); //expect: IntrinsicIssue
-    vsubw_s8(); //expect: IntrinsicIssue
-    vhsub_u32(); //expect: IntrinsicIssue
-    vhsub_u16(); //expect: IntrinsicIssue
-    vhsub_u8(); //expect: IntrinsicIssue
-    vhsub_s32(); //expect: IntrinsicIssue
-    vhsub_s16(); //expect: IntrinsicIssue
-    vhsub_s8(); //expect: IntrinsicIssue
-    vhsubq_u32(); //expect: IntrinsicIssue
-    vhsubq_u16(); //expect: IntrinsicIssue
-    vhsubq_u8(); //expect: IntrinsicIssue
-    vhsubq_s32(); //expect: IntrinsicIssue
-    vhsubq_s16(); //expect: IntrinsicIssue
-    vhsubq_s8(); //expect: IntrinsicIssue
-    vqsub_u32(); //expect: IntrinsicIssue
-    vqsub_u16(); //expect: IntrinsicIssue
-    vqsub_u8(); //expect: IntrinsicIssue
-    vqsub_s32(); //expect: IntrinsicIssue
-    vqsub_s16(); //expect: IntrinsicIssue
-    vqsub_s8(); //expect: IntrinsicIssue
-    vqsub_u64(); //expect: IntrinsicIssue
-    vqsub_s64(); //expect: IntrinsicIssue
-    vqsubq_u32(); //expect: IntrinsicIssue
-    vqsubq_u16(); //expect: IntrinsicIssue
-    vqsubq_u8(); //expect: IntrinsicIssue
-    vqsubq_s32(); //expect: IntrinsicIssue
-    vqsubq_s16(); //expect: IntrinsicIssue
-    vqsubq_s8(); //expect: IntrinsicIssue
-    vqsubq_u64(); //expect: IntrinsicIssue
-    vqsubq_s64(); //expect: IntrinsicIssue
-    vsubhn_u64(); //expect: IntrinsicIssue
-    vsubhn_u32(); //expect: IntrinsicIssue
-    vsubhn_u16(); //expect: IntrinsicIssue
-    vsubhn_s64(); //expect: IntrinsicIssue
-    vsubhn_s32(); //expect: IntrinsicIssue
-    vsubhn_s16(); //expect: IntrinsicIssue
-    vrsubhn_u64(); //expect: IntrinsicIssue
-    vrsubhn_u32(); //expect: IntrinsicIssue
-    vrsubhn_u16(); //expect: IntrinsicIssue
-    vrsubhn_s64(); //expect: IntrinsicIssue
-    vrsubhn_s32(); //expect: IntrinsicIssue
-    vrsubhn_s16(); //expect: IntrinsicIssue
-    vceq_u32(); //expect: IntrinsicIssue
-    vceq_u16(); //expect: IntrinsicIssue
-    vceq_u8(); //expect: IntrinsicIssue
-    vceq_s32(); //expect: IntrinsicIssue
-    vceq_s16(); //expect: IntrinsicIssue
-    vceq_s8(); //expect: IntrinsicIssue
-    vceq_f32(); //expect: IntrinsicIssue
-    vceq_p8(); //expect: IntrinsicIssue
-    vceqq_u32(); //expect: IntrinsicIssue
-    vceqq_u16(); //expect: IntrinsicIssue
-    vceqq_u8(); //expect: IntrinsicIssue
-    vceqq_s32(); //expect: IntrinsicIssue
-    vceqq_s16(); //expect: IntrinsicIssue
-    vceqq_s8(); //expect: IntrinsicIssue
-    vceqq_f32(); //expect: IntrinsicIssue
-    vceqq_p8(); //expect: IntrinsicIssue
-    vcge_s32(); //expect: IntrinsicIssue
-    vcge_s16(); //expect: IntrinsicIssue
-    vcge_s8(); //expect: IntrinsicIssue
-    vcge_f32(); //expect: IntrinsicIssue
-    vcge_u32(); //expect: IntrinsicIssue
-    vcge_u16(); //expect: IntrinsicIssue
-    vcge_u8(); //expect: IntrinsicIssue
-    vcgeq_s32(); //expect: IntrinsicIssue
-    vcgeq_s16(); //expect: IntrinsicIssue
-    vcgeq_s8(); //expect: IntrinsicIssue
-    vcgeq_f32(); //expect: IntrinsicIssue
-    vcgeq_u32(); //expect: IntrinsicIssue
-    vcgeq_u16(); //expect: IntrinsicIssue
-    vcgeq_u8(); //expect: IntrinsicIssue
-    vcle_s32(); //expect: IntrinsicIssue
-    vcle_s16(); //expect: IntrinsicIssue
-    vcle_s8(); //expect: IntrinsicIssue
-    vcle_f32(); //expect: IntrinsicIssue
-    vcle_u32(); //expect: IntrinsicIssue
-    vcle_u16(); //expect: IntrinsicIssue
-    vcle_u8(); //expect: IntrinsicIssue
-    vcleq_s32(); //expect: IntrinsicIssue
-    vcleq_s16(); //expect: IntrinsicIssue
-    vcleq_s8(); //expect: IntrinsicIssue
-    vcleq_f32(); //expect: IntrinsicIssue
-    vcleq_u32(); //expect: IntrinsicIssue
-    vcleq_u16(); //expect: IntrinsicIssue
-    vcleq_u8(); //expect: IntrinsicIssue
-    vcgt_s32(); //expect: IntrinsicIssue
-    vcgt_s16(); //expect: IntrinsicIssue
-    vcgt_s8(); //expect: IntrinsicIssue
-    vcgt_f32(); //expect: IntrinsicIssue
-    vcgt_u32(); //expect: IntrinsicIssue
-    vcgt_u16(); //expect: IntrinsicIssue
-    vcgt_u8(); //expect: IntrinsicIssue
-    vcgtq_s32(); //expect: IntrinsicIssue
-    vcgtq_s16(); //expect: IntrinsicIssue
-    vcgtq_s8(); //expect: IntrinsicIssue
-    vcgtq_f32(); //expect: IntrinsicIssue
-    vcgtq_u32(); //expect: IntrinsicIssue
-    vcgtq_u16(); //expect: IntrinsicIssue
-    vcgtq_u8(); //expect: IntrinsicIssue
-    vclt_s32(); //expect: IntrinsicIssue
-    vclt_s16(); //expect: IntrinsicIssue
-    vclt_s8(); //expect: IntrinsicIssue
-    vclt_f32(); //expect: IntrinsicIssue
-    vclt_u32(); //expect: IntrinsicIssue
-    vclt_u16(); //expect: IntrinsicIssue
-    vclt_u8(); //expect: IntrinsicIssue
-    vcltq_s32(); //expect: IntrinsicIssue
-    vcltq_s16(); //expect: IntrinsicIssue
-    vcltq_s8(); //expect: IntrinsicIssue
-    vcltq_f32(); //expect: IntrinsicIssue
-    vcltq_u32(); //expect: IntrinsicIssue
-    vcltq_u16(); //expect: IntrinsicIssue
-    vcltq_u8(); //expect: IntrinsicIssue
-    vcage_f32(); //expect: IntrinsicIssue
-    vcageq_f32(); //expect: IntrinsicIssue
-    vcale_f32(); //expect: IntrinsicIssue
-    vcaleq_f32(); //expect: IntrinsicIssue
-    vcagt_f32(); //expect: IntrinsicIssue
-    vcagtq_f32(); //expect: IntrinsicIssue
-    vcalt_f32(); //expect: IntrinsicIssue
-    vcaltq_f32(); //expect: IntrinsicIssue
-    vtst_u32(); //expect: IntrinsicIssue
-    vtst_u16(); //expect: IntrinsicIssue
-    vtst_u8(); //expect: IntrinsicIssue
-    vtst_s32(); //expect: IntrinsicIssue
-    vtst_s16(); //expect: IntrinsicIssue
-    vtst_s8(); //expect: IntrinsicIssue
-    vtst_p8(); //expect: IntrinsicIssue
-    vtstq_u32(); //expect: IntrinsicIssue
-    vtstq_u16(); //expect: IntrinsicIssue
-    vtstq_u8(); //expect: IntrinsicIssue
-    vtstq_s32(); //expect: IntrinsicIssue
-    vtstq_s16(); //expect: IntrinsicIssue
-    vtstq_s8(); //expect: IntrinsicIssue
-    vtstq_p8(); //expect: IntrinsicIssue
-    vabd_u32(); //expect: IntrinsicIssue
-    vabd_u16(); //expect: IntrinsicIssue
-    vabd_u8(); //expect: IntrinsicIssue
-    vabd_s32(); //expect: IntrinsicIssue
-    vabd_s16(); //expect: IntrinsicIssue
-    vabd_s8(); //expect: IntrinsicIssue
-    vabd_f32(); //expect: IntrinsicIssue
-    vabdq_u32(); //expect: IntrinsicIssue
-    vabdq_u16(); //expect: IntrinsicIssue
-    vabdq_u8(); //expect: IntrinsicIssue
-    vabdq_s32(); //expect: IntrinsicIssue
-    vabdq_s16(); //expect: IntrinsicIssue
-    vabdq_s8(); //expect: IntrinsicIssue
-    vabdq_f32(); //expect: IntrinsicIssue
-    vabdl_u32(); //expect: IntrinsicIssue
-    vabdl_u16(); //expect: IntrinsicIssue
-    vabdl_u8(); //expect: IntrinsicIssue
-    vabdl_s32(); //expect: IntrinsicIssue
-    vabdl_s16(); //expect: IntrinsicIssue
-    vabdl_s8(); //expect: IntrinsicIssue
-    vaba_u32(); //expect: IntrinsicIssue
-    vaba_u16(); //expect: IntrinsicIssue
-    vaba_u8(); //expect: IntrinsicIssue
-    vaba_s32(); //expect: IntrinsicIssue
-    vaba_s16(); //expect: IntrinsicIssue
-    vaba_s8(); //expect: IntrinsicIssue
-    vabaq_u32(); //expect: IntrinsicIssue
-    vabaq_u16(); //expect: IntrinsicIssue
-    vabaq_u8(); //expect: IntrinsicIssue
-    vabaq_s32(); //expect: IntrinsicIssue
-    vabaq_s16(); //expect: IntrinsicIssue
-    vabaq_s8(); //expect: IntrinsicIssue
-    vabal_u32(); //expect: IntrinsicIssue
-    vabal_u16(); //expect: IntrinsicIssue
-    vabal_u8(); //expect: IntrinsicIssue
-    vabal_s32(); //expect: IntrinsicIssue
-    vabal_s16(); //expect: IntrinsicIssue
-    vabal_s8(); //expect: IntrinsicIssue
-    vmax_u32(); //expect: IntrinsicIssue
-    vmax_u16(); //expect: IntrinsicIssue
-    vmax_u8(); //expect: IntrinsicIssue
-    vmax_s32(); //expect: IntrinsicIssue
-    vmax_s16(); //expect: IntrinsicIssue
-    vmax_s8(); //expect: IntrinsicIssue
-    vmax_f32(); //expect: IntrinsicIssue
-    vmaxq_u32(); //expect: IntrinsicIssue
-    vmaxq_u16(); //expect: IntrinsicIssue
-    vmaxq_u8(); //expect: IntrinsicIssue
-    vmaxq_s32(); //expect: IntrinsicIssue
-    vmaxq_s16(); //expect: IntrinsicIssue
-    vmaxq_s8(); //expect: IntrinsicIssue
-    vmaxq_f32(); //expect: IntrinsicIssue
-    vmin_u32(); //expect: IntrinsicIssue
-    vmin_u16(); //expect: IntrinsicIssue
-    vmin_u8(); //expect: IntrinsicIssue
-    vmin_s32(); //expect: IntrinsicIssue
-    vmin_s16(); //expect: IntrinsicIssue
-    vmin_s8(); //expect: IntrinsicIssue
-    vmin_f32(); //expect: IntrinsicIssue
-    vminq_u32(); //expect: IntrinsicIssue
-    vminq_u16(); //expect: IntrinsicIssue
-    vminq_u8(); //expect: IntrinsicIssue
-    vminq_s32(); //expect: IntrinsicIssue
-    vminq_s16(); //expect: IntrinsicIssue
-    vminq_s8(); //expect: IntrinsicIssue
-    vminq_f32(); //expect: IntrinsicIssue
-    vpadd_u32(); //expect: IntrinsicIssue
-    vpadd_u16(); //expect: IntrinsicIssue
-    vpadd_u8(); //expect: IntrinsicIssue
-    vpadd_s32(); //expect: IntrinsicIssue
-    vpadd_s16(); //expect: IntrinsicIssue
-    vpadd_s8(); //expect: IntrinsicIssue
-    vpadd_f32(); //expect: IntrinsicIssue
-    vpaddl_u32(); //expect: IntrinsicIssue
-    vpaddl_u16(); //expect: IntrinsicIssue
-    vpaddl_u8(); //expect: IntrinsicIssue
-    vpaddl_s32(); //expect: IntrinsicIssue
-    vpaddl_s16(); //expect: IntrinsicIssue
-    vpaddl_s8(); //expect: IntrinsicIssue
-    vpaddlq_u32(); //expect: IntrinsicIssue
-    vpaddlq_u16(); //expect: IntrinsicIssue
-    vpaddlq_u8(); //expect: IntrinsicIssue
-    vpaddlq_s32(); //expect: IntrinsicIssue
-    vpaddlq_s16(); //expect: IntrinsicIssue
-    vpaddlq_s8(); //expect: IntrinsicIssue
-    vpadal_u32(); //expect: IntrinsicIssue
-    vpadal_u16(); //expect: IntrinsicIssue
-    vpadal_u8(); //expect: IntrinsicIssue
-    vpadal_s32(); //expect: IntrinsicIssue
-    vpadal_s16(); //expect: IntrinsicIssue
-    vpadal_s8(); //expect: IntrinsicIssue
-    vpadalq_u32(); //expect: IntrinsicIssue
-    vpadalq_u16(); //expect: IntrinsicIssue
-    vpadalq_u8(); //expect: IntrinsicIssue
-    vpadalq_s32(); //expect: IntrinsicIssue
-    vpadalq_s16(); //expect: IntrinsicIssue
-    vpadalq_s8(); //expect: IntrinsicIssue
-    vpmax_u32(); //expect: IntrinsicIssue
-    vpmax_u16(); //expect: IntrinsicIssue
-    vpmax_u8(); //expect: IntrinsicIssue
-    vpmax_s32(); //expect: IntrinsicIssue
-    vpmax_s16(); //expect: IntrinsicIssue
-    vpmax_s8(); //expect: IntrinsicIssue
-    vpmax_f32(); //expect: IntrinsicIssue
-    vpmin_u32(); //expect: IntrinsicIssue
-    vpmin_u16(); //expect: IntrinsicIssue
-    vpmin_u8(); //expect: IntrinsicIssue
-    vpmin_s32(); //expect: IntrinsicIssue
-    vpmin_s16(); //expect: IntrinsicIssue
-    vpmin_s8(); //expect: IntrinsicIssue
-    vpmin_f32(); //expect: IntrinsicIssue
-    vrecps_f32(); //expect: IntrinsicIssue
-    vrecpsq_f32(); //expect: IntrinsicIssue
-    vrsqrts_f32(); //expect: IntrinsicIssue
-    vrsqrtsq_f32(); //expect: IntrinsicIssue
-    vshl_u32(); //expect: IntrinsicIssue
-    vshl_u16(); //expect: IntrinsicIssue
-    vshl_u8(); //expect: IntrinsicIssue
-    vshl_s32(); //expect: IntrinsicIssue
-    vshl_s16(); //expect: IntrinsicIssue
-    vshl_s8(); //expect: IntrinsicIssue
-    vshl_u64(); //expect: IntrinsicIssue
-    vshl_s64(); //expect: IntrinsicIssue
-    vshlq_u32(); //expect: IntrinsicIssue
-    vshlq_u16(); //expect: IntrinsicIssue
-    vshlq_u8(); //expect: IntrinsicIssue
-    vshlq_s32(); //expect: IntrinsicIssue
-    vshlq_s16(); //expect: IntrinsicIssue
-    vshlq_s8(); //expect: IntrinsicIssue
-    vshlq_u64(); //expect: IntrinsicIssue
-    vshlq_s64(); //expect: IntrinsicIssue
-    vrshl_u32(); //expect: IntrinsicIssue
-    vrshl_u16(); //expect: IntrinsicIssue
-    vrshl_u8(); //expect: IntrinsicIssue
-    vrshl_s32(); //expect: IntrinsicIssue
-    vrshl_s16(); //expect: IntrinsicIssue
-    vrshl_s8(); //expect: IntrinsicIssue
-    vrshl_u64(); //expect: IntrinsicIssue
-    vrshl_s64(); //expect: IntrinsicIssue
-    vrshlq_u32(); //expect: IntrinsicIssue
-    vrshlq_u16(); //expect: IntrinsicIssue
-    vrshlq_u8(); //expect: IntrinsicIssue
-    vrshlq_s32(); //expect: IntrinsicIssue
-    vrshlq_s16(); //expect: IntrinsicIssue
-    vrshlq_s8(); //expect: IntrinsicIssue
-    vrshlq_u64(); //expect: IntrinsicIssue
-    vrshlq_s64(); //expect: IntrinsicIssue
-    vqshl_u32(); //expect: IntrinsicIssue
-    vqshl_u16(); //expect: IntrinsicIssue
-    vqshl_u8(); //expect: IntrinsicIssue
-    vqshl_s32(); //expect: IntrinsicIssue
-    vqshl_s16(); //expect: IntrinsicIssue
-    vqshl_s8(); //expect: IntrinsicIssue
-    vqshl_u64(); //expect: IntrinsicIssue
-    vqshl_s64(); //expect: IntrinsicIssue
-    vqshlq_u32(); //expect: IntrinsicIssue
-    vqshlq_u16(); //expect: IntrinsicIssue
-    vqshlq_u8(); //expect: IntrinsicIssue
-    vqshlq_s32(); //expect: IntrinsicIssue
-    vqshlq_s16(); //expect: IntrinsicIssue
-    vqshlq_s8(); //expect: IntrinsicIssue
-    vqshlq_u64(); //expect: IntrinsicIssue
-    vqshlq_s64(); //expect: IntrinsicIssue
-    vqrshl_u32(); //expect: IntrinsicIssue
-    vqrshl_u16(); //expect: IntrinsicIssue
-    vqrshl_u8(); //expect: IntrinsicIssue
-    vqrshl_s32(); //expect: IntrinsicIssue
-    vqrshl_s16(); //expect: IntrinsicIssue
-    vqrshl_s8(); //expect: IntrinsicIssue
-    vqrshl_u64(); //expect: IntrinsicIssue
-    vqrshl_s64(); //expect: IntrinsicIssue
-    vqrshlq_u32(); //expect: IntrinsicIssue
-    vqrshlq_u16(); //expect: IntrinsicIssue
-    vqrshlq_u8(); //expect: IntrinsicIssue
-    vqrshlq_s32(); //expect: IntrinsicIssue
-    vqrshlq_s16(); //expect: IntrinsicIssue
-    vqrshlq_s8(); //expect: IntrinsicIssue
-    vqrshlq_u64(); //expect: IntrinsicIssue
-    vqrshlq_s64(); //expect: IntrinsicIssue
-    vshl_n_u32(); //expect: IntrinsicIssue
-    vshl_n_u16(); //expect: IntrinsicIssue
-    vshl_n_u8(); //expect: IntrinsicIssue
-    vshl_n_s32(); //expect: IntrinsicIssue
-    vshl_n_s16(); //expect: IntrinsicIssue
-    vshl_n_s8(); //expect: IntrinsicIssue
-    vshl_n_u64(); //expect: IntrinsicIssue
-    vshl_n_s64(); //expect: IntrinsicIssue
-    vshlq_n_u32(); //expect: IntrinsicIssue
-    vshlq_n_u16(); //expect: IntrinsicIssue
-    vshlq_n_u8(); //expect: IntrinsicIssue
-    vshlq_n_s32(); //expect: IntrinsicIssue
-    vshlq_n_s16(); //expect: IntrinsicIssue
-    vshlq_n_s8(); //expect: IntrinsicIssue
-    vshlq_n_u64(); //expect: IntrinsicIssue
-    vshlq_n_s64(); //expect: IntrinsicIssue
-    vqshl_n_u32(); //expect: IntrinsicIssue
-    vqshl_n_u16(); //expect: IntrinsicIssue
-    vqshl_n_u8(); //expect: IntrinsicIssue
-    vqshl_n_s32(); //expect: IntrinsicIssue
-    vqshl_n_s16(); //expect: IntrinsicIssue
-    vqshl_n_s8(); //expect: IntrinsicIssue
-    vqshl_n_u64(); //expect: IntrinsicIssue
-    vqshl_n_s64(); //expect: IntrinsicIssue
-    vqshlq_n_u32(); //expect: IntrinsicIssue
-    vqshlq_n_u16(); //expect: IntrinsicIssue
-    vqshlq_n_u8(); //expect: IntrinsicIssue
-    vqshlq_n_s32(); //expect: IntrinsicIssue
-    vqshlq_n_s16(); //expect: IntrinsicIssue
-    vqshlq_n_s8(); //expect: IntrinsicIssue
-    vqshlq_n_u64(); //expect: IntrinsicIssue
-    vqshlq_n_s64(); //expect: IntrinsicIssue
-    vqshlu_n_s64(); //expect: IntrinsicIssue
-    vqshlu_n_s32(); //expect: IntrinsicIssue
-    vqshlu_n_s16(); //expect: IntrinsicIssue
-    vqshlu_n_s8(); //expect: IntrinsicIssue
-    vqshluq_n_s64(); //expect: IntrinsicIssue
-    vqshluq_n_s32(); //expect: IntrinsicIssue
-    vqshluq_n_s16(); //expect: IntrinsicIssue
-    vqshluq_n_s8(); //expect: IntrinsicIssue
-    vshll_n_u32(); //expect: IntrinsicIssue
-    vshll_n_u16(); //expect: IntrinsicIssue
-    vshll_n_u8(); //expect: IntrinsicIssue
-    vshll_n_s32(); //expect: IntrinsicIssue
-    vshll_n_s16(); //expect: IntrinsicIssue
-    vshll_n_s8(); //expect: IntrinsicIssue
-    vshr_n_u32(); //expect: IntrinsicIssue
-    vshr_n_u16(); //expect: IntrinsicIssue
-    vshr_n_u8(); //expect: IntrinsicIssue
-    vshr_n_s32(); //expect: IntrinsicIssue
-    vshr_n_s16(); //expect: IntrinsicIssue
-    vshr_n_s8(); //expect: IntrinsicIssue
-    vshr_n_u64(); //expect: IntrinsicIssue
-    vshr_n_s64(); //expect: IntrinsicIssue
-    vshrq_n_u32(); //expect: IntrinsicIssue
-    vshrq_n_u16(); //expect: IntrinsicIssue
-    vshrq_n_u8(); //expect: IntrinsicIssue
-    vshrq_n_s32(); //expect: IntrinsicIssue
-    vshrq_n_s16(); //expect: IntrinsicIssue
-    vshrq_n_s8(); //expect: IntrinsicIssue
-    vshrq_n_u64(); //expect: IntrinsicIssue
-    vshrq_n_s64(); //expect: IntrinsicIssue
-    vrshr_n_u32(); //expect: IntrinsicIssue
-    vrshr_n_u16(); //expect: IntrinsicIssue
-    vrshr_n_u8(); //expect: IntrinsicIssue
-    vrshr_n_s32(); //expect: IntrinsicIssue
-    vrshr_n_s16(); //expect: IntrinsicIssue
-    vrshr_n_s8(); //expect: IntrinsicIssue
-    vrshr_n_u64(); //expect: IntrinsicIssue
-    vrshr_n_s64(); //expect: IntrinsicIssue
-    vrshrq_n_u32(); //expect: IntrinsicIssue
-    vrshrq_n_u16(); //expect: IntrinsicIssue
-    vrshrq_n_u8(); //expect: IntrinsicIssue
-    vrshrq_n_s32(); //expect: IntrinsicIssue
-    vrshrq_n_s16(); //expect: IntrinsicIssue
-    vrshrq_n_s8(); //expect: IntrinsicIssue
-    vrshrq_n_u64(); //expect: IntrinsicIssue
-    vrshrq_n_s64(); //expect: IntrinsicIssue
-    vshrn_n_u64(); //expect: IntrinsicIssue
-    vshrn_n_u32(); //expect: IntrinsicIssue
-    vshrn_n_u16(); //expect: IntrinsicIssue
-    vshrn_n_s64(); //expect: IntrinsicIssue
-    vshrn_n_s32(); //expect: IntrinsicIssue
-    vshrn_n_s16(); //expect: IntrinsicIssue
-    vrshrn_n_u64(); //expect: IntrinsicIssue
-    vrshrn_n_u32(); //expect: IntrinsicIssue
-    vrshrn_n_u16(); //expect: IntrinsicIssue
-    vrshrn_n_s64(); //expect: IntrinsicIssue
-    vrshrn_n_s32(); //expect: IntrinsicIssue
-    vrshrn_n_s16(); //expect: IntrinsicIssue
-    vqshrn_n_u64(); //expect: IntrinsicIssue
-    vqshrn_n_u32(); //expect: IntrinsicIssue
-    vqshrn_n_u16(); //expect: IntrinsicIssue
-    vqshrn_n_s64(); //expect: IntrinsicIssue
-    vqshrn_n_s32(); //expect: IntrinsicIssue
-    vqshrn_n_s16(); //expect: IntrinsicIssue
-    vqrshrn_n_u64(); //expect: IntrinsicIssue
-    vqrshrn_n_u32(); //expect: IntrinsicIssue
-    vqrshrn_n_u16(); //expect: IntrinsicIssue
-    vqrshrn_n_s64(); //expect: IntrinsicIssue
-    vqrshrn_n_s32(); //expect: IntrinsicIssue
-    vqrshrn_n_s16(); //expect: IntrinsicIssue
-    vqshrun_n_s64(); //expect: IntrinsicIssue
-    vqshrun_n_s32(); //expect: IntrinsicIssue
-    vqshrun_n_s16(); //expect: IntrinsicIssue
-    vqrshrun_n_s64(); //expect: IntrinsicIssue
-    vqrshrun_n_s32(); //expect: IntrinsicIssue
-    vqrshrun_n_s16(); //expect: IntrinsicIssue
-    vsra_n_u32(); //expect: IntrinsicIssue
-    vsra_n_u16(); //expect: IntrinsicIssue
-    vsra_n_u8(); //expect: IntrinsicIssue
-    vsra_n_s32(); //expect: IntrinsicIssue
-    vsra_n_s16(); //expect: IntrinsicIssue
-    vsra_n_s8(); //expect: IntrinsicIssue
-    vsra_n_u64(); //expect: IntrinsicIssue
-    vsra_n_s64(); //expect: IntrinsicIssue
-    vsraq_n_u32(); //expect: IntrinsicIssue
-    vsraq_n_u16(); //expect: IntrinsicIssue
-    vsraq_n_u8(); //expect: IntrinsicIssue
-    vsraq_n_s32(); //expect: IntrinsicIssue
-    vsraq_n_s16(); //expect: IntrinsicIssue
-    vsraq_n_s8(); //expect: IntrinsicIssue
-    vsraq_n_u64(); //expect: IntrinsicIssue
-    vsraq_n_s64(); //expect: IntrinsicIssue
-    vrsra_n_u32(); //expect: IntrinsicIssue
-    vrsra_n_u16(); //expect: IntrinsicIssue
-    vrsra_n_u8(); //expect: IntrinsicIssue
-    vrsra_n_s32(); //expect: IntrinsicIssue
-    vrsra_n_s16(); //expect: IntrinsicIssue
-    vrsra_n_s8(); //expect: IntrinsicIssue
-    vrsra_n_u64(); //expect: IntrinsicIssue
-    vrsra_n_s64(); //expect: IntrinsicIssue
-    vrsraq_n_u32(); //expect: IntrinsicIssue
-    vrsraq_n_u16(); //expect: IntrinsicIssue
-    vrsraq_n_u8(); //expect: IntrinsicIssue
-    vrsraq_n_s32(); //expect: IntrinsicIssue
-    vrsraq_n_s16(); //expect: IntrinsicIssue
-    vrsraq_n_s8(); //expect: IntrinsicIssue
-    vrsraq_n_u64(); //expect: IntrinsicIssue
-    vrsraq_n_s64(); //expect: IntrinsicIssue
-    vsri_n_u32(); //expect: IntrinsicIssue
-    vsri_n_u16(); //expect: IntrinsicIssue
-    vsri_n_u8(); //expect: IntrinsicIssue
-    vsri_n_s32(); //expect: IntrinsicIssue
-    vsri_n_s16(); //expect: IntrinsicIssue
-    vsri_n_s8(); //expect: IntrinsicIssue
-    vsri_n_u64(); //expect: IntrinsicIssue
-    vsri_n_s64(); //expect: IntrinsicIssue
-    vsri_n_p16(); //expect: IntrinsicIssue
-    vsri_n_p8(); //expect: IntrinsicIssue
-    vsriq_n_u32(); //expect: IntrinsicIssue
-    vsriq_n_u16(); //expect: IntrinsicIssue
-    vsriq_n_u8(); //expect: IntrinsicIssue
-    vsriq_n_s32(); //expect: IntrinsicIssue
-    vsriq_n_s16(); //expect: IntrinsicIssue
-    vsriq_n_s8(); //expect: IntrinsicIssue
-    vsriq_n_u64(); //expect: IntrinsicIssue
-    vsriq_n_s64(); //expect: IntrinsicIssue
-    vsriq_n_p16(); //expect: IntrinsicIssue
-    vsriq_n_p8(); //expect: IntrinsicIssue
-    vsli_n_u32(); //expect: IntrinsicIssue
-    vsli_n_u16(); //expect: IntrinsicIssue
-    vsli_n_u8(); //expect: IntrinsicIssue
-    vsli_n_s32(); //expect: IntrinsicIssue
-    vsli_n_s16(); //expect: IntrinsicIssue
-    vsli_n_s8(); //expect: IntrinsicIssue
-    vsli_n_u64(); //expect: IntrinsicIssue
-    vsli_n_s64(); //expect: IntrinsicIssue
-    vsli_n_p16(); //expect: IntrinsicIssue
-    vsli_n_p8(); //expect: IntrinsicIssue
-    vsliq_n_u32(); //expect: IntrinsicIssue
-    vsliq_n_u16(); //expect: IntrinsicIssue
-    vsliq_n_u8(); //expect: IntrinsicIssue
-    vsliq_n_s32(); //expect: IntrinsicIssue
-    vsliq_n_s16(); //expect: IntrinsicIssue
-    vsliq_n_s8(); //expect: IntrinsicIssue
-    vsliq_n_u64(); //expect: IntrinsicIssue
-    vsliq_n_s64(); //expect: IntrinsicIssue
-    vsliq_n_p16(); //expect: IntrinsicIssue
-    vsliq_n_p8(); //expect: IntrinsicIssue
-    vabs_f32(); //expect: IntrinsicIssue
-    vabs_s32(); //expect: IntrinsicIssue
-    vabs_s16(); //expect: IntrinsicIssue
-    vabs_s8(); //expect: IntrinsicIssue
-    vabsq_f32(); //expect: IntrinsicIssue
-    vabsq_s32(); //expect: IntrinsicIssue
-    vabsq_s16(); //expect: IntrinsicIssue
-    vabsq_s8(); //expect: IntrinsicIssue
-    vqabs_s32(); //expect: IntrinsicIssue
-    vqabs_s16(); //expect: IntrinsicIssue
-    vqabs_s8(); //expect: IntrinsicIssue
-    vqabsq_s32(); //expect: IntrinsicIssue
-    vqabsq_s16(); //expect: IntrinsicIssue
-    vqabsq_s8(); //expect: IntrinsicIssue
-    vneg_f32(); //expect: IntrinsicIssue
-    vneg_s32(); //expect: IntrinsicIssue
-    vneg_s16(); //expect: IntrinsicIssue
-    vneg_s8(); //expect: IntrinsicIssue
-    vnegq_f32(); //expect: IntrinsicIssue
-    vnegq_s32(); //expect: IntrinsicIssue
-    vnegq_s16(); //expect: IntrinsicIssue
-    vnegq_s8(); //expect: IntrinsicIssue
-    vqneg_s32(); //expect: IntrinsicIssue
-    vqneg_s16(); //expect: IntrinsicIssue
-    vqneg_s8(); //expect: IntrinsicIssue
-    vqnegq_s32(); //expect: IntrinsicIssue
-    vqnegq_s16(); //expect: IntrinsicIssue
-    vqnegq_s8(); //expect: IntrinsicIssue
-    vmvn_u32(); //expect: IntrinsicIssue
-    vmvn_u16(); //expect: IntrinsicIssue
-    vmvn_u8(); //expect: IntrinsicIssue
-    vmvn_s32(); //expect: IntrinsicIssue
-    vmvn_s16(); //expect: IntrinsicIssue
-    vmvn_s8(); //expect: IntrinsicIssue
-    vmvn_p8(); //expect: IntrinsicIssue
-    vmvnq_u32(); //expect: IntrinsicIssue
-    vmvnq_u16(); //expect: IntrinsicIssue
-    vmvnq_u8(); //expect: IntrinsicIssue
-    vmvnq_s32(); //expect: IntrinsicIssue
-    vmvnq_s16(); //expect: IntrinsicIssue
-    vmvnq_s8(); //expect: IntrinsicIssue
-    vmvnq_p8(); //expect: IntrinsicIssue
-    vcls_s32(); //expect: IntrinsicIssue
-    vcls_s16(); //expect: IntrinsicIssue
-    vcls_s8(); //expect: IntrinsicIssue
-    vclsq_s32(); //expect: IntrinsicIssue
-    vclsq_s16(); //expect: IntrinsicIssue
-    vclsq_s8(); //expect: IntrinsicIssue
-    vclz_u32(); //expect: IntrinsicIssue
-    vclz_u16(); //expect: IntrinsicIssue
-    vclz_u8(); //expect: IntrinsicIssue
-    vclz_s32(); //expect: IntrinsicIssue
-    vclz_s16(); //expect: IntrinsicIssue
-    vclz_s8(); //expect: IntrinsicIssue
-    vclzq_u32(); //expect: IntrinsicIssue
-    vclzq_u16(); //expect: IntrinsicIssue
-    vclzq_u8(); //expect: IntrinsicIssue
-    vclzq_s32(); //expect: IntrinsicIssue
-    vclzq_s16(); //expect: IntrinsicIssue
-    vclzq_s8(); //expect: IntrinsicIssue
-    vcnt_u8(); //expect: IntrinsicIssue
-    vcnt_s8(); //expect: IntrinsicIssue
-    vcnt_p8(); //expect: IntrinsicIssue
-    vcntq_u8(); //expect: IntrinsicIssue
-    vcntq_s8(); //expect: IntrinsicIssue
-    vcntq_p8(); //expect: IntrinsicIssue
-    vrecpe_f32(); //expect: IntrinsicIssue
-    vrecpe_u32(); //expect: IntrinsicIssue
-    vrecpeq_f32(); //expect: IntrinsicIssue
-    vrecpeq_u32(); //expect: IntrinsicIssue
-    vrsqrte_f32(); //expect: IntrinsicIssue
-    vrsqrte_u32(); //expect: IntrinsicIssue
-    vrsqrteq_f32(); //expect: IntrinsicIssue
-    vrsqrteq_u32(); //expect: IntrinsicIssue
-    vget_lane_u32(); //expect: IntrinsicIssue
-    vget_lane_u16(); //expect: IntrinsicIssue
-    vget_lane_u8(); //expect: IntrinsicIssue
-    vget_lane_s32(); //expect: IntrinsicIssue
-    vget_lane_s16(); //expect: IntrinsicIssue
-    vget_lane_s8(); //expect: IntrinsicIssue
-    vget_lane_f32(); //expect: IntrinsicIssue
-    vget_lane_p16(); //expect: IntrinsicIssue
-    vget_lane_p8(); //expect: IntrinsicIssue
-    vget_lane_u64(); //expect: IntrinsicIssue
-    vget_lane_s64(); //expect: IntrinsicIssue
-    vgetq_lane_u32(); //expect: IntrinsicIssue
-    vgetq_lane_u16(); //expect: IntrinsicIssue
-    vgetq_lane_u8(); //expect: IntrinsicIssue
-    vgetq_lane_s32(); //expect: IntrinsicIssue
-    vgetq_lane_s16(); //expect: IntrinsicIssue
-    vgetq_lane_s8(); //expect: IntrinsicIssue
-    vgetq_lane_f32(); //expect: IntrinsicIssue
-    vgetq_lane_p16(); //expect: IntrinsicIssue
-    vgetq_lane_p8(); //expect: IntrinsicIssue
-    vgetq_lane_u64(); //expect: IntrinsicIssue
-    vgetq_lane_s64(); //expect: IntrinsicIssue
-    vset_lane_u32(); //expect: IntrinsicIssue
-    vset_lane_u16(); //expect: IntrinsicIssue
-    vset_lane_u8(); //expect: IntrinsicIssue
-    vset_lane_s32(); //expect: IntrinsicIssue
-    vset_lane_s16(); //expect: IntrinsicIssue
-    vset_lane_s8(); //expect: IntrinsicIssue
-    vset_lane_f32(); //expect: IntrinsicIssue
-    vset_lane_p16(); //expect: IntrinsicIssue
-    vset_lane_p8(); //expect: IntrinsicIssue
-    vset_lane_u64(); //expect: IntrinsicIssue
-    vset_lane_s64(); //expect: IntrinsicIssue
-    vsetq_lane_u32(); //expect: IntrinsicIssue
-    vsetq_lane_u16(); //expect: IntrinsicIssue
-    vsetq_lane_u8(); //expect: IntrinsicIssue
-    vsetq_lane_s32(); //expect: IntrinsicIssue
-    vsetq_lane_s16(); //expect: IntrinsicIssue
-    vsetq_lane_s8(); //expect: IntrinsicIssue
-    vsetq_lane_f32(); //expect: IntrinsicIssue
-    vsetq_lane_p16(); //expect: IntrinsicIssue
-    vsetq_lane_p8(); //expect: IntrinsicIssue
-    vsetq_lane_u64(); //expect: IntrinsicIssue
-    vsetq_lane_s64(); //expect: IntrinsicIssue
-    vcreate_u32(); //expect: IntrinsicIssue
-    vcreate_u16(); //expect: IntrinsicIssue
-    vcreate_u8(); //expect: IntrinsicIssue
-    vcreate_s32(); //expect: IntrinsicIssue
-    vcreate_s16(); //expect: IntrinsicIssue
-    vcreate_s8(); //expect: IntrinsicIssue
-    vcreate_u64(); //expect: IntrinsicIssue
-    vcreate_s64(); //expect: IntrinsicIssue
-    vcreate_f32(); //expect: IntrinsicIssue
-    vcreate_p16(); //expect: IntrinsicIssue
-    vcreate_p8(); //expect: IntrinsicIssue
-    vdup_n_u32(); //expect: IntrinsicIssue
-    vdup_n_u16(); //expect: IntrinsicIssue
-    vdup_n_u8(); //expect: IntrinsicIssue
-    vdup_n_s32(); //expect: IntrinsicIssue
-    vdup_n_s16(); //expect: IntrinsicIssue
-    vdup_n_s8(); //expect: IntrinsicIssue
-    vdup_n_f32(); //expect: IntrinsicIssue
-    vdup_n_p16(); //expect: IntrinsicIssue
-    vdup_n_p8(); //expect: IntrinsicIssue
-    vdup_n_u64(); //expect: IntrinsicIssue
-    vdup_n_s64(); //expect: IntrinsicIssue
-    vdupq_n_u32(); //expect: IntrinsicIssue
-    vdupq_n_u16(); //expect: IntrinsicIssue
-    vdupq_n_u8(); //expect: IntrinsicIssue
-    vdupq_n_s32(); //expect: IntrinsicIssue
-    vdupq_n_s16(); //expect: IntrinsicIssue
-    vdupq_n_s8(); //expect: IntrinsicIssue
-    vdupq_n_f32(); //expect: IntrinsicIssue
-    vdupq_n_p16(); //expect: IntrinsicIssue
-    vdupq_n_p8(); //expect: IntrinsicIssue
-    vdupq_n_u64(); //expect: IntrinsicIssue
-    vdupq_n_s64(); //expect: IntrinsicIssue
-    vmov_n_u32(); //expect: IntrinsicIssue
-    vmov_n_u16(); //expect: IntrinsicIssue
-    vmov_n_u8(); //expect: IntrinsicIssue
-    vmov_n_s32(); //expect: IntrinsicIssue
-    vmov_n_s16(); //expect: IntrinsicIssue
-    vmov_n_s8(); //expect: IntrinsicIssue
-    vmov_n_f32(); //expect: IntrinsicIssue
-    vmov_n_p16(); //expect: IntrinsicIssue
-    vmov_n_p8(); //expect: IntrinsicIssue
-    vmov_n_u64(); //expect: IntrinsicIssue
-    vmov_n_s64(); //expect: IntrinsicIssue
-    vmovq_n_u32(); //expect: IntrinsicIssue
-    vmovq_n_u16(); //expect: IntrinsicIssue
-    vmovq_n_u8(); //expect: IntrinsicIssue
-    vmovq_n_s32(); //expect: IntrinsicIssue
-    vmovq_n_s16(); //expect: IntrinsicIssue
-    vmovq_n_s8(); //expect: IntrinsicIssue
-    vmovq_n_f32(); //expect: IntrinsicIssue
-    vmovq_n_p16(); //expect: IntrinsicIssue
-    vmovq_n_p8(); //expect: IntrinsicIssue
-    vmovq_n_u64(); //expect: IntrinsicIssue
-    vmovq_n_s64(); //expect: IntrinsicIssue
-    vdup_lane_u32(); //expect: IntrinsicIssue
-    vdup_lane_u16(); //expect: IntrinsicIssue
-    vdup_lane_u8(); //expect: IntrinsicIssue
-    vdup_lane_s32(); //expect: IntrinsicIssue
-    vdup_lane_s16(); //expect: IntrinsicIssue
-    vdup_lane_s8(); //expect: IntrinsicIssue
-    vdup_lane_f32(); //expect: IntrinsicIssue
-    vdup_lane_p16(); //expect: IntrinsicIssue
-    vdup_lane_p8(); //expect: IntrinsicIssue
-    vdup_lane_u64(); //expect: IntrinsicIssue
-    vdup_lane_s64(); //expect: IntrinsicIssue
-    vdupq_lane_u32(); //expect: IntrinsicIssue
-    vdupq_lane_u16(); //expect: IntrinsicIssue
-    vdupq_lane_u8(); //expect: IntrinsicIssue
-    vdupq_lane_s32(); //expect: IntrinsicIssue
-    vdupq_lane_s16(); //expect: IntrinsicIssue
-    vdupq_lane_s8(); //expect: IntrinsicIssue
-    vdupq_lane_f32(); //expect: IntrinsicIssue
-    vdupq_lane_p16(); //expect: IntrinsicIssue
-    vdupq_lane_p8(); //expect: IntrinsicIssue
-    vdupq_lane_u64(); //expect: IntrinsicIssue
-    vdupq_lane_s64(); //expect: IntrinsicIssue
-    vcombine_u32(); //expect: IntrinsicIssue
-    vcombine_u16(); //expect: IntrinsicIssue
-    vcombine_u8(); //expect: IntrinsicIssue
-    vcombine_s32(); //expect: IntrinsicIssue
-    vcombine_s16(); //expect: IntrinsicIssue
-    vcombine_s8(); //expect: IntrinsicIssue
-    vcombine_u64(); //expect: IntrinsicIssue
-    vcombine_s64(); //expect: IntrinsicIssue
-    vcombine_f32(); //expect: IntrinsicIssue
-    vcombine_p16(); //expect: IntrinsicIssue
-    vcombine_p8(); //expect: IntrinsicIssue
-    vget_high_u32(); //expect: IntrinsicIssue
-    vget_high_u16(); //expect: IntrinsicIssue
-    vget_high_u8(); //expect: IntrinsicIssue
-    vget_high_s32(); //expect: IntrinsicIssue
-    vget_high_s16(); //expect: IntrinsicIssue
-    vget_high_s8(); //expect: IntrinsicIssue
-    vget_high_u64(); //expect: IntrinsicIssue
-    vget_high_s64(); //expect: IntrinsicIssue
-    vget_high_f32(); //expect: IntrinsicIssue
-    vget_high_p16(); //expect: IntrinsicIssue
-    vget_high_p8(); //expect: IntrinsicIssue
-    vget_low_u32(); //expect: IntrinsicIssue
-    vget_low_u16(); //expect: IntrinsicIssue
-    vget_low_u8(); //expect: IntrinsicIssue
-    vget_low_s32(); //expect: IntrinsicIssue
-    vget_low_s16(); //expect: IntrinsicIssue
-    vget_low_s8(); //expect: IntrinsicIssue
-    vget_low_f32(); //expect: IntrinsicIssue
-    vget_low_p16(); //expect: IntrinsicIssue
-    vget_low_p8(); //expect: IntrinsicIssue
-    vget_low_u64(); //expect: IntrinsicIssue
-    vget_low_s64(); //expect: IntrinsicIssue
-    vcvt_f32_u32(); //expect: IntrinsicIssue
-    vcvt_f32_s32(); //expect: IntrinsicIssue
-    vcvt_u32_f32(); //expect: IntrinsicIssue
-    vcvt_s32_f32(); //expect: IntrinsicIssue
-    vcvtq_f32_u32(); //expect: IntrinsicIssue
-    vcvtq_f32_s32(); //expect: IntrinsicIssue
-    vcvtq_u32_f32(); //expect: IntrinsicIssue
-    vcvtq_s32_f32(); //expect: IntrinsicIssue
-    vcvt_n_f32_u32(); //expect: IntrinsicIssue
-    vcvt_n_f32_s32(); //expect: IntrinsicIssue
-    vcvt_n_u32_f32(); //expect: IntrinsicIssue
-    vcvt_n_s32_f32(); //expect: IntrinsicIssue
-    vcvtq_n_f32_u32(); //expect: IntrinsicIssue
-    vcvtq_n_f32_s32(); //expect: IntrinsicIssue
-    vcvtq_n_u32_f32(); //expect: IntrinsicIssue
-    vcvtq_n_s32_f32(); //expect: IntrinsicIssue
-    vmovn_u64(); //expect: IntrinsicIssue
-    vmovn_u32(); //expect: IntrinsicIssue
-    vmovn_u16(); //expect: IntrinsicIssue
-    vmovn_s64(); //expect: IntrinsicIssue
-    vmovn_s32(); //expect: IntrinsicIssue
-    vmovn_s16(); //expect: IntrinsicIssue
-    vqmovn_u64(); //expect: IntrinsicIssue
-    vqmovn_u32(); //expect: IntrinsicIssue
-    vqmovn_u16(); //expect: IntrinsicIssue
-    vqmovn_s64(); //expect: IntrinsicIssue
-    vqmovn_s32(); //expect: IntrinsicIssue
-    vqmovn_s16(); //expect: IntrinsicIssue
-    vqmovun_s64(); //expect: IntrinsicIssue
-    vqmovun_s32(); //expect: IntrinsicIssue
-    vqmovun_s16(); //expect: IntrinsicIssue
-    vmovl_u32(); //expect: IntrinsicIssue
-    vmovl_u16(); //expect: IntrinsicIssue
-    vmovl_u8(); //expect: IntrinsicIssue
-    vmovl_s32(); //expect: IntrinsicIssue
-    vmovl_s16(); //expect: IntrinsicIssue
-    vmovl_s8(); //expect: IntrinsicIssue
-    vtbl1_p8(); //expect: IntrinsicIssue
-    vtbl1_s8(); //expect: IntrinsicIssue
-    vtbl1_u8(); //expect: IntrinsicIssue
-    vtbl2_p8(); //expect: IntrinsicIssue
-    vtbl2_s8(); //expect: IntrinsicIssue
-    vtbl2_u8(); //expect: IntrinsicIssue
-    vtbl3_p8(); //expect: IntrinsicIssue
-    vtbl3_s8(); //expect: IntrinsicIssue
-    vtbl3_u8(); //expect: IntrinsicIssue
-    vtbl4_p8(); //expect: IntrinsicIssue
-    vtbl4_s8(); //expect: IntrinsicIssue
-    vtbl4_u8(); //expect: IntrinsicIssue
-    vtbx1_p8(); //expect: IntrinsicIssue
-    vtbx1_s8(); //expect: IntrinsicIssue
-    vtbx1_u8(); //expect: IntrinsicIssue
-    vtbx2_p8(); //expect: IntrinsicIssue
-    vtbx2_s8(); //expect: IntrinsicIssue
-    vtbx2_u8(); //expect: IntrinsicIssue
-    vtbx3_p8(); //expect: IntrinsicIssue
-    vtbx3_s8(); //expect: IntrinsicIssue
-    vtbx3_u8(); //expect: IntrinsicIssue
-    vtbx4_p8(); //expect: IntrinsicIssue
-    vtbx4_s8(); //expect: IntrinsicIssue
-    vtbx4_u8(); //expect: IntrinsicIssue
-    vmul_lane_f32(); //expect: IntrinsicIssue
-    vmul_lane_u32(); //expect: IntrinsicIssue
-    vmul_lane_u16(); //expect: IntrinsicIssue
-    vmul_lane_s32(); //expect: IntrinsicIssue
-    vmul_lane_s16(); //expect: IntrinsicIssue
-    vmulq_lane_f32(); //expect: IntrinsicIssue
-    vmulq_lane_u32(); //expect: IntrinsicIssue
-    vmulq_lane_u16(); //expect: IntrinsicIssue
-    vmulq_lane_s32(); //expect: IntrinsicIssue
-    vmulq_lane_s16(); //expect: IntrinsicIssue
-    vmull_lane_u32(); //expect: IntrinsicIssue
-    vmull_lane_u16(); //expect: IntrinsicIssue
-    vmull_lane_s32(); //expect: IntrinsicIssue
-    vmull_lane_s16(); //expect: IntrinsicIssue
-    vqdmull_lane_s32(); //expect: IntrinsicIssue
-    vqdmull_lane_s16(); //expect: IntrinsicIssue
-    vqdmulhq_lane_s32(); //expect: IntrinsicIssue
-    vqdmulhq_lane_s16(); //expect: IntrinsicIssue
-    vqdmulh_lane_s32(); //expect: IntrinsicIssue
-    vqdmulh_lane_s16(); //expect: IntrinsicIssue
-    vqrdmulhq_lane_s32(); //expect: IntrinsicIssue
-    vqrdmulhq_lane_s16(); //expect: IntrinsicIssue
-    vqrdmulh_lane_s32(); //expect: IntrinsicIssue
-    vqrdmulh_lane_s16(); //expect: IntrinsicIssue
-    vmla_lane_f32(); //expect: IntrinsicIssue
-    vmla_lane_u32(); //expect: IntrinsicIssue
-    vmla_lane_u16(); //expect: IntrinsicIssue
-    vmla_lane_s32(); //expect: IntrinsicIssue
-    vmla_lane_s16(); //expect: IntrinsicIssue
-    vmlaq_lane_f32(); //expect: IntrinsicIssue
-    vmlaq_lane_u32(); //expect: IntrinsicIssue
-    vmlaq_lane_u16(); //expect: IntrinsicIssue
-    vmlaq_lane_s32(); //expect: IntrinsicIssue
-    vmlaq_lane_s16(); //expect: IntrinsicIssue
-    vmlal_lane_u32(); //expect: IntrinsicIssue
-    vmlal_lane_u16(); //expect: IntrinsicIssue
-    vmlal_lane_s32(); //expect: IntrinsicIssue
-    vmlal_lane_s16(); //expect: IntrinsicIssue
-    vqdmlal_lane_s32(); //expect: IntrinsicIssue
-    vqdmlal_lane_s16(); //expect: IntrinsicIssue
-    vmls_lane_f32(); //expect: IntrinsicIssue
-    vmls_lane_u32(); //expect: IntrinsicIssue
-    vmls_lane_u16(); //expect: IntrinsicIssue
-    vmls_lane_s32(); //expect: IntrinsicIssue
-    vmls_lane_s16(); //expect: IntrinsicIssue
-    vmlsq_lane_f32(); //expect: IntrinsicIssue
-    vmlsq_lane_u32(); //expect: IntrinsicIssue
-    vmlsq_lane_u16(); //expect: IntrinsicIssue
-    vmlsq_lane_s32(); //expect: IntrinsicIssue
-    vmlsq_lane_s16(); //expect: IntrinsicIssue
-    vmlsl_lane_u32(); //expect: IntrinsicIssue
-    vmlsl_lane_u16(); //expect: IntrinsicIssue
-    vmlsl_lane_s32(); //expect: IntrinsicIssue
-    vmlsl_lane_s16(); //expect: IntrinsicIssue
-    vqdmlsl_lane_s32(); //expect: IntrinsicIssue
-    vqdmlsl_lane_s16(); //expect: IntrinsicIssue
-    vmul_n_f32(); //expect: IntrinsicIssue
-    vmul_n_u32(); //expect: IntrinsicIssue
-    vmul_n_u16(); //expect: IntrinsicIssue
-    vmul_n_s32(); //expect: IntrinsicIssue
-    vmul_n_s16(); //expect: IntrinsicIssue
-    vmulq_n_f32(); //expect: IntrinsicIssue
-    vmulq_n_u32(); //expect: IntrinsicIssue
-    vmulq_n_u16(); //expect: IntrinsicIssue
-    vmulq_n_s32(); //expect: IntrinsicIssue
-    vmulq_n_s16(); //expect: IntrinsicIssue
-    vmull_n_u32(); //expect: IntrinsicIssue
-    vmull_n_u16(); //expect: IntrinsicIssue
-    vmull_n_s32(); //expect: IntrinsicIssue
-    vmull_n_s16(); //expect: IntrinsicIssue
-    vqdmull_n_s32(); //expect: IntrinsicIssue
-    vqdmull_n_s16(); //expect: IntrinsicIssue
-    vqdmulhq_n_s32(); //expect: IntrinsicIssue
-    vqdmulhq_n_s16(); //expect: IntrinsicIssue
-    vqdmulh_n_s32(); //expect: IntrinsicIssue
-    vqdmulh_n_s16(); //expect: IntrinsicIssue
-    vqrdmulhq_n_s32(); //expect: IntrinsicIssue
-    vqrdmulhq_n_s16(); //expect: IntrinsicIssue
-    vqrdmulh_n_s32(); //expect: IntrinsicIssue
-    vqrdmulh_n_s16(); //expect: IntrinsicIssue
-    vmla_n_f32(); //expect: IntrinsicIssue
-    vmla_n_u32(); //expect: IntrinsicIssue
-    vmla_n_u16(); //expect: IntrinsicIssue
-    vmla_n_s32(); //expect: IntrinsicIssue
-    vmla_n_s16(); //expect: IntrinsicIssue
-    vmlaq_n_f32(); //expect: IntrinsicIssue
-    vmlaq_n_u32(); //expect: IntrinsicIssue
-    vmlaq_n_u16(); //expect: IntrinsicIssue
-    vmlaq_n_s32(); //expect: IntrinsicIssue
-    vmlaq_n_s16(); //expect: IntrinsicIssue
-    vmlal_n_u32(); //expect: IntrinsicIssue
-    vmlal_n_u16(); //expect: IntrinsicIssue
-    vmlal_n_s32(); //expect: IntrinsicIssue
-    vmlal_n_s16(); //expect: IntrinsicIssue
-    vqdmlal_n_s32(); //expect: IntrinsicIssue
-    vqdmlal_n_s16(); //expect: IntrinsicIssue
-    vmls_n_f32(); //expect: IntrinsicIssue
-    vmls_n_u32(); //expect: IntrinsicIssue
-    vmls_n_u16(); //expect: IntrinsicIssue
-    vmls_n_s32(); //expect: IntrinsicIssue
-    vmls_n_s16(); //expect: IntrinsicIssue
-    vmlsq_n_f32(); //expect: IntrinsicIssue
-    vmlsq_n_u32(); //expect: IntrinsicIssue
-    vmlsq_n_u16(); //expect: IntrinsicIssue
-    vmlsq_n_s32(); //expect: IntrinsicIssue
-    vmlsq_n_s16(); //expect: IntrinsicIssue
-    vmlsl_n_u32(); //expect: IntrinsicIssue
-    vmlsl_n_u16(); //expect: IntrinsicIssue
-    vmlsl_n_s32(); //expect: IntrinsicIssue
-    vmlsl_n_s16(); //expect: IntrinsicIssue
-    vqdmlsl_n_s32(); //expect: IntrinsicIssue
-    vqdmlsl_n_s16(); //expect: IntrinsicIssue
-    vext_u32(); //expect: IntrinsicIssue
-    vext_u16(); //expect: IntrinsicIssue
-    vext_u8(); //expect: IntrinsicIssue
-    vext_s32(); //expect: IntrinsicIssue
-    vext_s16(); //expect: IntrinsicIssue
-    vext_s8(); //expect: IntrinsicIssue
-    vext_u64(); //expect: IntrinsicIssue
-    vext_s64(); //expect: IntrinsicIssue
-    vext_f32(); //expect: IntrinsicIssue
-    vext_p16(); //expect: IntrinsicIssue
-    vext_p8(); //expect: IntrinsicIssue
-    vextq_u32(); //expect: IntrinsicIssue
-    vextq_u16(); //expect: IntrinsicIssue
-    vextq_u8(); //expect: IntrinsicIssue
-    vextq_s32(); //expect: IntrinsicIssue
-    vextq_s16(); //expect: IntrinsicIssue
-    vextq_s8(); //expect: IntrinsicIssue
-    vextq_u64(); //expect: IntrinsicIssue
-    vextq_s64(); //expect: IntrinsicIssue
-    vextq_f32(); //expect: IntrinsicIssue
-    vextq_p16(); //expect: IntrinsicIssue
-    vextq_p8(); //expect: IntrinsicIssue
-    vrev64_u32(); //expect: IntrinsicIssue
-    vrev64_u16(); //expect: IntrinsicIssue
-    vrev64_u8(); //expect: IntrinsicIssue
-    vrev64_s32(); //expect: IntrinsicIssue
-    vrev64_s16(); //expect: IntrinsicIssue
-    vrev64_s8(); //expect: IntrinsicIssue
-    vrev64_f32(); //expect: IntrinsicIssue
-    vrev64_p16(); //expect: IntrinsicIssue
-    vrev64_p8(); //expect: IntrinsicIssue
-    vrev64q_u32(); //expect: IntrinsicIssue
-    vrev64q_u16(); //expect: IntrinsicIssue
-    vrev64q_u8(); //expect: IntrinsicIssue
-    vrev64q_s32(); //expect: IntrinsicIssue
-    vrev64q_s16(); //expect: IntrinsicIssue
-    vrev64q_s8(); //expect: IntrinsicIssue
-    vrev64q_f32(); //expect: IntrinsicIssue
-    vrev64q_p16(); //expect: IntrinsicIssue
-    vrev64q_p8(); //expect: IntrinsicIssue
-    vrev32_u16(); //expect: IntrinsicIssue
-    vrev32_s16(); //expect: IntrinsicIssue
-    vrev32_u8(); //expect: IntrinsicIssue
-    vrev32_s8(); //expect: IntrinsicIssue
-    vrev32_p16(); //expect: IntrinsicIssue
-    vrev32_p8(); //expect: IntrinsicIssue
-    vrev32q_u16(); //expect: IntrinsicIssue
-    vrev32q_s16(); //expect: IntrinsicIssue
-    vrev32q_u8(); //expect: IntrinsicIssue
-    vrev32q_s8(); //expect: IntrinsicIssue
-    vrev32q_p16(); //expect: IntrinsicIssue
-    vrev32q_p8(); //expect: IntrinsicIssue
-    vrev16_u8(); //expect: IntrinsicIssue
-    vrev16_s8(); //expect: IntrinsicIssue
-    vrev16_p8(); //expect: IntrinsicIssue
-    vrev16q_u8(); //expect: IntrinsicIssue
-    vrev16q_s8(); //expect: IntrinsicIssue
-    vrev16q_p8(); //expect: IntrinsicIssue
-    vbsl_u32(); //expect: IntrinsicIssue
-    vbsl_u16(); //expect: IntrinsicIssue
-    vbsl_u8(); //expect: IntrinsicIssue
-    vbsl_s32(); //expect: IntrinsicIssue
-    vbsl_s16(); //expect: IntrinsicIssue
-    vbsl_s8(); //expect: IntrinsicIssue
-    vbsl_u64(); //expect: IntrinsicIssue
-    vbsl_s64(); //expect: IntrinsicIssue
-    vbsl_f32(); //expect: IntrinsicIssue
-    vbsl_p16(); //expect: IntrinsicIssue
-    vbsl_p8(); //expect: IntrinsicIssue
-    vbslq_u32(); //expect: IntrinsicIssue
-    vbslq_u16(); //expect: IntrinsicIssue
-    vbslq_u8(); //expect: IntrinsicIssue
-    vbslq_s32(); //expect: IntrinsicIssue
-    vbslq_s16(); //expect: IntrinsicIssue
-    vbslq_s8(); //expect: IntrinsicIssue
-    vbslq_u64(); //expect: IntrinsicIssue
-    vbslq_s64(); //expect: IntrinsicIssue
-    vbslq_f32(); //expect: IntrinsicIssue
-    vbslq_p16(); //expect: IntrinsicIssue
-    vbslq_p8(); //expect: IntrinsicIssue
-    vtrn_u16(); //expect: IntrinsicIssue
-    vtrn_u8(); //expect: IntrinsicIssue
-    vtrn_s16(); //expect: IntrinsicIssue
-    vtrn_s8(); //expect: IntrinsicIssue
-    vtrn_p16(); //expect: IntrinsicIssue
-    vtrn_p8(); //expect: IntrinsicIssue
-    vtrn_f32(); //expect: IntrinsicIssue
-    vtrn_u32(); //expect: IntrinsicIssue
-    vtrn_s32(); //expect: IntrinsicIssue
-    vtrnq_u32(); //expect: IntrinsicIssue
-    vtrnq_u16(); //expect: IntrinsicIssue
-    vtrnq_u8(); //expect: IntrinsicIssue
-    vtrnq_s32(); //expect: IntrinsicIssue
-    vtrnq_s16(); //expect: IntrinsicIssue
-    vtrnq_s8(); //expect: IntrinsicIssue
-    vtrnq_f32(); //expect: IntrinsicIssue
-    vtrnq_p16(); //expect: IntrinsicIssue
-    vtrnq_p8(); //expect: IntrinsicIssue
-    vzip_u16(); //expect: IntrinsicIssue
-    vzip_u8(); //expect: IntrinsicIssue
-    vzip_s16(); //expect: IntrinsicIssue
-    vzip_s8(); //expect: IntrinsicIssue
-    vzip_p16(); //expect: IntrinsicIssue
-    vzip_p8(); //expect: IntrinsicIssue
-    vzip_f32(); //expect: IntrinsicIssue
-    vzip_u32(); //expect: IntrinsicIssue
-    vzip_s32(); //expect: IntrinsicIssue
-    vzipq_u32(); //expect: IntrinsicIssue
-    vzipq_u16(); //expect: IntrinsicIssue
-    vzipq_u8(); //expect: IntrinsicIssue
-    vzipq_s32(); //expect: IntrinsicIssue
-    vzipq_s16(); //expect: IntrinsicIssue
-    vzipq_s8(); //expect: IntrinsicIssue
-    vzipq_f32(); //expect: IntrinsicIssue
-    vzipq_p16(); //expect: IntrinsicIssue
-    vzipq_p8(); //expect: IntrinsicIssue
-    vuzp_u32(); //expect: IntrinsicIssue
-    vuzp_u16(); //expect: IntrinsicIssue
-    vuzp_u8(); //expect: IntrinsicIssue
-    vuzp_s32(); //expect: IntrinsicIssue
-    vuzp_s16(); //expect: IntrinsicIssue
-    vuzp_s8(); //expect: IntrinsicIssue
-    vuzp_f32(); //expect: IntrinsicIssue
-    vuzp_p16(); //expect: IntrinsicIssue
-    vuzp_p8(); //expect: IntrinsicIssue
-    vuzpq_u32(); //expect: IntrinsicIssue
-    vuzpq_u16(); //expect: IntrinsicIssue
-    vuzpq_u8(); //expect: IntrinsicIssue
-    vuzpq_s32(); //expect: IntrinsicIssue
-    vuzpq_s16(); //expect: IntrinsicIssue
-    vuzpq_s8(); //expect: IntrinsicIssue
-    vuzpq_f32(); //expect: IntrinsicIssue
-    vuzpq_p16(); //expect: IntrinsicIssue
-    vuzpq_p8(); //expect: IntrinsicIssue
-    vld1_u32(); //expect: IntrinsicIssue
-    vld1_u16(); //expect: IntrinsicIssue
-    vld1_u8(); //expect: IntrinsicIssue
-    vld1_s32(); //expect: IntrinsicIssue
-    vld1_s16(); //expect: IntrinsicIssue
-    vld1_s8(); //expect: IntrinsicIssue
-    vld1_u64(); //expect: IntrinsicIssue
-    vld1_s64(); //expect: IntrinsicIssue
-    vld1_f32(); //expect: IntrinsicIssue
-    vld1_p16(); //expect: IntrinsicIssue
-    vld1_p8(); //expect: IntrinsicIssue
-    vld1q_u32(); //expect: IntrinsicIssue
-    vld1q_u16(); //expect: IntrinsicIssue
-    vld1q_u8(); //expect: IntrinsicIssue
-    vld1q_s32(); //expect: IntrinsicIssue
-    vld1q_s16(); //expect: IntrinsicIssue
-    vld1q_s8(); //expect: IntrinsicIssue
-    vld1q_u64(); //expect: IntrinsicIssue
-    vld1q_s64(); //expect: IntrinsicIssue
-    vld1q_f32(); //expect: IntrinsicIssue
-    vld1q_p16(); //expect: IntrinsicIssue
-    vld1q_p8(); //expect: IntrinsicIssue
-    vld1_lane_u32(); //expect: IntrinsicIssue
-    vld1_lane_u16(); //expect: IntrinsicIssue
-    vld1_lane_u8(); //expect: IntrinsicIssue
-    vld1_lane_s32(); //expect: IntrinsicIssue
-    vld1_lane_s16(); //expect: IntrinsicIssue
-    vld1_lane_s8(); //expect: IntrinsicIssue
-    vld1_lane_f32(); //expect: IntrinsicIssue
-    vld1_lane_p16(); //expect: IntrinsicIssue
-    vld1_lane_p8(); //expect: IntrinsicIssue
-    vld1_lane_u64(); //expect: IntrinsicIssue
-    vld1_lane_s64(); //expect: IntrinsicIssue
-    vld1q_lane_u32(); //expect: IntrinsicIssue
-    vld1q_lane_u16(); //expect: IntrinsicIssue
-    vld1q_lane_u8(); //expect: IntrinsicIssue
-    vld1q_lane_s32(); //expect: IntrinsicIssue
-    vld1q_lane_s16(); //expect: IntrinsicIssue
-    vld1q_lane_s8(); //expect: IntrinsicIssue
-    vld1q_lane_f32(); //expect: IntrinsicIssue
-    vld1q_lane_p16(); //expect: IntrinsicIssue
-    vld1q_lane_p8(); //expect: IntrinsicIssue
-    vld1q_lane_u64(); //expect: IntrinsicIssue
-    vld1q_lane_s64(); //expect: IntrinsicIssue
-    vld1_dup_u32(); //expect: IntrinsicIssue
-    vld1_dup_u16(); //expect: IntrinsicIssue
-    vld1_dup_u8(); //expect: IntrinsicIssue
-    vld1_dup_s32(); //expect: IntrinsicIssue
-    vld1_dup_s16(); //expect: IntrinsicIssue
-    vld1_dup_s8(); //expect: IntrinsicIssue
-    vld1_dup_f32(); //expect: IntrinsicIssue
-    vld1_dup_p16(); //expect: IntrinsicIssue
-    vld1_dup_p8(); //expect: IntrinsicIssue
-    vld1_dup_u64(); //expect: IntrinsicIssue
-    vld1_dup_s64(); //expect: IntrinsicIssue
-    vld1q_dup_u32(); //expect: IntrinsicIssue
-    vld1q_dup_u16(); //expect: IntrinsicIssue
-    vld1q_dup_u8(); //expect: IntrinsicIssue
-    vld1q_dup_s32(); //expect: IntrinsicIssue
-    vld1q_dup_s16(); //expect: IntrinsicIssue
-    vld1q_dup_s8(); //expect: IntrinsicIssue
-    vld1q_dup_f32(); //expect: IntrinsicIssue
-    vld1q_dup_p16(); //expect: IntrinsicIssue
-    vld1q_dup_p8(); //expect: IntrinsicIssue
-    vld1q_dup_u64(); //expect: IntrinsicIssue
-    vld1q_dup_s64(); //expect: IntrinsicIssue
-    vst1_u32(); //expect: IntrinsicIssue
-    vst1_u16(); //expect: IntrinsicIssue
-    vst1_u8(); //expect: IntrinsicIssue
-    vst1_s32(); //expect: IntrinsicIssue
-    vst1_s16(); //expect: IntrinsicIssue
-    vst1_s8(); //expect: IntrinsicIssue
-    vst1_u64(); //expect: IntrinsicIssue
-    vst1_s64(); //expect: IntrinsicIssue
-    vst1_f32(); //expect: IntrinsicIssue
-    vst1_p16(); //expect: IntrinsicIssue
-    vst1_p8(); //expect: IntrinsicIssue
-    vst1q_u32(); //expect: IntrinsicIssue
-    vst1q_u16(); //expect: IntrinsicIssue
-    vst1q_u8(); //expect: IntrinsicIssue
-    vst1q_s32(); //expect: IntrinsicIssue
-    vst1q_s16(); //expect: IntrinsicIssue
-    vst1q_s8(); //expect: IntrinsicIssue
-    vst1q_u64(); //expect: IntrinsicIssue
-    vst1q_s64(); //expect: IntrinsicIssue
-    vst1q_f32(); //expect: IntrinsicIssue
-    vst1q_p16(); //expect: IntrinsicIssue
-    vst1q_p8(); //expect: IntrinsicIssue
-    vst1_lane_u32(); //expect: IntrinsicIssue
-    vst1_lane_u16(); //expect: IntrinsicIssue
-    vst1_lane_u8(); //expect: IntrinsicIssue
-    vst1_lane_s32(); //expect: IntrinsicIssue
-    vst1_lane_s16(); //expect: IntrinsicIssue
-    vst1_lane_s8(); //expect: IntrinsicIssue
-    vst1_lane_f32(); //expect: IntrinsicIssue
-    vst1_lane_p16(); //expect: IntrinsicIssue
-    vst1_lane_p8(); //expect: IntrinsicIssue
-    vst1_lane_s64(); //expect: IntrinsicIssue
-    vst1_lane_u64(); //expect: IntrinsicIssue
-    vst1q_lane_u32(); //expect: IntrinsicIssue
-    vst1q_lane_u16(); //expect: IntrinsicIssue
-    vst1q_lane_u8(); //expect: IntrinsicIssue
-    vst1q_lane_s32(); //expect: IntrinsicIssue
-    vst1q_lane_s16(); //expect: IntrinsicIssue
-    vst1q_lane_s8(); //expect: IntrinsicIssue
-    vst1q_lane_f32(); //expect: IntrinsicIssue
-    vst1q_lane_p16(); //expect: IntrinsicIssue
-    vst1q_lane_p8(); //expect: IntrinsicIssue
-    vst1q_lane_s64(); //expect: IntrinsicIssue
-    vst1q_lane_u64(); //expect: IntrinsicIssue
-    vld2_u32(); //expect: IntrinsicIssue
-    vld2_u16(); //expect: IntrinsicIssue
-    vld2_u8(); //expect: IntrinsicIssue
-    vld2_s32(); //expect: IntrinsicIssue
-    vld2_s16(); //expect: IntrinsicIssue
-    vld2_s8(); //expect: IntrinsicIssue
-    vld2_f32(); //expect: IntrinsicIssue
-    vld2_p16(); //expect: IntrinsicIssue
-    vld2_p8(); //expect: IntrinsicIssue
-    vld2_u64(); //expect: IntrinsicIssue
-    vld2_s64(); //expect: IntrinsicIssue
-    vld2q_u32(); //expect: IntrinsicIssue
-    vld2q_u16(); //expect: IntrinsicIssue
-    vld2q_u8(); //expect: IntrinsicIssue
-    vld2q_s32(); //expect: IntrinsicIssue
-    vld2q_s16(); //expect: IntrinsicIssue
-    vld2q_s8(); //expect: IntrinsicIssue
-    vld2q_f32(); //expect: IntrinsicIssue
-    vld2q_p16(); //expect: IntrinsicIssue
-    vld2q_p8(); //expect: IntrinsicIssue
-    vld2_lane_u32(); //expect: IntrinsicIssue
-    vld2_lane_u16(); //expect: IntrinsicIssue
-    vld2_lane_u8(); //expect: IntrinsicIssue
-    vld2_lane_s32(); //expect: IntrinsicIssue
-    vld2_lane_s16(); //expect: IntrinsicIssue
-    vld2_lane_s8(); //expect: IntrinsicIssue
-    vld2_lane_f32(); //expect: IntrinsicIssue
-    vld2_lane_p16(); //expect: IntrinsicIssue
-    vld2_lane_p8(); //expect: IntrinsicIssue
-    vld2q_lane_s32(); //expect: IntrinsicIssue
-    vld2q_lane_s16(); //expect: IntrinsicIssue
-    vld2q_lane_u32(); //expect: IntrinsicIssue
-    vld2q_lane_u16(); //expect: IntrinsicIssue
-    vld2q_lane_f32(); //expect: IntrinsicIssue
-    vld2q_lane_p16(); //expect: IntrinsicIssue
-    vld2_dup_u32(); //expect: IntrinsicIssue
-    vld2_dup_u16(); //expect: IntrinsicIssue
-    vld2_dup_u8(); //expect: IntrinsicIssue
-    vld2_dup_s32(); //expect: IntrinsicIssue
-    vld2_dup_s16(); //expect: IntrinsicIssue
-    vld2_dup_s8(); //expect: IntrinsicIssue
-    vld2_dup_f32(); //expect: IntrinsicIssue
-    vld2_dup_p16(); //expect: IntrinsicIssue
-    vld2_dup_p8(); //expect: IntrinsicIssue
-    vld2_dup_u64(); //expect: IntrinsicIssue
-    vld2_dup_s64(); //expect: IntrinsicIssue
-    vst2_u32(); //expect: IntrinsicIssue
-    vst2_u16(); //expect: IntrinsicIssue
-    vst2_u8(); //expect: IntrinsicIssue
-    vst2_s32(); //expect: IntrinsicIssue
-    vst2_s16(); //expect: IntrinsicIssue
-    vst2_s8(); //expect: IntrinsicIssue
-    vst2_f32(); //expect: IntrinsicIssue
-    vst2_p16(); //expect: IntrinsicIssue
-    vst2_p8(); //expect: IntrinsicIssue
-    vst2_u64(); //expect: IntrinsicIssue
-    vst2_s64(); //expect: IntrinsicIssue
-    vst2q_u32(); //expect: IntrinsicIssue
-    vst2q_u16(); //expect: IntrinsicIssue
-    vst2q_u8(); //expect: IntrinsicIssue
-    vst2q_s32(); //expect: IntrinsicIssue
-    vst2q_s16(); //expect: IntrinsicIssue
-    vst2q_s8(); //expect: IntrinsicIssue
-    vst2q_f32(); //expect: IntrinsicIssue
-    vst2q_p16(); //expect: IntrinsicIssue
-    vst2q_p8(); //expect: IntrinsicIssue
-    vst2_lane_u32(); //expect: IntrinsicIssue
-    vst2_lane_u16(); //expect: IntrinsicIssue
-    vst2_lane_u8(); //expect: IntrinsicIssue
-    vst2_lane_s32(); //expect: IntrinsicIssue
-    vst2_lane_s16(); //expect: IntrinsicIssue
-    vst2_lane_s8(); //expect: IntrinsicIssue
-    vst2_lane_f32(); //expect: IntrinsicIssue
-    vst2_lane_p16(); //expect: IntrinsicIssue
-    vst2_lane_p8(); //expect: IntrinsicIssue
-    vst2q_lane_s32(); //expect: IntrinsicIssue
-    vst2q_lane_s16(); //expect: IntrinsicIssue
-    vst2q_lane_u32(); //expect: IntrinsicIssue
-    vst2q_lane_u16(); //expect: IntrinsicIssue
-    vst2q_lane_f32(); //expect: IntrinsicIssue
-    vst2q_lane_p16(); //expect: IntrinsicIssue
-    vld3_u32(); //expect: IntrinsicIssue
-    vld3_u16(); //expect: IntrinsicIssue
-    vld3_u8(); //expect: IntrinsicIssue
-    vld3_s32(); //expect: IntrinsicIssue
-    vld3_s16(); //expect: IntrinsicIssue
-    vld3_s8(); //expect: IntrinsicIssue
-    vld3_f32(); //expect: IntrinsicIssue
-    vld3_p16(); //expect: IntrinsicIssue
-    vld3_p8(); //expect: IntrinsicIssue
-    vld3_u64(); //expect: IntrinsicIssue
-    vld3_s64(); //expect: IntrinsicIssue
-    vld3q_u32(); //expect: IntrinsicIssue
-    vld3q_u16(); //expect: IntrinsicIssue
-    vld3q_u8(); //expect: IntrinsicIssue
-    vld3q_s32(); //expect: IntrinsicIssue
-    vld3q_s16(); //expect: IntrinsicIssue
-    vld3q_s8(); //expect: IntrinsicIssue
-    vld3q_f32(); //expect: IntrinsicIssue
-    vld3q_p16(); //expect: IntrinsicIssue
-    vld3q_p8(); //expect: IntrinsicIssue
-    vld3_lane_u32(); //expect: IntrinsicIssue
-    vld3_lane_u16(); //expect: IntrinsicIssue
-    vld3_lane_u8(); //expect: IntrinsicIssue
-    vld3_lane_s32(); //expect: IntrinsicIssue
-    vld3_lane_s16(); //expect: IntrinsicIssue
-    vld3_lane_s8(); //expect: IntrinsicIssue
-    vld3_lane_f32(); //expect: IntrinsicIssue
-    vld3_lane_p16(); //expect: IntrinsicIssue
-    vld3_lane_p8(); //expect: IntrinsicIssue
-    vld3q_lane_s32(); //expect: IntrinsicIssue
-    vld3q_lane_s16(); //expect: IntrinsicIssue
-    vld3q_lane_u32(); //expect: IntrinsicIssue
-    vld3q_lane_u16(); //expect: IntrinsicIssue
-    vld3q_lane_f32(); //expect: IntrinsicIssue
-    vld3q_lane_p16(); //expect: IntrinsicIssue
-    vld3_dup_u32(); //expect: IntrinsicIssue
-    vld3_dup_u16(); //expect: IntrinsicIssue
-    vld3_dup_u8(); //expect: IntrinsicIssue
-    vld3_dup_s32(); //expect: IntrinsicIssue
-    vld3_dup_s16(); //expect: IntrinsicIssue
-    vld3_dup_s8(); //expect: IntrinsicIssue
-    vld3_dup_f32(); //expect: IntrinsicIssue
-    vld3_dup_p16(); //expect: IntrinsicIssue
-    vld3_dup_p8(); //expect: IntrinsicIssue
-    vld3_dup_u64(); //expect: IntrinsicIssue
-    vld3_dup_s64(); //expect: IntrinsicIssue
-    vst3_u32(); //expect: IntrinsicIssue
-    vst3_u16(); //expect: IntrinsicIssue
-    vst3_u8(); //expect: IntrinsicIssue
-    vst3_s32(); //expect: IntrinsicIssue
-    vst3_s16(); //expect: IntrinsicIssue
-    vst3_s8(); //expect: IntrinsicIssue
-    vst3_f32(); //expect: IntrinsicIssue
-    vst3_p16(); //expect: IntrinsicIssue
-    vst3_p8(); //expect: IntrinsicIssue
-    vst3_u64(); //expect: IntrinsicIssue
-    vst3_s64(); //expect: IntrinsicIssue
-    vst3q_u32(); //expect: IntrinsicIssue
-    vst3q_u16(); //expect: IntrinsicIssue
-    vst3q_u8(); //expect: IntrinsicIssue
-    vst3q_s32(); //expect: IntrinsicIssue
-    vst3q_s16(); //expect: IntrinsicIssue
-    vst3q_s8(); //expect: IntrinsicIssue
-    vst3q_f32(); //expect: IntrinsicIssue
-    vst3q_p16(); //expect: IntrinsicIssue
-    vst3q_p8(); //expect: IntrinsicIssue
-    vst3_lane_u32(); //expect: IntrinsicIssue
-    vst3_lane_u16(); //expect: IntrinsicIssue
-    vst3_lane_u8(); //expect: IntrinsicIssue
-    vst3_lane_s32(); //expect: IntrinsicIssue
-    vst3_lane_s16(); //expect: IntrinsicIssue
-    vst3_lane_s8(); //expect: IntrinsicIssue
-    vst3_lane_f32(); //expect: IntrinsicIssue
-    vst3_lane_p16(); //expect: IntrinsicIssue
-    vst3_lane_p8(); //expect: IntrinsicIssue
-    vst3q_lane_s32(); //expect: IntrinsicIssue
-    vst3q_lane_s16(); //expect: IntrinsicIssue
-    vst3q_lane_u32(); //expect: IntrinsicIssue
-    vst3q_lane_u16(); //expect: IntrinsicIssue
-    vst3q_lane_f32(); //expect: IntrinsicIssue
-    vst3q_lane_p16(); //expect: IntrinsicIssue
-    vld4_u32(); //expect: IntrinsicIssue
-    vld4_u16(); //expect: IntrinsicIssue
-    vld4_u8(); //expect: IntrinsicIssue
-    vld4_s32(); //expect: IntrinsicIssue
-    vld4_s16(); //expect: IntrinsicIssue
-    vld4_s8(); //expect: IntrinsicIssue
-    vld4_f32(); //expect: IntrinsicIssue
-    vld4_p16(); //expect: IntrinsicIssue
-    vld4_p8(); //expect: IntrinsicIssue
-    vld4_u64(); //expect: IntrinsicIssue
-    vld4_s64(); //expect: IntrinsicIssue
-    vld4q_u32(); //expect: IntrinsicIssue
-    vld4q_u16(); //expect: IntrinsicIssue
-    vld4q_u8(); //expect: IntrinsicIssue
-    vld4q_s32(); //expect: IntrinsicIssue
-    vld4q_s16(); //expect: IntrinsicIssue
-    vld4q_s8(); //expect: IntrinsicIssue
-    vld4q_f32(); //expect: IntrinsicIssue
-    vld4q_p16(); //expect: IntrinsicIssue
-    vld4q_p8(); //expect: IntrinsicIssue
-    vld4_lane_u32(); //expect: IntrinsicIssue
-    vld4_lane_u16(); //expect: IntrinsicIssue
-    vld4_lane_u8(); //expect: IntrinsicIssue
-    vld4_lane_s32(); //expect: IntrinsicIssue
-    vld4_lane_s16(); //expect: IntrinsicIssue
-    vld4_lane_s8(); //expect: IntrinsicIssue
-    vld4_lane_f32(); //expect: IntrinsicIssue
-    vld4_lane_p16(); //expect: IntrinsicIssue
-    vld4_lane_p8(); //expect: IntrinsicIssue
-    vld4q_lane_s32(); //expect: IntrinsicIssue
-    vld4q_lane_s16(); //expect: IntrinsicIssue
-    vld4q_lane_u32(); //expect: IntrinsicIssue
-    vld4q_lane_u16(); //expect: IntrinsicIssue
-    vld4q_lane_f32(); //expect: IntrinsicIssue
-    vld4q_lane_p16(); //expect: IntrinsicIssue
-    vld4_dup_u32(); //expect: IntrinsicIssue
-    vld4_dup_u16(); //expect: IntrinsicIssue
-    vld4_dup_u8(); //expect: IntrinsicIssue
-    vld4_dup_s32(); //expect: IntrinsicIssue
-    vld4_dup_s16(); //expect: IntrinsicIssue
-    vld4_dup_s8(); //expect: IntrinsicIssue
-    vld4_dup_f32(); //expect: IntrinsicIssue
-    vld4_dup_p16(); //expect: IntrinsicIssue
-    vld4_dup_p8(); //expect: IntrinsicIssue
-    vld4_dup_u64(); //expect: IntrinsicIssue
-    vld4_dup_s64(); //expect: IntrinsicIssue
-    vst4_u32(); //expect: IntrinsicIssue
-    vst4_u16(); //expect: IntrinsicIssue
-    vst4_u8(); //expect: IntrinsicIssue
-    vst4_s32(); //expect: IntrinsicIssue
-    vst4_s16(); //expect: IntrinsicIssue
-    vst4_s8(); //expect: IntrinsicIssue
-    vst4_f32(); //expect: IntrinsicIssue
-    vst4_p16(); //expect: IntrinsicIssue
-    vst4_p8(); //expect: IntrinsicIssue
-    vst4_u64(); //expect: IntrinsicIssue
-    vst4_s64(); //expect: IntrinsicIssue
-    vst4q_u32(); //expect: IntrinsicIssue
-    vst4q_u16(); //expect: IntrinsicIssue
-    vst4q_u8(); //expect: IntrinsicIssue
-    vst4q_s32(); //expect: IntrinsicIssue
-    vst4q_s16(); //expect: IntrinsicIssue
-    vst4q_s8(); //expect: IntrinsicIssue
-    vst4q_f32(); //expect: IntrinsicIssue
-    vst4q_p16(); //expect: IntrinsicIssue
-    vst4q_p8(); //expect: IntrinsicIssue
-    vst4_lane_u32(); //expect: IntrinsicIssue
-    vst4_lane_u16(); //expect: IntrinsicIssue
-    vst4_lane_u8(); //expect: IntrinsicIssue
-    vst4_lane_s32(); //expect: IntrinsicIssue
-    vst4_lane_s16(); //expect: IntrinsicIssue
-    vst4_lane_s8(); //expect: IntrinsicIssue
-    vst4_lane_f32(); //expect: IntrinsicIssue
-    vst4_lane_p16(); //expect: IntrinsicIssue
-    vst4_lane_p8(); //expect: IntrinsicIssue
-    vst4q_lane_s32(); //expect: IntrinsicIssue
-    vst4q_lane_s16(); //expect: IntrinsicIssue
-    vst4q_lane_u32(); //expect: IntrinsicIssue
-    vst4q_lane_u16(); //expect: IntrinsicIssue
-    vst4q_lane_f32(); //expect: IntrinsicIssue
-    vst4q_lane_p16(); //expect: IntrinsicIssue
-    vand_u32(); //expect: IntrinsicIssue
-    vand_u16(); //expect: IntrinsicIssue
-    vand_u8(); //expect: IntrinsicIssue
-    vand_s32(); //expect: IntrinsicIssue
-    vand_s16(); //expect: IntrinsicIssue
-    vand_s8(); //expect: IntrinsicIssue
-    vand_u64(); //expect: IntrinsicIssue
-    vand_s64(); //expect: IntrinsicIssue
-    vandq_u32(); //expect: IntrinsicIssue
-    vandq_u16(); //expect: IntrinsicIssue
-    vandq_u8(); //expect: IntrinsicIssue
-    vandq_s32(); //expect: IntrinsicIssue
-    vandq_s16(); //expect: IntrinsicIssue
-    vandq_s8(); //expect: IntrinsicIssue
-    vandq_u64(); //expect: IntrinsicIssue
-    vandq_s64(); //expect: IntrinsicIssue
-    vorr_u32(); //expect: IntrinsicIssue
-    vorr_u16(); //expect: IntrinsicIssue
-    vorr_u8(); //expect: IntrinsicIssue
-    vorr_s32(); //expect: IntrinsicIssue
-    vorr_s16(); //expect: IntrinsicIssue
-    vorr_s8(); //expect: IntrinsicIssue
-    vorr_u64(); //expect: IntrinsicIssue
-    vorr_s64(); //expect: IntrinsicIssue
-    vorrq_u32(); //expect: IntrinsicIssue
-    vorrq_u16(); //expect: IntrinsicIssue
-    vorrq_u8(); //expect: IntrinsicIssue
-    vorrq_s32(); //expect: IntrinsicIssue
-    vorrq_s16(); //expect: IntrinsicIssue
-    vorrq_s8(); //expect: IntrinsicIssue
-    vorrq_u64(); //expect: IntrinsicIssue
-    vorrq_s64(); //expect: IntrinsicIssue
-    veor_u32(); //expect: IntrinsicIssue
-    veor_u16(); //expect: IntrinsicIssue
-    veor_u8(); //expect: IntrinsicIssue
-    veor_s32(); //expect: IntrinsicIssue
-    veor_s16(); //expect: IntrinsicIssue
-    veor_s8(); //expect: IntrinsicIssue
-    veor_u64(); //expect: IntrinsicIssue
-    veor_s64(); //expect: IntrinsicIssue
-    veorq_u32(); //expect: IntrinsicIssue
-    veorq_u16(); //expect: IntrinsicIssue
-    veorq_u8(); //expect: IntrinsicIssue
-    veorq_s32(); //expect: IntrinsicIssue
-    veorq_s16(); //expect: IntrinsicIssue
-    veorq_s8(); //expect: IntrinsicIssue
-    veorq_u64(); //expect: IntrinsicIssue
-    veorq_s64(); //expect: IntrinsicIssue
-    vbic_u32(); //expect: IntrinsicIssue
-    vbic_u16(); //expect: IntrinsicIssue
-    vbic_u8(); //expect: IntrinsicIssue
-    vbic_s32(); //expect: IntrinsicIssue
-    vbic_s16(); //expect: IntrinsicIssue
-    vbic_s8(); //expect: IntrinsicIssue
-    vbic_u64(); //expect: IntrinsicIssue
-    vbic_s64(); //expect: IntrinsicIssue
-    vbicq_u32(); //expect: IntrinsicIssue
-    vbicq_u16(); //expect: IntrinsicIssue
-    vbicq_u8(); //expect: IntrinsicIssue
-    vbicq_s32(); //expect: IntrinsicIssue
-    vbicq_s16(); //expect: IntrinsicIssue
-    vbicq_s8(); //expect: IntrinsicIssue
-    vbicq_u64(); //expect: IntrinsicIssue
-    vbicq_s64(); //expect: IntrinsicIssue
-    vorn_u32(); //expect: IntrinsicIssue
-    vorn_u16(); //expect: IntrinsicIssue
-    vorn_u8(); //expect: IntrinsicIssue
-    vorn_s32(); //expect: IntrinsicIssue
-    vorn_s16(); //expect: IntrinsicIssue
-    vorn_s8(); //expect: IntrinsicIssue
-    vorn_u64(); //expect: IntrinsicIssue
-    vorn_s64(); //expect: IntrinsicIssue
-    vornq_u32(); //expect: IntrinsicIssue
-    vornq_u16(); //expect: IntrinsicIssue
-    vornq_u8(); //expect: IntrinsicIssue
-    vornq_s32(); //expect: IntrinsicIssue
-    vornq_s16(); //expect: IntrinsicIssue
-    vornq_s8(); //expect: IntrinsicIssue
-    vornq_u64(); //expect: IntrinsicIssue
-    vornq_s64(); //expect: IntrinsicIssue
-    vreinterpret_p8_u32(); //expect: IntrinsicIssue
-    vreinterpret_p8_u16(); //expect: IntrinsicIssue
-    vreinterpret_p8_u8(); //expect: IntrinsicIssue
-    vreinterpret_p8_s32(); //expect: IntrinsicIssue
-    vreinterpret_p8_s16(); //expect: IntrinsicIssue
-    vreinterpret_p8_s8(); //expect: IntrinsicIssue
-    vreinterpret_p8_u64(); //expect: IntrinsicIssue
-    vreinterpret_p8_s64(); //expect: IntrinsicIssue
-    vreinterpret_p8_f32(); //expect: IntrinsicIssue
-    vreinterpret_p8_p16(); //expect: IntrinsicIssue
-    vreinterpretq_p8_u32(); //expect: IntrinsicIssue
-    vreinterpretq_p8_u16(); //expect: IntrinsicIssue
-    vreinterpretq_p8_u8(); //expect: IntrinsicIssue
-    vreinterpretq_p8_s32(); //expect: IntrinsicIssue
-    vreinterpretq_p8_s16(); //expect: IntrinsicIssue
-    vreinterpretq_p8_s8(); //expect: IntrinsicIssue
-    vreinterpretq_p8_u64(); //expect: IntrinsicIssue
-    vreinterpretq_p8_s64(); //expect: IntrinsicIssue
-    vreinterpretq_p8_f32(); //expect: IntrinsicIssue
-    vreinterpretq_p8_p16(); //expect: IntrinsicIssue
-    vreinterpret_p16_u32(); //expect: IntrinsicIssue
-    vreinterpret_p16_u16(); //expect: IntrinsicIssue
-    vreinterpret_p16_u8(); //expect: IntrinsicIssue
-    vreinterpret_p16_s32(); //expect: IntrinsicIssue
-    vreinterpret_p16_s16(); //expect: IntrinsicIssue
-    vreinterpret_p16_s8(); //expect: IntrinsicIssue
-    vreinterpret_p16_u64(); //expect: IntrinsicIssue
-    vreinterpret_p16_s64(); //expect: IntrinsicIssue
-    vreinterpret_p16_f32(); //expect: IntrinsicIssue
-    vreinterpret_p16_p8(); //expect: IntrinsicIssue
-    vreinterpretq_p16_u32(); //expect: IntrinsicIssue
-    vreinterpretq_p16_u16(); //expect: IntrinsicIssue
-    vreinterpretq_p16_u8(); //expect: IntrinsicIssue
-    vreinterpretq_p16_s32(); //expect: IntrinsicIssue
-    vreinterpretq_p16_s16(); //expect: IntrinsicIssue
-    vreinterpretq_p16_s8(); //expect: IntrinsicIssue
-    vreinterpretq_p16_u64(); //expect: IntrinsicIssue
-    vreinterpretq_p16_s64(); //expect: IntrinsicIssue
-    vreinterpretq_p16_f32(); //expect: IntrinsicIssue
-    vreinterpretq_p16_p8(); //expect: IntrinsicIssue
-    vreinterpret_f32_u32(); //expect: IntrinsicIssue
-    vreinterpret_f32_u16(); //expect: IntrinsicIssue
-    vreinterpret_f32_u8(); //expect: IntrinsicIssue
-    vreinterpret_f32_s32(); //expect: IntrinsicIssue
-    vreinterpret_f32_s16(); //expect: IntrinsicIssue
-    vreinterpret_f32_s8(); //expect: IntrinsicIssue
-    vreinterpret_f32_u64(); //expect: IntrinsicIssue
-    vreinterpret_f32_s64(); //expect: IntrinsicIssue
-    vreinterpret_f32_p16(); //expect: IntrinsicIssue
-    vreinterpret_f32_p8(); //expect: IntrinsicIssue
-    vreinterpretq_f32_u32(); //expect: IntrinsicIssue
-    vreinterpretq_f32_u16(); //expect: IntrinsicIssue
-    vreinterpretq_f32_u8(); //expect: IntrinsicIssue
-    vreinterpretq_f32_s32(); //expect: IntrinsicIssue
-    vreinterpretq_f32_s16(); //expect: IntrinsicIssue
-    vreinterpretq_f32_s8(); //expect: IntrinsicIssue
-    vreinterpretq_f32_u64(); //expect: IntrinsicIssue
-    vreinterpretq_f32_s64(); //expect: IntrinsicIssue
-    vreinterpretq_f32_p16(); //expect: IntrinsicIssue
-    vreinterpretq_f32_p8(); //expect: IntrinsicIssue
-    vreinterpret_s64_u32(); //expect: IntrinsicIssue
-    vreinterpret_s64_u16(); //expect: IntrinsicIssue
-    vreinterpret_s64_u8(); //expect: IntrinsicIssue
-    vreinterpret_s64_s32(); //expect: IntrinsicIssue
-    vreinterpret_s64_s16(); //expect: IntrinsicIssue
-    vreinterpret_s64_s8(); //expect: IntrinsicIssue
-    vreinterpret_s64_u64(); //expect: IntrinsicIssue
-    vreinterpret_s64_f32(); //expect: IntrinsicIssue
-    vreinterpret_s64_p16(); //expect: IntrinsicIssue
-    vreinterpret_s64_p8(); //expect: IntrinsicIssue
-    vreinterpretq_s64_u32(); //expect: IntrinsicIssue
-    vreinterpretq_s64_u16(); //expect: IntrinsicIssue
-    vreinterpretq_s64_u8(); //expect: IntrinsicIssue
-    vreinterpretq_s64_s32(); //expect: IntrinsicIssue
-    vreinterpretq_s64_s16(); //expect: IntrinsicIssue
-    vreinterpretq_s64_s8(); //expect: IntrinsicIssue
-    vreinterpretq_s64_u64(); //expect: IntrinsicIssue
-    vreinterpretq_s64_f32(); //expect: IntrinsicIssue
-    vreinterpretq_s64_p16(); //expect: IntrinsicIssue
-    vreinterpretq_s64_p8(); //expect: IntrinsicIssue
-    vreinterpret_u64_u32(); //expect: IntrinsicIssue
-    vreinterpret_u64_u16(); //expect: IntrinsicIssue
-    vreinterpret_u64_u8(); //expect: IntrinsicIssue
-    vreinterpret_u64_s32(); //expect: IntrinsicIssue
-    vreinterpret_u64_s16(); //expect: IntrinsicIssue
-    vreinterpret_u64_s8(); //expect: IntrinsicIssue
-    vreinterpret_u64_s64(); //expect: IntrinsicIssue
-    vreinterpret_u64_f32(); //expect: IntrinsicIssue
-    vreinterpret_u64_p16(); //expect: IntrinsicIssue
-    vreinterpret_u64_p8(); //expect: IntrinsicIssue
-    vreinterpretq_u64_u32(); //expect: IntrinsicIssue
-    vreinterpretq_u64_u16(); //expect: IntrinsicIssue
-    vreinterpretq_u64_u8(); //expect: IntrinsicIssue
-    vreinterpretq_u64_s32(); //expect: IntrinsicIssue
-    vreinterpretq_u64_s16(); //expect: IntrinsicIssue
-    vreinterpretq_u64_s8(); //expect: IntrinsicIssue
-    vreinterpretq_u64_s64(); //expect: IntrinsicIssue
-    vreinterpretq_u64_f32(); //expect: IntrinsicIssue
-    vreinterpretq_u64_p16(); //expect: IntrinsicIssue
-    vreinterpretq_u64_p8(); //expect: IntrinsicIssue
-    vreinterpret_s8_u32(); //expect: IntrinsicIssue
-    vreinterpret_s8_u16(); //expect: IntrinsicIssue
-    vreinterpret_s8_u8(); //expect: IntrinsicIssue
-    vreinterpret_s8_s32(); //expect: IntrinsicIssue
-    vreinterpret_s8_s16(); //expect: IntrinsicIssue
-    vreinterpret_s8_u64(); //expect: IntrinsicIssue
-    vreinterpret_s8_s64(); //expect: IntrinsicIssue
-    vreinterpret_s8_f32(); //expect: IntrinsicIssue
-    vreinterpret_s8_p16(); //expect: IntrinsicIssue
-    vreinterpret_s8_p8(); //expect: IntrinsicIssue
-    vreinterpretq_s8_u32(); //expect: IntrinsicIssue
-    vreinterpretq_s8_u16(); //expect: IntrinsicIssue
-    vreinterpretq_s8_u8(); //expect: IntrinsicIssue
-    vreinterpretq_s8_s32(); //expect: IntrinsicIssue
-    vreinterpretq_s8_s16(); //expect: IntrinsicIssue
-    vreinterpretq_s8_u64(); //expect: IntrinsicIssue
-    vreinterpretq_s8_s64(); //expect: IntrinsicIssue
-    vreinterpretq_s8_f32(); //expect: IntrinsicIssue
-    vreinterpretq_s8_p16(); //expect: IntrinsicIssue
-    vreinterpretq_s8_p8(); //expect: IntrinsicIssue
-    vreinterpret_s16_u32(); //expect: IntrinsicIssue
-    vreinterpret_s16_u16(); //expect: IntrinsicIssue
-    vreinterpret_s16_u8(); //expect: IntrinsicIssue
-    vreinterpret_s16_s32(); //expect: IntrinsicIssue
-    vreinterpret_s16_s8(); //expect: IntrinsicIssue
-    vreinterpret_s16_u64(); //expect: IntrinsicIssue
-    vreinterpret_s16_s64(); //expect: IntrinsicIssue
-    vreinterpret_s16_f32(); //expect: IntrinsicIssue
-    vreinterpret_s16_p16(); //expect: IntrinsicIssue
-    vreinterpret_s16_p8(); //expect: IntrinsicIssue
-    vreinterpretq_s16_u32(); //expect: IntrinsicIssue
-    vreinterpretq_s16_u16(); //expect: IntrinsicIssue
-    vreinterpretq_s16_u8(); //expect: IntrinsicIssue
-    vreinterpretq_s16_s32(); //expect: IntrinsicIssue
-    vreinterpretq_s16_s8(); //expect: IntrinsicIssue
-    vreinterpretq_s16_u64(); //expect: IntrinsicIssue
-    vreinterpretq_s16_s64(); //expect: IntrinsicIssue
-    vreinterpretq_s16_f32(); //expect: IntrinsicIssue
-    vreinterpretq_s16_p16(); //expect: IntrinsicIssue
-    vreinterpretq_s16_p8(); //expect: IntrinsicIssue
-    vreinterpret_s32_u32(); //expect: IntrinsicIssue
-    vreinterpret_s32_u16(); //expect: IntrinsicIssue
-    vreinterpret_s32_u8(); //expect: IntrinsicIssue
-    vreinterpret_s32_s16(); //expect: IntrinsicIssue
-    vreinterpret_s32_s8(); //expect: IntrinsicIssue
-    vreinterpret_s32_u64(); //expect: IntrinsicIssue
-    vreinterpret_s32_s64(); //expect: IntrinsicIssue
-    vreinterpret_s32_f32(); //expect: IntrinsicIssue
-    vreinterpret_s32_p16(); //expect: IntrinsicIssue
-    vreinterpret_s32_p8(); //expect: IntrinsicIssue
-    vreinterpretq_s32_u32(); //expect: IntrinsicIssue
-    vreinterpretq_s32_u16(); //expect: IntrinsicIssue
-    vreinterpretq_s32_u8(); //expect: IntrinsicIssue
-    vreinterpretq_s32_s16(); //expect: IntrinsicIssue
-    vreinterpretq_s32_s8(); //expect: IntrinsicIssue
-    vreinterpretq_s32_u64(); //expect: IntrinsicIssue
-    vreinterpretq_s32_s64(); //expect: IntrinsicIssue
-    vreinterpretq_s32_f32(); //expect: IntrinsicIssue
-    vreinterpretq_s32_p16(); //expect: IntrinsicIssue
-    vreinterpretq_s32_p8(); //expect: IntrinsicIssue
-    vreinterpret_u8_u32(); //expect: IntrinsicIssue
-    vreinterpret_u8_u16(); //expect: IntrinsicIssue
-    vreinterpret_u8_s32(); //expect: IntrinsicIssue
-    vreinterpret_u8_s16(); //expect: IntrinsicIssue
-    vreinterpret_u8_s8(); //expect: IntrinsicIssue
-    vreinterpret_u8_u64(); //expect: IntrinsicIssue
-    vreinterpret_u8_s64(); //expect: IntrinsicIssue
-    vreinterpret_u8_f32(); //expect: IntrinsicIssue
-    vreinterpret_u8_p16(); //expect: IntrinsicIssue
-    vreinterpret_u8_p8(); //expect: IntrinsicIssue
-    vreinterpretq_u8_u32(); //expect: IntrinsicIssue
-    vreinterpretq_u8_u16(); //expect: IntrinsicIssue
-    vreinterpretq_u8_s32(); //expect: IntrinsicIssue
-    vreinterpretq_u8_s16(); //expect: IntrinsicIssue
-    vreinterpretq_u8_s8(); //expect: IntrinsicIssue
-    vreinterpretq_u8_u64(); //expect: IntrinsicIssue
-    vreinterpretq_u8_s64(); //expect: IntrinsicIssue
-    vreinterpretq_u8_f32(); //expect: IntrinsicIssue
-    vreinterpretq_u8_p16(); //expect: IntrinsicIssue
-    vreinterpretq_u8_p8(); //expect: IntrinsicIssue
-    vreinterpret_u16_u32(); //expect: IntrinsicIssue
-    vreinterpret_u16_u8(); //expect: IntrinsicIssue
-    vreinterpret_u16_s32(); //expect: IntrinsicIssue
-    vreinterpret_u16_s16(); //expect: IntrinsicIssue
-    vreinterpret_u16_s8(); //expect: IntrinsicIssue
-    vreinterpret_u16_u64(); //expect: IntrinsicIssue
-    vreinterpret_u16_s64(); //expect: IntrinsicIssue
-    vreinterpret_u16_f32(); //expect: IntrinsicIssue
-    vreinterpret_u16_p16(); //expect: IntrinsicIssue
-    vreinterpret_u16_p8(); //expect: IntrinsicIssue
-    vreinterpretq_u16_u32(); //expect: IntrinsicIssue
-    vreinterpretq_u16_u8(); //expect: IntrinsicIssue
-    vreinterpretq_u16_s32(); //expect: IntrinsicIssue
-    vreinterpretq_u16_s16(); //expect: IntrinsicIssue
-    vreinterpretq_u16_s8(); //expect: IntrinsicIssue
-    vreinterpretq_u16_u64(); //expect: IntrinsicIssue
-    vreinterpretq_u16_s64(); //expect: IntrinsicIssue
-    vreinterpretq_u16_f32(); //expect: IntrinsicIssue
-    vreinterpretq_u16_p16(); //expect: IntrinsicIssue
-    vreinterpretq_u16_p8(); //expect: IntrinsicIssue
-    vreinterpret_u32_u16(); //expect: IntrinsicIssue
-    vreinterpret_u32_u8(); //expect: IntrinsicIssue
-    vreinterpret_u32_s32(); //expect: IntrinsicIssue
-    vreinterpret_u32_s16(); //expect: IntrinsicIssue
-    vreinterpret_u32_s8(); //expect: IntrinsicIssue
-    vreinterpret_u32_u64(); //expect: IntrinsicIssue
-    vreinterpret_u32_s64(); //expect: IntrinsicIssue
-    vreinterpret_u32_f32(); //expect: IntrinsicIssue
-    vreinterpret_u32_p16(); //expect: IntrinsicIssue
-    vreinterpret_u32_p8(); //expect: IntrinsicIssue
-    vreinterpretq_u32_u16(); //expect: IntrinsicIssue
-    vreinterpretq_u32_u8(); //expect: IntrinsicIssue
-    vreinterpretq_u32_s32(); //expect: IntrinsicIssue
-    vreinterpretq_u32_s16(); //expect: IntrinsicIssue
-    vreinterpretq_u32_s8(); //expect: IntrinsicIssue
-    vreinterpretq_u32_u64(); //expect: IntrinsicIssue
-    vreinterpretq_u32_s64(); //expect: IntrinsicIssue
-    vreinterpretq_u32_f32(); //expect: IntrinsicIssue
-    vreinterpretq_u32_p16(); //expect: IntrinsicIssue
-    vreinterpretq_u32_p8(); //expect: IntrinsicIssue
     _arm_smlal(); //expect: IntrinsicIssue
     _arm_umlal(); //expect: IntrinsicIssue
     _arm_clz(); //expect: IntrinsicIssue

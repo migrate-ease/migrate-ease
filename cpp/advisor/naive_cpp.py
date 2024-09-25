@@ -106,6 +106,10 @@ class NaiveCpp(object):
     #  Special-cased macros to ignore because they confuse the parser.
     IGNORE_MACROS = ['_M_HYBRID_X86_ARM64']
 
+
+    AARCH64_UNSUPPORTED_MACROS_RE = re.compile(r'(?i)(?:\w*_?|^)(%s)(?:_?\w*|$)'
+                                              % str.join('|', AARCH64_UNSUPPORTED_COMPILERS + NON_AARCH64_ARCHS
+                                                         + AARCH64_OTHER_UNSUPPORTED_MACROS))
     N2_UNSUPPORTED_MACROS_RE = re.compile(r'(?i)(?:\w*_?|^)(%s)(?:_?\w*|$)'
                                               % str.join('|', YITAIN_UNSUPPORTED_COMPILERS + NON_AARCH64_ARCHS
                                                          + YITAIN_OTHER_UNSUPPORTED_MACROS))
@@ -129,6 +133,8 @@ class NaiveCpp(object):
 
         if self.arch == N2_MARCH:
             self.condition_evaluator = N2ConditionEvaluator(self.macros, self.N2_UNSUPPORTED_MACROS_RE)
+        elif self.arch == AARCH64_ARCH:
+            self.condition_evaluator = N2ConditionEvaluator(self.macros, self.AARCH64_UNSUPPORTED_MACROS_RE)
         else:
             self.condition_evaluator = CommonConditionEvaluator(self.ARCH_SPECIFIC_MACRO_RE,
                                                                 self.NON_ARCH_SPECIFIC_MACRO_RE,
@@ -284,7 +290,7 @@ class NaiveCpp(object):
             self.branches.append([state])
             self._update_level_state(True)
 
-            if self.arch == N2_MARCH:
+            if self.arch == N2_MARCH or self.arch == AARCH64_ARCH:
                 return PreprocessorDirective(directive_type=PreprocessorDirective.TYPE_CONDITIONAL,
                                              is_start=True, is_end=False, if_line=line,
                                              is_support=self._get_support_state())
@@ -307,14 +313,17 @@ class NaiveCpp(object):
 
             state = None
             for s in self.branches[-1]:
+                # As long as a condition exists in the current branch with SUPPORT state,
+                # the state of this condition is set to UNSUPPORT.
                 if s == State.SUPPORT:
                     state = State.UNSUPPORT
+                    break
             if state is None:
                 state = self.condition_evaluator.calculate(expression)
 
             self.branches[-1].append(state)
             self._update_level_state(None)
-            if self.arch == N2_MARCH:
+            if self.arch == N2_MARCH or self.arch == AARCH64_ARCH:
                 return PreprocessorDirective(directive_type=PreprocessorDirective.TYPE_CONDITIONAL,
                                              is_start=True, is_end=False, if_line=line,
                                              is_support=self._get_support_state())
@@ -335,7 +344,7 @@ class NaiveCpp(object):
 
             macro = parts[1]
 
-            if self.arch == N2_MARCH:
+            if self.arch == N2_MARCH or self.arch == AARCH64_ARCH:
                 if macro in self.macros.keys():
                     self.branches.append([State.SUPPORT])
                 elif self.N2_UNSUPPORTED_MACROS_RE.match(macro):
@@ -374,7 +383,7 @@ class NaiveCpp(object):
 
             macro = parts[1]
 
-            if self.arch == N2_MARCH:
+            if self.arch == N2_MARCH or self.arch == AARCH64_ARCH:
                 if macro in self.macros.keys():
                     self.branches.append([State.UNSUPPORT])
                 elif self.N2_UNSUPPORTED_MACROS_RE.match(macro):
@@ -409,14 +418,14 @@ class NaiveCpp(object):
         elif directive == 'else':  # parts = ["#else"]
             s = State.SUPPORT
             for state in self.branches[-1]:
+                # As long as a condition exists in the current branch with SUPPORT state,
+                # the state of this condition is set to UNSUPPORT.
                 if state == State.SUPPORT:
                     s = State.UNSUPPORT
                     break
-                if state != State.UNSUPPORT:
-                    s = State.UNKNOWN
             self.branches[-1].append(s)
             self._update_level_state(None)
-            if self.arch == N2_MARCH:
+            if self.arch == N2_MARCH or self.arch == AARCH64_ARCH:
                 return PreprocessorDirective(directive_type=PreprocessorDirective.TYPE_CONDITIONAL,
                                              is_support=self._get_support_state(), is_start=False, is_end=True)
 
@@ -430,7 +439,7 @@ class NaiveCpp(object):
         elif directive == 'endif':
             self.branches.pop(-1)
             self._update_level_state(False)
-            if self.arch == N2_MARCH:
+            if self.arch == N2_MARCH or self.arch == AARCH64_ARCH:
                 return PreprocessorDirective(directive_type=PreprocessorDirective.TYPE_CONDITIONAL,
                                              is_support=self._get_support_state(), is_start=False, is_end=True)
 
