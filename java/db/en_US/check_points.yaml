@@ -1,0 +1,107 @@
+# Copyright 2017-2025 Arm Ltd.
+
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+
+# http://www.apache.org/licenses/LICENSE-2.0
+
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+AARCH64_INCOMPATILE_ARTIFACTS:
+    - pattern: org\.fusesource\.leveldbjni\.leveldbjni-all\..*
+      help: |+
+          Leveldbjni provides a Java interface to the LevelDB C++ library which is a fast key-value storage library written at Google that provides an ordered mapping from string keys to string values.
+
+          It doesn't provide official release for aarch64. User could pick this commit:
+          https://github.com/fusesource/leveldbjni/commit/e401863b264652a665d402d176b30b56166ef6f1
+          and manual build to get it working on aarch64.
+
+          Details:
+          https://github.com/fusesource/leveldbjni
+          https://mvnrepository.com/artifact/org.fusesource.leveldbjni/leveldbjni-all
+
+    - pattern: org\.rocksdb\.rocksdbjni\.(3|4|5|6.0|6.1)\..*$
+      help: |+
+          Rocksdbjni provides a Java interface to the RocksDB C++ library which is an embeddable persistent key-value store for fast storage.
+
+          The rocksdbjni library allows Java applications to interact with RocksDB using native methods, enabling developers to leverage the performance benefits of RocksDB while working within the Java ecosystem.
+
+          The minimum version with aarch64 support is v6.2.2.
+
+          Details:
+          http://rocksdb.org/
+          https://mvnrepository.com/artifact/org.rocksdb/rocksdbjni
+
+    - pattern: org\.apache\.commons\.commons-crypto\.1\.0\.0$
+      help: |+
+          Apache Commons Crypto is a cryptographic library optimized with AES-NI (Advanced Encryption Standard New Instructions). It provides Java API for both cipher level and Java stream level.
+
+          The minimum version with aarch64 support is v1.1.0.
+
+          Details:
+          https://commons.apache.org/proper/commons-crypto/
+          https://mvnrepository.com/artifact/org.apache.commons/commons-crypto
+
+
+    - pattern: org\.fusesource\.jansi\.jansi\.1\..*$
+      help: |+
+          Jansi is a java library for generating and interpreting ANSI escape sequences.
+
+          The minimum version with aarch64 support is v2.0.
+
+          Details:
+          http://fusesource.github.io/jansi
+          https://mvnrepository.com/artifact/org.fusesource.jansi/jansi
+
+    - pattern: org\.lz4\.lz4-java\.1.[0-3]\..*$
+      help: |+
+          lz4-java is a Java ports and bindings of the LZ4 compression algorithm and the xxHash hashing algorithm
+
+          The minimum version with aarch64 support is v1.4.0.
+
+          Details:
+          https://github.com/lz4/lz4-java
+          https://mvnrepository.com/artifact/org.lz4/lz4-java
+
+    - pattern: io\.netty\.netty-transport-native-epoll\.4.(0|1\.([0-9]|[1-4][0-9]))\..*$
+      help: |+
+          Netty transport implementation using Linux epoll for efficient I/O on native platforms.
+
+          The minimum version with aarch64 support is v4.1.50Final.
+
+          Details:
+          https://mvnrepository.com/artifact/io.netty/netty-transport-native-epoll
+
+    - pattern: org\.fusesource\.sigar\..*$
+      help: |+
+          Sigar is a cross-platform library developed by FuseSource that provides a unified interface for gathering system-level information.
+
+          It doesn't provide official release for aarch64, and requires manual build.
+
+          Details:
+          https://repo1.maven.org/maven2/org/fusesource/sigar/1.6.4/
+
+    - pattern: org\.xerial\.snappy\.snappy-java\.1\.(0\.[0-9]+|1\.0($|\.[0-9]+)|1\.2($|\.1)).*
+      help: |+
+          snappy-java a Java library that provides bindings for the Snappy compression and decompression algorithm.
+
+          The minimum version with aarch64 support is v1.1.2.2.
+
+          Details:
+          https://github.com/xerial/snappy-java
+          https://mvnrepository.com/artifact/org.xerial.snappy/snappy-java
+
+    - pattern: com\.github\.jnr\.jffi\.1\.([0-1]|2\.[0-9]$|2\.1[0-2])
+      help: |+
+          JFFI, which stands for Java Foreign Function Interface, is a library provided by the Java Native Runtime (JNR) that facilitates the interaction between Java applications and native code written in languages like C or C++.
+
+          The minimum version with aarch64 support is v1.2.13.
+
+          Details:
+          http://github.com/jnr/jffi
+          https://mvnrepository.com/artifact/com.github.jnr/jffi
