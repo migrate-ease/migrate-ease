@@ -98,7 +98,11 @@ class ReportFactory:
                                 arch=arch,
                                 march=march,
                                 target_os=target_os,
-                                issue_type_config=issue_type_config)
+                                issue_type_config=issue_type_config,
+                                git_repo=git_repo,
+                                commit=commit,
+                                branch=branch
+                                )
 
         else:
             raise ValueError(output_format)

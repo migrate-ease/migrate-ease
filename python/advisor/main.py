@@ -13,7 +13,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 """
-from common.main import init_main, check
+from common.main import init_main, check, clone_git_repo
 from common.progress import create_progress_for_scanner
 from . import __project__, __target__
 from . import __summary__
@@ -47,6 +47,15 @@ def main():
                                          progress=args.progress)
 
     issue_type_config_instance = IssueTypeConfig(args.issue_types, ISSUE_TYPES)
+
+    # Check if a git repo is specified
+    if args.git_repo:
+        # Clone it with given repo, branch or commit
+        try:
+            clone_git_repo(args.git_repo, args.branch, args.commit, args.root)
+        except Exception as e:
+            print(f"Error occurred while cloning [{args.git_repo}] : {e}")
+            sys.exit(1)
 
     if args.arch in AARCH64_ARCHS:
         scanners = Arm64Scanners(issue_type_config_instance,

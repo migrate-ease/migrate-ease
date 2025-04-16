@@ -18,6 +18,7 @@ import argparse
 import os
 import sys
 import textwrap
+import git
 
 from common.arch_strings import *
 from common.issue_type_config import IssueTypeConfig
@@ -128,15 +129,17 @@ def check(args):
               file=sys.stderr)
         sys.exit(1)
 
-    if not os.path.exists(args.root):
-        print(_('%s: directory not found.') % args.root,
-              file=sys.stderr)
-        sys.exit(1)
+    if not args.git_repo:
+        # For git repo scan, the root directory will be created by clone_git_repo
+        if not os.path.exists(args.root):
+            print(_('%s: directory not found.') % args.root,
+                  file=sys.stderr)
+            sys.exit(1)
 
-    if not os.path.isdir(args.root):
-        print(_('%s: not a directory.') % args.root,
-              file=sys.stderr)
-        sys.exit(1)
+        if not os.path.isdir(args.root):
+            print(_('%s: not a directory.') % args.root,
+                  file=sys.stderr)
+            sys.exit(1)
 
     try:
         report_factory = ReportFactory()
@@ -156,3 +159,23 @@ def check(args):
     except ValueError:
         print(_('%s: invalid output format') % args.output_format, file=sys.stderr)
         sys.exit(1)
+
+def clone_git_repo(url, branch, commit, dest):
+    if os.path.exists(dest):
+        if len(os.listdir(dest)) != 0:
+            print(f"destination path '{dest}' already exists and is not an empty directory. Skip clone")
+            return
+
+    # Clone the repository
+    os.makedirs(dest, exist_ok=True)
+    try:
+        repo = git.Repo.clone_from(url, dest, branch=branch)
+        if branch:
+            print(f"Successfully cloned {branch} from {url} to {dest}.")
+        else:
+            print(f"Successfully cloned {url} to {dest}.")
+
+        if commit:
+            repo.git.checkout(commit)
+    except Exception as e:
+        raise Exception(f"{e}")
