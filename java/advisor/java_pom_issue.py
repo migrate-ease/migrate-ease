@@ -16,12 +16,12 @@ limitations under the License.
 
 from common.localization import _
 from common.issue import Issue
-from .report_item import ReportItem
+from .report_item import JAVA_POM
 
 
 class JavaPomIssue(Issue):
 
-    def __init__(self, filename, lineno=None, arch=None, issue_type=ReportItem.JAVA_POM, checkpoint=None, description=None):
+    def __init__(self, filename, lineno=None, arch=None, issue_type=JAVA_POM, checkpoint=None, description=None):
 
         if not description:
             description = _("Dependency imported by POM: %s does not support arch: %s") % (filename, arch)

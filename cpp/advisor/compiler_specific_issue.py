@@ -17,7 +17,7 @@ limitations under the License.
 
 from common.issue import Issue
 from common.localization import _
-from .report_item import ReportItem
+from .report_item import COMPILER_SPECIFIC
 
 
 class CompilerSpecificIssue(Issue):
@@ -29,5 +29,5 @@ class CompilerSpecificIssue(Issue):
         super().__init__(description=description,
                          filename=filename,
                          lineno=lineno,
-                         issue_type=ReportItem.COMPILER_SPECIFIC,
+                         issue_type=COMPILER_SPECIFIC,
                          checkpoint=checkpoint)

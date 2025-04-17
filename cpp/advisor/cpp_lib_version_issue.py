@@ -15,7 +15,7 @@ limitations under the License.
 """
 
 from common.issue import Issue
-from .report_item import ReportItem
+from .report_item import CPP_LIB_VERSION
 
 
 class CPPLibVersionIssue(Issue):
@@ -25,5 +25,5 @@ class CPPLibVersionIssue(Issue):
         super().__init__(description=description,
                          filename=filename,
                          lineno=lineno,
-                         issue_type=ReportItem.CPP_LIB_VERSION,
+                         issue_type=CPP_LIB_VERSION,
                          checkpoint=None)

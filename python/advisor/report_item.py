@@ -14,22 +14,18 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-from common.issue import BaseReportItem
-from common.report import Report
+from common.localization import _
 
+#class ReportItem(BaseReportItem):
+PYTHON_LINKLIBRARY = {'type': 'PythonLinkLibraryIssue', 'des': _('Use of libraries that are incompatible with the target platform')}
+PYTHON_INLINE_ASM = {'type': 'PythonInlineAsmIssue',
+                     'des': _("Use of inline assembly in the target platform may lead to compatibility issues")}
+PYTHON_INTRINSIC = {'type': 'PythonIntrinsicIssue', 'des': _("Use of intrinsic functions that have compatibility issues with the target platform")}
+PYTHON_PACKAGE = {'type': 'PythonPackageIssue', 'des': _("Use of packages that are incompatible with the target platform")}
 
-class ReportItem(BaseReportItem):
-    PYTHON_LINKLIBRARY = {'type': 'PythonLinkLibraryIssue', 'des': '检测到使用了和目标平台不兼容的库.'}
-    PYTHON_INLINE_ASM = {'type': 'PythonInlineAsmIssue',
-                         'des': '检测到在目标平台中使用内联汇编, 可能存在平台兼容性问题.'}
-    PYTHON_INTRINSIC = {'type': 'PythonIntrinsicIssue', 'des': '检测到使用了和目标平台存在兼容性问题的 Intrinsic 函数.'}
-    PYTHON_PACKAGE = {'type': 'PythonPackageIssue', 'des': '检测到使用了和目标平台不兼容的 Package.'}
-
-    TYPES = BaseReportItem.TYPES + [
-        PYTHON_LINKLIBRARY,
-        PYTHON_INLINE_ASM,
-        PYTHON_INTRINSIC,
-        PYTHON_PACKAGE]
-
-
-Report.REPORT_ITEM = ReportItem
+PYTHON_REPORT_TYPES = [
+    PYTHON_LINKLIBRARY,
+    PYTHON_INLINE_ASM,
+    PYTHON_INTRINSIC,
+    PYTHON_PACKAGE
+]

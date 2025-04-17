@@ -17,7 +17,7 @@ limitations under the License.
 
 from common.localization import _
 from .no_equivalent_issue import NoEquivalentIssue
-from .report_item import ReportItem
+from .report_item import NO_EQUIVALENT_INTRINSIC
 
 
 class NoEquivalentIntrinsicIssue(NoEquivalentIssue):
@@ -29,5 +29,5 @@ class NoEquivalentIntrinsicIssue(NoEquivalentIssue):
         super().__init__(description=description,
                          filename=filename,
                          lineno=lineno,
-                         issue_type=ReportItem.NO_EQUIVALENT_INTRINSIC,
+                         issue_type=NO_EQUIVALENT_INTRINSIC,
                          checkpoint=checkpoint)

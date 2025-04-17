@@ -17,7 +17,7 @@ limitations under the License.
 
 from common.issue import Issue
 from common.localization import _
-from .report_item import ReportItem
+from .report_item import PREPROCESSOR_ERROR
 
 
 class PreprocessorErrorIssue(Issue):
@@ -29,5 +29,5 @@ class PreprocessorErrorIssue(Issue):
         super().__init__(description=description,
                          filename=filename,
                          lineno=lineno,
-                         issue_type=ReportItem.PREPROCESSOR_ERROR,
+                         issue_type=PREPROCESSOR_ERROR,
                          checkpoint=checkpoint)

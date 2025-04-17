@@ -16,12 +16,12 @@ limitations under the License.
 """
 
 from common.issue import Issue
-from .report_item import ReportItem
+from .report_item import NO_EQUIVALENT
 
 
 class NoEquivalentIssue(Issue):
 
-    def __init__(self, description, filename=None, lineno=None, issue_type=ReportItem.NO_EQUIVALENT, checkpoint=None):
+    def __init__(self, description, filename=None, lineno=None, issue_type=NO_EQUIVALENT, checkpoint=None):
 
         super().__init__(description,
                          filename=filename,

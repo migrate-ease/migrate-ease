@@ -15,7 +15,7 @@ limitations under the License.
 """
 
 from common.issue import Issue
-from .report_item import ReportItem
+from .report_item import CPP_LIB_RECOMMEND
 
 
 class CPPLibRecommendIssue(Issue):
@@ -25,5 +25,5 @@ class CPPLibRecommendIssue(Issue):
         super().__init__(description=description,
                          filename=filename,
                          lineno=lineno,
-                         issue_type=ReportItem.CPP_LIB_RECOMMEND,
+                         issue_type=CPP_LIB_RECOMMEND,
                          checkpoint=None)

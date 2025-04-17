@@ -16,7 +16,7 @@ limitations under the License.
 
 from common.issue import Issue
 from common.localization import _
-from .report_item import ReportItem
+from .report_item import PYTHON_PACKAGE
 
 
 class PythonPakageIssue(Issue):
@@ -29,5 +29,5 @@ class PythonPakageIssue(Issue):
         super().__init__(description=description,
                          filename=filename,
                          lineno=lineno,
-                         issue_type=ReportItem.PYTHON_PACKAGE,
+                         issue_type=PYTHON_PACKAGE,
                          checkpoint=checkpoint)

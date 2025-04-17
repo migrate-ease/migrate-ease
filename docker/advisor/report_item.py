@@ -14,19 +14,12 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-from common.issue import BaseReportItem
-from common.report import Report
+IMAGE = {'type': 'ImageIssue', 'des': 'IMAGE'}
+PLUGIN = {'type': 'PluginIssue', 'des': 'PLUGIN'}
+CONFIGURATION_INFO = {'type': 'ConfigurationInfoIssue', 'des': 'CONFIGURATION_INFO'}
 
-
-class ReportItem(BaseReportItem):
-    IMAGE = {'type': 'ImageIssue', 'des': 'IMAGE'}
-    PLUGIN = {'type': 'PluginIssue', 'des': 'PLUGIN'}
-    CONFIGURATION_INFO = {'type': 'ConfigurationInfoIssue', 'des': 'CONFIGURATION_INFO'}
-
-    TYPES = BaseReportItem.TYPES + [
-        IMAGE,
-        PLUGIN,
-        CONFIGURATION_INFO]
-
-
-Report.REPORT_ITEM = ReportItem
+DOCKERFILE_REPORT_TYPES = [
+    IMAGE,
+    PLUGIN,
+    CONFIGURATION_INFO
+    ]

@@ -16,12 +16,12 @@ limitations under the License.
 
 from common.issue import Issue
 from common.localization import _
-from .report_item import ReportItem
+from .report_item import PLUGIN
 
 
 class PluginIssue(Issue):
 
-    def __init__(self, filename, lineno, arch=None, plugin=None, issue_type=ReportItem.PLUGIN, checkpoint=None, description=None):
+    def __init__(self, filename, lineno, arch=None, plugin=None, issue_type=PLUGIN, checkpoint=None, description=None):
 
         if not description:
             description = _("Plugin not supported on %s: %s") % (arch, plugin)

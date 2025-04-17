@@ -17,12 +17,12 @@ limitations under the License.
 
 from common.issue import Issue
 from common.localization import _
-from .report_item import ReportItem
+from .report_item import GOLANG_LINKLIBRARY
 
 
 class GolangLinkLibraryIssue(Issue):
 
-    def __init__(self, filename, lineno=None, arch=None, issue_type=ReportItem.GOLANG_LINKLIBRARY, checkpoint=None, description=None):
+    def __init__(self, filename, lineno=None, arch=None, issue_type=GOLANG_LINKLIBRARY, checkpoint=None, description=None):
 
         if not description:
             description = _("Golang Link Library: %s not support on arch: %s") % (filename, arch)

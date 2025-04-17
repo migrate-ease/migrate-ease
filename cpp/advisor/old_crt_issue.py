@@ -17,7 +17,7 @@ limitations under the License.
 
 from common.issue import Issue
 from common.localization import _
-from .report_item import ReportItem
+from .report_item import OLD_CRT
 
 
 class OldCrtIssue(Issue):
@@ -29,4 +29,4 @@ class OldCrtIssue(Issue):
         super().__init__(description=description,
                          filename=filename,
                          lineno=lineno,
-                         issue_type=ReportItem.OLD_CRT)
+                         issue_type=OLD_CRT)

@@ -14,19 +14,14 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-from common.issue import BaseReportItem
-from common.report import Report
+from common.localization import _
 
+RUST_LINKLIBRARY = {'type': 'RustLinkLibraryIssue', 'des': _('Use of libraries that are incompatible with the target platform')}
+RUST_INLINE_ASM = {'type': 'RustInlineAsmIssue', 'des': _("Use of inline assembly in the target platform may lead to compatibility issues")}
+RUST_INTRINSIC = {'type': 'RustIntrinsicIssue', 'des': _("Use of intrinsics that have compatibility issues with the target platform")}
 
-class ReportItem(BaseReportItem):
-    RUST_LINKLIBRARY = {'type': 'RustLinkLibraryIssue', 'des': '检测到使用了和目标平台不兼容的库.'}
-    RUST_INLINE_ASM = {'type': 'RustInlineAsmIssue', 'des': '检测到在目标平台中使用内联汇编, 可能存在平台兼容性问题.'}
-    RUST_INTRINSIC = {'type': 'RustIntrinsicIssue', 'des': '检测到使用了和目标平台存在兼容性问题的 Intrinsic 函数.'}
-
-    TYPES = BaseReportItem.TYPES + [
-        RUST_LINKLIBRARY,
-        RUST_INLINE_ASM,
-        RUST_INTRINSIC]
-
-
-Report.REPORT_ITEM = ReportItem
+RUST_REPORT_TYPES = [
+    RUST_LINKLIBRARY,
+    RUST_INLINE_ASM,
+    RUST_INTRINSIC
+    ]
