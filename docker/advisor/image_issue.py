@@ -16,12 +16,12 @@ limitations under the License.
 
 from common.issue import Issue
 from common.localization import _
-from .report_item import ReportItem
+from .report_item import IMAGE
 
 
 class ImageIssue(Issue):
 
-    def __init__(self, filename, lineno, arch=None, image=None, issue_type=ReportItem.IMAGE, checkpoint=None, description=None):
+    def __init__(self, filename, lineno, arch=None, image=None, issue_type=IMAGE, checkpoint=None, description=None):
 
         if not description:
             description = _("The dockerfile is build based on the Base Image:%s, \

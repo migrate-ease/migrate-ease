@@ -16,12 +16,12 @@ limitations under the License.
 """
 
 from common.issue import Issue
-from .report_item import ReportItem
+from .report_item import CROSS_COMPILE
 
 
 class CrossCompileIssue(Issue):
 
-    def __init__(self, description, filename=None, lineno=None, issue_type=ReportItem.CROSS_COMPILE, checkpoint=None):
+    def __init__(self, description, filename=None, lineno=None, issue_type=CROSS_COMPILE, checkpoint=None):
 
         super().__init__(description,
                          filename=filename,

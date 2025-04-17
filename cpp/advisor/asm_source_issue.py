@@ -16,7 +16,7 @@ limitations under the License.
 """
 
 from common.issue import Issue
-from .report_item import ReportItem
+from .report_item import ASM_SOURCE
 
 
 class AsmSourceIssue(Issue):
@@ -31,5 +31,5 @@ class AsmSourceIssue(Issue):
         super().__init__(description=description,
                          filename=filename,
                          lineno=lineno,
-                         issue_type=ReportItem.ASM_SOURCE,
+                         issue_type=ASM_SOURCE,
                          checkpoint=checkpoint.strip())

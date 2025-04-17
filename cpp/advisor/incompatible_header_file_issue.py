@@ -17,7 +17,7 @@ limitations under the License.
 
 from common.issue import Issue
 from common.localization import _
-from .report_item import ReportItem
+from .report_item import INTRINSIC, INCOMPATIBLE_HEADER_FILE
 
 
 class IncompatibleHeaderFileIssue(Issue):
@@ -27,7 +27,7 @@ class IncompatibleHeaderFileIssue(Issue):
                  lineno,
                  arch=None,
                  intrinsic=None,
-                 item_type=ReportItem.INTRINSIC,
+                 item_type=INTRINSIC,
                  checkpoint=None,
                  description=None):
         if not description:
@@ -36,5 +36,5 @@ class IncompatibleHeaderFileIssue(Issue):
         super().__init__(description=description,
                          filename=filename,
                          lineno=lineno,
-                         issue_type=ReportItem.INCOMPATIBLE_HEADER_FILE,
+                         issue_type=INCOMPATIBLE_HEADER_FILE,
                          checkpoint=checkpoint)

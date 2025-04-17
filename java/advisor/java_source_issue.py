@@ -17,12 +17,12 @@ limitations under the License.
 
 from common.issue import Issue
 from common.localization import _
-from .report_item import ReportItem
+from .report_item import JAVA_SOURCE
 
 
 class JavaSourceIssue(Issue):
 
-    def __init__(self, filename, lineno=None, arch=None, issue_type=ReportItem.JAVA_SOURCE, checkpoint=None, description=None):
+    def __init__(self, filename, lineno=None, arch=None, issue_type=JAVA_SOURCE, checkpoint=None, description=None):
 
         if not description:
             description = _("Java source: %s contains native call that may need to modify/rebuild for arch: %s") % (filename, arch)

@@ -16,12 +16,12 @@ limitations under the License.
 
 from common.issue import Issue
 from common.localization import _
-from .report_item import ReportItem
+from .report_item import ASM
 
 
 class AsmIssue(Issue):
 
-    def __init__(self, filename, lineno, arch=None, intrinsic=None, issue_type=ReportItem.ASM, checkpoint=None, description=None):
+    def __init__(self, filename, lineno, arch=None, intrinsic=None, issue_type=ASM, checkpoint=None, description=None):
 
         if not description:
             description = _("Intrinsic not supported on %s: %s") % (arch, intrinsic)

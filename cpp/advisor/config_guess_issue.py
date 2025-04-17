@@ -17,7 +17,7 @@ limitations under the License.
 
 from common.issue import Issue
 from common.localization import _
-from .report_item import ReportItem
+from .report_item import CONFIG_GUESS
 
 
 class ConfigGuessIssue(Issue):
@@ -28,4 +28,4 @@ class ConfigGuessIssue(Issue):
 
         super().__init__(filename=filename,
                          description=description,
-                         issue_type=ReportItem.CONFIG_GUESS)
+                         issue_type=CONFIG_GUESS)

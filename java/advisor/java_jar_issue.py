@@ -17,12 +17,12 @@ limitations under the License.
 
 from common.issue import Issue
 from common.localization import _
-from .report_item import ReportItem
+from .report_item import JAVA_JAR
 
 
 class JavaJarIssue(Issue):
 
-    def __init__(self, filename, lineno=None, arch=None, issue_type=ReportItem.JAVA_JAR, checkpoint=None, description=None):
+    def __init__(self, filename, lineno=None, arch=None, issue_type=JAVA_JAR, checkpoint=None, description=None):
 
         if not description:
             description = _("Java Jar package: %s does not support arch: %s") % (filename, arch)

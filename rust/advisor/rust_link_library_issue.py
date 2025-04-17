@@ -16,7 +16,7 @@ limitations under the License.
 
 from common.issue import Issue
 from common.localization import _
-from .report_item import ReportItem
+from .report_item import RUST_LINKLIBRARY
 
 
 class RustLinkLibraryIssue(Issue):
@@ -25,7 +25,7 @@ class RustLinkLibraryIssue(Issue):
                  filename,
                  lineno=None,
                  arch=None,
-                 issue_type=ReportItem.RUST_LINKLIBRARY,
+                 issue_type=RUST_LINKLIBRARY,
                  checkpoint=None,
                  description=None):
 

@@ -16,7 +16,7 @@ limitations under the License.
 
 from common.issue import Issue
 from common.localization import _
-from .report_item import ReportItem
+from .report_item import RUST_INLINE_ASM
 
 
 class RustInlineAsmIssue(Issue):
@@ -29,5 +29,5 @@ class RustInlineAsmIssue(Issue):
         super().__init__(description=description,
                          filename=filename,
                          lineno=lineno,
-                         issue_type=ReportItem.RUST_INLINE_ASM,
+                         issue_type=RUST_INLINE_ASM,
                          checkpoint=checkpoint)

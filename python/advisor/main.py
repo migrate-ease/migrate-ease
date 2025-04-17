@@ -13,17 +13,20 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 """
+import sys
+
 from common.main import init_main, check, clone_git_repo
+from common.arch_strings import *
 from common.progress import create_progress_for_scanner
-from . import __project__, __target__
-from . import __summary__
-from . import __version__
+from common.issue import BaseReportItem
+from common.report import Report
 from common.auto_scanner import AutoScanner
 from common.issue_type_config import IssueTypeConfig
+
+from . import __project__, __target__, __summary__, __version__
 from .issue_types import ISSUE_TYPES
 from .arm64_scanners import Arm64Scanners
-from common.arch_strings import *
-import sys
+from .report_item import PYTHON_REPORT_TYPES
 
 
 def main():
@@ -32,6 +35,9 @@ def main():
     args = parser.parse_args()
 
     report_factory = check(args)
+    
+    Report.REPORT_ITEM = BaseReportItem
+    Report.REPORT_ITEM.TYPES += PYTHON_REPORT_TYPES
 
     report = report_factory.createReport(args.root,
                                          arch=args.arch,

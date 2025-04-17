@@ -17,7 +17,7 @@ limitations under the License.
 
 from common.issue import Issue
 from common.localization import _
-from .report_item import ReportItem
+from .report_item import PRAGMA
 
 
 class PragmaIssue(Issue):
@@ -29,5 +29,5 @@ class PragmaIssue(Issue):
         super().__init__(description=description,
                          filename=filename,
                          lineno=lineno,
-                         issue_type=ReportItem.PRAGMA,
+                         issue_type=PRAGMA,
                          checkpoint=checkpoint)

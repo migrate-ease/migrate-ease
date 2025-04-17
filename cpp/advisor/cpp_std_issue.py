@@ -17,12 +17,12 @@ limitations under the License.
 
 from common.issue import Issue
 from common.localization import _
-from .report_item import ReportItem
+from .report_item import INTRINSIC, CPP_STD_CODES
 
 
 class CPPStdCodesIssue(Issue):
 
-    def __init__(self, filename, lineno, arch=None, intrinsic=None, item_type=ReportItem.INTRINSIC, checkpoint=None, description=None):
+    def __init__(self, filename, lineno, arch=None, intrinsic=None, item_type=INTRINSIC, checkpoint=None, description=None):
 
         if not description:
             description = _("cpp standard language check")
@@ -30,5 +30,5 @@ class CPPStdCodesIssue(Issue):
         super().__init__(description=description,
                          filename=filename,
                          lineno=lineno,
-                         issue_type=ReportItem.CPP_STD_CODES,
+                         issue_type=CPP_STD_CODES,
                          checkpoint=checkpoint)

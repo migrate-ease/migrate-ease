@@ -14,22 +14,17 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-from common.issue import BaseReportItem
-from common.report import Report
+from common.localization import _
 
+GOLANG_LINKLIBRARY = {'type': 'GolangLinkLibraryIssue', 'des': _("Use of libraries that are incompatible with the target platform")}
+GOLANG_INLINE_ASM = {'type': 'GolangInlineAsmIssue',
+                     'des': _("Use of inline assembly may lead to target platform compatibility issues")}
+GOLANG_INTRINSIC = {'type': 'GolangIntrinsicIssue', 'des': _("Use of intrinsic functions that have compatibility issues with the target platform")}
+ASM = {'type': 'AsmIssue', 'des': _("Potentially architecture-specific assembly code in the source files that requires manual inspection")}
 
-class ReportItem(BaseReportItem):
-    GOLANG_LINKLIBRARY = {'type': 'GolangLinkLibraryIssue', 'des': '检测到使用了和目标平台不兼容的库.'}
-    GOLANG_INLINE_ASM = {'type': 'GolangInlineAsmIssue',
-                         'des': '检测到在目标平台中使用内联汇编, 可能存在平台兼容性问题.'}
-    GOLANG_INTRINSIC = {'type': 'GolangIntrinsicIssue', 'des': '检测到使用了和目标平台存在兼容性问题的 Intrinsic 函数.'}
-    ASM = {'type': 'AsmIssue', 'des': '检测到在汇编源文件中可能存在处理器架构相关的汇编代码, 需要人工进行检查.'}
-
-    TYPES = BaseReportItem.TYPES + [
-        GOLANG_LINKLIBRARY,
-        GOLANG_INLINE_ASM,
-        GOLANG_INTRINSIC,
-        ASM]
-
-
-Report.REPORT_ITEM = ReportItem
+GOLANG_REPORT_TYPES = [
+    GOLANG_LINKLIBRARY,
+    GOLANG_INLINE_ASM,
+    GOLANG_INTRINSIC,
+    ASM
+]

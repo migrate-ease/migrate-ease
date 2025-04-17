@@ -17,7 +17,7 @@ limitations under the License.
 
 from common.localization import _
 from .cross_compile_issue import CrossCompileIssue
-from .report_item import ReportItem
+from .report_item import HOST_CPU_DETECTION
 
 
 class HostCpuDetectionIssue(CrossCompileIssue):
@@ -28,5 +28,5 @@ class HostCpuDetectionIssue(CrossCompileIssue):
 
         super().__init__(description=description,
                          filename=filename,
-                         issue_type=ReportItem.HOST_CPU_DETECTION,
+                         issue_type=HOST_CPU_DETECTION,
                          lineno=lineno)

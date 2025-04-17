@@ -17,7 +17,7 @@ limitations under the License.
 
 from common.localization import _
 from .cross_compile_issue import CrossCompileIssue
-from .report_item import ReportItem
+from .report_item import BUILD_COMMAND
 
 
 class BuildCommandIssue(CrossCompileIssue):
@@ -32,5 +32,5 @@ class BuildCommandIssue(CrossCompileIssue):
         super().__init__(description=description,
                          filename=filename,
                          lineno=lineno,
-                         issue_type=ReportItem.BUILD_COMMAND,
+                         issue_type=BUILD_COMMAND,
                          checkpoint=checkpoint)

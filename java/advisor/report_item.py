@@ -14,19 +14,13 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 from common.localization import _
-from common.issue import BaseReportItem
-from common.report import Report
 
+JAVA_JAR = {'type': 'JarIssue', 'des': _('JAR package does not support target arch. Need to rebuild or upgrade.')}
+JAVA_POM = {'type': 'PomIssue', 'des': _('Pom imports java artifact that does not support target arch.')}
+JAVA_SOURCE = {'type': 'JavaSourceIssue', 'des': _('Java source file contains native call that may need modify/rebuild for target arch.')}
 
-class ReportItem(BaseReportItem):
-    JAVA_JAR = {'type': 'JarIssue', 'des': _('JAR package does not support target arch. Need to rebuild or upgrade.')}
-    JAVA_POM = {'type': 'PomIssue', 'des': _('Pom imports java artifact that does not support target arch.')}
-    JAVA_SOURCE = {'type': 'JavaSourceIssue', 'des': _('Java source file contains native call that may need modify/rebuild for target arch.')}
-
-    TYPES = BaseReportItem.TYPES + [
-        JAVA_JAR,
-        JAVA_POM,
-        JAVA_SOURCE
-        ]
-
-Report.REPORT_ITEM = ReportItem
+JAVA_REPORT_TYPES = [
+    JAVA_JAR,
+    JAVA_POM,
+    JAVA_SOURCE
+    ]

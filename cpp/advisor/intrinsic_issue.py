@@ -17,12 +17,12 @@ limitations under the License.
 
 from common.issue import Issue
 from common.localization import _
-from .report_item import ReportItem
+from .report_item import INTRINSIC, AVX256_INTRINSIC, AVX512_INTRINSIC
 
 
 class IntrinsicIssue(Issue):
 
-    def __init__(self, filename, lineno, arch=None, intrinsic=None, issue_type=ReportItem.INTRINSIC, checkpoint=None, description=None):
+    def __init__(self, filename, lineno, arch=None, intrinsic=None, issue_type=INTRINSIC, checkpoint=None, description=None):
 
         if not description:
             description = _("Intrinsic not supported on %s: %s") % (arch, intrinsic)
@@ -47,7 +47,7 @@ class Avx256IntrinsicIssue(IntrinsicIssue):
                          lineno=lineno,
                          arch=arch,
                          intrinsic=intrinsic,
-                         issue_type=ReportItem.AVX256_INTRINSIC,
+                         issue_type=AVX256_INTRINSIC,
                          checkpoint=checkpoint,
                          description=description)
 
@@ -65,6 +65,6 @@ class Avx512IntrinsicIssue(IntrinsicIssue):
                          lineno=lineno,
                          arch=arch,
                          intrinsic=intrinsic,
-                         issue_type=ReportItem.AVX512_INTRINSIC,
+                         issue_type=AVX512_INTRINSIC,
                          checkpoint=checkpoint,
                          description=description)
