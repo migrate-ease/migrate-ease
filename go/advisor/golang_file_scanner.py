@@ -38,7 +38,8 @@ class GolangFileScanner(GoScanner):
 
     GO_SOURCE_EXTENSIONS = ['.go']
 
-    C_IMPORT_RE = re.compile(r'.*(import)\s+("C").*')
+    #In Go, import "C" is the standard way to import C code and cannot be replaced by other forms.
+    C_IMPORT_RE = re.compile(r'^import\s+"C"$')
 
     AARCH64_INCOMPATIBLE_INTRINSICS = []
     AARCH64_INLINE_ASSEMBLY_CHECKPOINTS = []
