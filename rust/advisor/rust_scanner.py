@@ -29,12 +29,12 @@ class RustScanner(BaseScanner):
 
     FILE_SUMMARY = {
         RUST: {
-            "fileName": "Rust 文件",
+            "fileName": "Rust",
             "loc": 0,
             "count": 0
         },
         RUSTLIBS: {
-            "fileName": "Lib 文件",
+            "fileName": "Lib",
             "loc": 0,
             "count": 0
         }

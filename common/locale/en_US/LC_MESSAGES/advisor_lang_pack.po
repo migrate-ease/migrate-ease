@@ -1,0 +1,591 @@
+# Copyright 2025 Arm ltd.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+msgid ""
+msgstr ""
+"Project-Id-Version: migrate-ease\n"
+"POT-Creation-Date: 2025-05-07 00:54+0000\n"
+"PO-Revision-Date: 2025-05-07 00:54+0000\n"
+"Last-Translator: Fannie Zhang <fannie.zhang@arm.com>\n"
+"Language-Team: English\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en_US\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: common/files_scanned_remark.py:25
+msgid "%d files scanned.\n"
+msgstr "%d files scanned.\n"
+
+#: common/issue.py:29
+msgid ""
+"Issues exceeding the limit will be categorized as OtherIssue. when the issue "
+"count limit option is enabled"
+msgstr ""
+"Issues exceeding the limit will be categorized as OtherIssue. when the issue "
+"count limit option is enabled"
+
+#: common/issue.py:31
+msgid ""
+"Exception encountered by the code scanning tool during the scanning process, "
+"not an issue with the code logic itself. User can ignore it."
+msgstr ""
+"Exception encountered by the code scanning tool during the scanning process, "
+"not an issue with the code logic itself. User can ignore it."
+
+#: common/main.py:31
+msgid "Target ISA Type:"
+msgstr "Target ISA Type:"
+
+#: common/main.py:35
+msgid "Use:"
+msgstr "Use:"
+
+#: common/main.py:36
+msgid ""
+"--issue-types=+CompilerSpecific to enable reporting of use of compiler-"
+"specific macros."
+msgstr ""
+"--issue-types=+CompilerSpecific to enable reporting of use of compiler-"
+"specific macros."
+
+#: common/main.py:39
+msgid ""
+"--issue-types=+CrossCompile to enable reporting of cross-compile specific "
+"issues."
+msgstr ""
+"--issue-types=+CrossCompile to enable reporting of cross-compile specific "
+"issues."
+
+#: common/main.py:43
+msgid ""
+"--issue-types=+NoEquivalent to enable reporting of aarch64 ported code that "
+"does not use intrinsics inline assembly versus other architectures."
+msgstr ""
+"--issue-types=+NoEquivalent to enable reporting of aarch64 ported code that "
+"does not use intrinsics inline assembly versus other architectures."
+
+#: common/main.py:46
+msgid "Available issue types:"
+msgstr "Available issue types:"
+
+#: common/main.py:59
+msgid "root directory of source tree to scan (default: .)."
+msgstr "root directory of source tree to scan (default: .)."
+
+#: common/main.py:63
+msgid ""
+"git repository address to scan, when present, repo will be cloned to local."
+msgstr ""
+"git repository address to scan, when present, repo will be cloned to local."
+
+#: common/main.py:68
+msgid "git repository branch."
+msgstr "git repository branch."
+
+#: common/main.py:72
+msgid "git repository code commit id (default: HEAD)."
+msgstr "git repository code commit id (default: HEAD)."
+
+#: common/main.py:76
+msgid "target instruction set architecture (default: %s)."
+msgstr "target instruction set architecture (default: %s)."
+
+#: common/main.py:80
+msgid ""
+"target microarchitecture name, required when arch is x86 (default: None)."
+msgstr ""
+"target microarchitecture name, required when arch is x86 (default: None)."
+
+#: common/main.py:84
+msgid "target operating system (default: %s), supported OS (%s)."
+msgstr "target operating system (default: %s), supported OS (%s)."
+
+#: common/main.py:90
+msgid "report file name."
+msgstr "report file name."
+
+#: common/main.py:94
+msgid "output format: %s (default: %s)."
+msgstr "output format: %s (default: %s)."
+
+#: common/main.py:102
+msgid "types of issue that are reported (default: \"%s\")."
+msgstr "types of issue that are reported (default: \"%s\")."
+
+#: common/main.py:106
+msgid "when set, there will be no progress bar."
+msgstr "when set, there will be no progress bar."
+
+#: common/main.py:111
+msgid "suppress file errors."
+msgstr "suppress file errors."
+
+#: common/main.py:123
+msgid "unknown/unsupported arch: %s"
+msgstr "unknown/unsupported arch: %s"
+
+#: common/main.py:128
+msgid ""
+"OS \"%s\" is not supported.\n"
+"Supported OS: %s"
+msgstr ""
+"OS \"%s\" is not supported.\n"
+"Supported OS: %s"
+
+#: common/main.py:135
+msgid "%s: directory not found."
+msgstr "%s: directory not found."
+
+#: common/main.py:140
+msgid "%s: not a directory."
+msgstr "%s: not a directory."
+
+#: common/main.py:160
+msgid "%s: invalid output format"
+msgstr "%s: invalid output format"
+
+#: common/no_issues_found_remark.py:25
+msgid "No issues found."
+msgstr "No issues found."
+
+#: common/other_issues.py:26
+msgid "%d other issues"
+msgstr "%d other issues"
+
+#: cpp/advisor/arch_specific_library_issue.py:28
+msgid "architecture-specific library is not available: lib%s"
+msgstr "architecture-specific library is not available: lib%s"
+
+#: cpp/advisor/arch_specific_library_issue.py:30
+msgid "architecture-specific library is not available on %s: lib%s"
+msgstr "architecture-specific library is not available on %s: lib%s"
+
+#: cpp/advisor/build_command_issue.py:30
+msgid "build target is run at build time (not cross-compile friendly): %s"
+msgstr "build target is run at build time (not cross-compile friendly): %s"
+
+#: cpp/advisor/compiler_specific_issue.py:27
+msgid "compiler specific code: %s"
+msgstr "compiler specific code: %s"
+
+#: cpp/advisor/cpp_std_issue.py:28
+msgid "cpp standard language check"
+msgstr "cpp standard language check"
+
+#: cpp/advisor/define_other_arch_issue.py:26
+msgid "hard-coded architecture-specific define: %s"
+msgstr "hard-coded architecture-specific define: %s"
+
+#: cpp/advisor/host_cpu_detection_issue.py:27
+msgid ""
+"Other architecture-specific condition line (may not cross-compile friendly): "
+"%s"
+msgstr ""
+"Other architecture-specific condition line (may not cross-compile friendly): "
+"%s"
+
+#: cpp/advisor/incompatible_header_file_issue.py:34
+msgid "incompatible header file check"
+msgstr "incompatible header file check"
+
+#: cpp/advisor/inline_asm_issue.py:28 go/advisor/golang_inline_asm_issue.py:27
+#: python/advisor/python_inline_asm_issue.py:27
+#: rust/advisor/rust_inline_asm_issue.py:27
+msgid "architecture-specific inline assembly"
+msgstr "architecture-specific inline assembly"
+
+#: cpp/advisor/intrinsic_issue.py:28 go/advisor/asm_issue.py:27
+#: go/advisor/golang_intrinsic_issue.py:27
+#: python/advisor/python_intrinsic_issue.py:27
+#: rust/advisor/rust_intrinsic_issue.py:27
+msgid "Intrinsic not supported on %s: %s"
+msgstr "Intrinsic not supported on %s: %s"
+
+#: cpp/advisor/intrinsic_issue.py:44
+msgid "AVX-256 intrinsic not supported on %s: %s"
+msgstr "AVX-256 intrinsic not supported on %s: %s"
+
+#: cpp/advisor/intrinsic_issue.py:62
+msgid "AVX-512 intrinsic not supported on %s: %s"
+msgstr "AVX-512 intrinsic not supported on %s: %s"
+
+#: cpp/advisor/main.py:38
+msgid "target compiler(default: %s), supported OS (%s)."
+msgstr "target compiler(default: %s), supported OS (%s)."
+
+#: cpp/advisor/main.py:44
+msgid ""
+"warning level (default: L1), supported level ([L1, L2]).indicate the "
+"certainty when report a warning,L1 ---- only report a warning with great "
+"certainty,L2 ---- report a warning with less certainty"
+msgstr ""
+"warning level (default: L1), supported level ([L1, L2]).indicate the "
+"certainty when report a warning,L1 ---- only report a warning with great "
+"certainty,L2 ---- report a warning with less certainty"
+
+#: cpp/advisor/main.py:79
+msgid "%s: invalid compiler for %s"
+msgstr "%s: invalid compiler for %s"
+
+#: cpp/advisor/main.py:85
+msgid "%s: invalid warning_level for %s"
+msgstr "%s: invalid warning_level for %s"
+
+#: cpp/advisor/no_equivalent_inline_asm_issue.py:27
+msgid ""
+"architecture-specific inline assembly used on other architecture(s), but not "
+"on Arm"
+msgstr ""
+"architecture-specific inline assembly used on other architecture(s), but not "
+"on Arm"
+
+#: cpp/advisor/no_equivalent_intrinsic_issue.py:27
+msgid ""
+"architecture-specific intrinsic used on other architecture(s), but not on "
+"Arm: %s"
+msgstr ""
+"architecture-specific intrinsic used on other architecture(s), but not on "
+"Arm: %s"
+
+#: cpp/advisor/old_crt_issue.py:27
+msgid "links with old C runtime %s, prefer Universal C Runtime libs (libucrt)"
+msgstr "links with old C runtime %s, prefer Universal C Runtime libs (libucrt)"
+
+#: cpp/advisor/ported_inline_asm_remark.py:26
+msgid ""
+"%d inline assembly statements or intrinsics already have aarch64 equivalents"
+msgstr ""
+"%d inline assembly statements or intrinsics already have aarch64 equivalents"
+
+#: cpp/advisor/ported_source_files_remark.py:26
+msgid "%d source files are already ported to aarch64"
+msgstr "%d source files are already ported to aarch64"
+
+#: cpp/advisor/pragma_issue.py:27
+msgid "Possible incompatible pragma: %s"
+msgstr "Possible incompatible pragma: %s"
+
+#: cpp/advisor/preprocessor_error_issue.py:27
+msgid "preprocessor error: %s"
+msgstr "preprocessor error: %s"
+
+#: cpp/advisor/report_item.py:21
+msgid "Target platform may enter the #error preprocessing logic"
+msgstr "Target platform may enter the #error preprocessing logic"
+
+#: cpp/advisor/report_item.py:22
+msgid "This #Pragma may be incompatible with the target platform's compiler."
+msgstr "This #Pragma may be incompatible with the target platform's compiler."
+
+#: cpp/advisor/report_item.py:23
+msgid ""
+"This library version may be incompatible with the target platform's compiler"
+msgstr ""
+"This library version may be incompatible with the target platform's compiler"
+
+#: cpp/advisor/report_item.py:24
+msgid "A better-optimized version of this library may be available"
+msgstr "A better-optimized version of this library may be available"
+
+#: cpp/advisor/report_item.py:26
+msgid ""
+"Code is strongly tied to a compiler version or type, which may lead to "
+"compatibility issues"
+msgstr ""
+"Code is strongly tied to a compiler version or type, which may lead to "
+"compatibility issues"
+
+#: cpp/advisor/report_item.py:27
+msgid ""
+"Compatibility issues or optimization opportunities related to Cpp source and "
+"memory order on the target platform"
+msgstr ""
+"Compatibility issues or optimization opportunities related to Cpp source and "
+"memory order on the target platform"
+
+#: cpp/advisor/report_item.py:28
+msgid "Incompatible header files"
+msgstr "Incompatible header files"
+
+#: cpp/advisor/report_item.py:29 go/advisor/report_item.py:21
+msgid "Use of inline assembly may lead to target platform compatibility issues"
+msgstr ""
+"Use of inline assembly may lead to target platform compatibility issues"
+
+#: cpp/advisor/report_item.py:30 rust/advisor/report_item.py:21
+msgid ""
+"Use of intrinsics that have compatibility issues with the target platform"
+msgstr ""
+"Use of intrinsics that have compatibility issues with the target platform"
+
+#: cpp/advisor/report_item.py:32
+msgid ""
+"Use of libraries strongly tied to the processor architecture, which may lead "
+"to compatibility issues."
+msgstr ""
+"Use of libraries strongly tied to the processor architecture, which may lead "
+"to compatibility issues."
+
+#: cpp/advisor/report_item.py:33
+msgid ""
+"Use of an older version of the C runtime library, which may have "
+"compatibility issues or present opportunities for optimization"
+msgstr ""
+"Use of an older version of the C runtime library, which may have "
+"compatibility issues or present opportunities for optimization"
+
+#: cpp/advisor/report_item.py:35
+msgid ""
+"Logic in the code that checks for other processor platform types, which may "
+"lead to compatibility issues"
+msgstr ""
+"Logic in the code that checks for other processor platform types, which may "
+"lead to compatibility issues"
+
+#: cpp/advisor/report_item.py:36
+msgid "Cross-compilation compatibility issues"
+msgstr "Cross-compilation compatibility issues"
+
+#: cpp/advisor/report_item.py:38 go/advisor/report_item.py:23
+msgid ""
+"Potentially architecture-specific assembly code in the source files that "
+"requires manual inspection"
+msgstr ""
+"Potentially architecture-specific assembly code in the source files that "
+"requires manual inspection"
+
+#: cpp/advisor/report_item.py:40
+msgid ""
+"Config.guess file does not contain configurations related to the target "
+"platform architecture, which may require adaptation"
+msgstr ""
+"Config.guess file does not contain configurations related to the target "
+"platform architecture, which may require adaptation"
+
+#: cpp/advisor/report_item.py:42
+msgid "Use of intrinsic functions that do not exist on the target platform"
+msgstr "Use of intrinsic functions that do not exist on the target platform"
+
+#: cpp/advisor/report_item.py:44
+msgid "Use of inline assembly code that does not exist on the target platform"
+msgstr "Use of inline assembly code that does not exist on the target platform"
+
+#: cpp/advisor/report_item.py:47
+msgid ""
+"Logic for processor platform types in the Makefile, which may lead to "
+"platform compatibility issues"
+msgstr ""
+"Logic for processor platform types in the Makefile, which may lead to "
+"platform compatibility issues"
+
+#: cpp/advisor/report_item.py:48
+msgid ""
+"Potential compatibility issues related to the compilation build commands"
+msgstr ""
+"Potential compatibility issues related to the compilation build commands"
+
+#: cpp/advisor/report_item.py:50
+msgid ""
+"Use of AVX256 instructions on the target platform lead to compatibility "
+"issues"
+msgstr ""
+"Use of AVX256 instructions on the target platform lead to compatibility "
+"issues"
+
+#: cpp/advisor/report_item.py:52
+msgid ""
+"Use of AVX512 instructions on the target platform lead to compatibility "
+"issues"
+msgstr ""
+"Use of AVX512 instructions on the target platform lead to compatibility "
+"issues"
+
+#: cpp/advisor/report_item.py:55
+msgid ""
+"The source file already has a ported version for the target platform. It is "
+"recommended to use the platform-specific version"
+msgstr ""
+"The source file already has a ported version for the target platform. It is "
+"recommended to use the platform-specific version"
+
+#: cpp/advisor/report_item.py:57
+msgid ""
+"Intrinsics used already have a ported version for the target platform. It is "
+"recommended to use the platform-specific version"
+msgstr ""
+"Intrinsics used already have a ported version for the target platform. It is "
+"recommended to use the platform-specific version"
+
+#: cpp/advisor/report_item.py:58
+msgid "Compatibility issues with signed char type data"
+msgstr "Compatibility issues with signed char type data"
+
+#: cpp/advisor/signed_char_issue.py:25
+msgid ""
+"It's recommended that you use the compiler command option '-fsigned-char' "
+"changes the default behaviour of plain char to be a signed char."
+msgstr ""
+"It's recommended that you use the compiler command option '-fsigned-char' "
+"changes the default behaviour of plain char to be a signed char."
+
+#: docker/advisor/configuration_info_issue.py:27
+msgid "Configuration information needs modification on %s: %s"
+msgstr "Configuration information needs modification on %s: %s"
+
+#: docker/advisor/image_issue.py:27
+msgid ""
+"The dockerfile is build based on the Base Image:%s, please confirm whether "
+"the Base Image supports the architecture: %s by scanning the dockerfile of "
+"the Base Image or by yourself."
+msgstr ""
+"The dockerfile is build based on the Base Image:%s, please confirm whether "
+"the Base Image supports the architecture: %s by scanning the dockerfile of "
+"the Base Image or by yourself."
+
+#: docker/advisor/plugin_issue.py:27
+msgid "Plugin not supported on %s: %s"
+msgstr "Plugin not supported on %s: %s"
+
+#: docker/advisor/report_item.py:19
+msgid "IMAGE"
+msgstr "IMAGE"
+
+#: docker/advisor/report_item.py:20
+msgid "PLUGIN"
+msgstr "PLUGIN"
+
+#: docker/advisor/report_item.py:21
+msgid "CONFIGURATION_INFO"
+msgstr "CONFIGURATION_INFO"
+
+#: go/advisor/golang_link_library_issue.py:28
+msgid "Golang Link Library: %s not support on arch: %s"
+msgstr "Golang Link Library: %s not support on arch: %s"
+
+#: go/advisor/report_item.py:19 python/advisor/report_item.py:20
+#: rust/advisor/report_item.py:19
+msgid "Use of libraries that are incompatible with the target platform"
+msgstr "Use of libraries that are incompatible with the target platform"
+
+#: go/advisor/report_item.py:22 python/advisor/report_item.py:23
+msgid ""
+"Use of intrinsic functions that have compatibility issues with the target "
+"platform"
+msgstr ""
+"Use of intrinsic functions that have compatibility issues with the target "
+"platform"
+
+#: java/advisor/java_jar_issue.py:28
+msgid "Java Jar package: %s does not support arch: %s"
+msgstr "Java Jar package: %s does not support arch: %s"
+
+#: java/advisor/java_jar_scanner.py:114
+msgid ""
+"No native lib [%s] for aarch64. Existing libs are:\n"
+"\t%s"
+msgstr ""
+"No native lib [%s] for aarch64. Existing libs are:\n"
+"\t%s"
+
+#: java/advisor/java_pom_issue.py:27
+msgid "Dependency imported by POM: %s does not support arch: %s"
+msgstr "Dependency imported by POM: %s does not support arch: %s"
+
+#: java/advisor/java_source_issue.py:28
+msgid ""
+"Java source: %s contains native call that may need to modify/rebuild for "
+"arch: %s"
+msgstr ""
+"Java source: %s contains native call that may need to modify/rebuild for "
+"arch: %s"
+
+#: java/advisor/report_item.py:18
+msgid "JAR package does not support target arch. Need to rebuild or upgrade."
+msgstr "JAR package does not support target arch. Need to rebuild or upgrade."
+
+#: java/advisor/report_item.py:19
+msgid "Pom imports java artifact that does not support target arch."
+msgstr "Pom imports java artifact that does not support target arch."
+
+#: java/advisor/report_item.py:20
+msgid ""
+"Java source file contains native call that may need modify/rebuild for "
+"target arch."
+msgstr ""
+"Java source file contains native call that may need modify/rebuild for "
+"target arch."
+
+#: js/advisor/main.py:14
+msgid "Please upgrade serialport to version >= 8.0.5"
+msgstr "Please upgrade serialport to version >= 8.0.5"
+
+#: js/advisor/main.py:17
+msgid "Please upgrade node-sass to version >= 6.0.1"
+msgstr "Please upgrade node-sass to version >= 6.0.1"
+
+#: js/advisor/main.py:20
+msgid "sass-loader <= 6.0.7 is not supported"
+msgstr "sass-loader <= 6.0.7 is not supported"
+
+#: js/advisor/main.py:22
+msgid "hiredis is deprecated"
+msgstr "hiredis is deprecated"
+
+#: js/advisor/main.py:24
+msgid "Need manual installation of chromium"
+msgstr "Need manual installation of chromium"
+
+#: js/advisor/main.py:26
+msgid "fsevents is not supported"
+msgstr "fsevents is not supported"
+
+#: js/advisor/main.py:28
+msgid "f'{package_name} is not supported"
+msgstr "f'{package_name} is not supported"
+
+#: js/advisor/main.py:31
+msgid "grpc is deprecated. Please use @grpc/grpc-js instead."
+msgstr "grpc is deprecated. Please use @grpc/grpc-js instead."
+
+#: js/advisor/main.py:49
+msgid "Incompatible NPM packages"
+msgstr "Incompatible NPM packages"
+
+#: python/advisor/python_link_library_issue.py:28
+msgid "Python Link Library: %s not support on arch: %s"
+msgstr "Python Link Library: %s not support on arch: %s"
+
+#: python/advisor/python_package_issue.py:27
+msgid ""
+"This third-party python package is not support on current CPU architecture"
+msgstr ""
+"This third-party python package is not support on current CPU architecture"
+
+#: python/advisor/report_item.py:22 rust/advisor/report_item.py:20
+msgid ""
+"Use of inline assembly in the target platform may lead to compatibility "
+"issues"
+msgstr ""
+"Use of inline assembly in the target platform may lead to compatibility "
+"issues"
+
+#: python/advisor/report_item.py:24
+msgid "Use of packages that are incompatible with the target platform"
+msgstr "Use of packages that are incompatible with the target platform"
+
+#: rust/advisor/rust_link_library_issue.py:33
+msgid "Rust Link Library: %s not support on arch: %s"
+msgstr "Rust Link Library: %s not support on arch: %s"

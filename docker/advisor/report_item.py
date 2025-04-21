@@ -14,9 +14,11 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-IMAGE = {'type': 'ImageIssue', 'des': 'IMAGE'}
-PLUGIN = {'type': 'PluginIssue', 'des': 'PLUGIN'}
-CONFIGURATION_INFO = {'type': 'ConfigurationInfoIssue', 'des': 'CONFIGURATION_INFO'}
+from common.localization import _
+
+IMAGE = {'type': 'ImageIssue', 'des': _("IMAGE")}
+PLUGIN = {'type': 'PluginIssue', 'des': _("PLUGIN")}
+CONFIGURATION_INFO = {'type': 'ConfigurationInfoIssue', 'des': _("CONFIGURATION_INFO")}
 
 DOCKERFILE_REPORT_TYPES = [
     IMAGE,

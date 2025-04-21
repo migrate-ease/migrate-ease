@@ -29,7 +29,7 @@ from common.report_factory import ReportFactory, ReportOutputFormat
 
 def init_main(project, summary, version, ISSUE_TYPES):
     epilog = _('Target ISA Type:') + '\n' + \
-             textwrap.fill(_('%s' % (','.join(AARCH64_ARCHS))),
+             textwrap.fill(('%s' % (','.join(AARCH64_ARCHS))),
                            initial_indent='  ',
                            subsequent_indent='  ') + '\n\n' + \
              _('Use:') + '\n' + \
@@ -65,7 +65,7 @@ def init_main(project, summary, version, ISSUE_TYPES):
                         default=None)
 
     parser.add_argument('--branch',
-                        help=_('git repository branch (default: master).'),
+                        help=_('git repository branch.'),
                         default=None)
 
     parser.add_argument('--commit',
@@ -73,7 +73,7 @@ def init_main(project, summary, version, ISSUE_TYPES):
                         default=None)
 
     parser.add_argument('--arch',
-                        help=_('target instruction set architecture (default: %s).' % DEFAULT_ARCH),
+                        help=_('target instruction set architecture (default: %s).') % DEFAULT_ARCH,
                         default=DEFAULT_ARCH)
 
     parser.add_argument('--march',
@@ -82,7 +82,7 @@ def init_main(project, summary, version, ISSUE_TYPES):
 
     parser.add_argument('--target-os',
                         help=_(
-                            'target operating system (default: %s), supported OS (%s).' % (DEFAULT_OS, SUPPORTED_OS)),
+                            'target operating system (default: %s), supported OS (%s).') % (DEFAULT_OS, SUPPORTED_OS),
                         metavar='OS',
                         default=DEFAULT_OS)
 
@@ -125,7 +125,7 @@ def check(args):
         sys.exit(1)
 
     if args.target_os not in SUPPORTED_OS:
-        print(_('OS "%s" is not supported.\nSupported OS: %s' % (args.target_os, SUPPORTED_OS)),
+        print(_('OS "%s" is not supported.\nSupported OS: %s') % (args.target_os, SUPPORTED_OS),
               file=sys.stderr)
         sys.exit(1)
 

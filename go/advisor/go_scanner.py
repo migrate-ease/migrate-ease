@@ -30,17 +30,17 @@ class GoScanner(BaseScanner):
 
     FILE_SUMMARY = {
         GO: {
-            "fileName": "Golang 文件",
+            "fileName": "Golang",
             "loc": 0,
             "count": 0
         },
         GOLIBS: {
-            "fileName": "Lib 文件",
+            "fileName": "Lib",
             "loc": 0,
             "count": 0
         },
         S: {
-            "fileName": "Asm 文件",
+            "fileName": "Asm",
             "loc": 0,
             "count": 0
         }

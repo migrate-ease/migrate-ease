@@ -2,10 +2,9 @@ package main
 
 /*
 #include <stdio.h>
- 
         #if defined(aarch64)
         #define barrier() __sync_synchronize()
-        __asm__ __volatile__("dmb ish" : : : "memory"); 
+        __asm__ __volatile__("dmb ish" : : : "memory");
         #endif
 
         #if defined(aarch64)
@@ -52,7 +51,7 @@ package main
         {
                 struct timespec tmp;
                 clock_gettime(CLOCK_MONOTONIC, &tmp);
-                return tmp.tv_sec * 2400000000 + (uint64_t)tmp.tv_nsec * 2.4; 
+                return tmp.tv_sec * 2400000000 + (uint64_t)tmp.tv_nsec * 2.4;
         }
         static uint64_t Rdtsc()
         {
@@ -90,10 +89,10 @@ package main
         unsigned int tmp;
         int result;
         __asm__ volatile(" prfm pstl1strm, %2\n"
-                "1: ldaxr %w0, %2\n"    //加载数据到寄存器
-                " add %w0, %w0, %w3\n"  //加操作
-                " stlxr %w1, %w0, %2\n" //加后的数据写入内存并判断是否写入成功
-                " cbnz %w1, 1b"         //若写入内存失败, 重新执行加操作
+                "1: ldaxr %w0, %2\n"
+                " add %w0, %w0, %w3\n"
+                " stlxr %w1, %w0, %2\n"
+                " cbnz %w1, 1b"
                 : "=&r"(result), "=&r"(tmp), "+Q"(_value.counter)
                 : "Ir"(i)
         )
@@ -107,10 +106,10 @@ package main
         unsigned int tmp;
         int result;
         __asm__ volatile(" prfm pstl1strm, %2\n"
-                "1: ldaxr %w0, %2\n"    //加载数据到寄存器
-                " sub %w0, %w0, %w3\n"  //减操作
-                " stlxr %w1, %w0, %2\n" //减后的数据写入内存, 并判断是否写入成功
-                " cbnz %w1, 1b"         //若写入内存失败, 重新执行减操作
+                "1: ldaxr %w0, %2\n"
+                " sub %w0, %w0, %w3\n"
+                " stlxr %w1, %w0, %2\n"
+                " cbnz %w1, 1b"
                 : "=&r"(result), "=&r"(tmp), "+Q"(_value.counter)
                 : "Ir"(i)
         )
@@ -147,7 +146,6 @@ package main
         __asm__ volatile("\n\t"
                 "@ atomic_fetch\n\t"
                 "1: ldrex %0, [%4]\n\t" @result, tmp
-                //执行v->counter+i（5%）操作, 并将执行结果放入val（%1）所在的寄存器中
                 " add %1, %0, %5\n\t" @result,
                 " strex %2, %1, [%4]\n\t" @tmp, result, tmp
                 " teq %2, #0\n\t" @tmp
@@ -182,7 +180,7 @@ package main
         uint16_t result = 0;
         uint16_t i = 0;
         uint16_t j = 0;
-        // Impala中用到的模式 STRCHR_MODE = PCMPSTR_EQUAL_ANY | PCMPSTR_UBYTE_OPS
+        // In Impala, STRCHR_MODE = PCMPSTR_EQUAL_ANY | PCMPSTR_UBYTE_OPS
         for (i = 0; i < len2; i++) {
                 for ( j = 0; j < len1; j++) {
                 if (a.m128i_u8[j] == b.m128i_u8[i]) {
@@ -212,7 +210,7 @@ package main
         }
         int result;
         int i;
-        // 本例替换的模式STRCMP_MODE = PCMPSTR_EQUAL_EACH | PCMPSTR_UBYTE_OPS | PCMPSTR_NEG_POLARITY
+        // STRCMP_MODE = PCMPSTR_EQUAL_EACH | PCMPSTR_UBYTE_OPS | PCMPSTR_NEG_POLARITY
         for(i = 0; i < len_s; i++)
         {
                 if (a.m128i_u8[i] == b.m128i_u8[i])
@@ -246,11 +244,11 @@ package main
 void printInt(int v) {
     printf("printint: %d\n", v);
 }
-    */
-    import "C"
+*/
+import "C"
 
-    func main() {
-        v := 42
-        C.printInt(C.int(v))
-    
-    }
+func main() {
+	v := 42
+	C.printInt(C.int(v))
+
+}

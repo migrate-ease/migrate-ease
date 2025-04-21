@@ -42,27 +42,27 @@ class CppScanner(BaseScanner):
 
     FILE_SUMMARY = {
         C: {
-            "fileName": "C 文件",
+            "fileName": "C",
             "loc": 0,
             "count": 0
         },
         CPP: {
-            "fileName": "CPP 文件",
+            "fileName": "CPP",
             "loc": 0,
             "count": 0
         },
         MAKEFILE: {
-            "fileName": "Makefile 文件",
+            "fileName": "Makefile",
             "loc": 0,
             "count": 0
         },
         AUTOCONF: {
-            "fileName": "Autoconf 文件",
+            "fileName": "Autoconf",
             "loc": 0,
             "count": 0
         },
         ASSEMBLY: {
-            "fileName": "Assembly 文件",
+            "fileName": "Assembly",
             "loc": 0,
             "count": 0
         }

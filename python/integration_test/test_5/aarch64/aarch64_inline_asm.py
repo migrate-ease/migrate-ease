@@ -92,10 +92,10 @@ ffi.set_source('_ext', r"""
         unsigned int tmp;
         int result;
         __asm__ volatile(" prfm pstl1strm, %2\n"
-                "1: ldaxr %w0, %2\n"    //加载数据到寄存器
-                " add %w0, %w0, %w3\n"  //加操作
-                " stlxr %w1, %w0, %2\n" //加后的数据写入内存并判断是否写入成功
-                " cbnz %w1, 1b"         //若写入内存失败, 重新执行加操作
+                "1: ldaxr %w0, %2\n"
+                " add %w0, %w0, %w3\n"
+                " stlxr %w1, %w0, %2\n"
+                " cbnz %w1, 1b"
                 : "=&r"(result), "=&r"(tmp), "+Q"(_value.counter)
                 : "Ir"(i)
         )
@@ -109,10 +109,10 @@ ffi.set_source('_ext', r"""
         unsigned int tmp;
         int result;
         __asm__ volatile(" prfm pstl1strm, %2\n"
-                "1: ldaxr %w0, %2\n"    //加载数据到寄存器
-                " sub %w0, %w0, %w3\n"  //减操作
-                " stlxr %w1, %w0, %2\n" //减后的数据写入内存, 并判断是否写入成功
-                " cbnz %w1, 1b"         //若写入内存失败, 重新执行减操作
+                "1: ldaxr %w0, %2\n"
+                " sub %w0, %w0, %w3\n"
+                " stlxr %w1, %w0, %2\n"
+                " cbnz %w1, 1b"
                 : "=&r"(result), "=&r"(tmp), "+Q"(_value.counter)
                 : "Ir"(i)
         )
@@ -144,12 +144,11 @@ ffi.set_source('_ext', r"""
         __sync_add_and_fetch(&_value.counter, i)
         {
         unsigned long tmp;
-        int result, val;//写预取
+        int result, val;
         prefetchw(&v->counter);
         __asm__ volatile("\n\t"
                 "@ atomic_fetch\n\t"
                 "1: ldrex %0, [%4]\n\t" @result, tmp
-                //执行v->counter+i（5%）操作, 并将执行结果放入val（%1）所在的寄存器中
                 " add %1, %0, %5\n\t" @result,
                 " strex %2, %1, [%4]\n\t" @tmp, result, tmp
                 " teq %2, #0\n\t" @tmp
@@ -184,7 +183,7 @@ ffi.set_source('_ext', r"""
         uint16_t result = 0;
         uint16_t i = 0;
         uint16_t j = 0;
-        // Impala中用到的模式 STRCHR_MODE = PCMPSTR_EQUAL_ANY | PCMPSTR_UBYTE_OPS
+        // In Impala, the mode STRCHR_MODE = PCMPSTR_EQUAL_ANY | PCMPSTR_UBYTE_OPS is used.
         for (i = 0; i < len2; i++) {
                 for ( j = 0; j < len1; j++) {
                 if (a.m128i_u8[j] == b.m128i_u8[i]) {
@@ -214,7 +213,7 @@ ffi.set_source('_ext', r"""
         }
         int result;
         int i;
-        // 本例替换的模式STRCMP_MODE = PCMPSTR_EQUAL_EACH | PCMPSTR_UBYTE_OPS | PCMPSTR_NEG_POLARITY
+        // STRCMP_MODE = PCMPSTR_EQUAL_EACH | PCMPSTR_UBYTE_OPS | PCMPSTR_NEG_POLARITY
         for(i = 0; i < len_s; i++)
         {
                 if (a.m128i_u8[i] == b.m128i_u8[i])

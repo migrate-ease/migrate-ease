@@ -1,0 +1,522 @@
+# Copyright 2025 Arm ltd.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+msgid ""
+msgstr ""
+"Project-Id-Version: migrate-ease\n"
+"POT-Creation-Date: 2025-05-07 00:54+0000\n"
+"PO-Revision-Date: 2025-05-07 00:56+0000\n"
+"Last-Translator:  Fannie Zhang <fannie.zhang@arm.com>\n"
+"Language-Team: Chinese (simplified) <i18n-zh@googlegroups.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: zh_CN\n"
+
+#: common/files_scanned_remark.py:25
+msgid "%d files scanned.\n"
+msgstr "%d 个文件已扫描。\n"
+
+#: common/issue.py:29
+msgid ""
+"Issues exceeding the limit will be categorized as OtherIssue. when the issue "
+"count limit option is enabled"
+msgstr "当启用问题计数限制选项时，限制的问题将被归类为其他问题。"
+
+#: common/issue.py:31
+msgid ""
+"Exception encountered by the code scanning tool during the scanning process, "
+"not an issue with the code logic itself. User can ignore it."
+msgstr "在扫描过程中代码扫描工具遇到异常，这不是代码逻辑本身的问题。用户可以忽略它。"
+
+#: common/main.py:31
+msgid "Target ISA Type:"
+msgstr "目标ISA类型："
+
+#: common/main.py:35
+msgid "Use:"
+msgstr "使用："
+
+#: common/main.py:36
+msgid ""
+"--issue-types=+CompilerSpecific to enable reporting of use of compiler-"
+"specific macros."
+msgstr "--issue-types=+CompilerSpecific 以启用报告使用编译器特定宏。"
+
+#: common/main.py:39
+msgid ""
+"--issue-types=+CrossCompile to enable reporting of cross-compile specific "
+"issues."
+msgstr "--issue-types=+CrossCompile 以启用报告交叉编译特定问题。"
+
+#: common/main.py:43
+msgid ""
+"--issue-types=+NoEquivalent to enable reporting of aarch64 ported code that "
+"does not use intrinsics inline assembly versus other architectures."
+msgstr "--issue-types=+NoEquivalent 以启用报告不使用内联汇编指令的 aarch64 移植代码与其他架构的差异。"
+
+#: common/main.py:46
+msgid "Available issue types:"
+msgstr "可用的问题类型："
+
+#: common/main.py:59
+msgid "root directory of source tree to scan (default: .)."
+msgstr "要扫描的源代码树的根目录（默认：.）。"
+
+#: common/main.py:63
+msgid ""
+"git repository address to scan, when present, repo will be cloned to local."
+msgstr "要扫描的 Git 仓库地址，如果存在，将克隆到本地。"
+
+#: common/main.py:68
+msgid "git repository branch."
+msgstr "Git 仓库分支。"
+
+#: common/main.py:72
+msgid "git repository code commit id (default: HEAD)."
+msgstr "Git 仓库代码提交 ID（默认：HEAD）。"
+
+#: common/main.py:76
+msgid "target instruction set architecture (default: %s)."
+msgstr "目标指令集架构（默认：%s）。"
+
+#: common/main.py:80
+msgid ""
+"target microarchitecture name, required when arch is x86 (default: None)."
+msgstr "目标微架构名称，当架构为 x86 时必需（默认：无）。"
+
+#: common/main.py:84
+msgid "target operating system (default: %s), supported OS (%s)."
+msgstr "目标操作系统（默认：%s），支持的操作系统（%s）。"
+
+#: common/main.py:90
+msgid "report file name."
+msgstr "报告文件名称。"
+
+#: common/main.py:94
+msgid "output format: %s (default: %s)."
+msgstr "输出格式：%s（默认：%s）。”"
+
+#: common/main.py:102
+msgid "types of issue that are reported (default: \"%s\")."
+msgstr "报告的问题类型（默认：%s）。"
+
+#: common/main.py:106
+msgid "when set, there will be no progress bar."
+msgstr "设置后，将不会显示进度条。"
+
+#: common/main.py:111
+msgid "suppress file errors."
+msgstr "抑制文件错误。"
+
+#: common/main.py:123
+msgid "unknown/unsupported arch: %s"
+msgstr "未知/不支持的架构：%s。"
+
+#: common/main.py:128
+msgid ""
+"OS \"%s\" is not supported.\n"
+"Supported OS: %s"
+msgstr "操作系统 %s 不受支持。\n 支持的操作系统：%s。"
+
+#: common/main.py:135
+msgid "%s: directory not found."
+msgstr "%s：目录未找到。"
+
+#: common/main.py:140
+msgid "%s: not a directory."
+msgstr "%s：不是一个目录。"
+
+#: common/main.py:160
+msgid "%s: invalid output format"
+msgstr "%s：无效的输出格式。"
+
+#: common/no_issues_found_remark.py:25
+msgid "No issues found."
+msgstr "未发现问题。"
+
+#: common/other_issues.py:26
+msgid "%d other issues"
+msgstr "其他 %d 个问题。"
+
+#: cpp/advisor/arch_specific_library_issue.py:28
+msgid "architecture-specific library is not available: lib%s"
+msgstr "特定架构的库不可用：lib%s"
+
+#: cpp/advisor/arch_specific_library_issue.py:30
+msgid "architecture-specific library is not available on %s: lib%s"
+msgstr "在平台%s上，特定架构的库不可用：lib%s"
+
+#: cpp/advisor/build_command_issue.py:30
+msgid "build target is run at build time (not cross-compile friendly): %s"
+msgstr "构建目标在构建时运行（不适合交叉编译）：%s"
+
+#: cpp/advisor/compiler_specific_issue.py:27
+msgid "compiler specific code: %s"
+msgstr "编译器特定的代码：%s"
+
+#: cpp/advisor/cpp_std_issue.py:28
+msgid "cpp standard language check"
+msgstr "c++标准语言检查"
+
+#: cpp/advisor/define_other_arch_issue.py:26
+msgid "hard-coded architecture-specific define: %s"
+msgstr "硬编码的特定架构定义：%s"
+
+#: cpp/advisor/host_cpu_detection_issue.py:27
+msgid ""
+"Other architecture-specific condition line (may not cross-compile friendly): "
+"%s"
+msgstr "其他特定架构的条件行（可能不适合交叉编译）：%s"
+
+#: cpp/advisor/incompatible_header_file_issue.py:34
+msgid "incompatible header file check"
+msgstr "不兼容的头文件检查"
+
+#: cpp/advisor/inline_asm_issue.py:28 go/advisor/golang_inline_asm_issue.py:27
+#: python/advisor/python_inline_asm_issue.py:27
+#: rust/advisor/rust_inline_asm_issue.py:27
+msgid "architecture-specific inline assembly"
+msgstr "特定架构的内联汇编"
+
+#: cpp/advisor/intrinsic_issue.py:28 go/advisor/asm_issue.py:27
+#: go/advisor/golang_intrinsic_issue.py:27
+#: python/advisor/python_intrinsic_issue.py:27
+#: rust/advisor/rust_intrinsic_issue.py:27
+msgid "Intrinsic not supported on %s: %s"
+msgstr "Intrinsic不被%s架构支持：%s"
+
+#: cpp/advisor/intrinsic_issue.py:44
+msgid "AVX-256 intrinsic not supported on %s: %s"
+msgstr "%s架构不支持AVX-256 intrinsic：%s"
+
+#: cpp/advisor/intrinsic_issue.py:62
+msgid "AVX-512 intrinsic not supported on %s: %s"
+msgstr "%s架构不支持AVX-512 intrinsic：%s"
+
+#: cpp/advisor/main.py:38
+msgid "target compiler(default: %s), supported OS (%s)."
+msgstr "目标编译器（默认：%s），支持的OS（%s）。"
+
+#: cpp/advisor/main.py:44
+msgid ""
+"warning level (default: L1), supported level ([L1, L2]).indicate the "
+"certainty when report a warning,L1 ---- only report a warning with great "
+"certainty,L2 ---- report a warning with less certainty"
+msgstr "警告级别（默认：L1，支持的级别（L1, L2），指示报告警告时的确定性。L1：仅在非常确定时报告警告；L2：在较确定时报告警告。"
+
+#: cpp/advisor/main.py:79
+msgid "%s: invalid compiler for %s"
+msgstr "%s：%s不支持的编译器。"
+
+#: cpp/advisor/main.py:85
+msgid "%s: invalid warning_level for %s"
+msgstr "%s：无效的警告级别。"
+
+#: cpp/advisor/no_equivalent_inline_asm_issue.py:27
+msgid ""
+"architecture-specific inline assembly used on other architecture(s), but not "
+"on Arm"
+msgstr "使用了Arm不支持的其他特定架构的内联汇编。"
+
+#: cpp/advisor/no_equivalent_intrinsic_issue.py:27
+msgid ""
+"architecture-specific intrinsic used on other architecture(s), but not on "
+"Arm: %s"
+msgstr "使用了Arm不支持的其他特定架构的intrinsic。"
+
+#: cpp/advisor/old_crt_issue.py:27
+msgid "links with old C runtime %s, prefer Universal C Runtime libs (libucrt)"
+msgstr "链接到旧的C运行时%s，建议使用通用C运行时库（libucrt）。"
+
+#: cpp/advisor/ported_inline_asm_remark.py:26
+msgid ""
+"%d inline assembly statements or intrinsics already have aarch64 equivalents"
+msgstr "%d个内联汇编或intrinsics已经有aarch64等效项。"
+
+#: cpp/advisor/ported_source_files_remark.py:26
+msgid "%d source files are already ported to aarch64"
+msgstr "%d个源文件已经移植到aarch64。"
+
+#: cpp/advisor/pragma_issue.py:27
+msgid "Possible incompatible pragma: %s"
+msgstr "可能不兼容的pragma：%s"
+
+#: cpp/advisor/preprocessor_error_issue.py:27
+msgid "preprocessor error: %s"
+msgstr "预处理器错误：%s"
+
+#: cpp/advisor/report_item.py:21
+msgid "Target platform may enter the #error preprocessing logic"
+msgstr "目标平台可能会进入#error预处理逻辑"
+
+#: cpp/advisor/report_item.py:22
+msgid "This #Pragma may be incompatible with the target platform's compiler."
+msgstr "此#Pragma可能与目标平台的编译器不兼容。"
+
+#: cpp/advisor/report_item.py:23
+msgid ""
+"This library version may be incompatible with the target platform's compiler"
+msgstr "此库版本可能与目标平台的编译器不兼容。"
+
+#: cpp/advisor/report_item.py:24
+msgid "A better-optimized version of this library may be available"
+msgstr "可能有更优化版本的库可用。"
+
+#: cpp/advisor/report_item.py:26
+msgid ""
+"Code is strongly tied to a compiler version or type, which may lead to "
+"compatibility issues"
+msgstr "代码与编译器版本或类型紧密相关，可能导致兼容性问题。"
+
+#: cpp/advisor/report_item.py:27
+msgid ""
+"Compatibility issues or optimization opportunities related to Cpp source and "
+"memory order on the target platform"
+msgstr "与目标平台上的c++源代码和内存顺序相关的兼容性问题或优化机会。"
+
+#: cpp/advisor/report_item.py:28
+msgid "Incompatible header files"
+msgstr "不兼容的头文件。"
+
+#: cpp/advisor/report_item.py:29 go/advisor/report_item.py:21
+msgid "Use of inline assembly may lead to target platform compatibility issues"
+msgstr "使用内联汇编可能导致目标平台的兼容性问题。"
+
+#: cpp/advisor/report_item.py:30 rust/advisor/report_item.py:21
+msgid ""
+"Use of intrinsics that have compatibility issues with the target platform"
+msgstr "使用与目标平台不兼容的intrinsics。"
+
+#: cpp/advisor/report_item.py:32
+msgid ""
+"Use of libraries strongly tied to the processor architecture, which may lead "
+"to compatibility issues."
+msgstr "与处理器架构紧密相关的库的使用可能会导致兼容性问题。"
+
+#: cpp/advisor/report_item.py:33
+msgid ""
+"Use of an older version of the C runtime library, which may have "
+"compatibility issues or present opportunities for optimization"
+msgstr "使用旧版本的C运行时库可能导致兼容性问题，并且可能存在优化的机会。"
+
+#: cpp/advisor/report_item.py:35
+msgid ""
+"Logic in the code that checks for other processor platform types, which may "
+"lead to compatibility issues"
+msgstr "代码中检查其他处理器平台类型的逻辑可能会导致兼容性问题。"
+
+#: cpp/advisor/report_item.py:36
+msgid "Cross-compilation compatibility issues"
+msgstr "交叉编译兼容性问题。"
+
+#: cpp/advisor/report_item.py:38 go/advisor/report_item.py:23
+msgid ""
+"Potentially architecture-specific assembly code in the source files that "
+"requires manual inspection"
+msgstr "源文件中可能包含与特定架构相关的汇编代码，这些代码需要手动检查。"
+
+#: cpp/advisor/report_item.py:40
+msgid ""
+"Config.guess file does not contain configurations related to the target "
+"platform architecture, which may require adaptation"
+msgstr "config.guess 文件不包含与目标平台架构相关的配置，可能需要进行相应修改。"
+
+#: cpp/advisor/report_item.py:42
+msgid "Use of intrinsic functions that do not exist on the target platform"
+msgstr "使用在目标平台上不存在的intrinsic，可能会导致兼容性问题。"
+
+#: cpp/advisor/report_item.py:44
+msgid "Use of inline assembly code that does not exist on the target platform"
+msgstr "使用在目标平台上不存在的内联汇编代码可能会导致兼容性问题。"
+
+#: cpp/advisor/report_item.py:47
+msgid ""
+"Logic for processor platform types in the Makefile, which may lead to "
+"platform compatibility issues"
+msgstr "在Makefile中使用处理器平台类型的逻辑可能会导致平台兼容性问题。"
+
+#: cpp/advisor/report_item.py:48
+msgid ""
+"Potential compatibility issues related to the compilation build commands"
+msgstr "编译构建命令可能会导致兼容性问题。"
+
+#: cpp/advisor/report_item.py:50
+msgid ""
+"Use of AVX256 instructions on the target platform lead to compatibility "
+"issues"
+msgstr "使用AVX256指令在目标平台上可能会导致兼容性问题。"
+
+#: cpp/advisor/report_item.py:52
+msgid ""
+"Use of AVX512 instructions on the target platform lead to compatibility "
+"issues"
+msgstr "使用AVX512指令在目标平台上可能会导致兼容性问题。"
+
+#: cpp/advisor/report_item.py:55
+msgid ""
+"The source file already has a ported version for the target platform. It is "
+"recommended to use the platform-specific version"
+msgstr "源文件已经有一个针对目标平台移植的版本。建议使用平台特定版本。"
+
+#: cpp/advisor/report_item.py:57
+msgid ""
+"Intrinsics used already have a ported version for the target platform. It is "
+"recommended to use the platform-specific version"
+msgstr "使用的intrinsics已经有一个针对目标平台移植的版本。建议使用平台特定版本。"
+
+#: cpp/advisor/report_item.py:58
+msgid "Compatibility issues with signed char type data"
+msgstr "使用 signed char 类型数据可能会导致兼容性问题。"
+
+#: cpp/advisor/signed_char_issue.py:25
+msgid ""
+"It's recommended that you use the compiler command option '-fsigned-char' "
+"changes the default behaviour of plain char to be a signed char."
+msgstr "推荐使用编译器命令选项 -fsigned-char，它将普通 char 的默认行为更改为 signed char。这样可以确保代码在不同平台上具有一致的行为，避免由于 char 类型的符号差异导致的兼容性问题。"
+
+#: docker/advisor/configuration_info_issue.py:27
+msgid "Configuration information needs modification on %s: %s"
+msgstr "在%s平台上的配置信息需要修改：%s"
+
+#: docker/advisor/image_issue.py:27
+msgid ""
+"The dockerfile is build based on the Base Image:%s, please confirm whether "
+"the Base Image supports the architecture: %s by scanning the dockerfile of "
+"the Base Image or by yourself."
+msgstr "Dockerfile 是基于基础镜像：%s 构建的，请通过扫描基础镜像的 Dockerfile 或自行确认基础镜像是否支持架构：%s。"
+
+#: docker/advisor/plugin_issue.py:27
+msgid "Plugin not supported on %s: %s"
+msgstr "插件在%s平台上不支持：%s"
+
+#: docker/advisor/report_item.py:19
+msgid "IMAGE"
+msgstr "镜像"
+
+#: docker/advisor/report_item.py:20
+msgid "PLUGIN"
+msgstr "插件"
+
+#: docker/advisor/report_item.py:21
+msgid "CONFIGURATION_INFO"
+msgstr "配置信息"
+
+#: go/advisor/golang_link_library_issue.py:28
+msgid "Golang Link Library: %s not support on arch: %s"
+msgstr "链接库%s在平台%s上不支持。"
+
+#: go/advisor/report_item.py:19 python/advisor/report_item.py:20
+#: rust/advisor/report_item.py:19
+msgid "Use of libraries that are incompatible with the target platform"
+msgstr "使用与目标平台不兼容的库。"
+
+#: go/advisor/report_item.py:22 python/advisor/report_item.py:23
+msgid ""
+"Use of intrinsic functions that have compatibility issues with the target "
+"platform"
+msgstr "使用与目标平台存在兼容性问题的intrinsic函数。"
+
+#: java/advisor/java_jar_issue.py:28
+msgid "Java Jar package: %s does not support arch: %s"
+msgstr "Java Jar包：%s，不支持%s架构。"
+
+#: java/advisor/java_jar_scanner.py:114
+msgid ""
+"No native lib [%s] for aarch64. Existing libs are:\n"
+"\t%s"
+msgstr "没有适用于 aarch64 的原生库：%s。现有的库有：\n\t%s"
+
+#: java/advisor/java_pom_issue.py:27
+msgid "Dependency imported by POM: %s does not support arch: %s"
+msgstr "由POM导入的依赖项：%s，不支持%s架构。"
+
+#: java/advisor/java_source_issue.py:28
+msgid ""
+"Java source: %s contains native call that may need to modify/rebuild for "
+"arch: %s"
+msgstr "Java源代码：%s，包含可能需要为%s架构修改或重建的本地调用。"
+
+#: java/advisor/report_item.py:18
+msgid "JAR package does not support target arch. Need to rebuild or upgrade."
+msgstr "JAR包不支持目标架构，需要重建或升级。"
+
+#: java/advisor/report_item.py:19
+msgid "Pom imports java artifact that does not support target arch."
+msgstr "POM导入的Java依赖不支持目标架构。"
+
+#: java/advisor/report_item.py:20
+msgid ""
+"Java source file contains native call that may need modify/rebuild for "
+"target arch."
+msgstr "Java源代码包含可能需要为目标架构修改或重建的本地调用。"
+
+#: js/advisor/main.py:14
+msgid "Please upgrade serialport to version >= 8.0.5"
+msgstr "请将 serialport 升级到版本 >= 8.0.5。"
+
+#: js/advisor/main.py:17
+msgid "Please upgrade node-sass to version >= 6.0.1"
+msgstr "请将 node-sass 升级到版本 >= 6.0.1。"
+
+#: js/advisor/main.py:20
+msgid "sass-loader <= 6.0.7 is not supported"
+msgstr "sass-loader 版本 <= 6.0.7 不被支持。"
+
+#: js/advisor/main.py:22
+msgid "hiredis is deprecated"
+msgstr "hiredis 已被弃用。"
+
+#: js/advisor/main.py:24
+msgid "Need manual installation of chromium"
+msgstr "需要手动安装 Chromium。"
+
+#: js/advisor/main.py:26
+msgid "fsevents is not supported"
+msgstr "fsevents不被支持。"
+
+#: js/advisor/main.py:28
+msgid "f'{package_name} is not supported"
+msgstr "f{package_name}不被支持。"
+
+#: js/advisor/main.py:31
+msgid "grpc is deprecated. Please use @grpc/grpc-js instead."
+msgstr "grpc已被弃用。请使用@grpc/grpc-js代替。"
+
+#: js/advisor/main.py:49
+msgid "Incompatible NPM packages"
+msgstr "不兼容的 NPM 包。"
+
+#: python/advisor/python_link_library_issue.py:28
+msgid "Python Link Library: %s not support on arch: %s"
+msgstr "链接库%s在%s平台上不支持。"
+
+#: python/advisor/python_package_issue.py:27
+msgid ""
+"This third-party python package is not support on current CPU architecture"
+msgstr "此第三方 Python 包不支持当前的 CPU 架构。"
+
+#: python/advisor/report_item.py:22 rust/advisor/report_item.py:20
+msgid ""
+"Use of inline assembly in the target platform may lead to compatibility "
+"issues"
+msgstr "在目标平台中使用内联汇编可能会导致兼容性问题。"
+
+#: python/advisor/report_item.py:24
+msgid "Use of packages that are incompatible with the target platform"
+msgstr "使用与目标平台不兼容的软件包。"
+
+#: rust/advisor/rust_link_library_issue.py:33
+msgid "Rust Link Library: %s not support on arch: %s"
+msgstr "链接库%s在%s平台上不支持。"

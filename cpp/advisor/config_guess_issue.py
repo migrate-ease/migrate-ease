@@ -24,7 +24,7 @@ class ConfigGuessIssue(Issue):
 
     def __init__(self, filename, remark):
 
-        description = _('%s' % remark)
+        description = '%s' % remark
 
         super().__init__(filename=filename,
                          description=description,
