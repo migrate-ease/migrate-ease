@@ -19,7 +19,7 @@ import gettext
 import os
 
 #  from advisor import __name__ as PACKAGE
-PACKAGE = 'ad'
+PACKAGE = 'advisor_lang_pack'
 
 localedir = os.path.join(os.path.dirname(__file__), 'locale')
 cat = gettext.Catalog(PACKAGE, localedir=localedir, fallback=True)

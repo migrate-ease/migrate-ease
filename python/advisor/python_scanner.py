@@ -29,12 +29,12 @@ class PythonScanner(BaseScanner):
 
     FILE_SUMMARY = {
         PY: {
-            "fileName": "Python 文件",
+            "fileName": "Python",
             "loc": 0,
             "count": 0
         },
         PYTHONLIBS: {
-            "fileName": "Lib 文件",
+            "fileName": "Lib",
             "loc": 0,
             "count": 0
         }

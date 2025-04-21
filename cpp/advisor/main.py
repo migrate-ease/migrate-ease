@@ -36,18 +36,17 @@ def main():
 
     parser.add_argument('--target-compiler',
                         help=_(
-                            'target compiler(default: %s), supported OS (%s).'
-                            % (DEFAULT_COMPILER, SUPPORTED_COMPILERS_ARM)),
+                            'target compiler(default: %s), supported OS (%s).') % (DEFAULT_COMPILER, SUPPORTED_COMPILERS_ARM),
                         metavar='COMPILER',
                         default=DEFAULT_COMPILER)
 
     parser.add_argument('--warning-level',
                         help=_(
-                            'warning level (default: %s), supported level (%s).'
+                            'warning level (default: L1), supported level ([L1, L2]).'
                             'indicate the certainty when report a warning,'
                             'L1 ---- only report a warning with great certainty,'
                             'L2 ---- report a warning with less certainty'
-                            % ('L1', ['L1', 'L2'])),
+                            ),
                         metavar='LEVEL',
                         default='L1')
 
@@ -77,13 +76,13 @@ def main():
             if args.target_compiler not in SUPPORTED_COMPILERS_ARM:
                 raise ValueError
         except ValueError:
-            print(_('%s: invalid compiler for N2') % args.target_compiler, file=sys.stderr)
+            print(_('%s: invalid compiler for %s') % args.arch, args.target_compiler, file=sys.stderr)
             sys.exit(1)
         try:
             if args.warning_level not in ['L1', 'L2']:
                 raise ValueError
         except ValueError:
-            print(_('%s: invalid warning_level for N2') % args.warning_level, file=sys.stderr)
+            print(_('%s: invalid warning_level for %s') % args.arch, args.warning_level, file=sys.stderr)
             sys.exit(1)
 
     # Check if a git repo is specified

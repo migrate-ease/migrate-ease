@@ -27,7 +27,7 @@ class DockerScanner(BaseScanner):
 
     FILE_SUMMARY = {
         DOCKERFILE: {
-            "fileName": "dockerfile 文件",
+            "fileName": "dockerfile",
             "loc": 0,
             "count": 0
         }

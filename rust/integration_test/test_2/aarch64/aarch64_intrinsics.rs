@@ -1,4 +1,3 @@
-// x86平台下实现
 #[cfg(all(any(target_arch = "aarch64"), target_feature = "neon"))]
 fn add()
 {

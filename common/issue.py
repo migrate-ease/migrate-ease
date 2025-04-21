@@ -26,8 +26,9 @@ class BaseReportItem:
 
     SUMMARY = {'type': 'summary', 'des': 'SUMMARY'}
     OTHER = {'type': 'OtherIssue',
-             'des': '当代码扫描工具使用了扫描问题数量限制选项的时候, 超出数量限制的问题会被归类到 OtherIssue.'}
-    ERROR = {'type': 'Error', 'des': '表示本代码扫描程序在扫描过程中遇到的异常, 非代码逻辑本身的问题, 用户可忽略.'}
+            'des': _("Issues exceeding the limit will be categorized as OtherIssue. when the issue count limit option is enabled")}
+    ERROR = {'type': 'Error',
+            'des': _("Exception encountered by the code scanning tool during the scanning process, not an issue with the code logic itself. User can ignore it.")}
     NO_ISSUES_FOUND_REMARK = {'type': 'NoIssuesFoundRemark', 'des': 'NO_ISSUES_FOUND_REMARK'}
 
     TYPES = [
@@ -115,7 +116,7 @@ class BaseReportItem:
         if self.snippet:
 
             if self.description:
-                return _('%(file)s:%(lineno)s (%(checkpoint)s): \n代码片段：\n%(snippet)s\n说明：\n%(description)s') % {
+                return '%(file)s:%(lineno)s (%(checkpoint)s): \nCode:\n%(snippet)s\nDescription:\n%(description)s' % {
                     'file': self.filename,
                     'lineno': self.lineno,
                     'checkpoint': self.checkpoint,
@@ -123,7 +124,7 @@ class BaseReportItem:
                     'description': self.description
                 }
             else:
-                return _('%(file)s:%(lineno)s (%(checkpoint)s): \n代码片段：\n%(snippet)s') % {
+                return '%(file)s:%(lineno)s (%(checkpoint)s): \nCode:\n%(snippet)s' % {
                     'file': self.filename,
                     'lineno': self.lineno,
                     'checkpoint': self.checkpoint,
@@ -133,14 +134,14 @@ class BaseReportItem:
         elif self.lineno:
 
             if self.checkpoint:
-                return _('%(file)s:%(lineno)s (%(checkpoint)s): %(description)s') % {
+                return '%(file)s:%(lineno)s (%(checkpoint)s): %(description)s' % {
                     'file': self.filename,
                     'lineno': self.lineno,
                     'checkpoint': self.checkpoint,
                     'description': self.description
                 }
             else:
-                return _('%(file)s:%(lineno)s: %(description)s') % {
+                return '%(file)s:%(lineno)s: %(description)s' % {
                     'file': self.filename,
                     'lineno': self.lineno,
                     'description': self.description
@@ -149,13 +150,13 @@ class BaseReportItem:
         elif self.filename:
 
             if self.checkpoint:
-                return _('%(file)s (%(checkpoint)s): %(description)s') % {
+                return '%(file)s (%(checkpoint)s): %(description)s' % {
                     'file': self.filename,
                     'checkpoint': self.checkpoint,
                     'description': self.description
                 }
             else:
-                return _('%(file)s: %(description)s') % {
+                return '%(file)s: %(description)s' % {
                     'file': self.filename,
                     'description': self.description
                 }
@@ -163,12 +164,12 @@ class BaseReportItem:
         else:
 
             if self.checkpoint:
-                return _('%(checkpoint)s: %(description)s') % {
+                return '%(checkpoint)s: %(description)s' % {
                     'checkpoint': self.checkpoint,
                     'description': self.description
                 }
             else:
-                return _('%(description)s') % {
+                return '%(description)s' % {
                     'description': self.description
                 }
 

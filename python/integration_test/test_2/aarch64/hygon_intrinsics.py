@@ -1,6 +1,8 @@
 from cffi import FFI
 ffi = FFI()
-#cdef用来定义结构体,变量,或者方法的声明
+# ffi.cdef is a method in Python's CFFI (C Foreign Function Interface) library
+# used to define C types, functions, constants, and global variables.
+# It allows you to call C code from Python.
 #hygon_intrinsics:
 ffi.cdef("""
     char _InterlockedAnd8(char volatile *, char);
@@ -2375,7 +2377,9 @@ ffi.cdef("""
 
     int printf(const char *format, ...);
 """)
-#dlopen是ABI模式的的基本读取方式
-C = ffi.dlopen(None) # 加载整个C命名空间
-arg = ffi.new("char[]", b"dsklfsd") # 等于C代码: char arg[] = "world";
+# Load shared library.
+# None means loading the entire C namespace.
+C = ffi.dlopen(None)
+# Call a function from the shared library.
+arg = ffi.new("char[]", b"dsklfsd")
 C.printf(b"hello %s!\n", arg)

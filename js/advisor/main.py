@@ -3,6 +3,7 @@ import functools
 import json
 import pathlib
 from pathlib import Path
+from common.localization import _
 
 
 def _check_blacklist(package_name, version, result, file, file_lines):
@@ -10,24 +11,24 @@ def _check_blacklist(package_name, version, result, file, file_lines):
     msg = None
     if package_name == 'serialport':
         if version <= ('7', '1', '5'):
-            msg = '请升级 serialport 到 >= 8.0.5 的版本'
+            msg = _("Please upgrade serialport to version >= 8.0.5")
     elif package_name == 'node-sass':
         if version <= ('6', '0', '7'):
-            msg = '请升级 node-sass 到 >= 6.0.1 的版本'
+            msg = _("Please upgrade node-sass to version >= 6.0.1")
     elif package_name == 'sass-loader':
         if version <= ('6', '0', '7'):
-            msg = 'sass-loader <= 6.0.7 不支持倚天平台'
+            msg = _("sass-loader <= 6.0.7 is not supported")
     elif package_name == 'hiredis':
-        msg = 'hiredis 包已被弃用，不支持 ARM 平台'
+        msg = _("hiredis is deprecated")
     elif package_name == 'puppeteer':
-        msg = '倚天平台上需要手动安装 chromium'
+        msg = _("Need manual installation of chromium")
     elif package_name == 'fsevents':
-        msg = 'fsevents 不支持 ARM 平台'
+        msg = _("fsevents is not supported")
     elif package_name in ('phantomjs', 'phantomjs-prebuilt'):
-        msg = f'{package_name} 已被弃用，不支持 ARM 平台'
+        msg = _("f'{package_name} is not supported")
     elif package_name == 'grpc':
         if version < ('1', '24', '10'):
-            msg = 'grpc 包已停止更新，请使用 @grpc/grpc-js'
+            msg = _("grpc is deprecated. Please use @grpc/grpc-js instead.")
 
     if msg is not None:
         result['total_issue_count'] += 1
@@ -45,7 +46,7 @@ def _check_blacklist(package_name, version, result, file, file_lines):
             "description": msg,
             "filename": str(file),
             "issue_type": {
-                "des": "检测到不兼容的 NPM 包",
+                "des": _("Incompatible NPM packages"),
                 "type": "ArchSpecificLibraryIssue"
             },
             "lineno": lineno,
@@ -116,7 +117,7 @@ def main():
         "file_summary": {
             "npm": {
                 "count": 0,
-                "fileName": "npm 依赖文件",
+                "fileName": "npm Dependencies",
                 "loc": 0
             }
         },
