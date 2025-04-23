@@ -23,7 +23,7 @@ limitations under the License.
 N2_MARCH = 'armv8.6-a+sve2'
 AARCH64_ARCH = 'aarch64'
 
-AARCH64_ARCHS = [N2_MARCH, AARCH64_ARCH, 'arm64', 'arm', 'neon', 'sve2', 'sve', 'aes', 'sha',
+AARCH64_ARCHS = [AARCH64_ARCH, N2_MARCH, 'arm64', 'arm', 'neon', 'sve2', 'sve', 'aes', 'sha',
                  'tme', 'thumb-2', 'thumb', 'vfpv4-d16', 'vfpv4', 'jazelle']
 
 X86_ARCHS = ['amd64', 'avx', 'avx2', 'avx512', 'i386', 'i586', 'i686', 'ia32',
