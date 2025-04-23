@@ -16,15 +16,15 @@ limitations under the License.
 
 import os
 import re
+import time
 
 from common.arch_strings import AARCH64_ARCHS
-from common.checkpoint import Checkpoint
+from common.checkpoint import Checkpoint, init_checkpoints
 from common.continuation_parser import ContinuationParser
 from common.find_port import find_matching_line_num
 from common.naive_comment_parser import NaiveCommentParser
 from common.report_factory import ReportOutputFormat
-from .checkpoints import AARCH64_INCOMPATIBLE_EXTENSION_PACKAGES, AARCH64_INCOMPATIBLE_INTRINSICS, \
-    AARCH64_INLINE_ASSEMBLY_CHECKPOINTS
+
 from .python_inline_asm_issue import PythonInlineAsmIssue
 from .python_intrinsic_issue import PythonIntrinsicIssue
 from .python_package_issue import PythonPakageIssue
@@ -37,6 +37,10 @@ class ClangSourceScanner(PythonScanner):
     Scanner that scans .py source files for potential porting issues
     """
 
+    AARCH64_INCOMPATIBLE_EXTENSION_PACKAGES = []
+    AARCH64_INCOMPATIBLE_INTRINSICS = []
+    AARCH64_INLINE_ASSEMBLY_CHECKPOINTS = []
+
     PY_SOURCE_EXTENSIONS = ['.py']
 
     LINK_CFFI_RE = re.compile(r'.*(cffi).*')
@@ -48,6 +52,29 @@ class ClangSourceScanner(PythonScanner):
 
         self.with_highlights = bool(
             output_format == ReportOutputFormat.HTML or self.output_format == ReportOutputFormat.JSON)
+        self.load_checkpoints()
+
+    def load_checkpoints(self):
+        super().load_checkpoints()
+
+        start_time = time.time()
+
+        self.AARCH64_INCOMPATIBLE_EXTENSION_PACKAGES = init_checkpoints(
+            self.checkpoints_content['X86_PYTHON_EXTENSION_PACKAGES'],
+            self.checkpoints_content["AARCH64_PYTHON_EXTENSION_PACKAGES"] +
+            self.checkpoints_content["COMMON_AARCH64_AND_X86_PYTHON_EXTENSION_PACKAGES"]
+        )
+        self.AARCH64_INCOMPATIBLE_INTRINSICS = init_checkpoints(
+            self.checkpoints_content['X86_INTRINSICS'] + self.checkpoints_content['OTHER_ARCH_INTRINSICS'] + self.checkpoints_content['INCOMPATIBLE_UCRT_INTRINSICS'],
+            self.checkpoints_content["COMMON_INTRINSICS"] + self.checkpoints_content["AARCH64_INTRINSICS"]
+        )
+        self.AARCH64_INLINE_ASSEMBLY_CHECKPOINTS = init_checkpoints(
+            self.checkpoints_content["AARCH64_INLINE_ASSEMBLY_CHECKPOINTS"]
+        )
+
+        end_time = time.time()
+
+        print('[Python] Initialization of checkpoints took %f seconds.' % (end_time - start_time))
 
     def accepts_file(self, filename):
 
@@ -69,9 +96,9 @@ class ClangSourceScanner(PythonScanner):
 
         if self.arch in AARCH64_ARCHS:
 
-            ARCH_INCOMPATIBLE_INTRINSICS = AARCH64_INCOMPATIBLE_INTRINSICS
-            ASSEMBLY_CHECKPOINTS = AARCH64_INLINE_ASSEMBLY_CHECKPOINTS
-            PACKAGE_CHECKPOINTS = AARCH64_INCOMPATIBLE_EXTENSION_PACKAGES
+            ARCH_INCOMPATIBLE_INTRINSICS = self.AARCH64_INCOMPATIBLE_INTRINSICS
+            ASSEMBLY_CHECKPOINTS = self.AARCH64_INLINE_ASSEMBLY_CHECKPOINTS
+            PACKAGE_CHECKPOINTS = self.AARCH64_INCOMPATIBLE_EXTENSION_PACKAGES
 
         else:
 

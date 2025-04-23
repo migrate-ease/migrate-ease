@@ -15,14 +15,15 @@ limitations under the License.
 """
 import os
 import re
+import time
 
 from common.arch_strings import AARCH64_ARCHS
-from common.checkpoint import Checkpoint
+from common.checkpoint import Checkpoint, init_checkpoints
 from common.continuation_parser import ContinuationParser
 from common.find_port import find_matching_line_num
 from common.report_factory import ReportOutputFormat
+
 from .asm_issue import AsmIssue
-from .checkpoints import AARCH64_INCOMPATIBLE_PLAN9_GOLANG_INTRINSICS
 from .go_scanner import GoScanner
 from .golang_asm_strings import GOLANG_ASM_AARCH64, NON_GOLANG_ASM_AARCH64
 
@@ -37,6 +38,8 @@ class AsmFileScanner(GoScanner):
     AARCH64_NAME_RE = re.compile(r'.*(%s).*' % '|'.join([(r'%s' % x) for x in GOLANG_ASM_AARCH64]))
     NON_AARCH64_NAME_RE = re.compile(r'.*(%s).*' % '|'.join([(r'%s' % x) for x in NON_GOLANG_ASM_AARCH64]))
 
+    AARCH64_INCOMPATIBLE_PLAN9_GOLANG_INTRINSICS = []
+
     def __init__(self, output_format, arch, march):
         self.output_format = output_format
         self.arch = arch
@@ -44,6 +47,20 @@ class AsmFileScanner(GoScanner):
 
         self.with_highlights = bool(
             output_format == ReportOutputFormat.HTML or self.output_format == ReportOutputFormat.JSON)
+        self.load_checkpoints()
+
+    def load_checkpoints(self):
+        super().load_checkpoints()
+
+        start_time = time.time()
+
+        self.AARCH64_INCOMPATIBLE_PLAN9_GOLANG_INTRINSICS = init_checkpoints(
+            self.checkpoints_content['PLAN9_GOLANG_X86']
+        )
+
+        end_time = time.time()
+
+        print('[Go] Initialization of checkpoints took %f seconds.' % (end_time - start_time))
 
     def accepts_file(self, filename):
 
@@ -71,7 +88,7 @@ class AsmFileScanner(GoScanner):
 
             match_arch = self.__class__.AARCH64_NAME_RE.search(os.path.basename(filename))
             match_non_arch = self.__class__.NON_AARCH64_NAME_RE.search(os.path.basename(filename))
-            PLAN9_ASSEMBLY_CHECKPOINTS = AARCH64_INCOMPATIBLE_PLAN9_GOLANG_INTRINSICS
+            PLAN9_ASSEMBLY_CHECKPOINTS = self.AARCH64_INCOMPATIBLE_PLAN9_GOLANG_INTRINSICS
 
         if match_arch and not match_non_arch:
 

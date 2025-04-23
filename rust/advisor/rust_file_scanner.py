@@ -15,13 +15,16 @@ limitations under the License.
 """
 
 import os
+import re
+import time
 
 from common.arch_strings import *
 from common.continuation_parser import ContinuationParser
 from common.find_port import find_matching_line_num
 from common.naive_comment_parser import NaiveCommentParser
 from common.report_factory import ReportOutputFormat
-from .checkpoints import AARCH64_INCOMPATIBLE_INTRINSICS, AARCH64_INLINE_ASSEMBLY_CHECKPOINTS
+from common.checkpoint import init_checkpoints
+
 from .rust_inline_asm_issue import RustInlineAsmIssue
 from .rust_intrinsic_issue import RustIntrinsicIssue
 from .rust_scanner import RustScanner
@@ -34,6 +37,9 @@ class RustFileScanner(RustScanner):
 
     RS_SOURCE_EXTENSIONS = ['.rs']
 
+    AARCH64_INCOMPATIBLE_INTRINSICS = []
+    AARCH64_INLINE_ASSEMBLY_CHECKPOINTS = []
+
     def __init__(self, output_format, arch, march):
         self.output_format = output_format
         self.arch = arch
@@ -41,6 +47,25 @@ class RustFileScanner(RustScanner):
 
         self.with_highlights = bool(
             output_format == ReportOutputFormat.HTML or self.output_format == ReportOutputFormat.JSON)
+        self.load_checkpoints()
+
+    def load_checkpoints(self):
+        super().load_checkpoints()
+
+        start_time = time.time()
+
+        self.AARCH64_INCOMPATIBLE_INTRINSICS = init_checkpoints(
+            self.checkpoints_content['X86_INTRINSICS'] + self.checkpoints_content['OTHER_ARCH_INTRINSICS'] ,
+            self.checkpoints_content["COMMON_INTRINSICS"] + self.checkpoints_content["AARCH64_INTRINSICS"]
+        )
+
+        self.AARCH64_INLINE_ASSEMBLY_CHECKPOINTS = init_checkpoints(
+            self.checkpoints_content["AARCH64_INLINE_ASSEMBLY_CHECKPOINTS"]
+        )
+
+        end_time = time.time()
+
+        print('[Rust] Initialization of checkpoints took %f seconds.' % (end_time - start_time))
 
     def accepts_file(self, filename):
 
@@ -61,8 +86,8 @@ class RustFileScanner(RustScanner):
 
         if self.arch in AARCH64_ARCHS:
 
-            ARCH_INCOMPATIBLE_INTRINSICS = AARCH64_INCOMPATIBLE_INTRINSICS
-            ASSEMBLY_CHECKPOINTS = AARCH64_INLINE_ASSEMBLY_CHECKPOINTS
+            ARCH_INCOMPATIBLE_INTRINSICS = self.AARCH64_INCOMPATIBLE_INTRINSICS
+            ASSEMBLY_CHECKPOINTS = self.AARCH64_INLINE_ASSEMBLY_CHECKPOINTS
 
         else:
 

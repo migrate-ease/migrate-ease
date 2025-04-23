@@ -1,0 +1,3122 @@
+# 在x86、x86_64、32位ARM和AArch64上可用的内在函数。
+COMMON_INTRINSICS:
+    - signature: void * __builtin_apply_args ()
+    - signature: void * __builtin_apply (void (*function)(), void *arguments, size_t size)
+    - signature: void __builtin_return (void *result)
+    - signature: __builtin_va_arg_pack ()
+    - signature: size_t __builtin_va_arg_pack_len ()
+    - signature: void * __builtin_return_address (unsigned int level)
+    - signature: void * __builtin_extract_return_addr (void *addr)
+    - signature: void * __builtin_frob_return_address (void *addr)
+    - signature: void * __builtin_frame_address (unsigned int level)
+    - signature: type __atomic_load_n (type *ptr, int memmodel)
+    - signature: void __atomic_load (type *ptr, type *ret, int memmodel)
+    - signature: void __atomic_store_n (type *ptr, type val, int memmodel)
+    - signature: void __atomic_store (type *ptr, type *val, int memmodel)
+    - signature: type __atomic_exchange_n (type *ptr, type val, int memmodel)
+    - signature: void __atomic_exchange (type *ptr, type *val, type *ret, int memmodel)
+    - signature: bool __atomic_compare_exchange_n (type *ptr, type *expected, type desired, bool weak, int success_memmodel, int failure_memmodel)
+    - signature: bool __atomic_compare_exchange (type *ptr, type *expected, type *desired, bool weak, int success_memmodel, int failure_memmodel)
+    - signature: type __atomic_add_fetch (type *ptr, type val, int memmodel)
+    - signature: type __atomic_sub_fetch (type *ptr, type val, int memmodel)
+    - signature: type __atomic_and_fetch (type *ptr, type val, int memmodel)
+    - signature: type __atomic_xor_fetch (type *ptr, type val, int memmodel)
+    - signature: type __atomic_or_fetch (type *ptr, type val, int memmodel)
+    - signature: type __atomic_nand_fetch (type *ptr, type val, int memmodel)
+    - signature: type __atomic_fetch_add (type *ptr, type val, int memmodel)
+    - signature: type __atomic_fetch_sub (type *ptr, type val, int memmodel)
+    - signature: type __atomic_fetch_and (type *ptr, type val, int memmodel)
+    - signature: type __atomic_fetch_xor (type *ptr, type val, int memmodel)
+    - signature: type __atomic_fetch_or (type *ptr, type val, int memmodel)
+    - signature: type __atomic_fetch_nand (type *ptr, type val, int memmodel)
+    - signature: bool __atomic_test_and_set (void *ptr, int memmodel)
+    - signature: void __atomic_clear (bool *ptr, int memmodel)
+    - signature: void __atomic_thread_fence (int memmodel)
+    - signature: void __atomic_signal_fence (int memmodel)
+    - signature: bool __atomic_always_lock_free (size_t size, void *ptr)
+    - signature: bool __atomic_is_lock_free (size_t size, void *ptr)
+    - signature: size_t __builtin_object_size (void * ptr, int type)
+    - signature: int __builtin_types_compatible_p (type1, type2)
+    - signature: type __builtin_choose_expr (const_exp, exp1, exp2)
+    - signature: type __builtin_complex (real, imag)
+    - signature: int __builtin_constant_p (exp)
+    - signature: long __builtin_expect (long exp, long c)
+    - signature: void __builtin_trap (void)
+    - signature: void __builtin_unreachable (void)
+    - signature: void *__builtin_assume_aligned (const void *exp, size_t align, ...)
+    - signature: int __builtin_LINE ()
+    - signature: int __builtin_FUNCTION ()
+    - signature: int __builtin_FILE ()
+    - signature: void __builtin___clear_cache (char *begin, char *end)
+    - signature: void __builtin_prefetch (const void *addr, ...)
+    - signature: double __builtin_huge_val (void)
+    - signature: float __builtin_huge_valf (void)
+    - signature: long double __builtin_huge_vall (void)
+    - signature: int __builtin_fpclassify (int, int, int, int, int, ...)
+    - signature: double __builtin_inf (void)
+    - signature: _Decimal32 __builtin_infd32 (void)
+    - signature: _Decimal64 __builtin_infd64 (void)
+    - signature: _Decimal128 __builtin_infd128 (void)
+    - signature: float __builtin_inff (void)
+    - signature: long double __builtin_infl (void)
+    - signature: int __builtin_isinf_sign (...)
+    - signature: double __builtin_nan (const char *str)
+    - signature: _Decimal32 __builtin_nand32 (const char *str)
+    - signature: _Decimal64 __builtin_nand64 (const char *str)
+    - signature: _Decimal128 __builtin_nand128 (const char *str)
+    - signature: float __builtin_nanf (const char *str)
+    - signature: long double __builtin_nanl (const char *str)
+    - signature: double __builtin_nans (const char *str)
+    - signature: float __builtin_nansf (const char *str)
+    - signature: long double __builtin_nansl (const char *str)
+    - signature: int __builtin_ffs (unsigned int x)
+    - signature: int __builtin_clz (unsigned int x)
+    - signature: int __builtin_ctz (unsigned int x)
+    - signature: int __builtin_clrsb (int x)
+    - signature: int __builtin_parity (unsigned int x)
+    - signature: int __builtin_ffsl (unsigned long)
+    - signature: int __builtin_clzl (unsigned long)
+    - signature: int __builtin_ctzl (unsigned long)
+    - signature: int __builtin_clrsbl (long)
+    - signature: int __builtin_parityl (unsigned long)
+    - signature: int __builtin_ffsll (unsigned long long)
+    - signature: int __builtin_clzll (unsigned long long)
+    - signature: int __builtin_ctzll (unsigned long long)
+    - signature: int __builtin_clrsbll (long long)
+    - signature: int __builtin_parityll (unsigned long long)
+    - signature: double __builtin_powi (double, int)
+    - signature: float __builtin_powif (float, int)
+    - signature: long double __builtin_powil (long double, int)
+    - signature: uint16_t __builtin_bswap16 (uint16_t x)
+    - signature: uint32_t __builtin_bswap32 (uint32_t x)
+    - signature: uint64_t __builtin_bswap64 (uint64_t x)
+    - signature: void *__builtin_alloca (size_t size)
+    - signature: void *__builtin_alloca_with_align (size_t size, size_t alignment)
+    - signature: void *__builtin_alloca_with_align_and_max (size_t size, size_t alignment, size_t max_size)
+    - signature: bool __builtin_has_attribute (type-or-expression, attribute)
+    - signature: type __builtin_speculation_safe_value (type val, type failval)
+    - signature: type __builtin_call_with_static_chain (call_exp, pointer_exp)
+    - signature: type __builtin_tgmath (functions, arguments)
+    - signature: bool __builtin_is_constant_evaluated (void)
+    - signature: long __builtin_expect_with_probability (long exp, long c, double probability)
+    - signature: void * __builtin_assume_aligned (const void *exp, size_t align, ...)
+    - signature: const char * __builtin_FUNCTION ()
+    - signature: const char * __builtin_FILE ()
+    - signature: void __builtin___clear_cache (void *begin, void *end)
+    - signature: size_t __builtin_object_size (const void * ptr, int type)
+    - signature: _Floatn __builtin_huge_valfn (void)
+    - signature: _Floatnx __builtin_huge_valfnx (void)
+    - signature: _Floatn __builtin_inffn (void)
+    - signature: _Floatn __builtin_inffnx (void)
+    - signature: _Floatn __builtin_nanfn (const char *str)
+    - signature: _Floatnx __builtin_nanfnx (const char *str)
+    - signature: _Floatn __builtin_nansfn (const char *str)
+    - signature: _Floatnx __builtin_nansfnx (const char *str)
+    - signature: int __builtin_ffs (int x)
+    - signature: int __builtin_ffsl (long)
+    - signature: int __builtin_ffsll (long long)
+    - signature: uint128_t __builtin_bswap128 (uint128_t x)
+    - signature: Pmode __builtin_extend_pointer (void * x)
+    - signature: int __builtin_goacc_parlevel_id (int x)
+    - signature: int __builtin_goacc_parlevel_size (int x)
+    - signature: int __builtin_popcount (unsigned int)
+    - signature: int __builtin_popcountl (unsigned long)
+    - signature: int __builtin_popcountll (unsigned long long)
+    - signature: __sync_synchronize (...)
+    - signature: type __sync_lock_test_and_set (type *ptr, type value, ...)
+    - signature: void __sync_lock_release (type *ptr, ...)
+    - signature: type __sync_fetch_and_add (type *ptr, type value, ...)
+    - signature: type __sync_fetch_and_sub (type *ptr, type value, ...)
+    - signature: type __sync_fetch_and_or (type *ptr, type value, ...)
+    - signature: type __sync_fetch_and_and (type *ptr, type value, ...)
+    - signature: type __sync_fetch_and_xor (type *ptr, type value, ...)
+    - signature: type __sync_fetch_and_nand (type *ptr, type value, ...)
+    - signature: type __sync_add_and_fetch (type *ptr, type value, ...)
+    - signature: type __sync_sub_and_fetch (type *ptr, type value, ...)
+    - signature: type __sync_or_and_fetch (type *ptr, type value, ...)
+    - signature: type __sync_and_and_fetch (type *ptr, type value, ...)
+    - signature: type __sync_xor_and_fetch (type *ptr, type value, ...)
+    - signature: type __sync_nand_and_fetch (type *ptr, type value, ...)
+    - signature: bool __sync_bool_compare_and_swap (type *ptr, type oldval, type newval, ...)
+    - signature: type __sync_val_compare_and_swap (type *ptr, type oldval, type newval, ...)
+
+# GCC提供了一些内在函数（intrinsics）用于AArch64架构。这些内在函数可以直接访问处理器的特定功能。
+AARCH64_INTRINSICS:
+    - signature: __breakpoint()
+    - signature: __crc32b()
+    - signature: __crc32h()
+    - signature: __crc32w()
+    - signature: __crc32d()
+    - signature: __crc32cb()
+    - signature: __crc32ch()
+    - signature: __crc32cw()
+    - signature: __crc32cd()
+    - signature: __dmb()
+    - signature: __dsb()
+    - signature: __isb()
+    - signature: __nop()
+    - signature: __rsr()
+    - signature: __rsrp()
+    - signature: __wsr()
+    - signature: __wsrp()
+    - signature: _cls_u32()
+    - signature: _cls_u64()
+    - signature: _clz_u64()
+    - signature: _rbit_u64()
+    - signature: _rev_u16()
+    - signature: _rev_u32()
+    - signature: _rev_u64()
+    - signature: brk()
+    - signature: vadd_f32()
+    - signature: vadd_f64()
+    - signature: vadd_s8()
+    - signature: vadd_s16()
+    - signature: vadd_s32()
+    - signature: vadd_u8()
+    - signature: vadd_u16()
+    - signature: vadd_u32()
+    - signature: vaddd_s64()
+    - signature: vaddd_u64()
+    - signature: vaddl_s8()
+    - signature: vaddl_s16()
+    - signature: vaddl_s32()
+    - signature: vaddl_u8()
+    - signature: vaddl_u16()
+    - signature: vaddl_u32()
+    - signature: vaddq_f32()
+    - signature: vaddq_f64()
+    - signature: vaddq_s8()
+    - signature: vaddq_s16()
+    - signature: vaddq_s32()
+    - signature: vaddq_s64()
+    - signature: vaddq_u8()
+    - signature: vaddq_u16()
+    - signature: vaddq_u32()
+    - signature: vaddq_u64()
+    - signature: vaesdq_u8()
+    - signature: vaeseq_u8()
+    - signature: vaesimcq_u8()
+    - signature: vaesmcq_u8()
+    - signature: vcombine_f32()
+    - signature: vcombine_f64()
+    - signature: vcombine_p8()
+    - signature: vcombine_p16()
+    - signature: vcombine_p64()
+    - signature: vcombine_s8()
+    - signature: vcombine_s16()
+    - signature: vcombine_s32()
+    - signature: vcombine_s64()
+    - signature: vcombine_u8()
+    - signature: vcombine_u16()
+    - signature: vcombine_u32()
+    - signature: vcombine_u64()
+    - signature: vmaxv_f32()
+    - signature: vmaxv_s8()
+    - signature: vmaxv_s16()
+    - signature: vmaxv_s32()
+    - signature: vmaxv_u8()
+    - signature: vmaxv_u16()
+    - signature: vmaxv_u32()
+    - signature: vmaxvq_f32()
+    - signature: vmaxvq_f64()
+    - signature: vmaxvq_s8()
+    - signature: vmaxvq_s16()
+    - signature: vmaxvq_s32()
+    - signature: vmaxvq_u8()
+    - signature: vmaxvq_u16()
+    - signature: vmaxvq_u32()
+    - signature: vminv_f32()
+    - signature: vminv_s8()
+    - signature: vminv_s16()
+    - signature: vminv_s32()
+    - signature: vminv_u8()
+    - signature: vminv_u16()
+    - signature: vminv_u32()
+    - signature: vminvq_f32()
+    - signature: vminvq_f64()
+    - signature: vminvq_s8()
+    - signature: vminvq_s16()
+    - signature: vminvq_s32()
+    - signature: vminvq_u8()
+    - signature: vminvq_u16()
+    - signature: vminvq_u32()
+    - signature: vmovl_s8()
+    - signature: vmovl_s16()
+    - signature: vmovl_s32()
+    - signature: vmovl_u8()
+    - signature: vmovl_u16()
+    - signature: vmovl_u32()
+    - signature: vmovn_s16()
+    - signature: vmovn_s32()
+    - signature: vmovn_s64()
+    - signature: vmovn_u16()
+    - signature: vmovn_u32()
+    - signature: vmovn_u64()
+    - signature: vpmax_f32()
+    - signature: vpmax_s8()
+    - signature: vpmax_s16()
+    - signature: vpmax_s32()
+    - signature: vpmax_u8()
+    - signature: vpmax_u16()
+    - signature: vpmax_u32()
+    - signature: vpmaxq_f32()
+    - signature: vpmaxq_f64()
+    - signature: vpmaxq_s8()
+    - signature: vpmaxq_s16()
+    - signature: vpmaxq_s32()
+    - signature: vpmaxq_u8()
+    - signature: vpmaxq_u16()
+    - signature: vpmaxq_u32()
+    - signature: vpmin_f32()
+    - signature: vpmin_s8()
+    - signature: vpmin_s16()
+    - signature: vpmin_s32()
+    - signature: vpmin_u8()
+    - signature: vpmin_u16()
+    - signature: vpmin_u32()
+    - signature: vpminq_f32()
+    - signature: vpminq_f64()
+    - signature: vpminq_s8()
+    - signature: vpminq_s16()
+    - signature: vpminq_s32()
+    - signature: vpminq_u8()
+    - signature: vpminq_u16()
+    - signature: vpminq_u32()
+    - signature: vqtbl1_p8()
+    - signature: vqtbl1_s8()
+    - signature: vqtbl1_u8()
+    - signature: vqtbl1q_p8()
+    - signature: vqtbl1q_s8()
+    - signature: vqtbl1q_u8()
+    - signature: vqtbl2_p8()
+    - signature: vqtbl2_s8()
+    - signature: vqtbl2_u8()
+    - signature: vqtbl2q_p8()
+    - signature: vqtbl2q_s8()
+    - signature: vqtbl2q_u8()
+    - signature: vqtbl3_p8()
+    - signature: vqtbl3_s8()
+    - signature: vqtbl3_u8()
+    - signature: vqtbl3q_p8()
+    - signature: vqtbl3q_s8()
+    - signature: vqtbl3q_u8()
+    - signature: vqtbl4_p8()
+    - signature: vqtbl4_s8()
+    - signature: vqtbl4_u8()
+    - signature: vqtbl4q_p8()
+    - signature: vqtbl4q_s8()
+    - signature: vqtbl4q_u8()
+    - signature: vqtbx1_p8()
+    - signature: vqtbx1_s8()
+    - signature: vqtbx1_u8()
+    - signature: vqtbx1q_p8()
+    - signature: vqtbx1q_s8()
+    - signature: vqtbx1q_u8()
+    - signature: vqtbx2_p8()
+    - signature: vqtbx2_s8()
+    - signature: vqtbx2_u8()
+    - signature: vqtbx2q_p8()
+    - signature: vqtbx2q_s8()
+    - signature: vqtbx2q_u8()
+    - signature: vqtbx3_p8()
+    - signature: vqtbx3_s8()
+    - signature: vqtbx3_u8()
+    - signature: vqtbx3q_p8()
+    - signature: vqtbx3q_s8()
+    - signature: vqtbx3q_u8()
+    - signature: vqtbx4_p8()
+    - signature: vqtbx4_s8()
+    - signature: vqtbx4_u8()
+    - signature: vqtbx4q_p8()
+    - signature: vqtbx4q_s8()
+    - signature: vqtbx4q_u8()
+    - signature: vrsqrte_f32()
+    - signature: vsha1cq_u32()
+    - signature: vsha1h_u32()
+    - signature: vsha1mq_u32()
+    - signature: vsha1pq_u32()
+    - signature: vsha1su0q_u32()
+    - signature: vsha1su1q_u32()
+    - signature: vsha256h2q_u32()
+    - signature: vsha256hq_u32()
+    - signature: vsha256su0q_u32()
+    - signature: vsha256su1q_u32()
+    - signature: vtbl1_p8()
+    - signature: vtbl1_s8()
+    - signature: vtbl1_u8()
+    - signature: vtbl2_p8()
+    - signature: vtbl2_s8()
+    - signature: vtbl2_u8()
+    - signature: vtbl3_p8()
+    - signature: vtbl3_s8()
+    - signature: vtbl3_u8()
+    - signature: vtbl4_p8()
+    - signature: vtbl4_s8()
+    - signature: vtbl4_u8()
+    - signature: vtbx1_p8()
+    - signature: vtbx1_s8()
+    - signature: vtbx1_u8()
+    - signature: vtbx2_p8()
+    - signature: vtbx2_s8()
+    - signature: vtbx2_u8()
+    - signature: vtbx3_p8()
+    - signature: vtbx3_s8()
+    - signature: vtbx3_u8()
+    - signature: vtbx4_p8()
+    - signature: vtbx4_s8()
+    - signature: vtbx4_u8()
+
+AARCH64_COMPILER_OPTION_CHECKPOINTS:
+    - pattern: .*[= "]+-m64[ \n"]+.*
+      help: |+
+          -m64 是 x86 64 位应用编译选项, m64 选项设置 int 为 32 bits 及 long 指针为 64 bits, 为 AMD 的 x86 64 架构生成代码.在 ARM64 平台无法支持.
+
+          解决方法:
+
+            将 ARM64 平台对应的编译选项设置为 "-mabi=lp64".
+
+          详细指导请参考: https://gcc.gnu.org/onlinedocs/gcc/AArch64-Options.html；https://gcc.gnu.org/onlinedocs/gcc/x86-Options.html
+
+    - pattern: .*[= "]+-march=.*
+      help: |+
+          Makefile 中包含 "-march" 与 -mtune 编译参数, 提示参数不兼容.
+
+          解决方法:
+
+            兼容的调整后参数为:
+
+            -march=armv8.1-a -tune=cortex-a72
+
+          参数设置指导请参考:https://gcc.gnu.org/onlinedocs/gcc/ARM-Options.html；https://gcc.gnu.org/onlinedocs/gcc/AArch64-Options.html；https://gcc.gnu.org/onlinedocs/gcc/x86-Options.html
+
+    - pattern: .*[= "]+-mtune=.*
+      help: |+
+          如果使用了 gcc 9.1 以上的版本, 在编译时增加编译选项指定使用目标处理器的流水线, 使编译器按照目标处理器的流水线编排指令执行顺序, 充分利用流水线的指令集并行, 提升性能.
+
+          解决方法:
+
+            编译选项中添加 "-mtune=neoverse-n2".
+
+          详细指导请参考: https://gcc.gnu.org/onlinedocs/gcc/AArch64-Options.html；https://gcc.gnu.org/onlinedocs/gcc/x86-Options.html
+
+    - pattern: .*[= "]+-O2[ \n"]+.*
+      help: |+
+          编译优化选项设置 "-O2" 级别及以上时, 相同的浮点数乘加运算在 x86 平台和 ARM64 平台的运算结果, 在小数点后16位存在差异.
+
+          原因:
+
+            ARM64 平台编译优化选项设置为 "-O2" 级别及以上, 进行浮点数的乘加运算 (a+=b*c), 运算结果的精度只能精确到小数点后16位.在配置 "-O2" 选项时, gcc 使用融合指令 fmadd 完成乘加运算, 而不是 fadd 和 fmul.
+
+            fmadd 将浮点数的乘法和加法看成不可分的一个操作, 不对中间结果进行舍入, 从而导致计算结果有所差别.
+
+          对系统的影响:
+
+            编译优化选项设置 "-O2" 级别及以上时, 浮点乘加运算的性能有提升, 但是运算的精度受到影响.
+
+          解决方法:
+
+            添加编译选项 "-ffp-contract=off" 可以关闭该优化.
+
+          详细指导请参考:https://gcc.gnu.org/onlinedocs/gcc/AArch64-Options.html；https://gcc.gnu.org/onlinedocs/gcc/x86-Options.html
+
+    - pattern: .*[= "]+-msse2[ \n"]+.*
+      help: |+
+          ARM 不支持通过 -msse2, -msse4.1 等选项开启 SSE 浮点标量相关指令集.
+
+          对于 x86-32 编译器，必须使用 -march=cpu-type、-msse 或 -msse2 选项来启用 SSE 扩展并使该选项生效。对于 x86-64 编译器，这些扩展默认启用。
+
+          在编译时增加编译选项指定处理器架构为 ARMv8, 使编译器按照 ARMv8 处理器的架构和微架构生成可执行程序, 提升性能.
+
+          解决方法:
+
+            编译选项中添加 "-march=armv8-a".
+
+          详细指导请参考:https://gcc.gnu.org/onlinedocs/gcc/AArch64-Options.html；https://gcc.gnu.org/onlinedocs/gcc/x86-Options.html
+
+    - pattern: .*[= "]+-msse4\.1[ \n"]+.*
+      help: |+
+          ARM 不支持通过 -msse2, -msse4.1 等选项开启 SSE 浮点标量相关指令集.
+
+          使用-march和-mcpu的选项启用以下任何一个特性，也可以通过在特性前加上no来禁用这些特性。
+            crc：启用 CRC 扩展。对于 -march=armv8.1-a，这是默认启用的。
+            crypto：启用加密扩展。这也启用高级 SIMD 和浮点指令。
+
+          解决方法:
+
+            编译选项中添加 "-march=armv8.1-a+crc".
+
+          详细指导请参考:https://gcc.gnu.org/onlinedocs/gcc/AArch64-Options.html；https://gcc.gnu.org/onlinedocs/gcc/x86-Options.html
+
+    - pattern: .*[= "]+-mpclmul[ \n"]+.*
+      help: |+
+          在 x86 上使用 -msse2, -mpclmul, -maes 开启相关扩展指令集.
+
+          使用-march和-mcpu的选项启用以下任何一个特性，也可以通过在特性前加上no来禁用这些特性。
+            crc：启用 CRC 扩展。对于 -march=armv8.1-a，这是默认启用的。
+            crypto：启用加密扩展。这也启用高级 SIMD 和浮点指令。
+
+          解决方法:
+
+            编译选项中添加 "-march=armv8.1-a+crypto".
+
+          详细指导请参考:https://gcc.gnu.org/onlinedocs/gcc/AArch64-Options.html；https://gcc.gnu.org/onlinedocs/gcc/x86-Options.html
+
+    - pattern: .*[= "]+-maes[ \n"]+.*
+
+      help: |+
+          在 x86 上使用 -msse2, -mpclmul, -maes 开启相关扩展指令集.
+
+          使用-march和-mcpu的选项启用以下任何一个特性，也可以通过在特性前加上no来禁用这些特性。
+            crc：启用 CRC 扩展。对于 -march=armv8.1-a，这是默认启用的。
+            crypto：启用加密扩展。这也启用高级 SIMD 和浮点指令。
+
+          解决方法:
+
+            编译选项中添加 "-march=armv8.1-a+crypto".
+
+          详细指导请参考:https://gcc.gnu.org/onlinedocs/gcc/AArch64-Options.html；https://gcc.gnu.org/onlinedocs/gcc/x86-Options.html
+
+# https://doc.rust-lang.org/reference/inline-assembly.html
+AARCH64_INLINE_ASSEMBLY_CHECKPOINTS:
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\([a-zA-Z0-9_\s]*"(?!yield|isb|dmb|dsb)(\soshld|\soshst|\sosh|\snshld|\snshst|\snsh|\sishld|\sishst|\sish|\sld|\sst|\ssy)?.*memory
+      help: |+
+          这是一个编译器屏障, 编译器屏障仅能防止编译器因优化而引入的乱序, 对弱内存顺序模型处理器运行时乱序执行无效.
+
+          由于 ARM 是弱内存顺序模型处理器, 建议做如下修改.
+
+          适配方案
+
+          由于 x86 处理器是强内存顺序模型的, 它保证了内存的操作顺序不会被打乱,
+          因此仅仅使用编译器屏障即可.
+
+              asm!("" : : : "memory");
+
+          ARM 上对应的修改示例
+          使用下面的汇编指令
+
+              asm!("dmb ish" : : : "memory");
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*sfence
+      help: |+
+          x86/64 架构提供了三种内存屏障指令: (1) sfence (2) lfence (3) mfence
+
+            sfence: sfence 指令前后的写入指令, 按照在 sfence 前后的指令序进行执行.
+                    注意, 写屏障一般需要与读屏障或数据依赖屏障配对使用.
+
+            lfence: lfence 指令前后的读取指令, 按照在 lfence 前后的指令序进行执行.
+                    注意, 读屏障一般要跟写屏障配对使用.
+
+            mfence: 确保所有 mfence 指令之前的写入指令, 都在该 mfence 指令之后的
+                    写入令之前执行; 同时, 还确保所有 mfence 指令之后的读取指令,
+                    都在该 mfence 指令之前的读取指令之后执行.
+
+          修改方案
+          --------
+
+            x86 上示例代码:
+            ---
+            asm!("sfence" : : : "memory");
+            asm!("lfence" : : : "memory");
+            asm!("mfence" : : : "memory");
+
+            ARM 上对应的修改示例:
+            ---
+            asm!("dmb ishst" : : : "memory");
+            asm!("dmb ishld" : : : "memory");
+            asm!("dmb ish" : : : "memory");
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*lfence
+      help: |+
+          x86/64 系统架构提供了三种内存屏障指令:(1) sfence ; (2) lfence ; (3) mfence.
+
+          sfence 确保: sfence 指令前后的写入指令, 按照在 sfence 前后的指令序进行执行.注意, 写屏障一般需要与读屏障或数据依赖屏障配对使用.
+
+          lfence 确保: lfence 指令前后的读取指令, 按照在 lfence 前后的指令序进行执行.注意, 读屏障一般要跟写屏障配对使用.
+
+          mfence 确保: 确保所有 mfence 指令之前的写入指令, 都在该 mfence 指令之后的写入令之前执行；同时, 还确保所有 mfence 指令之后的读取指令, 都在该 mfence 指令之前的读取指令之后执行.
+
+          修改方案:
+
+          x86 上示例代码:
+          ---
+          asm!("sfence" : : : "memory");
+          asm!("lfence" : : : "memory");
+          asm!("mfence" : : : "memory");
+
+          ARM 上对应的修改示例:
+          ---
+          asm!("dmb ishst" : : : "memory");
+          asm!("dmb ishld" : : : "memory");
+          asm!("dmb ish" : : : "memory");
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*mfence
+      help: |+
+          x86/64 系统架构提供了三种内存屏障指令:(1) sfence ; (2) lfence ; (3) mfence.
+
+          sfence 确保: sfence 指令前后的写入指令, 按照在 sfence 前后的指令序进行执行.注意, 写屏障一般需要与读屏障或数据依赖屏障配对使用.
+
+          lfence 确保: lfence 指令前后的读取指令, 按照在 lfence 前后的指令序进行执行.注意, 读屏障一般要跟写屏障配对使用.
+
+          mfence 确保: 确保所有 mfence 指令之前的写入指令, 都在该 mfence 指令之后的写入令之前执行；同时, 还确保所有 mfence 指令之后的读取指令, 都在该 mfence 指令之前的读取指令之后执行.
+
+          修改方案:
+
+          x86 上示例代码:
+          ---
+          asm!("sfence" : : : "memory");
+          asm!("lfence" : : : "memory");
+          asm!("mfence" : : : "memory");
+
+          ARM 上对应的修改示例:
+          ---
+          asm!("dmb ishst" : : : "memory");
+          asm!("dmb ishld" : : : "memory");
+          asm!("dmb ish" : : : "memory");
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*crc32b
+      help: |+
+          CRC32 系列指令主要用于计算字符串的32位 CRC 校验码, 输入待计算的字符串, 输出 32 位 CRC 多项式校验码.使用 CRC32 指令的方式有2种:一种是直接使用（内联）汇编代码；另一种是借助编译器 intrinsics.
+
+          现象描述: 在 ARM 上可能出现的编译错误: unknown mnemonic 'crc32q' -- 'crc32q (x3),x2' 或 operand1should be an integer register -- 'crc32b (x1),x0' 或 unrecognized command line option '-msse4.2'.
+
+          可能原因: x86 使用的是 crc32b 和 crc32q 汇编指令完成 CRC32C 校验值计算功能, 而 Arm64 平台用 crc32cb, crc32ch, crc32cw, crc32cx 4 个汇编指令完成 CRC32C 校验值计算功能.
+
+          修改方案: 请使用 crc32cb, crc32ch, crc32cw, crc32cx 取代 x86 的 CRC32 系列汇编指令, 并在编译时添加编译参数 '-mcpu=generic+crc'.
+
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*crc32w
+      help: |+
+          CRC32 系列指令主要用于计算字符串的32位 CRC 校验码, 输入待计算的字符串, 输出32位 crc 多项式校验码.使用 CRC32 指令的方式有2种:一种是直接使用（内联）汇编代码；另一种是借助编译器 intrinsics.
+
+          现象描述: 在 ARM 上可能出现的编译错误: unknown mnemonic 'crc32q' -- 'crc32q (x3),x2' 或 operand1should be an integer register -- 'crc32b (x1),x0' 或 unrecognized command line option '-msse4.2'.
+
+          可能原因: x86 使用的是 crc32b 和 crc32q 汇编指令完成 CRC32C 校验值计算功能, 而 Arm64 平台用 crc32cb, crc32ch, crc32cw, crc32cx 4 个汇编指令完成 CRC32C 校验值计算功能.
+
+          修改方案: 请使用 crc32cb, crc32ch, crc32cw, crc32cx 取代 x86 的 CRC32 系列汇编指令, 并在编译时添加编译参数 '-mcpu=generic+crc'.
+
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*crc32l
+      help: |+
+          CRC32 系列指令主要用于计算字符串的32位 CRC 校验码, 输入待计算的字符串, 输出32位 crc 多项式校验码.使用 CRC32 指令的方式有2种:一种是直接使用（内联）汇编代码；另一种是借助编译器 intrinsics.
+
+          现象描述: 在 ARM 上可能出现的编译错误: unknown mnemonic 'crc32q' -- 'crc32q (x3),x2' 或 operand1should be an integer register -- 'crc32b (x1),x0' 或 unrecognized command line option '-msse4.2'.
+
+          可能原因: x86 使用的是 crc32b 和 crc32q 汇编指令完成 CRC32C 校验值计算功能, 而 Arm64 平台用 crc32cb, crc32ch, crc32cw, crc32cx 4 个汇编指令完成 CRC32C 校验值计算功能.
+
+          修改方案: 请使用 crc32cb, crc32ch, crc32cw, crc32cx 取代 x86 的 CRC32 系列汇编指令, 并在编译时添加编译参数 '-mcpu=generic+crc'.
+
+          注意: 修改后需要增加 -march=armv8-a+crc 编译选项.
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*crc32q
+      help: |+
+          CRC32 系列指令主要用于计算字符串的32位 CRC 校验码, 输入待计算的字符串, 输出32位 crc 多项式校验码.使用 CRC32 指令的方式有2种:一种是直接使用（内联）汇编代码；另一种是借助编译器 intrinsics.
+
+          现象描述: 在 ARM 上可能出现的编译错误: unknown mnemonic 'crc32q' -- 'crc32q (x3),x2' 或 operand1should be an integer register -- 'crc32b (x1),x0' 或 unrecognized command line option '-msse4.2'.
+
+          可能原因: x86 使用的是 crc32b 和 crc32q 汇编指令完成 CRC32C 校验值计算功能, 而 Arm64 平台用 crc32cb, crc32ch, crc32cw, crc32cx 4 个汇编指令完成 CRC32C 校验值计算功能.
+
+          修改方案: 请使用 crc32cb, crc32ch, crc32cw, crc32cx 取代 x86 的 CRC32 系列汇编指令, 并在编译时添加编译参数 '-mcpu=generic+crc'.
+
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*bswap
+      help: |+
+          现象描述: 在 ARM 上可能出现的编译错误: Error: unknown mnemonic 'bswap' -- 'bswap x3'.
+
+          可能原因: bswap 是 x86 的字节序反序指令, 需替换为 Arm64 的 rev 指令.
+
+          修改方案:
+
+          x86 上示例代码:
+          ---
+              asm!("bswap %0" : "=r" (val) : "0" (val));
+
+          ARM 上对应的修改示例:
+          ---
+              asm!("rev %w[dst], %w[src]" : [dst]"=r"(val) : [src]"r"(val));
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*rep\s
+      help: |+
+          现象描述: 在 ARM 上可能出现的编译错误: unknown mnemonic 'rep' -- 'rep'.
+
+          可能原因: rep 为 x86 的重复执行指令, 需替换为 Arm64 的 rept 指令.
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*pause
+      help: |+
+          Pause 功能:给处理器提供提示, 提高 spin-wait 循环的性能.
+
+          修改方案:
+
+          x86 上示例代码:
+          ---
+          asm!("pause" : : : "memory");
+          asm!("pause");
+
+          ARM 上对应的修改示例:
+          ---
+          asm!("yield" : : : "memory");
+          asm!("yield");
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*"rdtsc"
+      help: |+
+          TSC 是时间戳计数器的缩写, 它是 Pentium 兼容处理器中的一个计数器, 它记录自启动以来处理器消耗的时钟周期数.在每个时钟到来时, 该计数器自动加一.因为 TSC 随着处理器周期速率的变化而变化, 所以它提供了非常高的精确度.它经常被用来分析和检测代码.TSC 的值可以通过 rdtsc 指令来读取.
+
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*popcntq
+      help: |+
+          POPCNT 函数主要实现功能是进行1个数的统计.
+
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*addl
+      help: |+
+          函数功能: 对整数变量进行原子加.
+
+          修改方案:
+
+          x86 上示例代码:
+          ---
+          asm!(LOCK_PREFIX "addl %1,%0" : "+m" (v->counter) : "ir" (i));
+
+          ARM 上对应的修改示例:
+          ---
+          asm!(" prfm pstl1strm, %2\n"
+                "1: ldaxr %w0, %2\n"    //加载数据到寄存器
+                " add %w0, %w0, %w3\n"  //加操作
+                " stlxr %w1, %w0, %2\n" //加后的数据写入内存并判断是否写入成功
+                " cbnz %w1, 1b"         //若写入内存失败, 重新执行加操作
+                : "=&r"(result), "=&r"(tmp), "+Q"(_value.counter)
+                : "Ir"(i)
+              )
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*"subl
+      help: |+
+          函数功能: 对整数变量进行原子减.
+
+          修改方案:
+
+          x86 上示例代码:
+          ---
+          asm!(LOCK_PREFIX "subl %1,%0" : "+m" (v->counter) : "ir" (i));
+
+          ARM 上对应的修改示例:
+          ---
+          asm!(" prfm pstl1strm, %2\n"
+                "1: ldaxr %w0, %2\n"    //加载数据到寄存器
+                " sub %w0, %w0, %w3\n"  //减操作
+                " stlxr %w1, %w0, %2\n" //减后的数据写入内存, 并判断是否写入成功
+                " cbnz %w1, 1b"         //若写入内存失败, 重新执行减操作
+                : "=&r"(result), "=&r"(tmp), "+Q"(_value.counter)
+                : "Ir"(i)
+          )
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*"decl
+      help: |+
+          函数说明: 对整数进行减操作, 并判断执行原子减后结果是否为0.
+
+          修改方案:
+
+          x86 上示例代码:
+          ---
+          asm!(LOCK_PREFIX "decl %0; sete %1" : "+m" (v->counter), "=qm" (c) : : "memory");
+
+          ARM 上对应的修改示例:
+          ---
+          asm!("\n\t"
+              "@ atomic_sub\n\t"
+              "1: ldrex %0, [%3]\n\t"
+              " sub %0, %0, %4\n\t"
+              " strex %1, %0, [%3]\n\t"
+              " teq %1, #0\n\t"
+              " bne 1b"
+              : "=&r" (result), "=&r" (tmp), "+Qo" (v->counter)
+              : "r" (&v->counter), "Ir" (i)
+              : "cc")
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*"incl
+      help: |+
+          函数说明: 对整数进行加操作, 并判断返回是否为0.
+
+          修改方案:
+
+          x86 上示例代码:
+          ---
+          asm!(LOCK_PREFIX "incl %0; sete %1" : "+m" (v->counter), "=qm" (c) : : "memory");
+
+          ARM 上对应的修改示例:
+          ---
+          asm!("\n\t"
+              "@ atomic_fetch\n\t"
+              "1: ldrex %0, [%4]\n\t" @result, tmp
+              //执行v->counter+i（5%）操作, 并将执行结果放入val（%1）所在的寄存器中
+              " add %1, %0, %5\n\t" @result,
+              " strex %2, %1, [%4]\n\t" @tmp, result, tmp
+              " teq %2, #0\n\t" @tmp
+              " bne 1b"
+              : "=&r"(result), "=&r"(val), "=&r"(tmp), "+Qo"(v->counter)
+              : "r"(&v->counter), "Ir"(i)
+              : "cc")
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*"xaddq
+      help: |+
+          ARM 的汇编语言与 x86 完全不同, 需要重写, 涉及使用嵌入汇编的代码, 都需要针对 ARM 进行配套修改.
+
+          修改方案: 需要重新实现汇编代码段.
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*"pcmpestrm
+      help: |+
+          函数功能: 检查 str2 中每个字节元素 (m128i_u8[index]) 是否在 str1 中存在, 如果存在,  result 中的相应 bit 位上置1.
+
+          pcmpestrm 对应的 Intrinsic 函数详细说明, 请参考 https://software.intel.com/sites/landingpage/IntrinsicsGuide/
+
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*"pcmpestri
+      help: |+
+          函数功能: 按照 MODEL 规则（ EQUAL_EACH、 NEG_POLARITY）比较 str1 和 str2 中的元素, 比较并返回首个不相同元素的索引值.
+
+          pcmpestri 对应的 Intrinsic 函数详细说明, 请参考 https://software.intel.com/sites/landingpage/IntrinsicsGuide/
+
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*MOVDQU
+      help: |+
+          指令功能 Move unaligned double quadword. 实现寄存器到寄存器, 寄存器到地址的数据拷贝.
+
+          修改方案:
+
+          x86 上示例代码:
+          ---
+          MOVDQU xmm1, xmm2/m128
+
+          ARM 上对应的修改示例:
+          ---
+          ; ldp 指令: Load Pair Registers (extended): loads two doublewords from memory addressed by addr to Xt1 and Xt2.
+          LDP Xt1, Xt2, addr
+
+          ; stp 指令: Store Pair Registers (extended): stores two doublewords from Xt1 and Xt2 to memory addressed by addr.
+          STP Xt1, Xt2, addr
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*PAND
+      help: |+
+          PAND 指令功能, 按位做 and 运算.
+
+          修改方案:
+
+          x86 上示例代码:
+          ---
+          指令用法, 128 位按位做 and 运算:
+          PAND xmm1, xmm2/m128
+
+          在 ARM 上替换为 NEON 指令采用128位寄存器:
+          ---
+          Bitwise AND (vector). Where <T> is 8B or 16B (though an assembler should accept any valid format).
+          AND Vd.<T>, Vn.<T>, Vm.<T>
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*Pxor
+      help: |+
+          pxor 指令功能, 按位做 xor 运算.
+
+          修改方案:
+
+          x86 上示例代码:
+          ---
+          指令用法, 128位按位做 xor 运算:
+          Pxor xmm1, xmm2/m128
+
+          在 ARM 上替换为 eor:
+          ---
+          Bitwise exclusive OR (vector). Where <T> is 8B or 16B (an assembler should accept any valid arrangement).
+          EOR Vd.<T>, Vn.<T>, Vm.<T>
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*PSHUFB
+      help: |+
+          修改方案:
+
+          x86 上示例代码:
+          ---
+          PSHUFB — Packed Shuffle Bytes, 按照索引在目标寄存器中进行查表操作:
+          PSHUFB xmm1, xmm2/m128
+
+
+          在 ARM 上替换为 TBL 指令:
+          ---
+          Table lookup (vector). Where <T> may be 8B or 16B, and Vn* is a list of between one and four consecutively numbered vector registers each holding sixteen 8-bit table elements. The list braces "{ }" are concrete symbols, and do not indicate an optional field as elsewhere in this manual.
+          TBL Vd.<T>, {Vn*.16B}, Vm.<T>2
+
+# x86/x86-64 处理器可用的内在函数。
+# https://moshg.github.io/rust-std-ja/core/arch/index.html
+# https://moshg.github.io/rust-std-ja/core/arch/x86/index.html
+X86_INTRINSICS:
+    - signature: _MM_GET_EXCEPTION_MASK()
+    - signature: _MM_GET_EXCEPTION_STATE()
+    - signature: _MM_GET_FLUSH_ZERO_MODE()
+    - signature: _MM_GET_ROUNDING_MODE()
+    - signature: _MM_SET_EXCEPTION_MASK()
+    - signature: _MM_SET_EXCEPTION_STATE()
+    - signature: _MM_SET_FLUSH_ZERO_MODE()
+    - signature: _MM_SET_ROUNDING_MODE()
+    - signature: _MM_TRANSPOSE4_PS()
+    - signature: __cpuid()
+    - signature: __cpuid_count()
+    - signature: __get_cpuid_max()
+    - signature: __rdtscp()
+    - signature: _addcarry_u32()
+    - signature: _addcarry_u64()
+    - signature: _addcarryx_u32()
+    - signature: _addcarryx_u64()
+    - signature: _andn_u32()
+    - signature: _andn_u64()
+    - signature: _bextr2_u32()
+    - signature: _bextr2_u64()
+    - signature: _bextr_u32()
+    - signature: _bextr_u64()
+    - signature: _blcfill_u32()
+    - signature: _blcfill_u64()
+    - signature: _blci_u32()
+    - signature: _blci_u64()
+    - signature: _blcic_u32()
+    - signature: _blcic_u64()
+    - signature: _blcmsk_u32()
+    - signature: _blcmsk_u64()
+    - signature: _blcs_u32()
+    - signature: _blcs_u64()
+    - signature: _blsfill_u32()
+    - signature: _blsfill_u64()
+    - signature: _blsi_u32()
+    - signature: _blsi_u64()
+    - signature: _blsic_u32()
+    - signature: _blsic_u64()
+    - signature: _blsmsk_u32()
+    - signature: _blsmsk_u64()
+    - signature: _blsr_u32()
+    - signature: _blsr_u64()
+    - signature: _bswap()
+    - signature: _bswap64()
+    - signature: _bzhi_u32()
+    - signature: _bzhi_u64()
+    - signature: _fxrstor()
+    - signature: _fxrstor64()
+    - signature: _fxsave()
+    - signature: _fxsave64()
+    - signature: _lzcnt_u32()
+    - signature: _lzcnt_u64()
+    - signature: _mm256_add_pd()
+    - signature: _mm256_add_ps()
+    - signature: _mm256_and_pd()
+    - signature: _mm256_and_ps()
+    - signature: _mm256_or_pd()
+    - signature: _mm256_or_ps()
+    - signature: _mm256_shuffle_pd()
+    - signature: _mm256_shuffle_ps()
+    - signature: _mm256_andnot_pd()
+    - signature: _mm256_andnot_ps()
+    - signature: _mm256_max_pd()
+    - signature: _mm256_max_ps()
+    - signature: _mm256_min_pd()
+    - signature: _mm256_min_ps()
+    - signature: _mm256_mul_pd()
+    - signature: _mm256_mul_ps()
+    - signature: _mm256_addsub_pd()
+    - signature: _mm256_addsub_ps()
+    - signature: _mm256_sub_pd()
+    - signature: _mm256_sub_ps()
+    - signature: _mm256_div_ps()
+    - signature: _mm256_div_pd()
+    - signature: _mm256_round_pd()
+    - signature: _mm256_ceil_pd()
+    - signature: _mm256_floor_pd()
+    - signature: _mm256_round_ps()
+    - signature: _mm256_ceil_ps()
+    - signature: _mm256_floor_ps()
+    - signature: _mm256_sqrt_ps()
+    - signature: _mm256_sqrt_pd()
+    - signature: _mm256_blend_pd()
+    - signature: _mm256_blend_ps()
+    - signature: _mm256_blendv_pd()
+    - signature: _mm256_blendv_ps()
+    - signature: _mm256_dp_ps()
+    - signature: _mm256_hadd_pd()
+    - signature: _mm256_hadd_ps()
+    - signature: _mm256_hsub_pd()
+    - signature: _mm256_hsub_ps()
+    - signature: _mm256_xor_pd()
+    - signature: _mm256_xor_ps()
+    - signature: _mm256_cmp_pd()
+    - signature: _mm256_cmp_ps()
+    - signature: _mm256_cvtpd_ps()
+    - signature: _mm256_cvtps_pd()
+    - signature: _mm256_zeroall()
+    - signature: _mm256_zeroupper()
+    - signature: _mm256_permutevar_ps()
+    - signature: _mm256_permute_ps()
+    - signature: _mm256_permutevar_pd()
+    - signature: _mm256_permute_pd()
+    - signature: _mm256_broadcast_ss()
+    - signature: _mm256_broadcast_sd()
+    - signature: _mm256_broadcast_ps()
+    - signature: _mm256_broadcast_pd()
+    - signature: _mm256_load_pd()
+    - signature: _mm256_store_pd()
+    - signature: _mm256_load_ps()
+    - signature: _mm256_store_ps()
+    - signature: _mm256_loadu_pd()
+    - signature: _mm256_storeu_pd()
+    - signature: _mm256_loadu_ps()
+    - signature: _mm256_storeu_ps()
+    - signature: _mm256_maskload_pd()
+    - signature: _mm256_maskstore_pd()
+    - signature: _mm256_maskload_ps()
+    - signature: _mm256_maskstore_ps()
+    - signature: _mm256_movehdup_ps()
+    - signature: _mm256_moveldup_ps()
+    - signature: _mm256_movedup_pd()
+    - signature: _mm256_stream_pd()
+    - signature: _mm256_stream_ps()
+    - signature: _mm256_rcp_ps()
+    - signature: _mm256_rsqrt_ps()
+    - signature: _mm256_unpackhi_pd()
+    - signature: _mm256_unpackhi_ps()
+    - signature: _mm256_unpacklo_pd()
+    - signature: _mm256_unpacklo_ps()
+    - signature: _mm256_testz_pd()
+    - signature: _mm256_testc_pd()
+    - signature: _mm256_testnzc_pd()
+    - signature: _mm256_testz_ps()
+    - signature: _mm256_testc_ps()
+    - signature: _mm256_testnzc_ps()
+    - signature: _mm256_movemask_pd()
+    - signature: _mm256_movemask_ps()
+    - signature: _mm256_setzero_pd()
+    - signature: _mm256_setzero_ps()
+    - signature: _mm256_set_pd()
+    - signature: _mm256_set_ps()
+    - signature: _mm256_setr_pd()
+    - signature: _mm256_setr_ps()
+    - signature: _mm256_castpd_ps()
+    - signature: _mm256_castps_pd()
+    - signature: _mm256_undefined_ps()
+    - signature: _mm256_undefined_pd()
+    - signature: _mm256_broadcastsd_pd()
+    - signature: _mm256_broadcastss_ps()
+    - signature: _mm256_fmadd_pd()
+    - signature: _mm256_fmadd_ps()
+    - signature: _mm256_fmaddsub_pd()
+    - signature: _mm256_fmaddsub_ps()
+    - signature: _mm256_fmsub_pd()
+    - signature: _mm256_fmsub_ps()
+    - signature: _mm256_fmsubadd_pd()
+    - signature: _mm256_fmsubadd_ps()
+    - signature: _mm256_fnmadd_pd()
+    - signature: _mm256_fnmadd_ps()
+    - signature: _mm256_fnmsub_pd()
+    - signature: _mm256_fnmsub_ps()
+    - signature: _mm256_abs_epi8()
+    - signature: _mm256_abs_epi16()
+    - signature: _mm256_abs_epi32()
+    - signature: _mm256_add_epi8()
+    - signature: _mm256_add_epi16()
+    - signature: _mm256_add_epi32()
+    - signature: _mm256_add_epi64()
+    - signature: _mm256_adds_epi8()
+    - signature: _mm256_adds_epi16()
+    - signature: _mm256_adds_epu8()
+    - signature: _mm256_adds_epu16()
+    - signature: _mm256_alignr_epi8()
+    - signature: _mm256_and_si256()
+    - signature: _mm256_andnot_si256()
+    - signature: _mm256_avg_epu8()
+    - signature: _mm256_avg_epu16()
+    - signature: _mm256_blend_epi16()
+    - signature: _mm256_blend_epi32()
+    - signature: _mm256_blendv_epi8()
+    - signature: _mm256_broadcastb_epi8()
+    - signature: _mm256_broadcastd_epi32()
+    - signature: _mm256_broadcastq_epi64()
+    - signature: _mm256_broadcastsi128_si256()
+    - signature: _mm256_broadcastw_epi16()
+    - signature: _mm256_bslli_epi128()
+    - signature: _mm256_bsrli_epi128()
+    - signature: _mm256_castpd128_pd256()
+    - signature: _mm256_castpd256_pd128()
+    - signature: _mm256_castpd_si256()
+    - signature: _mm256_castps128_ps256()
+    - signature: _mm256_castps256_ps128()
+    - signature: _mm256_castps_si256()
+    - signature: _mm256_castsi256_ps()
+    - signature: _mm256_castsi256_pd()
+    - signature: _mm256_castsi128_si256()
+    - signature: _mm256_castsi256_si128()
+    - signature: _mm256_cmpeq_epi8()
+    - signature: _mm256_cmpeq_epi16()
+    - signature: _mm256_cmpeq_epi32()
+    - signature: _mm256_cmpeq_epi64()
+    - signature: _mm256_cmpgt_epi8()
+    - signature: _mm256_cmpgt_epi16()
+    - signature: _mm256_cmpgt_epi32()
+    - signature: _mm256_cmpgt_epi64()
+    - signature: _mm256_cvtepi32_pd()
+    - signature: _mm256_cvtepi32_ps()
+    - signature: _mm256_cvtepi16_epi32()
+    - signature: _mm256_cvtepi16_epi64()
+    - signature: _mm256_cvtepi32_epi64()
+    - signature: _mm256_cvtepi8_epi16()
+    - signature: _mm256_cvtepi8_epi32()
+    - signature: _mm256_cvtepi8_epi64()
+    - signature: _mm256_cvtepu16_epi32()
+    - signature: _mm256_cvtepu16_epi64()
+    - signature: _mm256_cvtepu32_epi64()
+    - signature: _mm256_cvtepu8_epi16()
+    - signature: _mm256_cvtepu8_epi32()
+    - signature: _mm256_cvtepu8_epi64()
+    - signature: _mm256_cvtpd_epi32()
+    - signature: _mm256_cvtps_epi32()
+    - signature: _mm256_cvtsd_f64()
+    - signature: _mm256_cvtsi256_si32()
+    - signature: _mm256_cvtss_f32()
+    - signature: _mm256_cvttpd_epi32()
+    - signature: _mm256_cvttps_epi32()
+    - signature: _mm256_extract_epi8()
+    - signature: _mm256_extract_epi16()
+    - signature: _mm256_extract_epi32()
+    - signature: _mm256_extract_epi64()
+    - signature: _mm256_extractf128_ps()
+    - signature: _mm256_extractf128_pd()
+    - signature: _mm256_extractf128_si256()
+    - signature: _mm256_extracti128_si256()
+    - signature: _mm256_hadd_epi16()
+    - signature: _mm256_hadd_epi32()
+    - signature: _mm256_hadds_epi16()
+    - signature: _mm256_hsub_epi16()
+    - signature: _mm256_hsub_epi32()
+    - signature: _mm256_hsubs_epi16()
+    - signature: _mm256_i32gather_ps()
+    - signature: _mm256_i32gather_pd()
+    - signature: _mm256_i64gather_ps()
+    - signature: _mm256_i64gather_pd()
+    - signature: _mm256_i32gather_epi32()
+    - signature: _mm256_i32gather_epi64()
+    - signature: _mm256_i64gather_epi32()
+    - signature: _mm256_i64gather_epi64()
+    - signature: _mm256_insert_epi8()
+    - signature: _mm256_insert_epi16()
+    - signature: _mm256_insert_epi32()
+    - signature: _mm256_insert_epi64()
+    - signature: _mm256_insertf128_ps()
+    - signature: _mm256_insertf128_pd()
+    - signature: _mm256_insertf128_si256()
+    - signature: _mm256_inserti128_si256()
+    - signature: _mm256_lddqu_si256()
+    - signature: _mm256_load_si256()
+    - signature: _mm256_loadu2_m128()
+    - signature: _mm256_loadu2_m128d()
+    - signature: _mm256_loadu2_m128i()
+    - signature: _mm256_loadu_si256()
+    - signature: _mm256_madd_epi16()
+    - signature: _mm256_maddubs_epi16()
+    - signature: _mm256_mask_i32gather_ps()
+    - signature: _mm256_mask_i32gather_pd()
+    - signature: _mm256_mask_i64gather_ps()
+    - signature: _mm256_mask_i64gather_pd()
+    - signature: _mm256_mask_i32gather_epi32()
+    - signature: _mm256_mask_i32gather_epi64()
+    - signature: _mm256_mask_i64gather_epi32()
+    - signature: _mm256_mask_i64gather_epi64()
+    - signature: _mm256_maskload_epi32()
+    - signature: _mm256_maskload_epi64()
+    - signature: _mm256_maskstore_epi32()
+    - signature: _mm256_maskstore_epi64()
+    - signature: _mm256_max_epi8()
+    - signature: _mm256_max_epi16()
+    - signature: _mm256_max_epi32()
+    - signature: _mm256_max_epu8()
+    - signature: _mm256_max_epu16()
+    - signature: _mm256_max_epu32()
+    - signature: _mm256_min_epi8()
+    - signature: _mm256_min_epi16()
+    - signature: _mm256_min_epi32()
+    - signature: _mm256_min_epu8()
+    - signature: _mm256_min_epu16()
+    - signature: _mm256_min_epu32()
+    - signature: _mm256_movemask_epi8()
+    - signature: _mm256_mpsadbw_epu8()
+    - signature: _mm256_mul_epi32()
+    - signature: _mm256_mul_epu32()
+    - signature: _mm256_mulhi_epi16()
+    - signature: _mm256_mulhi_epu16()
+    - signature: _mm256_mulhrs_epi16()
+    - signature: _mm256_mullo_epi16()
+    - signature: _mm256_mullo_epi32()
+    - signature: _mm256_or_si256()
+    - signature: _mm256_packs_epi16()
+    - signature: _mm256_packs_epi32()
+    - signature: _mm256_packus_epi16()
+    - signature: _mm256_packus_epi32()
+    - signature: _mm256_permute2f128_ps()
+    - signature: _mm256_permute2f128_pd()
+    - signature: _mm256_permute2f128_si256()
+    - signature: _mm256_permute2x128_si256()
+    - signature: _mm256_permute4x64_pd()
+    - signature: _mm256_permute4x64_epi64()
+    - signature: _mm256_permutevar8x32_ps()
+    - signature: _mm256_permutevar8x32_epi32()
+    - signature: _mm256_sad_epu8()
+    - signature: _mm256_set1_pd()
+    - signature: _mm256_set1_ps()
+    - signature: _mm256_set1_epi8()
+    - signature: _mm256_set1_epi16()
+    - signature: _mm256_set1_epi32()
+    - signature: _mm256_set1_epi64x()
+    - signature: _mm256_set_epi8()
+    - signature: _mm256_set_epi16()
+    - signature: _mm256_set_epi32()
+    - signature: _mm256_set_epi64x()
+    - signature: _mm256_set_m128()
+    - signature: _mm256_set_m128d()
+    - signature: _mm256_set_m128i()
+    - signature: _mm256_setr_epi8()
+    - signature: _mm256_setr_epi16()
+    - signature: _mm256_setr_epi32()
+    - signature: _mm256_setr_epi64x()
+    - signature: _mm256_setr_m128()
+    - signature: _mm256_setr_m128d()
+    - signature: _mm256_setr_m128i()
+    - signature: _mm256_setzero_si256()
+    - signature: _mm256_shuffle_epi8()
+    - signature: _mm256_shuffle_epi32()
+    - signature: _mm256_shufflehi_epi16()
+    - signature: _mm256_shufflelo_epi16()
+    - signature: _mm256_sign_epi8()
+    - signature: _mm256_sign_epi16()
+    - signature: _mm256_sign_epi32()
+    - signature: _mm256_sll_epi16()
+    - signature: _mm256_sll_epi32()
+    - signature: _mm256_sll_epi64()
+    - signature: _mm256_slli_epi16()
+    - signature: _mm256_slli_epi32()
+    - signature: _mm256_slli_epi64()
+    - signature: _mm256_slli_si256()
+    - signature: _mm256_sllv_epi32()
+    - signature: _mm256_sllv_epi64()
+    - signature: _mm256_sra_epi16()
+    - signature: _mm256_sra_epi32()
+    - signature: _mm256_srai_epi16()
+    - signature: _mm256_srai_epi32()
+    - signature: _mm256_srav_epi32()
+    - signature: _mm256_srl_epi16()
+    - signature: _mm256_srl_epi32()
+    - signature: _mm256_srl_epi64()
+    - signature: _mm256_srli_epi16()
+    - signature: _mm256_srli_epi32()
+    - signature: _mm256_srli_epi64()
+    - signature: _mm256_srli_si256()
+    - signature: _mm256_srlv_epi32()
+    - signature: _mm256_srlv_epi64()
+    - signature: _mm256_store_si256()
+    - signature: _mm256_storeu2_m128()
+    - signature: _mm256_storeu2_m128d()
+    - signature: _mm256_storeu2_m128i()
+    - signature: _mm256_storeu_si256()
+    - signature: _mm256_stream_si256()
+    - signature: _mm256_sub_epi8()
+    - signature: _mm256_sub_epi16()
+    - signature: _mm256_sub_epi32()
+    - signature: _mm256_sub_epi64()
+    - signature: _mm256_subs_epi8()
+    - signature: _mm256_subs_epi16()
+    - signature: _mm256_subs_epu8()
+    - signature: _mm256_subs_epu16()
+    - signature: _mm256_testc_si256()
+    - signature: _mm256_testnzc_si256()
+    - signature: _mm256_testz_si256()
+    - signature: _mm256_undefined_si256()
+    - signature: _mm256_unpackhi_epi8()
+    - signature: _mm256_unpackhi_epi16()
+    - signature: _mm256_unpackhi_epi32()
+    - signature: _mm256_unpackhi_epi64()
+    - signature: _mm256_unpacklo_epi8()
+    - signature: _mm256_unpacklo_epi16()
+    - signature: _mm256_unpacklo_epi32()
+    - signature: _mm256_unpacklo_epi64()
+    - signature: _mm256_xor_si256()
+    - signature: _mm256_zextpd128_pd256()
+    - signature: _mm256_zextps128_ps256()
+    - signature: _mm256_zextsi128_si256()
+    - signature: _mm_abs_epi8()
+    - signature: _mm_abs_epi16()
+    - signature: _mm_abs_epi32()
+    - signature: _mm_add_epi8()
+    - signature: _mm_add_epi16()
+    - signature: _mm_add_epi32()
+    - signature: _mm_add_epi64()
+    - signature: _mm_add_pd()
+    - signature: _mm_add_ps()
+    - signature: _mm_add_sd()
+    - signature: _mm_add_ss()
+    - signature: _mm_adds_epi8()
+    - signature: _mm_adds_epi16()
+    - signature: _mm_adds_epu8()
+    - signature: _mm_adds_epu16()
+    - signature: _mm_addsub_pd()
+    - signature: _mm_addsub_ps()
+    - signature: _mm_aesdec_si128()
+    - signature: _mm_aesdeclast_si128()
+    - signature: _mm_aesenc_si128()
+    - signature: _mm_aesenclast_si128()
+    - signature: _mm_aesimc_si128()
+    - signature: _mm_aeskeygenassist_si128()
+    - signature: _mm_alignr_epi8()
+    - signature: _mm_and_pd()
+    - signature: _mm_and_ps()
+    - signature: _mm_and_si128()
+    - signature: _mm_andnot_pd()
+    - signature: _mm_andnot_ps()
+    - signature: _mm_andnot_si128()
+    - signature: _mm_avg_epu8()
+    - signature: _mm_avg_epu16()
+    - signature: _mm_blend_epi16()
+    - signature: _mm_blend_epi32()
+    - signature: _mm_blend_pd()
+    - signature: _mm_blend_ps()
+    - signature: _mm_blendv_epi8()
+    - signature: _mm_blendv_pd()
+    - signature: _mm_blendv_ps()
+    - signature: _mm_broadcast_ss()
+    - signature: _mm_broadcastb_epi8()
+    - signature: _mm_broadcastd_epi32()
+    - signature: _mm_broadcastq_epi64()
+    - signature: _mm_broadcastsd_pd()
+    - signature: _mm_broadcastss_ps()
+    - signature: _mm_broadcastw_epi16()
+    - signature: _mm_bslli_si128()
+    - signature: _mm_bsrli_si128()
+    - signature: _mm_castpd_ps()
+    - signature: _mm_castpd_si128()
+    - signature: _mm_castps_pd()
+    - signature: _mm_castps_si128()
+    - signature: _mm_castsi128_pd()
+    - signature: _mm_castsi128_ps()
+    - signature: _mm_ceil_pd()
+    - signature: _mm_ceil_ps()
+    - signature: _mm_ceil_sd()
+    - signature: _mm_ceil_ss()
+    - signature: _mm_clflush()
+    - signature: _mm_clmulepi64_si128()
+    - signature: _mm_cmp_pd()
+    - signature: _mm_cmp_ps()
+    - signature: _mm_cmp_sd()
+    - signature: _mm_cmp_ss()
+    - signature: _mm_cmpeq_epi8()
+    - signature: _mm_cmpeq_epi16()
+    - signature: _mm_cmpeq_epi32()
+    - signature: _mm_cmpeq_epi64()
+    - signature: _mm_cmpeq_pd()
+    - signature: _mm_cmpeq_ps()
+    - signature: _mm_cmpeq_sd()
+    - signature: _mm_cmpeq_ss()
+    - signature: _mm_cmpestra()
+    - signature: _mm_cmpestrc()
+    - signature: _mm_cmpestri()
+    - signature: _mm_cmpestrm()
+    - signature: _mm_cmpestro()
+    - signature: _mm_cmpestrs()
+    - signature: _mm_cmpestrz()
+    - signature: _mm_cmpge_pd()
+    - signature: _mm_cmpge_ps()
+    - signature: _mm_cmpge_sd()
+    - signature: _mm_cmpge_ss()
+    - signature: _mm_cmpgt_epi8()
+    - signature: _mm_cmpgt_epi16()
+    - signature: _mm_cmpgt_epi32()
+    - signature: _mm_cmpgt_epi64()
+    - signature: _mm_cmpgt_pd()
+    - signature: _mm_cmpgt_ps()
+    - signature: _mm_cmpgt_sd()
+    - signature: _mm_cmpgt_ss()
+    - signature: _mm_cmpistra()
+    - signature: _mm_cmpistrc()
+    - signature: _mm_cmpistri()
+    - signature: _mm_cmpistrm()
+    - signature: _mm_cmpistro()
+    - signature: _mm_cmpistrs()
+    - signature: _mm_cmpistrz()
+    - signature: _mm_cmple_pd()
+    - signature: _mm_cmple_ps()
+    - signature: _mm_cmple_sd()
+    - signature: _mm_cmple_ss()
+    - signature: _mm_cmplt_epi8()
+    - signature: _mm_cmplt_epi16()
+    - signature: _mm_cmplt_epi32()
+    - signature: _mm_cmplt_pd()
+    - signature: _mm_cmplt_ps()
+    - signature: _mm_cmplt_sd()
+    - signature: _mm_cmplt_ss()
+    - signature: _mm_cmpneq_pd()
+    - signature: _mm_cmpneq_ps()
+    - signature: _mm_cmpneq_sd()
+    - signature: _mm_cmpneq_ss()
+    - signature: _mm_cmpnge_pd()
+    - signature: _mm_cmpnge_ps()
+    - signature: _mm_cmpnge_sd()
+    - signature: _mm_cmpnge_ss()
+    - signature: _mm_cmpngt_pd()
+    - signature: _mm_cmpngt_ps()
+    - signature: _mm_cmpngt_sd()
+    - signature: _mm_cmpngt_ss()
+    - signature: _mm_cmpnle_pd()
+    - signature: _mm_cmpnle_ps()
+    - signature: _mm_cmpnle_sd()
+    - signature: _mm_cmpnle_ss()
+    - signature: _mm_cmpnlt_pd()
+    - signature: _mm_cmpnlt_ps()
+    - signature: _mm_cmpnlt_sd()
+    - signature: _mm_cmpnlt_ss()
+    - signature: _mm_cmpord_pd()
+    - signature: _mm_cmpord_ps()
+    - signature: _mm_cmpord_sd()
+    - signature: _mm_cmpord_ss()
+    - signature: _mm_cmpunord_pd()
+    - signature: _mm_cmpunord_ps()
+    - signature: _mm_cmpunord_sd()
+    - signature: _mm_cmpunord_ss()
+    - signature: _mm_comieq_sd()
+    - signature: _mm_comieq_ss()
+    - signature: _mm_comige_sd()
+    - signature: _mm_comige_ss()
+    - signature: _mm_comigt_sd()
+    - signature: _mm_comigt_ss()
+    - signature: _mm_comile_sd()
+    - signature: _mm_comile_ss()
+    - signature: _mm_comilt_sd()
+    - signature: _mm_comilt_ss()
+    - signature: _mm_comineq_sd()
+    - signature: _mm_comineq_ss()
+    - signature: _mm_crc32_u8()
+    - signature: _mm_crc32_u16()
+    - signature: _mm_crc32_u32()
+    - signature: _mm_crc32_u64()
+    - signature: _mm_cvt_si2ss()
+    - signature: _mm_cvt_ss2si()
+    - signature: _mm_cvtepi32_pd()
+    - signature: _mm_cvtepi32_ps()
+    - signature: _mm_cvtepi16_epi32()
+    - signature: _mm_cvtepi16_epi64()
+    - signature: _mm_cvtepi32_epi64()
+    - signature: _mm_cvtepi8_epi16()
+    - signature: _mm_cvtepi8_epi32()
+    - signature: _mm_cvtepi8_epi64()
+    - signature: _mm_cvtepu16_epi32()
+    - signature: _mm_cvtepu16_epi64()
+    - signature: _mm_cvtepu32_epi64()
+    - signature: _mm_cvtepu8_epi16()
+    - signature: _mm_cvtepu8_epi32()
+    - signature: _mm_cvtepu8_epi64()
+    - signature: _mm_cvtpd_epi32()
+    - signature: _mm_cvtpd_ps()
+    - signature: _mm_cvtps_epi32()
+    - signature: _mm_cvtps_pd()
+    - signature: _mm_cvtsd_f64()
+    - signature: _mm_cvtsd_si32()
+    - signature: _mm_cvtsd_si64()
+    - signature: _mm_cvtsd_si64x()
+    - signature: _mm_cvtsd_ss()
+    - signature: _mm_cvtsi32_ss()
+    - signature: _mm_cvtsi32_sd()
+    - signature: _mm_cvtsi64_ss()
+    - signature: _mm_cvtsi64_sd()
+    - signature: _mm_cvtsi64x_sd()
+    - signature: _mm_cvtsi128_si32()
+    - signature: _mm_cvtsi128_si64()
+    - signature: _mm_cvtsi128_si64x()
+    - signature: _mm_cvtsi32_si128()
+    - signature: _mm_cvtsi64_si128()
+    - signature: _mm_cvtsi64x_si128()
+    - signature: _mm_cvtss_f32()
+    - signature: _mm_cvtss_sd()
+    - signature: _mm_cvtss_si32()
+    - signature: _mm_cvtss_si64()
+    - signature: _mm_cvtt_ss2si()
+    - signature: _mm_cvttpd_epi32()
+    - signature: _mm_cvttps_epi32()
+    - signature: _mm_cvttsd_si32()
+    - signature: _mm_cvttsd_si64()
+    - signature: _mm_cvttsd_si64x()
+    - signature: _mm_cvttss_si32()
+    - signature: _mm_cvttss_si64()
+    - signature: _mm_div_pd()
+    - signature: _mm_div_ps()
+    - signature: _mm_div_sd()
+    - signature: _mm_div_ss()
+    - signature: _mm_dp_pd()
+    - signature: _mm_dp_ps()
+    - signature: _mm_extract_epi8()
+    - signature: _mm_extract_epi16()
+    - signature: _mm_extract_epi32()
+    - signature: _mm_extract_epi64()
+    - signature: _mm_extract_ps()
+    - signature: _mm_extract_si64()
+    - signature: _mm_floor_pd()
+    - signature: _mm_floor_ps()
+    - signature: _mm_floor_sd()
+    - signature: _mm_floor_ss()
+    - signature: _mm_fmadd_pd()
+    - signature: _mm_fmadd_ps()
+    - signature: _mm_fmadd_sd()
+    - signature: _mm_fmadd_ss()
+    - signature: _mm_fmaddsub_pd()
+    - signature: _mm_fmaddsub_ps()
+    - signature: _mm_fmsub_pd()
+    - signature: _mm_fmsub_ps()
+    - signature: _mm_fmsub_sd()
+    - signature: _mm_fmsub_ss()
+    - signature: _mm_fmsubadd_pd()
+    - signature: _mm_fmsubadd_ps()
+    - signature: _mm_fnmadd_pd()
+    - signature: _mm_fnmadd_ps()
+    - signature: _mm_fnmadd_sd()
+    - signature: _mm_fnmadd_ss()
+    - signature: _mm_fnmsub_pd()
+    - signature: _mm_fnmsub_ps()
+    - signature: _mm_fnmsub_sd()
+    - signature: _mm_fnmsub_ss()
+    - signature: _mm_getcsr()
+    - signature: _mm_hadd_epi16()
+    - signature: _mm_hadd_epi32()
+    - signature: _mm_hadd_pd()
+    - signature: _mm_hadd_ps()
+    - signature: _mm_hadds_epi16()
+    - signature: _mm_hsub_epi16()
+    - signature: _mm_hsub_epi32()
+    - signature: _mm_hsub_pd()
+    - signature: _mm_hsub_ps()
+    - signature: _mm_hsubs_epi16()
+    - signature: _mm_i32gather_ps()
+    - signature: _mm_i32gather_pd()
+    - signature: _mm_i64gather_ps()
+    - signature: _mm_i64gather_pd()
+    - signature: _mm_i32gather_epi32()
+    - signature: _mm_i32gather_epi64()
+    - signature: _mm_i64gather_epi32()
+    - signature: _mm_i64gather_epi64()
+    - signature: _mm_insert_epi8()
+    - signature: _mm_insert_epi16()
+    - signature: _mm_insert_epi32()
+    - signature: _mm_insert_epi64()
+    - signature: _mm_insert_ps()
+    - signature: _mm_insert_si64()
+    - signature: _mm_lddqu_si128()
+    - signature: _mm_lfence()
+    - signature: _mm_load1_ps()
+    - signature: _mm_load1_pd()
+    - signature: _mm_load_pd()
+    - signature: _mm_load_pd1()
+    - signature: _mm_load_ps()
+    - signature: _mm_load_ps1()
+    - signature: _mm_load_sd()
+    - signature: _mm_load_si128()
+    - signature: _mm_load_ss()
+    - signature: _mm_loaddup_pd()
+    - signature: _mm_loadh_pd()
+    - signature: _mm_loadl_epi64()
+    - signature: _mm_loadl_pd()
+    - signature: _mm_loadr_pd()
+    - signature: _mm_loadr_ps()
+    - signature: _mm_loadu_pd()
+    - signature: _mm_loadu_ps()
+    - signature: _mm_loadu_si128()
+    - signature: _mm_madd_epi16()
+    - signature: _mm_maddubs_epi16()
+    - signature: _mm_mask_i32gather_ps()
+    - signature: _mm_mask_i32gather_pd()
+    - signature: _mm_mask_i64gather_ps()
+    - signature: _mm_mask_i64gather_pd()
+    - signature: _mm_mask_i32gather_epi32()
+    - signature: _mm_mask_i32gather_epi64()
+    - signature: _mm_mask_i64gather_epi32()
+    - signature: _mm_mask_i64gather_epi64()
+    - signature: _mm_maskload_epi32()
+    - signature: _mm_maskload_epi64()
+    - signature: _mm_maskload_pd()
+    - signature: _mm_maskload_ps()
+    - signature: _mm_maskmoveu_si128()
+    - signature: _mm_maskstore_epi32()
+    - signature: _mm_maskstore_epi64()
+    - signature: _mm_maskstore_pd()
+    - signature: _mm_maskstore_ps()
+    - signature: _mm_max_epi8()
+    - signature: _mm_max_epi16()
+    - signature: _mm_max_epi32()
+    - signature: _mm_max_epu8()
+    - signature: _mm_max_epu16()
+    - signature: _mm_max_epu32()
+    - signature: _mm_max_pd()
+    - signature: _mm_max_ps()
+    - signature: _mm_max_sd()
+    - signature: _mm_max_ss()
+    - signature: _mm_mfence()
+    - signature: _mm_min_epi8()
+    - signature: _mm_min_epi16()
+    - signature: _mm_min_epi32()
+    - signature: _mm_min_epu8()
+    - signature: _mm_min_epu16()
+    - signature: _mm_min_epu32()
+    - signature: _mm_min_pd()
+    - signature: _mm_min_ps()
+    - signature: _mm_min_sd()
+    - signature: _mm_min_ss()
+    - signature: _mm_minpos_epu16()
+    - signature: _mm_move_epi64()
+    - signature: _mm_move_sd()
+    - signature: _mm_move_ss()
+    - signature: _mm_movedup_pd()
+    - signature: _mm_movehdup_ps()
+    - signature: _mm_movehl_ps()
+    - signature: _mm_moveldup_ps()
+    - signature: _mm_movelh_ps()
+    - signature: _mm_movemask_epi8()
+    - signature: _mm_movemask_pd()
+    - signature: _mm_movemask_ps()
+    - signature: _mm_mpsadbw_epu8()
+    - signature: _mm_mul_epi32()
+    - signature: _mm_mul_epu32()
+    - signature: _mm_mul_pd()
+    - signature: _mm_mul_ps()
+    - signature: _mm_mul_sd()
+    - signature: _mm_mul_ss()
+    - signature: _mm_mulhi_epi16()
+    - signature: _mm_mulhi_epu16()
+    - signature: _mm_mulhrs_epi16()
+    - signature: _mm_mullo_epi16()
+    - signature: _mm_mullo_epi32()
+    - signature: _mm_or_pd()
+    - signature: _mm_or_ps()
+    - signature: _mm_or_si128()
+    - signature: _mm_packs_epi16()
+    - signature: _mm_packs_epi32()
+    - signature: _mm_packus_epi16()
+    - signature: _mm_packus_epi32()
+    - signature: _mm_pause()
+    - signature: _mm_permute_pd()
+    - signature: _mm_permute_ps()
+    - signature: _mm_permutevar_pd()
+    - signature: _mm_permutevar_ps()
+    - signature: _mm_prefetch()
+    - signature: _mm_rcp_ps()
+    - signature: _mm_rcp_ss()
+    - signature: _mm_round_pd()
+    - signature: _mm_round_ps()
+    - signature: _mm_round_sd()
+    - signature: _mm_round_ss()
+    - signature: _mm_rsqrt_ps()
+    - signature: _mm_rsqrt_ss()
+    - signature: _mm_sad_epu8()
+    - signature: _mm_set1_ps()
+    - signature: _mm_set1_pd()
+    - signature: _mm_set1_epi8()
+    - signature: _mm_set1_epi16()
+    - signature: _mm_set1_epi32()
+    - signature: _mm_set1_epi64x()
+    - signature: _mm_set_epi8()
+    - signature: _mm_set_epi16()
+    - signature: _mm_set_epi32()
+    - signature: _mm_set_epi64x()
+    - signature: _mm_set_pd()
+    - signature: _mm_set_pd1()
+    - signature: _mm_set_ps()
+    - signature: _mm_set_ps1()
+    - signature: _mm_set_sd()
+    - signature: _mm_set_ss()
+    - signature: _mm_setcsr()
+    - signature: _mm_setr_epi8()
+    - signature: _mm_setr_epi16()
+    - signature: _mm_setr_epi32()
+    - signature: _mm_setr_pd()
+    - signature: _mm_setr_ps()
+    - signature: _mm_setzero_pd()
+    - signature: _mm_setzero_ps()
+    - signature: _mm_setzero_si128()
+    - signature: _mm_sfence()
+    - signature: _mm_sha1msg1_epu32()
+    - signature: _mm_sha1msg2_epu32()
+    - signature: _mm_sha1nexte_epu32()
+    - signature: _mm_sha1rnds4_epu32()
+    - signature: _mm_sha256msg1_epu32()
+    - signature: _mm_sha256msg2_epu32()
+    - signature: _mm_sha256rnds2_epu32()
+    - signature: _mm_shuffle_epi8()
+    - signature: _mm_shuffle_epi32()
+    - signature: _mm_shuffle_pd()
+    - signature: _mm_shuffle_ps()
+    - signature: _mm_shufflehi_epi16()
+    - signature: _mm_shufflelo_epi16()
+    - signature: _mm_sign_epi8()
+    - signature: _mm_sign_epi16()
+    - signature: _mm_sign_epi32()
+    - signature: _mm_sll_epi16()
+    - signature: _mm_sll_epi32()
+    - signature: _mm_sll_epi64()
+    - signature: _mm_slli_epi16()
+    - signature: _mm_slli_epi32()
+    - signature: _mm_slli_epi64()
+    - signature: _mm_slli_si128()
+    - signature: _mm_sllv_epi32()
+    - signature: _mm_sllv_epi64()
+    - signature: _mm_sqrt_pd()
+    - signature: _mm_sqrt_ps()
+    - signature: _mm_sqrt_sd()
+    - signature: _mm_sqrt_ss()
+    - signature: _mm_sra_epi16()
+    - signature: _mm_sra_epi32()
+    - signature: _mm_srai_epi16()
+    - signature: _mm_srai_epi32()
+    - signature: _mm_srav_epi32()
+    - signature: _mm_srl_epi16()
+    - signature: _mm_srl_epi32()
+    - signature: _mm_srl_epi64()
+    - signature: _mm_srli_epi16()
+    - signature: _mm_srli_epi32()
+    - signature: _mm_srli_epi64()
+    - signature: _mm_srli_si128()
+    - signature: _mm_srlv_epi32()
+    - signature: _mm_srlv_epi64()
+    - signature: _mm_store1_ps()
+    - signature: _mm_store1_pd()
+    - signature: _mm_store_pd()
+    - signature: _mm_store_pd1()
+    - signature: _mm_store_ps()
+    - signature: _mm_store_ps1()
+    - signature: _mm_store_sd()
+    - signature: _mm_store_si128()
+    - signature: _mm_store_ss()
+    - signature: _mm_storeh_pd()
+    - signature: _mm_storel_epi64()
+    - signature: _mm_storel_pd()
+    - signature: _mm_storer_pd()
+    - signature: _mm_storer_ps()
+    - signature: _mm_storeu_pd()
+    - signature: _mm_storeu_ps()
+    - signature: _mm_storeu_si128()
+    - signature: _mm_stream_pd()
+    - signature: _mm_stream_ps()
+    - signature: _mm_stream_sd()
+    - signature: _mm_stream_si32()
+    - signature: _mm_stream_si64()
+    - signature: _mm_stream_si128()
+    - signature: _mm_stream_ss()
+    - signature: _mm_sub_epi8()
+    - signature: _mm_sub_epi16()
+    - signature: _mm_sub_epi32()
+    - signature: _mm_sub_epi64()
+    - signature: _mm_sub_pd()
+    - signature: _mm_sub_ps()
+    - signature: _mm_sub_sd()
+    - signature: _mm_sub_ss()
+    - signature: _mm_subs_epi8()
+    - signature: _mm_subs_epi16()
+    - signature: _mm_subs_epu8()
+    - signature: _mm_subs_epu16()
+    - signature: _mm_test_all_ones()
+    - signature: _mm_test_all_zeros()
+    - signature: _mm_test_mix_ones_zeros()
+    - signature: _mm_testc_pd()
+    - signature: _mm_testc_ps()
+    - signature: _mm_testc_si128()
+    - signature: _mm_testnzc_pd()
+    - signature: _mm_testnzc_ps()
+    - signature: _mm_testnzc_si128()
+    - signature: _mm_testz_pd()
+    - signature: _mm_testz_ps()
+    - signature: _mm_testz_si128()
+    - signature: _mm_tzcnt_32()
+    - signature: _mm_tzcnt_64()
+    - signature: _mm_ucomieq_sd()
+    - signature: _mm_ucomieq_ss()
+    - signature: _mm_ucomige_sd()
+    - signature: _mm_ucomige_ss()
+    - signature: _mm_ucomigt_sd()
+    - signature: _mm_ucomigt_ss()
+    - signature: _mm_ucomile_sd()
+    - signature: _mm_ucomile_ss()
+    - signature: _mm_ucomilt_sd()
+    - signature: _mm_ucomilt_ss()
+    - signature: _mm_ucomineq_sd()
+    - signature: _mm_ucomineq_ss()
+    - signature: _mm_undefined_pd()
+    - signature: _mm_undefined_ps()
+    - signature: _mm_undefined_si128()
+    - signature: _mm_unpackhi_epi8()
+    - signature: _mm_unpackhi_epi16()
+    - signature: _mm_unpackhi_epi32()
+    - signature: _mm_unpackhi_epi64()
+    - signature: _mm_unpackhi_pd()
+    - signature: _mm_unpackhi_ps()
+    - signature: _mm_unpacklo_epi8()
+    - signature: _mm_unpacklo_epi16()
+    - signature: _mm_unpacklo_epi32()
+    - signature: _mm_unpacklo_epi64()
+    - signature: _mm_unpacklo_pd()
+    - signature: _mm_unpacklo_ps()
+    - signature: _mm_xor_pd()
+    - signature: _mm_xor_ps()
+    - signature: _mm_xor_si128()
+    - signature: _mulx_u32()
+    - signature: _mulx_u64()
+    - signature: _pdep_u32()
+    - signature: _pdep_u64()
+    - signature: _pext_u32()
+    - signature: _pext_u64()
+    - signature: _popcnt32()
+    - signature: _popcnt64()
+    - signature: _rdrand16_step()
+    - signature: _rdrand32_step()
+    - signature: _rdrand64_step()
+    - signature: _rdseed16_step()
+    - signature: _rdseed32_step()
+    - signature: _rdseed64_step()
+    - signature: _rdtsc()
+    - signature: _subborrow_u32()
+    - signature: _subborrow_u64()
+    - signature: _t1mskc_u32()
+    - signature: _t1mskc_u64()
+    - signature: _tzcnt_u32()
+    - signature: _tzcnt_u64()
+    - signature: _tzmsk_u32()
+    - signature: _tzmsk_u64()
+    - signature: _xgetbv()
+    - signature: _xrstor()
+    - signature: _xrstor64()
+    - signature: _xrstors()
+    - signature: _xrstors64()
+    - signature: _xsave()
+    - signature: _xsave64()
+    - signature: _xsavec()
+    - signature: _xsavec64()
+    - signature: _xsaveopt()
+    - signature: _xsaveopt64()
+    - signature: _xsaves()
+    - signature: _xsaves64()
+    - signature: _xsetbv()
+    - signature: _MM_SHUFFLE()
+    - signature: _bittest()
+    - signature: _bittest64()
+    - signature: _bittestandcomplement()
+    - signature: _bittestandcomplement64()
+    - signature: _bittestandreset()
+    - signature: _bittestandreset64()
+    - signature: _bittestandset()
+    - signature: _bittestandset64()
+    - signature: _m_empty()
+    - signature: _m_maskmovq()
+    - signature: _m_paddb()
+    - signature: _m_paddd()
+    - signature: _m_paddsb()
+    - signature: _m_paddsw()
+    - signature: _m_paddusb()
+    - signature: _m_paddusw()
+    - signature: _m_paddw()
+    - signature: _m_pavgb()
+    - signature: _m_pavgw()
+    - signature: _m_pextrw()
+    - signature: _m_pinsrw()
+    - signature: _m_pmaxsw()
+    - signature: _m_pmaxub()
+    - signature: _m_pminsw()
+    - signature: _m_pminub()
+    - signature: _m_pmovmskb()
+    - signature: _m_pmulhuw()
+    - signature: _m_psadbw()
+    - signature: _m_pshufw()
+    - signature: _m_psubb()
+    - signature: _m_psubd()
+    - signature: _m_psubsb()
+    - signature: _m_psubsw()
+    - signature: _m_psubusb()
+    - signature: _m_psubusw()
+    - signature: _m_psubw()
+    - signature: _mm256_madd52hi_epu64()
+    - signature: _mm256_madd52lo_epu64()
+    - signature: _mm512_abs_epi32()
+    - signature: _mm512_madd52hi_epu64()
+    - signature: _mm512_madd52lo_epu64()
+    - signature: _mm512_mask_abs_epi32()
+    - signature: _mm512_maskz_abs_epi32()
+    - signature: _mm512_set1_epi64()
+    - signature: _mm512_setr_epi32()
+    - signature: _mm512_setzero_si512()
+    - signature: _mm_abs_pi8()
+    - signature: _mm_abs_pi16()
+    - signature: _mm_abs_pi32()
+    - signature: _mm_add_pi8()
+    - signature: _mm_add_pi16()
+    - signature: _mm_add_pi32()
+    - signature: _mm_add_si64()
+    - signature: _mm_adds_pi8()
+    - signature: _mm_adds_pi16()
+    - signature: _mm_adds_pu8()
+    - signature: _mm_adds_pu16()
+    - signature: _mm_alignr_pi8()
+    - signature: _mm_avg_pu8()
+    - signature: _mm_avg_pu16()
+    - signature: _mm_cmpgt_pi8()
+    - signature: _mm_cmpgt_pi16()
+    - signature: _mm_cmpgt_pi32()
+    - signature: _mm_cvt_pi2ps()
+    - signature: _mm_cvt_ps2pi()
+    - signature: _mm_cvtpd_pi32()
+    - signature: _mm_cvtpi8_ps()
+    - signature: _mm_cvtpi16_ps()
+    - signature: _mm_cvtpi32_ps()
+    - signature: _mm_cvtpi32_pd()
+    - signature: _mm_cvtpi32x2_ps()
+    - signature: _mm_cvtps_pi8()
+    - signature: _mm_cvtps_pi16()
+    - signature: _mm_cvtps_pi32()
+    - signature: _mm_cvtpu8_ps()
+    - signature: _mm_cvtpu16_ps()
+    - signature: _mm_cvtsi32_si64()
+    - signature: _mm_cvtsi64_si32()
+    - signature: _mm_cvtt_ps2pi()
+    - signature: _mm_cvttpd_pi32()
+    - signature: _mm_cvttps_pi32()
+    - signature: _mm_empty()
+    - signature: _mm_extract_pi16()
+    - signature: _mm_hadd_pi16()
+    - signature: _mm_hadd_pi32()
+    - signature: _mm_hadds_pi16()
+    - signature: _mm_hsub_pi16()
+    - signature: _mm_hsub_pi32()
+    - signature: _mm_hsubs_pi16()
+    - signature: _mm_insert_pi16()
+    - signature: _mm_loadh_pi()
+    - signature: _mm_loadl_pi()
+    - signature: _mm_madd52hi_epu64()
+    - signature: _mm_madd52lo_epu64()
+    - signature: _mm_maddubs_pi16()
+    - signature: _mm_maskmove_si64()
+    - signature: _mm_max_pi16()
+    - signature: _mm_max_pu8()
+    - signature: _mm_min_pi16()
+    - signature: _mm_min_pu8()
+    - signature: _mm_movemask_pi8()
+    - signature: _mm_movepi64_pi64()
+    - signature: _mm_movpi64_epi64()
+    - signature: _mm_mul_su32()
+    - signature: _mm_mulhi_pu16()
+    - signature: _mm_mulhrs_pi16()
+    - signature: _mm_mullo_pi16()
+    - signature: _mm_packs_pi16()
+    - signature: _mm_packs_pi32()
+    - signature: _mm_sad_pu8()
+    - signature: _mm_set1_epi64()
+    - signature: _mm_set1_pi8()
+    - signature: _mm_set1_pi16()
+    - signature: _mm_set1_pi32()
+    - signature: _mm_set_epi64()
+    - signature: _mm_set_pi8()
+    - signature: _mm_set_pi16()
+    - signature: _mm_set_pi32()
+    - signature: _mm_setr_epi64()
+    - signature: _mm_setr_pi8()
+    - signature: _mm_setr_pi16()
+    - signature: _mm_setr_pi32()
+    - signature: _mm_setzero_si64()
+    - signature: _mm_shuffle_pi8()
+    - signature: _mm_shuffle_pi16()
+    - signature: _mm_sign_pi8()
+    - signature: _mm_sign_pi16()
+    - signature: _mm_sign_pi32()
+    - signature: _mm_storeh_pi()
+    - signature: _mm_storel_pi()
+    - signature: _mm_stream_pi()
+    - signature: _mm_sub_pi8()
+    - signature: _mm_sub_pi16()
+    - signature: _mm_sub_pi32()
+    - signature: _mm_sub_si64()
+    - signature: _mm_subs_pi8()
+    - signature: _mm_subs_pi16()
+    - signature: _mm_subs_pu8()
+    - signature: _mm_subs_pu16()
+    - signature: _mm_unpackhi_pi8()
+    - signature: _mm_unpackhi_pi16()
+    - signature: _mm_unpackhi_pi32()
+    - signature: _mm_unpacklo_pi8()
+    - signature: _mm_unpacklo_pi16()
+    - signature: _mm_unpacklo_pi32()
+    - signature: cmpxchg16b()
+    - signature: has_cpuid()
+    - signature: ud2()
+
+
+# Intel Transactional Synchronization Extensions（TSX）指令。
+x86_INTEL_TSX_INLINE_ASSEMBLY:
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(XACQUIRE|XRELEASE|XBEGIN|XEND|XABORT|XTEST)
+      help: |+
+         需要Intel Transactional Synchronization Extensions（TSX ）指令。
+
+# Intel Memory Protection Extensions（MPX）指令。
+x86_INTEL_MPX_INLINE_ASSEMBLY:
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(BNDMK|BNDCL|BNDCU|BNDCN|BNDMOV|BNDLDX|BNDSTX)
+      help: |+
+        需要Intel Memory Protection Extensions（MPX）指令。
+
+# Intel Software Guard Extensions（SGX）指令。
+x86_INTEL_SGX_INLINE_ASSEMBLY:
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(ENCLS|ENCLU|ENCLV)
+      help: |+
+        需要Intel Software Guard Extensions（SGX）指令。
+
+# Intel Safer Mode Extensions（SMX）指令。
+x86_INTEL_SMX_INLINE_ASSEMBLY:
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(GETSEC)
+      help: |+
+        需要Intel Safer Mode Extensions（SMX）指令。
+
+# Intel Virtual-Machine Extensions（VMX）指令。
+x86_INTEL_VMX_INLINE_ASSEMBLY:
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VMPTRLD|VMPTRST|VMCLEAR|VMREAD|VMWRITE|VMLAUNCH|VMRESUME|VMXOFF|VMXON|INVEPT|INVVPID|VMCALL|VMFUNC)
+      help: |+
+        需要Intel Virtual-Machine Extensions（VMX）指令。
+
+# Intel Advanced Vector Extensions 512（AVX-512）指令。
+x86_INTEL_AVX512_INLINE_ASSEMBLY:
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(KADD(B|D|Q|W))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VBROADCAST(I|F)(32|64)X(2|4|8))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(KAND(B|D|NB|ND|NQ))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(KMOV(B|D|Q))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(KNOT(B|D|Q))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(KOR(B|D|Q))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(KORTEST(B|D|Q))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(KSHIFTL(B|D|Q))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(KSHIFTR(B|D|Q))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(KTEST(B|D|Q|W))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(KUNPCK(DQ|WD))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(KXNOR(B|D|Q))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(KXOR(B|D|Q))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VADDP(D|S))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VALIGN(D|Q))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VANDNP(D|S))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VANDP(D|S))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VBLENDMP(D|S))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VBROADCASTSS)
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VCMPP(D|S))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VCOMPRESSP(D|S))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VCVTDQ2P(D|S))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VCVTPD2(DQ|PS|QQ|UDQ|UQQ))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VCVTPH2(DQ|PS|PD||PH|QQ|UDQ|UQQ))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VCVTQQ2P(D|S))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VCVTTPD2(DQ|QQ|UDQ|UQQ))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VCVTTPS2(DQ|QQ|UDQ|UQQ))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VCVTUDQ2P(D|S))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VCVTUQQ2P(D|S))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VDBPSADBW)
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VDIVP(D|S))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VEXP2P(D|S))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VEXPANDP(D|S))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VEXTRACT(F|I)(32|64)X(2|4))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VFIXUPIMMP(D|S))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VFMADD132P(D|S))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VFMADD213P(D|S))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VFMADD231P(D|S))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VFMADDSUB132P(D|S))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VFMADDSUB213P(D|S))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VFMADDSUB231P(D|S))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VFMSUB132P(D|S))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VFMSUB213P(D|S))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VFMSUB231P(D|S))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VFMSUBADD132P(D|S))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VFMSUBADD213P(D|S))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VFMSUBADD231P(D|S))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VFNMADD132P(D|S))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VFNMADD213P(D|S))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VFNMADD231P(D|S))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VFNMSUB132P(D|S))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VFNMSUB213P(D|S))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VFNMSUB231P(D|S))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(asm!|llvm_asm!)\(.*(VFPCLASSP(D|S))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(asm!|llvm_asm!)\(.*(VFPCLASSS(D|S))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(asm!|llvm_asm!)\(.*(VGATHERDP(D|S))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VGATHERPF0DP(D|S))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VGATHERPF0QP(D|S))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VGATHERPF1DP(D|S))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VGATHERPF1QP(D|S))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VGATHERQP(D|S))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VGETEXPP(D|S))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VGETMANTP(D|S))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VINSERT(I|F)32X(4|8))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VINSERT(I|F)64X2)
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VMAXP(D|S))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VMINP(D|S))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VMOVAP(D|S))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VMOVDDUP)
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VMOVDQ(A32|A64|U8|U16|U32|U64))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VMOVNT(DQ|DQA|PD|PS))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VMOVS(H|L)DUP)
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VMOVUP(D|S))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VMULP(D|S))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VORP(D|S))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VPABS(B|D|Q|W))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VPACK(S|U)(SDW|SWB))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VPADD(B|D|Q|SB|SW|USB|USW|W))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VPALIGNR)
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VPAND(D|ND|NQ|Q))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VPAVG(B|W))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VPBLENDM(B|D|Q|W))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VPBROADCAST(B|D|Q|W|MB2Q|MW2D))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VPCMP(B|D|EQQ|GTB|GTD|GTQ|GTW|Q|UB|UD|UQ|UW|W))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VPCOMPRESS(D|Q))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VPCONFLICT(D|Q))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VPERMD)
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VPERMI(2B|2D|2PD|2PS|2Q|2W|LPD|LPS))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VPERMP(D|S))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VPERMQ)
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VPERMT2(B|D|PD|PS|Q|W))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VPERMW)
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VPEXPAND(D|Q))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VPEXTR(B|D))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VPGATHER(DD|DQ|QD|QQ))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VPINSR(B|D|Q|W))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VPLZCNT(D|Q))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VPMADD52(H|L)UQ)
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VPMADD(UBSW|WD))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VPMAX(S|U)(B|D|Q|W))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VPMIN(S|U)(B|D|Q|W))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VPMOV(B2M|D2M|DB|DW|M2B|M2D|M2Q|M2W|Q2M|QB|QD|QW))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VPMOV(S|US)(DB|DW|QB|QD|QW|WB))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VPMOVSX(BD|BQ|BW|DQ|WD|WQ))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VPMOVZX(BD|BQ|BW|DQ|WD|WQ))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VPMOV(W2M|WB))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VPMUL(DQ|HRSW|HUW|HW|LD|LQ|LW|TISHIFTQB|UDQ))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VPOR(D|Q))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VPROL(D|Q))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VPROLV(D|Q))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VPROR(D|Q))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VPRORV(D|Q))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VPSADBW)
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VPSCATTER(DD|DQ|QD|QQ))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VPSHUF(B|D|HW|LW))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VPSLL(D|DQ|Q|VD|VQ|VW|W))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VPSRA(D|Q|VD|VQ|VW|W))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VPSRL(D|DQ|Q|VD|VQ|VW|W))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VPSUB(B|D|Q|SB|SW|USB|USW|W))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VPTERNLOG(D|Q))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VPTESTM(B|D|Q|W))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VPTESTNM(B|D|Q|W))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VPUNPCK(H|L)(BW|DQ|QDQ|WD))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VPXOR(D|Q))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VRANGE(PD|PS|SD|SS))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VRCP14P(D|S))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VRCP28(PD|PS|SD|SS))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VREDUCE(PD|PS|SS))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VRNDSCALEP(D|S))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VRSQRT14P(D|S))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VSCALEFP(D|S))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VSCATTERD(PD|PS))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VSCATTERPF(0|1)(DPD|DPS|QPD|QPS))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VSCATTERQP(D|S))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VSHUFF(32|64)X(2|4))
+      help: |+
+        Intel Advanced Vector Extensions 512 (AVX-512) instructions are required.
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VSHUFI(32|64)X(2|4))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VSHUFP(D|S))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VSQRTP(D|S))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VSUBP(D|S))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VUNPCKHP(D|S))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VUNPCKLP(D|S))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(VXORP(D|S))
+      help: |+
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
+
+# Intel Invalidate Process-Context Identifier（INVPCID）指令。
+x86_INTEL_INVPCID_INLINE_ASSEMBLY:
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(INVPCID)
+
+# AMD64 Trailing Bit Manipulation（TBM）指令。
+# NOTE: No Intel processors (at least through Coffee Lake) support TBM.
+x86_AMD_TBM_INLINE_ASSEMBLY:
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(BEXTR|BLCFILL|BLCI|BLCIC|BLCMSK|BLCS|BLSFILL|BLSIC|T1MSKC|TZMSK)
+
+# AMD64 Lightweight Profiling（LWP）指令。
+# http://developer.amd.com/wordpress/media/2012/10/43724.pdf
+x86_AMD_LWP_INLINE_ASSEMBLY:
+    - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*(LLWPCB|SLWPCB|LWPVAL|LWPINS)
+
+# Intel Memory Protection Extensions（MPX）指令。
+x86_INTEL_MPX_COMPILER_OPTION:
+    - pattern: -check-pointers-mpx=(rw|write)
+      help: |+
+        '-check-pointers-mpx'需要Intel Memory Protection Extensions（MPX）指令。
+
+    - pattern: /Qcheck-pointers-mpx:(rw|write)
+      help: |+
+        '/Qcheck-pointers-mpx'需要Intel Memory Protection Extensions（MPX）指令。
+
+# 不适用x86/x86-64/arm/arm64/aarch64/sw64的内在函数。
+# https://moshg.github.io/rust-std-ja/core/arch/index.html
+OTHER_ARCH_INTRINSICS:
+    #mips intrinsics
+    - signature: __msa_add_a_b()
+    - signature: __msa_add_a_d()
+    - signature: __msa_add_a_h()
+    - signature: __msa_add_a_w()
+    - signature: __msa_adds_a_b()
+    - signature: __msa_adds_a_d()
+    - signature: __msa_adds_a_h()
+    - signature: __msa_adds_a_w()
+    - signature: __msa_adds_s_b()
+    - signature: __msa_adds_s_d()
+    - signature: __msa_adds_s_h()
+    - signature: __msa_adds_s_w()
+    - signature: __msa_adds_u_b()
+    - signature: __msa_adds_u_d()
+    - signature: __msa_adds_u_h()
+    - signature: __msa_adds_u_w()
+    - signature: __msa_addv_b()
+    - signature: __msa_addv_d()
+    - signature: __msa_addv_h()
+    - signature: __msa_addv_w()
+    - signature: __msa_addvi_b()
+    - signature: __msa_addvi_d()
+    - signature: __msa_addvi_h()
+    - signature: __msa_addvi_w()
+    - signature: __msa_and_v()
+    - signature: __msa_andi_b()
+    - signature: __msa_asub_s_b()
+    - signature: __msa_asub_s_d()
+    - signature: __msa_asub_s_h()
+    - signature: __msa_asub_s_w()
+    - signature: __msa_asub_u_b()
+    - signature: __msa_asub_u_d()
+    - signature: __msa_asub_u_h()
+    - signature: __msa_asub_u_w()
+    - signature: __msa_ave_s_b()
+    - signature: __msa_ave_s_d()
+    - signature: __msa_ave_s_h()
+    - signature: __msa_ave_s_w()
+    - signature: __msa_ave_u_b()
+    - signature: __msa_ave_u_d()
+    - signature: __msa_ave_u_h()
+    - signature: __msa_ave_u_w()
+    - signature: __msa_aver_s_b()
+    - signature: __msa_aver_s_d()
+    - signature: __msa_aver_s_h()
+    - signature: __msa_aver_s_w()
+    - signature: __msa_aver_u_b()
+    - signature: __msa_aver_u_d()
+    - signature: __msa_aver_u_h()
+    - signature: __msa_aver_u_w()
+    - signature: __msa_bclr_b()
+    - signature: __msa_bclr_d()
+    - signature: __msa_bclr_h()
+    - signature: __msa_bclr_w()
+    - signature: __msa_bclri_b()
+    - signature: __msa_bclri_d()
+    - signature: __msa_bclri_h()
+    - signature: __msa_bclri_w()
+    - signature: __msa_binsl_b()
+    - signature: __msa_binsl_d()
+    - signature: __msa_binsl_h()
+    - signature: __msa_binsl_w()
+    - signature: __msa_binsli_b()
+    - signature: __msa_binsli_d()
+    - signature: __msa_binsli_h()
+    - signature: __msa_binsli_w()
+    - signature: __msa_binsr_b()
+    - signature: __msa_binsr_d()
+    - signature: __msa_binsr_h()
+    - signature: __msa_binsr_w()
+    - signature: __msa_binsri_b()
+    - signature: __msa_binsri_d()
+    - signature: __msa_binsri_h()
+    - signature: __msa_binsri_w()
+    - signature: __msa_bmnz_v()
+    - signature: __msa_bmnzi_b()
+    - signature: __msa_bmz_v()
+    - signature: __msa_bmzi_b()
+    - signature: __msa_bneg_b()
+    - signature: __msa_bneg_d()
+    - signature: __msa_bneg_h()
+    - signature: __msa_bneg_w()
+    - signature: __msa_bnegi_b()
+    - signature: __msa_bnegi_d()
+    - signature: __msa_bnegi_h()
+    - signature: __msa_bnegi_w()
+    - signature: __msa_bnz_b()
+    - signature: __msa_bnz_d()
+    - signature: __msa_bnz_h()
+    - signature: __msa_bnz_v()
+    - signature: __msa_bnz_w()
+    - signature: __msa_bsel_v()
+    - signature: __msa_bseli_b()
+    - signature: __msa_bset_b()
+    - signature: __msa_bset_d()
+    - signature: __msa_bset_h()
+    - signature: __msa_bset_w()
+    - signature: __msa_bseti_b()
+    - signature: __msa_bseti_d()
+    - signature: __msa_bseti_h()
+    - signature: __msa_bseti_w()
+    - signature: __msa_bz_b()
+    - signature: __msa_bz_d()
+    - signature: __msa_bz_h()
+    - signature: __msa_bz_v()
+    - signature: __msa_bz_w()
+    - signature: __msa_ceq_b()
+    - signature: __msa_ceq_d()
+    - signature: __msa_ceq_h()
+    - signature: __msa_ceq_w()
+    - signature: __msa_ceqi_b()
+    - signature: __msa_ceqi_d()
+    - signature: __msa_ceqi_h()
+    - signature: __msa_ceqi_w()
+    - signature: __msa_cfcmsa()
+    - signature: __msa_cle_s_b()
+    - signature: __msa_cle_s_d()
+    - signature: __msa_cle_s_h()
+    - signature: __msa_cle_s_w()
+    - signature: __msa_cle_u_b()
+    - signature: __msa_cle_u_d()
+    - signature: __msa_cle_u_h()
+    - signature: __msa_cle_u_w()
+    - signature: __msa_clei_s_b()
+    - signature: __msa_clei_s_d()
+    - signature: __msa_clei_s_h()
+    - signature: __msa_clei_s_w()
+    - signature: __msa_clei_u_b()
+    - signature: __msa_clei_u_d()
+    - signature: __msa_clei_u_h()
+    - signature: __msa_clei_u_w()
+    - signature: __msa_clt_s_b()
+    - signature: __msa_clt_s_d()
+    - signature: __msa_clt_s_h()
+    - signature: __msa_clt_s_w()
+    - signature: __msa_clt_u_b()
+    - signature: __msa_clt_u_d()
+    - signature: __msa_clt_u_h()
+    - signature: __msa_clt_u_w()
+    - signature: __msa_clti_s_b()
+    - signature: __msa_clti_s_d()
+    - signature: __msa_clti_s_h()
+    - signature: __msa_clti_s_w()
+    - signature: __msa_clti_u_b()
+    - signature: __msa_clti_u_d()
+    - signature: __msa_clti_u_h()
+    - signature: __msa_clti_u_w()
+    - signature: __msa_copy_s_b()
+    - signature: __msa_copy_s_d()
+    - signature: __msa_copy_s_h()
+    - signature: __msa_copy_s_w()
+    - signature: __msa_copy_u_b()
+    - signature: __msa_copy_u_d()
+    - signature: __msa_copy_u_h()
+    - signature: __msa_copy_u_w()
+    - signature: __msa_ctcmsa()
+    - signature: __msa_div_s_b()
+    - signature: __msa_div_s_d()
+    - signature: __msa_div_s_h()
+    - signature: __msa_div_s_w()
+    - signature: __msa_div_u_b()
+    - signature: __msa_div_u_d()
+    - signature: __msa_div_u_h()
+    - signature: __msa_div_u_w()
+    - signature: __msa_dotp_s_d()
+    - signature: __msa_dotp_s_h()
+    - signature: __msa_dotp_s_w()
+    - signature: __msa_dotp_u_d()
+    - signature: __msa_dotp_u_h()
+    - signature: __msa_dotp_u_w()
+    - signature: __msa_dpadd_s_d()
+    - signature: __msa_dpadd_s_h()
+    - signature: __msa_dpadd_s_w()
+    - signature: __msa_dpadd_u_d()
+    - signature: __msa_dpadd_u_h()
+    - signature: __msa_dpadd_u_w()
+    - signature: __msa_dpsub_s_d()
+    - signature: __msa_dpsub_s_h()
+    - signature: __msa_dpsub_s_w()
+    - signature: __msa_dpsub_u_d()
+    - signature: __msa_dpsub_u_h()
+    - signature: __msa_dpsub_u_w()
+    - signature: __msa_fadd_d()
+    - signature: __msa_fadd_w()
+    - signature: __msa_fcaf_d()
+    - signature: __msa_fcaf_w()
+    - signature: __msa_fceq_d()
+    - signature: __msa_fceq_w()
+    - signature: __msa_fclass_d()
+    - signature: __msa_fclass_w()
+    - signature: __msa_fcle_d()
+    - signature: __msa_fcle_w()
+    - signature: __msa_fclt_d()
+    - signature: __msa_fclt_w()
+    - signature: __msa_fcne_d()
+    - signature: __msa_fcne_w()
+    - signature: __msa_fcor_d()
+    - signature: __msa_fcor_w()
+    - signature: __msa_fcueq_d()
+    - signature: __msa_fcueq_w()
+    - signature: __msa_fcule_d()
+    - signature: __msa_fcule_w()
+    - signature: __msa_fcult_d()
+    - signature: __msa_fcult_w()
+    - signature: __msa_fcun_d()
+    - signature: __msa_fcun_w()
+    - signature: __msa_fcune_d()
+    - signature: __msa_fcune_w()
+    - signature: __msa_fdiv_d()
+    - signature: __msa_fdiv_w()
+    - signature: __msa_fexdo_w()
+    - signature: __msa_fexp2_w()
+    - signature: __msa_fexp2_d()
+    - signature: __msa_fexupl_d()
+    - signature: __msa_fexupr_d()
+    - signature: __msa_ffint_s_d()
+    - signature: __msa_ffint_s_w()
+    - signature: __msa_ffint_u_d()
+    - signature: __msa_ffint_u_w()
+    - signature: __msa_ffql_d()
+    - signature: __msa_ffql_w()
+    - signature: __msa_ffqr_d()
+    - signature: __msa_ffqr_w()
+    - signature: __msa_fill_b()
+    - signature: __msa_fill_d()
+    - signature: __msa_fill_h()
+    - signature: __msa_fill_w()
+    - signature: __msa_flog2_w()
+    - signature: __msa_flog2_d()
+    - signature: __msa_fmadd_d()
+    - signature: __msa_fmadd_w()
+    - signature: __msa_fmax_a_d()
+    - signature: __msa_fmax_a_w()
+    - signature: __msa_fmax_d()
+    - signature: __msa_fmax_w()
+    - signature: __msa_fmin_a_d()
+    - signature: __msa_fmin_a_w()
+    - signature: __msa_fmin_d()
+    - signature: __msa_fmin_w()
+    - signature: __msa_fmsub_d()
+    - signature: __msa_fmsub_w()
+    - signature: __msa_fmul_d()
+    - signature: __msa_fmul_w()
+    - signature: __msa_frcp_d()
+    - signature: __msa_frcp_w()
+    - signature: __msa_frint_d()
+    - signature: __msa_frint_w()
+    - signature: __msa_frsqrt_d()
+    - signature: __msa_frsqrt_w()
+    - signature: __msa_fsaf_d()
+    - signature: __msa_fsaf_w()
+    - signature: __msa_fseq_d()
+    - signature: __msa_fseq_w()
+    - signature: __msa_fsle_d()
+    - signature: __msa_fsle_w()
+    - signature: __msa_fslt_d()
+    - signature: __msa_fslt_w()
+    - signature: __msa_fsne_d()
+    - signature: __msa_fsne_w()
+    - signature: __msa_fsor_d()
+    - signature: __msa_fsor_w()
+    - signature: __msa_fsqrt_d()
+    - signature: __msa_fsqrt_w()
+    - signature: __msa_fsub_d()
+    - signature: __msa_fsub_w()
+    - signature: __msa_fsueq_d()
+    - signature: __msa_fsueq_w()
+    - signature: __msa_fsule_d()
+    - signature: __msa_fsule_w()
+    - signature: __msa_fsult_d()
+    - signature: __msa_fsult_w()
+    - signature: __msa_fsun_d()
+    - signature: __msa_fsun_w()
+    - signature: __msa_fsune_d()
+    - signature: __msa_fsune_w()
+    - signature: __msa_ftint_s_d()
+    - signature: __msa_ftint_s_w()
+    - signature: __msa_ftint_u_d()
+    - signature: __msa_ftint_u_w()
+    - signature: __msa_ftq_h()
+    - signature: __msa_ftq_w()
+    - signature: __msa_ftrunc_s_d()
+    - signature: __msa_ftrunc_s_w()
+    - signature: __msa_ftrunc_u_d()
+    - signature: __msa_ftrunc_u_w()
+    - signature: __msa_hadd_s_d()
+    - signature: __msa_hadd_s_h()
+    - signature: __msa_hadd_s_w()
+    - signature: __msa_hadd_u_d()
+    - signature: __msa_hadd_u_h()
+    - signature: __msa_hadd_u_w()
+    - signature: __msa_hsub_s_d()
+    - signature: __msa_hsub_s_h()
+    - signature: __msa_hsub_s_w()
+    - signature: __msa_hsub_u_d()
+    - signature: __msa_hsub_u_h()
+    - signature: __msa_hsub_u_w()
+    - signature: __msa_ilvev_b()
+    - signature: __msa_ilvev_d()
+    - signature: __msa_ilvev_h()
+    - signature: __msa_ilvev_w()
+    - signature: __msa_ilvl_b()
+    - signature: __msa_ilvl_d()
+    - signature: __msa_ilvl_h()
+    - signature: __msa_ilvl_w()
+    - signature: __msa_ilvod_b()
+    - signature: __msa_ilvod_d()
+    - signature: __msa_ilvod_h()
+    - signature: __msa_ilvod_w()
+    - signature: __msa_ilvr_b()
+    - signature: __msa_ilvr_d()
+    - signature: __msa_ilvr_h()
+    - signature: __msa_ilvr_w()
+    - signature: __msa_insert_b()
+    - signature: __msa_insert_d()
+    - signature: __msa_insert_h()
+    - signature: __msa_insert_w()
+    - signature: __msa_insve_b()
+    - signature: __msa_insve_d()
+    - signature: __msa_insve_h()
+    - signature: __msa_insve_w()
+    - signature: __msa_ld_b()
+    - signature: __msa_ld_d()
+    - signature: __msa_ld_h()
+    - signature: __msa_ld_w()
+    - signature: __msa_ldi_b()
+    - signature: __msa_ldi_d()
+    - signature: __msa_ldi_h()
+    - signature: __msa_ldi_w()
+    - signature: __msa_madd_q_h()
+    - signature: __msa_madd_q_w()
+    - signature: __msa_maddr_q_h()
+    - signature: __msa_maddr_q_w()
+    - signature: __msa_maddv_b()
+    - signature: __msa_maddv_d()
+    - signature: __msa_maddv_h()
+    - signature: __msa_maddv_w()
+    - signature: __msa_max_a_b()
+    - signature: __msa_max_a_d()
+    - signature: __msa_max_a_h()
+    - signature: __msa_max_a_w()
+    - signature: __msa_max_s_b()
+    - signature: __msa_max_s_d()
+    - signature: __msa_max_s_h()
+    - signature: __msa_max_s_w()
+    - signature: __msa_max_u_b()
+    - signature: __msa_max_u_d()
+    - signature: __msa_max_u_h()
+    - signature: __msa_max_u_w()
+    - signature: __msa_maxi_s_b()
+    - signature: __msa_maxi_s_d()
+    - signature: __msa_maxi_s_h()
+    - signature: __msa_maxi_s_w()
+    - signature: __msa_maxi_u_b()
+    - signature: __msa_maxi_u_d()
+    - signature: __msa_maxi_u_h()
+    - signature: __msa_maxi_u_w()
+    - signature: __msa_min_a_b()
+    - signature: __msa_min_a_d()
+    - signature: __msa_min_a_h()
+    - signature: __msa_min_a_w()
+    - signature: __msa_min_s_b()
+    - signature: __msa_min_s_d()
+    - signature: __msa_min_s_h()
+    - signature: __msa_min_s_w()
+    - signature: __msa_min_u_b()
+    - signature: __msa_min_u_d()
+    - signature: __msa_min_u_h()
+    - signature: __msa_min_u_w()
+    - signature: __msa_mini_s_b()
+    - signature: __msa_mini_s_d()
+    - signature: __msa_mini_s_h()
+    - signature: __msa_mini_s_w()
+    - signature: __msa_mini_u_b()
+    - signature: __msa_mini_u_d()
+    - signature: __msa_mini_u_h()
+    - signature: __msa_mini_u_w()
+    - signature: __msa_mod_s_b()
+    - signature: __msa_mod_s_d()
+    - signature: __msa_mod_s_h()
+    - signature: __msa_mod_s_w()
+    - signature: __msa_mod_u_b()
+    - signature: __msa_mod_u_d()
+    - signature: __msa_mod_u_h()
+    - signature: __msa_mod_u_w()
+    - signature: __msa_move_v()
+    - signature: __msa_msub_q_h()
+    - signature: __msa_msub_q_w()
+    - signature: __msa_msubr_q_h()
+    - signature: __msa_msubr_q_w()
+    - signature: __msa_msubv_b()
+    - signature: __msa_msubv_d()
+    - signature: __msa_msubv_h()
+    - signature: __msa_msubv_w()
+    - signature: __msa_mul_q_h()
+    - signature: __msa_mul_q_w()
+    - signature: __msa_mulr_q_h()
+    - signature: __msa_mulr_q_w()
+    - signature: __msa_mulv_b()
+    - signature: __msa_mulv_d()
+    - signature: __msa_mulv_h()
+    - signature: __msa_mulv_w()
+    - signature: __msa_nloc_b()
+    - signature: __msa_nloc_d()
+    - signature: __msa_nloc_h()
+    - signature: __msa_nloc_w()
+    - signature: __msa_nlzc_b()
+    - signature: __msa_nlzc_d()
+    - signature: __msa_nlzc_h()
+    - signature: __msa_nlzc_w()
+    - signature: __msa_nor_v()
+    - signature: __msa_nori_b()
+    - signature: __msa_or_v()
+    - signature: __msa_ori_b()
+    - signature: __msa_pckev_b()
+    - signature: __msa_pckev_d()
+    - signature: __msa_pckev_h()
+    - signature: __msa_pckev_w()
+    - signature: __msa_pckod_b()
+    - signature: __msa_pckod_d()
+    - signature: __msa_pckod_h()
+    - signature: __msa_pckod_w()
+    - signature: __msa_pcnt_b()
+    - signature: __msa_pcnt_d()
+    - signature: __msa_pcnt_h()
+    - signature: __msa_pcnt_w()
+    - signature: __msa_sat_s_b()
+    - signature: __msa_sat_s_d()
+    - signature: __msa_sat_s_h()
+    - signature: __msa_sat_s_w()
+    - signature: __msa_sat_u_b()
+    - signature: __msa_sat_u_d()
+    - signature: __msa_sat_u_h()
+    - signature: __msa_sat_u_w()
+    - signature: __msa_shf_b()
+    - signature: __msa_shf_h()
+    - signature: __msa_shf_w()
+    - signature: __msa_sld_b()
+    - signature: __msa_sld_d()
+    - signature: __msa_sld_h()
+    - signature: __msa_sld_w()
+    - signature: __msa_sldi_b()
+    - signature: __msa_sldi_d()
+    - signature: __msa_sldi_h()
+    - signature: __msa_sldi_w()
+    - signature: __msa_sll_b()
+    - signature: __msa_sll_d()
+    - signature: __msa_sll_h()
+    - signature: __msa_sll_w()
+    - signature: __msa_slli_b()
+    - signature: __msa_slli_d()
+    - signature: __msa_slli_h()
+    - signature: __msa_slli_w()
+    - signature: __msa_splat_b()
+    - signature: __msa_splat_d()
+    - signature: __msa_splat_h()
+    - signature: __msa_splat_w()
+    - signature: __msa_splati_b()
+    - signature: __msa_splati_d()
+    - signature: __msa_splati_h()
+    - signature: __msa_splati_w()
+    - signature: __msa_sra_b()
+    - signature: __msa_sra_d()
+    - signature: __msa_sra_h()
+    - signature: __msa_sra_w()
+    - signature: __msa_srai_b()
+    - signature: __msa_srai_d()
+    - signature: __msa_srai_h()
+    - signature: __msa_srai_w()
+    - signature: __msa_srar_b()
+    - signature: __msa_srar_d()
+    - signature: __msa_srar_h()
+    - signature: __msa_srar_w()
+    - signature: __msa_srari_b()
+    - signature: __msa_srari_d()
+    - signature: __msa_srari_h()
+    - signature: __msa_srari_w()
+    - signature: __msa_srl_b()
+    - signature: __msa_srl_d()
+    - signature: __msa_srl_h()
+    - signature: __msa_srl_w()
+    - signature: __msa_srli_b()
+    - signature: __msa_srli_d()
+    - signature: __msa_srli_h()
+    - signature: __msa_srli_w()
+    - signature: __msa_srlr_b()
+    - signature: __msa_srlr_d()
+    - signature: __msa_srlr_h()
+    - signature: __msa_srlr_w()
+    - signature: __msa_srlri_b()
+    - signature: __msa_srlri_d()
+    - signature: __msa_srlri_h()
+    - signature: __msa_srlri_w()
+    - signature: __msa_st_b()
+    - signature: __msa_st_d()
+    - signature: __msa_st_h()
+    - signature: __msa_st_w()
+    - signature: __msa_subs_s_b()
+    - signature: __msa_subs_s_d()
+    - signature: __msa_subs_s_h()
+    - signature: __msa_subs_s_w()
+    - signature: __msa_subs_u_b()
+    - signature: __msa_subs_u_d()
+    - signature: __msa_subs_u_h()
+    - signature: __msa_subs_u_w()
+    - signature: __msa_subsus_u_b()
+    - signature: __msa_subsus_u_d()
+    - signature: __msa_subsus_u_h()
+    - signature: __msa_subsus_u_w()
+    - signature: __msa_subsuu_s_b()
+    - signature: __msa_subsuu_s_d()
+    - signature: __msa_subsuu_s_h()
+    - signature: __msa_subsuu_s_w()
+    - signature: __msa_subv_b()
+    - signature: __msa_subv_d()
+    - signature: __msa_subv_h()
+    - signature: __msa_subv_w()
+    - signature: __msa_subvi_b()
+    - signature: __msa_subvi_d()
+    - signature: __msa_subvi_h()
+    - signature: __msa_subvi_w()
+    - signature: __msa_vshf_b()
+    - signature: __msa_vshf_d()
+    - signature: __msa_vshf_h()
+    - signature: __msa_vshf_w()
+    - signature: __msa_xor_v()
+    - signature: __msa_xori_b()
+    - signature: break_()
+    #nvptx intrinsics
+    - signature: __assert_fail()
+    - signature: _block_dim_x()
+    - signature: _block_dim_y()
+    - signature: _block_dim_z()
+    - signature: _block_idx_x()
+    - signature: _block_idx_y()
+    - signature: _block_idx_z()
+    - signature: _grid_dim_x()
+    - signature: _grid_dim_y()
+    - signature: _grid_dim_z()
+    - signature: _syncthreads()
+    - signature: _thread_idx_x()
+    - signature: _thread_idx_y()
+    - signature: _thread_idx_z()
+    - signature: free()
+    - signature: malloc()
+    - signature: trap()
+    - signature: vprintf()
+    #powerpc intrinsics
+    - signature: vec_xxpermdi()

@@ -14,10 +14,14 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
+import os
+import locale
+import time
+
 from common.json_report import JsonReport
 from common.report import Report
 from common.scanner import BaseScanner
-
+from common.checkpoint import load_checkpoints
 
 class GoScanner(BaseScanner):
     GO = 'go'
@@ -42,6 +46,19 @@ class GoScanner(BaseScanner):
         }
 
     }
+
+    checkpoints_content = {}
+
+    def load_checkpoints(self):
+        env_language = locale.getdefaultlocale()[0]
+        language = env_language if env_language is not None else 'en_US'
+        current_path = os.path.abspath(os.path.dirname(__file__))
+        check_points_yml = os.path.abspath(current_path + './../db/' + language + '/check_points.yaml')
+
+        start_time = time.time()
+        self.checkpoints_content = load_checkpoints(check_points_yml)
+        end_time = time.time()
+        print('[Go] Loading of check_points.yaml took %f seconds.' % (end_time - start_time))
 
 
 Report.SCANNER = GoScanner

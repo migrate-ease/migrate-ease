@@ -16,6 +16,8 @@ limitations under the License.
 """
 
 import re
+import os
+from ruamel.yaml import YAML
 
 
 class Checkpoint:
@@ -69,7 +71,15 @@ class Checkpoint:
 
         except BaseException:
             raise
+def load_checkpoints(file_path):
+    if not os.path.isfile(file_path):
+        raise RuntimeError('[%s] not found!' % file_path)
+    with open(file_path, 'r') as f:
+        cnt = f.read()
+        yaml = YAML(typ='rt')
+        _content = yaml.load(cnt)
 
+    return _content
 
 def init_checkpoints(checkpoints, exclude_checkpoints=None):
     _checkpoints = []

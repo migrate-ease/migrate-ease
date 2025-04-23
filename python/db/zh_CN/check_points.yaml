@@ -1,4 +1,4 @@
-# Intrinsics available on x86, x86_64, 32-bit arm, aarch64
+# 在x86、x86_64、32位ARM和AArch64上可用的内在函数。
 COMMON_INTRINSICS:
     - signature: void * __builtin_apply_args ()
     - signature: void * __builtin_apply (void (*function)(), void *arguments, size_t size)
@@ -140,9 +140,8 @@ COMMON_INTRINSICS:
     - signature: bool __sync_bool_compare_and_swap (type *ptr, type oldval, type newval, ...)
     - signature: type __sync_val_compare_and_swap (type *ptr, type oldval, type newval, ...)
 
-# Intrinsics available with gcc on aarch64.
-AARCH64_GCC_INTRINSICS:
-    # where: gcc/AArch64-Built_002din-Functions.html
+# GCC提供了一些内在函数（intrinsics）用于AArch64架构。这些内在函数可以直接访问处理器的特定功能。
+AARCH64_INTRINSICS:
     - signature: unsigned int __builtin_aarch64_get_fpcr ()
     - signature: void __builtin_aarch64_set_fpcr (unsigned int)
     - signature: unsigned int __builtin_aarch64_get_fpsr ()
@@ -151,11 +150,146 @@ AARCH64_GCC_INTRINSICS:
     - signature: void __builtin_aarch64_set_fpcr64 (unsigned long long)
     - signature: unsigned long long __builtin_aarch64_get_fpsr64 ()
     - signature: void __builtin_aarch64_set_fpsr64 (unsigned long long)
-
-# Intrinsics available on aarch64.
-AARCH64_NEON_INTRINSICS:
-    # where: https://developer.arm.com/architectures/instruction-sets/intrinsics/#f:@navigationhierarchiessimdisa=[Neon]&f:@navigationhierarchiesarchitectures=[A64]
-    # require： -mfpu=neon
+    - signature: int __builtin_arm_getwcgr0 (void)
+    - signature: void __builtin_arm_setwcgr0 (int)
+    - signature: int __builtin_arm_getwcgr1 (void)
+    - signature: void __builtin_arm_setwcgr1 (int)
+    - signature: int __builtin_arm_getwcgr2 (void)
+    - signature: void __builtin_arm_setwcgr2 (int)
+    - signature: int __builtin_arm_getwcgr3 (void)
+    - signature: void __builtin_arm_setwcgr3 (int)
+    - signature: int __builtin_arm_textrmsb (v8qi, int)
+    - signature: int __builtin_arm_textrmsh (v4hi, int)
+    - signature: int __builtin_arm_textrmsw (v2si, int)
+    - signature: int __builtin_arm_textrmub (v8qi, int)
+    - signature: int __builtin_arm_textrmuh (v4hi, int)
+    - signature: int __builtin_arm_textrmuw (v2si, int)
+    - signature: v8qi __builtin_arm_tinsrb (v8qi, int, int)
+    - signature: v4hi __builtin_arm_tinsrh (v4hi, int, int)
+    - signature: v2si __builtin_arm_tinsrw (v2si, int, int)
+    - signature: long long __builtin_arm_tmia (long long, int, int)
+    - signature: long long __builtin_arm_tmiabb (long long, int, int)
+    - signature: long long __builtin_arm_tmiabt (long long, int, int)
+    - signature: long long __builtin_arm_tmiaph (long long, int, int)
+    - signature: long long __builtin_arm_tmiatb (long long, int, int)
+    - signature: long long __builtin_arm_tmiatt (long long, int, int)
+    - signature: int __builtin_arm_tmovmskb (v8qi)
+    - signature: int __builtin_arm_tmovmskh (v4hi)
+    - signature: int __builtin_arm_tmovmskw (v2si)
+    - signature: long long __builtin_arm_waccb (v8qi)
+    - signature: long long __builtin_arm_wacch (v4hi)
+    - signature: long long __builtin_arm_waccw (v2si)
+    - signature: v8qi __builtin_arm_waddb (v8qi, v8qi)
+    - signature: v8qi __builtin_arm_waddbss (v8qi, v8qi)
+    - signature: v8qi __builtin_arm_waddbus (v8qi, v8qi)
+    - signature: v4hi __builtin_arm_waddh (v4hi, v4hi)
+    - signature: v4hi __builtin_arm_waddhss (v4hi, v4hi)
+    - signature: v4hi __builtin_arm_waddhus (v4hi, v4hi)
+    - signature: v2si __builtin_arm_waddw (v2si, v2si)
+    - signature: v2si __builtin_arm_waddwss (v2si, v2si)
+    - signature: v2si __builtin_arm_waddwus (v2si, v2si)
+    - signature: v8qi __builtin_arm_walign (v8qi, v8qi, int)
+    - signature: long long __builtin_arm_wand(long long, long long)
+    - signature: long long __builtin_arm_wandn (long long, long long)
+    - signature: v8qi __builtin_arm_wavg2b (v8qi, v8qi)
+    - signature: v8qi __builtin_arm_wavg2br (v8qi, v8qi)
+    - signature: v4hi __builtin_arm_wavg2h (v4hi, v4hi)
+    - signature: v4hi __builtin_arm_wavg2hr (v4hi, v4hi)
+    - signature: v8qi __builtin_arm_wcmpeqb (v8qi, v8qi)
+    - signature: v4hi __builtin_arm_wcmpeqh (v4hi, v4hi)
+    - signature: v2si __builtin_arm_wcmpeqw (v2si, v2si)
+    - signature: v8qi __builtin_arm_wcmpgtsb (v8qi, v8qi)
+    - signature: v4hi __builtin_arm_wcmpgtsh (v4hi, v4hi)
+    - signature: v2si __builtin_arm_wcmpgtsw (v2si, v2si)
+    - signature: v8qi __builtin_arm_wcmpgtub (v8qi, v8qi)
+    - signature: v4hi __builtin_arm_wcmpgtuh (v4hi, v4hi)
+    - signature: v2si __builtin_arm_wcmpgtuw (v2si, v2si)
+    - signature: long long __builtin_arm_wmacs (long long, v4hi, v4hi)
+    - signature: long long __builtin_arm_wmacsz (v4hi, v4hi)
+    - signature: long long __builtin_arm_wmacu (long long, v4hi, v4hi)
+    - signature: long long __builtin_arm_wmacuz (v4hi, v4hi)
+    - signature: v4hi __builtin_arm_wmadds (v4hi, v4hi)
+    - signature: v4hi __builtin_arm_wmaddu (v4hi, v4hi)
+    - signature: v8qi __builtin_arm_wmaxsb (v8qi, v8qi)
+    - signature: v4hi __builtin_arm_wmaxsh (v4hi, v4hi)
+    - signature: v2si __builtin_arm_wmaxsw (v2si, v2si)
+    - signature: v8qi __builtin_arm_wmaxub (v8qi, v8qi)
+    - signature: v4hi __builtin_arm_wmaxuh (v4hi, v4hi)
+    - signature: v2si __builtin_arm_wmaxuw (v2si, v2si)
+    - signature: v8qi __builtin_arm_wminsb (v8qi, v8qi)
+    - signature: v4hi __builtin_arm_wminsh (v4hi, v4hi)
+    - signature: v2si __builtin_arm_wminsw (v2si, v2si)
+    - signature: v8qi __builtin_arm_wminub (v8qi, v8qi)
+    - signature: v4hi __builtin_arm_wminuh (v4hi, v4hi)
+    - signature: v2si __builtin_arm_wminuw (v2si, v2si)
+    - signature: v4hi __builtin_arm_wmulsm (v4hi, v4hi)
+    - signature: v4hi __builtin_arm_wmulul (v4hi, v4hi)
+    - signature: v4hi __builtin_arm_wmulum (v4hi, v4hi)
+    - signature: long long __builtin_arm_wor (long long, long long)
+    - signature: v2si __builtin_arm_wpackdss (long long, long long)
+    - signature: v2si __builtin_arm_wpackdus (long long, long long)
+    - signature: v8qi __builtin_arm_wpackhss (v4hi, v4hi)
+    - signature: v8qi __builtin_arm_wpackhus (v4hi, v4hi)
+    - signature: v4hi __builtin_arm_wpackwss (v2si, v2si)
+    - signature: v4hi __builtin_arm_wpackwus (v2si, v2si)
+    - signature: long long __builtin_arm_wrord (long long, long long)
+    - signature: long long __builtin_arm_wrordi (long long, int)
+    - signature: v4hi __builtin_arm_wrorh (v4hi, long long)
+    - signature: v4hi __builtin_arm_wrorhi (v4hi, int)
+    - signature: v2si __builtin_arm_wrorw (v2si, long long)
+    - signature: v2si __builtin_arm_wrorwi (v2si, int)
+    - signature: v2si __builtin_arm_wsadb (v2si, v8qi, v8qi)
+    - signature: v2si __builtin_arm_wsadbz (v8qi, v8qi)
+    - signature: v2si __builtin_arm_wsadh (v2si, v4hi, v4hi)
+    - signature: v2si __builtin_arm_wsadhz (v4hi, v4hi)
+    - signature: v4hi __builtin_arm_wshufh (v4hi, int)
+    - signature: long long __builtin_arm_wslld (long long, long long)
+    - signature: long long __builtin_arm_wslldi (long long, int)
+    - signature: v4hi __builtin_arm_wsllh (v4hi, long long)
+    - signature: v4hi __builtin_arm_wsllhi (v4hi, int)
+    - signature: v2si __builtin_arm_wsllw (v2si, long long)
+    - signature: v2si __builtin_arm_wsllwi (v2si, int)
+    - signature: long long __builtin_arm_wsrad (long long, long long)
+    - signature: long long __builtin_arm_wsradi (long long, int)
+    - signature: v4hi __builtin_arm_wsrah (v4hi, long long)
+    - signature: v4hi __builtin_arm_wsrahi (v4hi, int)
+    - signature: v2si __builtin_arm_wsraw (v2si, long long)
+    - signature: v2si __builtin_arm_wsrawi (v2si, int)
+    - signature: long long __builtin_arm_wsrld (long long, long long)
+    - signature: long long __builtin_arm_wsrldi (long long, int)
+    - signature: v4hi __builtin_arm_wsrlh (v4hi, long long)
+    - signature: v4hi __builtin_arm_wsrlhi (v4hi, int)
+    - signature: v2si __builtin_arm_wsrlw (v2si, long long)
+    - signature: v2si __builtin_arm_wsrlwi (v2si, int)
+    - signature: v8qi __builtin_arm_wsubb (v8qi, v8qi)
+    - signature: v8qi __builtin_arm_wsubbss (v8qi, v8qi)
+    - signature: v8qi __builtin_arm_wsubbus (v8qi, v8qi)
+    - signature: v4hi __builtin_arm_wsubh (v4hi, v4hi)
+    - signature: v4hi __builtin_arm_wsubhss (v4hi, v4hi)
+    - signature: v4hi __builtin_arm_wsubhus (v4hi, v4hi)
+    - signature: v2si __builtin_arm_wsubw (v2si, v2si)
+    - signature: v2si __builtin_arm_wsubwss (v2si, v2si)
+    - signature: v2si __builtin_arm_wsubwus (v2si, v2si)
+    - signature: v4hi __builtin_arm_wunpckehsb (v8qi)
+    - signature: v2si __builtin_arm_wunpckehsh (v4hi)
+    - signature: long long __builtin_arm_wunpckehsw (v2si)
+    - signature: v4hi __builtin_arm_wunpckehub (v8qi)
+    - signature: v2si __builtin_arm_wunpckehuh (v4hi)
+    - signature: long long __builtin_arm_wunpckehuw (v2si)
+    - signature: v4hi __builtin_arm_wunpckelsb (v8qi)
+    - signature: v2si __builtin_arm_wunpckelsh (v4hi)
+    - signature: long long __builtin_arm_wunpckelsw (v2si)
+    - signature: v4hi __builtin_arm_wunpckelub (v8qi)
+    - signature: v2si __builtin_arm_wunpckeluh (v4hi)
+    - signature: long long __builtin_arm_wunpckeluw (v2si)
+    - signature: v8qi __builtin_arm_wunpckihb (v8qi, v8qi)
+    - signature: v4hi __builtin_arm_wunpckihh (v4hi, v4hi)
+    - signature: v2si __builtin_arm_wunpckihw (v2si, v2si)
+    - signature: v8qi __builtin_arm_wunpckilb (v8qi, v8qi)
+    - signature: v4hi __builtin_arm_wunpckilh (v4hi, v4hi)
+    - signature: v2si __builtin_arm_wunpckilw (v2si, v2si)
+    - signature: long long __builtin_arm_wxor (long long, long long)
+    - signature: long long __builtin_arm_wzero ()
     - signature: uint32x2_t vadd_u32 (uint32x2_t, uint32x2_t)
       help: |+
           built-in intrinsics for the ARM Advanced SIMD extension are available when the -mfpu=neon switch is used
@@ -2042,163 +2176,6 @@ AARCH64_NEON_INTRINSICS:
     - signature: uint32x4_t vreinterpretq_u32_f32 (float32x4_t)
     - signature: uint32x4_t vreinterpretq_u32_p16 (poly16x8_t)
     - signature: uint32x4_t vreinterpretq_u32_p8 (poly8x16_t)
-    - pattern: (?:\s|^)v\w+_[bfsu](?:8|16|32|64)\W
-
-# SVE intrinsics avalivable on aarch64.
-AARCH64_SVE_INTRINSICS:
-    - pattern: (?:\s|^)sv\w+_[bfsu](?:8|16|32|64)\W
-    - pattern: (?:\s|^)svu?int(?:32|64)_t\W
-    - pattern: (?:\s|^)svfloat(?:32|64)_t\W
-    - pattern: (?:\s|^)svbool_t\W
-
-# Intrinsics available on 32-bit arm.
-ARM_INTRINSICS:
-    # where: gcc/ARM-iWMMXt-Built_002din-Functions.html
-    # require -mcpu=iwmmxt
-    - signature: int __builtin_arm_getwcgr0 (void)
-    - signature: void __builtin_arm_setwcgr0 (int)
-    - signature: int __builtin_arm_getwcgr1 (void)
-    - signature: void __builtin_arm_setwcgr1 (int)
-    - signature: int __builtin_arm_getwcgr2 (void)
-    - signature: void __builtin_arm_setwcgr2 (int)
-    - signature: int __builtin_arm_getwcgr3 (void)
-    - signature: void __builtin_arm_setwcgr3 (int)
-    - signature: int __builtin_arm_textrmsb (v8qi, int)
-    - signature: int __builtin_arm_textrmsh (v4hi, int)
-    - signature: int __builtin_arm_textrmsw (v2si, int)
-    - signature: int __builtin_arm_textrmub (v8qi, int)
-    - signature: int __builtin_arm_textrmuh (v4hi, int)
-    - signature: int __builtin_arm_textrmuw (v2si, int)
-    - signature: v8qi __builtin_arm_tinsrb (v8qi, int, int)
-    - signature: v4hi __builtin_arm_tinsrh (v4hi, int, int)
-    - signature: v2si __builtin_arm_tinsrw (v2si, int, int)
-    - signature: long long __builtin_arm_tmia (long long, int, int)
-    - signature: long long __builtin_arm_tmiabb (long long, int, int)
-    - signature: long long __builtin_arm_tmiabt (long long, int, int)
-    - signature: long long __builtin_arm_tmiaph (long long, int, int)
-    - signature: long long __builtin_arm_tmiatb (long long, int, int)
-    - signature: long long __builtin_arm_tmiatt (long long, int, int)
-    - signature: int __builtin_arm_tmovmskb (v8qi)
-    - signature: int __builtin_arm_tmovmskh (v4hi)
-    - signature: int __builtin_arm_tmovmskw (v2si)
-    - signature: long long __builtin_arm_waccb (v8qi)
-    - signature: long long __builtin_arm_wacch (v4hi)
-    - signature: long long __builtin_arm_waccw (v2si)
-    - signature: v8qi __builtin_arm_waddb (v8qi, v8qi)
-    - signature: v8qi __builtin_arm_waddbss (v8qi, v8qi)
-    - signature: v8qi __builtin_arm_waddbus (v8qi, v8qi)
-    - signature: v4hi __builtin_arm_waddh (v4hi, v4hi)
-    - signature: v4hi __builtin_arm_waddhss (v4hi, v4hi)
-    - signature: v4hi __builtin_arm_waddhus (v4hi, v4hi)
-    - signature: v2si __builtin_arm_waddw (v2si, v2si)
-    - signature: v2si __builtin_arm_waddwss (v2si, v2si)
-    - signature: v2si __builtin_arm_waddwus (v2si, v2si)
-    - signature: v8qi __builtin_arm_walign (v8qi, v8qi, int)
-    - signature: long long __builtin_arm_wand(long long, long long)
-    - signature: long long __builtin_arm_wandn (long long, long long)
-    - signature: v8qi __builtin_arm_wavg2b (v8qi, v8qi)
-    - signature: v8qi __builtin_arm_wavg2br (v8qi, v8qi)
-    - signature: v4hi __builtin_arm_wavg2h (v4hi, v4hi)
-    - signature: v4hi __builtin_arm_wavg2hr (v4hi, v4hi)
-    - signature: v8qi __builtin_arm_wcmpeqb (v8qi, v8qi)
-    - signature: v4hi __builtin_arm_wcmpeqh (v4hi, v4hi)
-    - signature: v2si __builtin_arm_wcmpeqw (v2si, v2si)
-    - signature: v8qi __builtin_arm_wcmpgtsb (v8qi, v8qi)
-    - signature: v4hi __builtin_arm_wcmpgtsh (v4hi, v4hi)
-    - signature: v2si __builtin_arm_wcmpgtsw (v2si, v2si)
-    - signature: v8qi __builtin_arm_wcmpgtub (v8qi, v8qi)
-    - signature: v4hi __builtin_arm_wcmpgtuh (v4hi, v4hi)
-    - signature: v2si __builtin_arm_wcmpgtuw (v2si, v2si)
-    - signature: long long __builtin_arm_wmacs (long long, v4hi, v4hi)
-    - signature: long long __builtin_arm_wmacsz (v4hi, v4hi)
-    - signature: long long __builtin_arm_wmacu (long long, v4hi, v4hi)
-    - signature: long long __builtin_arm_wmacuz (v4hi, v4hi)
-    - signature: v4hi __builtin_arm_wmadds (v4hi, v4hi)
-    - signature: v4hi __builtin_arm_wmaddu (v4hi, v4hi)
-    - signature: v8qi __builtin_arm_wmaxsb (v8qi, v8qi)
-    - signature: v4hi __builtin_arm_wmaxsh (v4hi, v4hi)
-    - signature: v2si __builtin_arm_wmaxsw (v2si, v2si)
-    - signature: v8qi __builtin_arm_wmaxub (v8qi, v8qi)
-    - signature: v4hi __builtin_arm_wmaxuh (v4hi, v4hi)
-    - signature: v2si __builtin_arm_wmaxuw (v2si, v2si)
-    - signature: v8qi __builtin_arm_wminsb (v8qi, v8qi)
-    - signature: v4hi __builtin_arm_wminsh (v4hi, v4hi)
-    - signature: v2si __builtin_arm_wminsw (v2si, v2si)
-    - signature: v8qi __builtin_arm_wminub (v8qi, v8qi)
-    - signature: v4hi __builtin_arm_wminuh (v4hi, v4hi)
-    - signature: v2si __builtin_arm_wminuw (v2si, v2si)
-    - signature: v4hi __builtin_arm_wmulsm (v4hi, v4hi)
-    - signature: v4hi __builtin_arm_wmulul (v4hi, v4hi)
-    - signature: v4hi __builtin_arm_wmulum (v4hi, v4hi)
-    - signature: long long __builtin_arm_wor (long long, long long)
-    - signature: v2si __builtin_arm_wpackdss (long long, long long)
-    - signature: v2si __builtin_arm_wpackdus (long long, long long)
-    - signature: v8qi __builtin_arm_wpackhss (v4hi, v4hi)
-    - signature: v8qi __builtin_arm_wpackhus (v4hi, v4hi)
-    - signature: v4hi __builtin_arm_wpackwss (v2si, v2si)
-    - signature: v4hi __builtin_arm_wpackwus (v2si, v2si)
-    - signature: long long __builtin_arm_wrord (long long, long long)
-    - signature: long long __builtin_arm_wrordi (long long, int)
-    - signature: v4hi __builtin_arm_wrorh (v4hi, long long)
-    - signature: v4hi __builtin_arm_wrorhi (v4hi, int)
-    - signature: v2si __builtin_arm_wrorw (v2si, long long)
-    - signature: v2si __builtin_arm_wrorwi (v2si, int)
-    - signature: v2si __builtin_arm_wsadb (v2si, v8qi, v8qi)
-    - signature: v2si __builtin_arm_wsadbz (v8qi, v8qi)
-    - signature: v2si __builtin_arm_wsadh (v2si, v4hi, v4hi)
-    - signature: v2si __builtin_arm_wsadhz (v4hi, v4hi)
-    - signature: v4hi __builtin_arm_wshufh (v4hi, int)
-    - signature: long long __builtin_arm_wslld (long long, long long)
-    - signature: long long __builtin_arm_wslldi (long long, int)
-    - signature: v4hi __builtin_arm_wsllh (v4hi, long long)
-    - signature: v4hi __builtin_arm_wsllhi (v4hi, int)
-    - signature: v2si __builtin_arm_wsllw (v2si, long long)
-    - signature: v2si __builtin_arm_wsllwi (v2si, int)
-    - signature: long long __builtin_arm_wsrad (long long, long long)
-    - signature: long long __builtin_arm_wsradi (long long, int)
-    - signature: v4hi __builtin_arm_wsrah (v4hi, long long)
-    - signature: v4hi __builtin_arm_wsrahi (v4hi, int)
-    - signature: v2si __builtin_arm_wsraw (v2si, long long)
-    - signature: v2si __builtin_arm_wsrawi (v2si, int)
-    - signature: long long __builtin_arm_wsrld (long long, long long)
-    - signature: long long __builtin_arm_wsrldi (long long, int)
-    - signature: v4hi __builtin_arm_wsrlh (v4hi, long long)
-    - signature: v4hi __builtin_arm_wsrlhi (v4hi, int)
-    - signature: v2si __builtin_arm_wsrlw (v2si, long long)
-    - signature: v2si __builtin_arm_wsrlwi (v2si, int)
-    - signature: v8qi __builtin_arm_wsubb (v8qi, v8qi)
-    - signature: v8qi __builtin_arm_wsubbss (v8qi, v8qi)
-    - signature: v8qi __builtin_arm_wsubbus (v8qi, v8qi)
-    - signature: v4hi __builtin_arm_wsubh (v4hi, v4hi)
-    - signature: v4hi __builtin_arm_wsubhss (v4hi, v4hi)
-    - signature: v4hi __builtin_arm_wsubhus (v4hi, v4hi)
-    - signature: v2si __builtin_arm_wsubw (v2si, v2si)
-    - signature: v2si __builtin_arm_wsubwss (v2si, v2si)
-    - signature: v2si __builtin_arm_wsubwus (v2si, v2si)
-    - signature: v4hi __builtin_arm_wunpckehsb (v8qi)
-    - signature: v2si __builtin_arm_wunpckehsh (v4hi)
-    - signature: long long __builtin_arm_wunpckehsw (v2si)
-    - signature: v4hi __builtin_arm_wunpckehub (v8qi)
-    - signature: v2si __builtin_arm_wunpckehuh (v4hi)
-    - signature: long long __builtin_arm_wunpckehuw (v2si)
-    - signature: v4hi __builtin_arm_wunpckelsb (v8qi)
-    - signature: v2si __builtin_arm_wunpckelsh (v4hi)
-    - signature: long long __builtin_arm_wunpckelsw (v2si)
-    - signature: v4hi __builtin_arm_wunpckelub (v8qi)
-    - signature: v2si __builtin_arm_wunpckeluh (v4hi)
-    - signature: long long __builtin_arm_wunpckeluw (v2si)
-    - signature: v8qi __builtin_arm_wunpckihb (v8qi, v8qi)
-    - signature: v4hi __builtin_arm_wunpckihh (v4hi, v4hi)
-    - signature: v2si __builtin_arm_wunpckihw (v2si, v2si)
-    - signature: v8qi __builtin_arm_wunpckilb (v8qi, v8qi)
-    - signature: v4hi __builtin_arm_wunpckilh (v4hi, v4hi)
-    - signature: v2si __builtin_arm_wunpckilw (v2si, v2si)
-    - signature: long long __builtin_arm_wxor (long long, long long)
-    - signature: long long __builtin_arm_wzero ()
-
-# Intrinsics available with MSVC on 32-bit arm.
-ARM_MSVC_INTRINSICS:
-    # where: https://learn.microsoft.com/en-us/cpp/intrinsics/arm-intrinsics?source=recommendations&view=msvc-170 MSVC？
     - signature: __int64 _arm_smlal(__int64 _RdHiLo, int _Rn, int _Rm)
     - signature: unsigned __int64 _arm_umlal(unsigned __int64 _RdHiLo, unsigned int _Rn, unsigned int _Rm)
     - signature: unsigned int _arm_clz(unsigned int _Rm)
@@ -2361,10 +2338,7 @@ ARM_MSVC_INTRINSICS:
     - signature: int _SubSatInt(int, int)
     - signature: void _WriteBankedReg(int _Value, int _Reg)
     - signature: void _WriteStatusReg(int, int, int)
-
-# Intrinsics available with MSVC on aarch64.
-AARCH64_MSVC_INTRINSICS:
-    # where: https://learn.microsoft.com/en-us/cpp/intrinsics/arm64-intrinsics?view=msvc-170
+    # Begin of ARM Support for Intrinsics from Other Architectures
     - signature: void __assume(int)
     - signature: void __code_seg(const char *)
     - signature: void __cdecl __debugbreak(void)
@@ -2401,6 +2375,7 @@ AARCH64_MSVC_INTRINSICS:
     - signature: unsigned char _rotr8(unsigned char _Value, unsigned char _Shift)
     - signature: int __cdecl _setjmpex(jmp_buf)
     - signature: void _WriteBarrier(void)
+    # End of ARM Support for Intrinsics from Other Architectures
     - signature: long _InterlockedAdd(long _volatile*, long)
     - signature: __int64 _InterlockedAdd64(__int64 volatile*, __int64)
     - signature: __int64 _InterlockedAdd64_acq(__int64 volatile*, __int64)
@@ -2540,6 +2515,11 @@ AARCH64_MSVC_INTRINSICS:
     - signature: unsigned char _interlockedbittestandset_acq(long volatile*, long)
     - signature: unsigned char _interlockedbittestandset_nf(long volatile*, long)
     - signature: unsigned char _interlockedbittestandset_rel(long volatile*, long)
+    - pattern: (?:\s|^)v\w+_[bfsu](?:8|16|32|64)\W
+    - pattern: (?:\s|^)sv\w+_[bfsu](?:8|16|32|64)\W
+    - pattern: (?:\s|^)svu?int(?:32|64)_t\W
+    - pattern: (?:\s|^)svfloat(?:32|64)_t\W
+    - pattern: (?:\s|^)svbool_t\W
     - pattern: (?:\s|^)_arm_\w+
     - pattern: (?:\s|^)_ARM_BARRIER_SY\W
     - pattern: (?:\s|^)_ARM_BARRIER_ST\W
@@ -2558,6 +2538,28 @@ AARCH64_COMPILER_OPTION_CHECKPOINTS:
           解决方法:
 
             将 ARM64 平台对应的编译选项设置为 "-mabi=lp64".
+
+          详细指导请参考: https://gcc.gnu.org/onlinedocs/gcc/AArch64-Options.html；https://gcc.gnu.org/onlinedocs/gcc/x86-Options.html
+
+    - pattern: .*[= "]+-march=.*
+      help: |+
+          Makefile 中包含 "-march" 与 -mtune 编译参数, 提示参数不兼容.
+
+          解决方法:
+
+            兼容的调整后参数为:
+
+            -march=armv8.1-a -tune=cortex-a72
+
+          参数设置指导请参考:https://gcc.gnu.org/onlinedocs/gcc/ARM-Options.html；https://gcc.gnu.org/onlinedocs/gcc/AArch64-Options.html；https://gcc.gnu.org/onlinedocs/gcc/x86-Options.html
+
+    - pattern: .*[= "]+-mtune=.*
+      help: |+
+          如果使用了 gcc 9.1 以上的版本, 在编译时增加编译选项指定使用目标处理器流水线, 使编译器按照目标处理器的流水线编排指令执行顺序, 充分利用流水线的指令集并行, 提升性能.
+
+          解决方法:
+
+            编译选项中添加 "-mtune=neoverse-n2".
 
           详细指导请参考: https://gcc.gnu.org/onlinedocs/gcc/AArch64-Options.html；https://gcc.gnu.org/onlinedocs/gcc/x86-Options.html
 
@@ -2585,7 +2587,7 @@ AARCH64_COMPILER_OPTION_CHECKPOINTS:
       help: |+
           ARM 不支持通过 -msse2, -msse4.1 等选项开启 SSE 浮点标量相关指令集.
 
-          For the x86-32 compiler, you must use -march=cpu-type, -msse or -msse2 switches to enable SSE extensions and make this option effective. For the x86-64 compiler, these extensions are enabled by default.
+                    对于 x86-32 编译器，必须使用 -march=cpu-type、-msse 或 -msse2 选项来启用 SSE 扩展并使该选项生效。对于 x86-64 编译器，这些扩展默认启用。
 
           在编译时增加编译选项指定处理器架构为 ARMv8, 使编译器按照 ARMv8 处理器的架构和微架构生成可执行程序, 提升性能.
 
@@ -2599,11 +2601,9 @@ AARCH64_COMPILER_OPTION_CHECKPOINTS:
       help: |+
           ARM 不支持通过 -msse2, -msse4.1 等选项开启 SSE 浮点标量相关指令集.
 
-          Feature modifiers used with -march and -mcpu can be any of the following and their inverses nofeature:
-
-          crc: Enable CRC extension. This is on by default for -march=armv8.1-a.
-
-          crypto: Enable Crypto extension. This also enables Advanced SIMD and floating-point instructions.
+          使用-march和-mcpu的选项启用以下任何一个特性，也可以通过在特性前加上no来禁用这些特性。
+            crc：启用 CRC 扩展。对于 -march=armv8.1-a，这是默认启用的。
+            crypto：启用加密扩展。这也启用高级 SIMD 和浮点指令。
 
           解决方法:
 
@@ -2615,11 +2615,9 @@ AARCH64_COMPILER_OPTION_CHECKPOINTS:
       help: |+
           在 x86 上使用 -msse2, -mpclmul, -maes 开启相关扩展指令集.
 
-          Feature modifiers used with -march and -mcpu can be any of the following and their inverses no feature:
-
-          crc: Enable CRC extension. This is on by default for -march=armv8.1-a.
-
-          crypto: Enable Crypto extension. This also enables Advanced SIMD and floating-point instructions.
+          使用-march和-mcpu的选项启用以下任何一个特性，也可以通过在特性前加上no来禁用这些特性。
+            crc：启用 CRC 扩展。对于 -march=armv8.1-a，这是默认启用的。
+            crypto：启用加密扩展。这也启用高级 SIMD 和浮点指令。
 
           解决方法:
 
@@ -2632,11 +2630,9 @@ AARCH64_COMPILER_OPTION_CHECKPOINTS:
       help: |+
           在 x86 上使用 -msse2, -mpclmul, -maes 开启相关扩展指令集.
 
-          Feature modifiers used with -march and -mcpu can be any of the following and their inverses no feature:
-
-          crc: Enable CRC extension. This is on by default for -march=armv8.1-a.
-
-          crypto: Enable Crypto extension. This also enables Advanced SIMD and floating-point instructions.
+          使用-march和-mcpu的选项启用以下任何一个特性，也可以通过在特性前加上no来禁用这些特性。
+            crc：启用 CRC 扩展。对于 -march=armv8.1-a，这是默认启用的。
+            crypto：启用加密扩展。这也启用高级 SIMD 和浮点指令。
 
           解决方法:
 
@@ -2779,6 +2775,62 @@ AARCH64_INLINE_ASSEMBLY_CHECKPOINTS:
           __asm__ __volatile__("dmb ishld" : : : "memory");
           __asm__ __volatile__("dmb ish" : : : "memory");
 
+    - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+[_]*goto[_]*)?(\s*//.*)?\s*\(.*crc32b
+      help: |+
+          CRC32 系列指令主要用于计算字符串的32位 CRC 校验码, 输入待计算的字符串, 输出 32 位 CRC 多项式校验码.使用 CRC32 指令的方式有2种:一种是直接使用（内联）汇编代码；另一种是借助编译器 intrinsics.
+
+          现象描述: 在 ARM 上可能出现的编译错误: unknown mnemonic 'crc32q' -- 'crc32q (x3),x2' 或 operand1should be an integer register -- 'crc32b (x1),x0' 或 unrecognized command line option '-msse4.2'.
+
+          可能原因: x86 使用的是 crc32b 和 crc32q 汇编指令完成 CRC32C 校验值计算功能, 而 Arm64 平台用 crc32cb, crc32ch, crc32cw, crc32cx 4 个汇编指令完成 CRC32C 校验值计算功能.
+
+          修改方案: 请使用 crc32cb, crc32ch, crc32cw, crc32cx 取代 x86 的 CRC32 系列汇编指令, 并在编译时添加编译参数 '-mcpu=generic+crc'.
+
+          x86 上示例代码:
+          ---
+          static inline uint32_t SSE4_crc32_u8(uint32_t crc, uint8_t v)
+          {
+              __asm__("crc32b %1, %0" : "+r"(crc) : "rm"(v));
+              return crc;
+          }
+
+          ARM 上对应的修改示例:
+          ---
+          static inline uint32_t SSE4_crc32_u8(uint32_t crc, uint8_t value)
+          {
+              __asm__ __volatile__("crc32cb %w[c], %w[c], %w[v]":[c]"+r"(crc):[v]"r"(value));
+              return crc;
+          }
+
+          注意: 修改后需要增加 -march=armv8-a+crc  编译选项.
+
+    - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+[_]*goto[_]*)?(\s*//.*)?\s*\(.*crc32w
+      help: |+
+          CRC32 系列指令主要用于计算字符串的32位 CRC 校验码, 输入待计算的字符串, 输出32位 crc 多项式校验码.使用 CRC32 指令的方式有2种:一种是直接使用（内联）汇编代码；另一种是借助编译器 intrinsics.
+
+          现象描述: 在 ARM 上可能出现的编译错误: unknown mnemonic 'crc32q' -- 'crc32q (x3),x2' 或 operand1should be an integer register -- 'crc32b (x1),x0' 或 unrecognized command line option '-msse4.2'.
+
+          可能原因: x86 使用的是 crc32b 和 crc32q 汇编指令完成 CRC32C 校验值计算功能, 而 Arm64 平台用 crc32cb, crc32ch, crc32cw, crc32cx 4 个汇编指令完成 CRC32C 校验值计算功能.
+
+          修改方案: 请使用 crc32cb, crc32ch, crc32cw, crc32cx 取代 x86 的 CRC32 系列汇编指令, 并在编译时添加编译参数 '-mcpu=generic+crc'.
+
+          x86 上示例代码:
+          ---
+          static inline uint32_t SSE4_crc32_u16(uint32_t crc, uint16_t v)
+          {
+              __asm__("crc32w %1, %0" : "+r"(crc) : "rm"(v));
+              return crc;
+          }
+
+          ARM 上对应的修改示例:
+          ---
+          static inline uint32_t SSE4_crc32_u16(uint32_t crc, uint16_t value)
+          {
+              __asm__ __volatile__("crc32ch %w[c], %w[c], %w[v]":[c]"+r"(crc):[v]"r"(value));
+              return crc;
+          }
+
+          注意: 修改后需要增加 -march=armv8-a+crc 编译选项.
+
     - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+[_]*goto[_]*)?(\s*//.*)?\s*\(.*crc32l
       help: |+
           CRC32 系列指令主要用于计算字符串的32位 CRC 校验码, 输入待计算的字符串, 输出32位 crc 多项式校验码.使用 CRC32 指令的方式有2种:一种是直接使用（内联）汇编代码；另一种是借助编译器 intrinsics.
@@ -2859,7 +2911,7 @@ AARCH64_INLINE_ASSEMBLY_CHECKPOINTS:
               __asm__("rev %w[dst], %w[src]" : [dst]"=r"(val) : [src]"r"(val));
           }
 
-    - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+[_]*goto[_]*)?(\s*//.*)?\s*\(.*rep[ ;]
+    - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+[_]*goto[_]*)?(\s*//.*)?\s*\(.*rep\s
       help: |+
           现象描述: 在 ARM 上可能出现的编译错误: unknown mnemonic 'rep' -- 'rep'.
 
@@ -3325,7 +3377,7 @@ AARCH64_INLINE_ASSEMBLY_CHECKPOINTS:
           Table lookup (vector). Where <T> may be 8B or 16B, and Vn* is a list of between one and four consecutively numbered vector registers each holding sixteen 8-bit table elements. The list braces "{ }" are concrete symbols, and do not indicate an optional field as elsewhere in this manual.
           TBL Vd.<T>, {Vn*.16B}, Vm.<T>2
 
-# Intrinsics available for x86/x86-64 processors
+# x86/x86-64 处理器可用的内在函数。
 X86_INTRINSICS:
     - pattern: .*_mm_srli_epi64.*
       help: |+
@@ -5874,98 +5926,98 @@ X86_INTRINSICS:
     - pattern: _mm512(?:[0-9]+)?_\w+
       notes: AVX 512 intrinsics, keep it last for fuzzy matching.
 
-# Intel TSX (Transactional Synchronization Extensions) Instructions
+# Intel Transactional Synchronization Extensions（TSX）指令。
 X86_INTEL_TSX_INTRINSICS:
     - signature: unsigned int _xbegin(void)
       help:  |+
-        Intel TSX (Transactional Synchronization Extensions) instructions are required.
+        需要Intel Transactional Synchronization Extensions（TSX ）指令。
 
     - signature: void _xend(void)
       help:  |+
-        Intel TSX (Transactional Synchronization Extensions) instructions are required.
+        需要Intel Transactional Synchronization Extensions（TSX ）指令。
 
     - signature: void _xabort(const unsigned int)
       help:  |+
-        Intel TSX (Transactional Synchronization Extensions) instructions are required.
+        需要Intel Transactional Synchronization Extensions（TSX ）指令。
 
     - signature: unsigned char _xtest(void)
       help:  |+
-        Intel TSX (Transactional Synchronization Extensions) instructions are required.
+        需要Intel Transactional Synchronization Extensions（TSX ）指令。
 
     - pattern: _XBEGIN_STARTED
       help:  |+
-        Intel TSX (Transactional Synchronization Extensions) instructions are required.
+        需要Intel Transactional Synchronization Extensions（TSX ）指令。
 
     - pattern: _XABORT_EXPLICIT
       help:  |+
-        Intel TSX (Transactional Synchronization Extensions) instructions are required.
+        需要Intel Transactional Synchronization Extensions（TSX ）指令。
 
     - pattern: _XABORT_RETRY
       help:  |+
-        Intel TSX (Transactional Synchronization Extensions) instructions are required.
+        需要Intel Transactional Synchronization Extensions（TSX ）指令。
 
     - pattern: _XABORT_CONFLICT
       help:  |+
-        Intel TSX (Transactional Synchronization Extensions) instructions are required.
+        需要Intel Transactional Synchronization Extensions（TSX ）指令。
 
     - pattern: _XABORT_CAPACITY
       help:  |+
-        Intel TSX (Transactional Synchronization Extensions) instructions are required.
+        需要Intel Transactional Synchronization Extensions（TSX ）指令。
 
     - pattern: _XABORT_DEBUG
       help:  |+
-        Intel TSX (Transactional Synchronization Extensions) instructions are required.
+        需要Intel Transactional Synchronization Extensions（TSX ）指令。
 
     - pattern: _XABORT_NESTED
       help:  |+
-        Intel TSX (Transactional Synchronization Extensions) instructions are required.
+        需要Intel Transactional Synchronization Extensions（TSX ）指令。
 
-# Intel Memory Protection Extensions (MPX) Instructions
+# Intel Memory Protection Extensions（MPX）指令。
 X86_INTEL_MPX_INTRINSICS:
     - signature: __declspec(mpx)
       help:  |+
-        Intel MPX (Memory Protection Extensions) instructions are required.
+        需要Intel Memory Protection Extensions（MPX）指令。
 
-# Intel Software Guard Extensions (SGX) Instructions
+# Intel Software Guard Extensions（SGX）指令。
 X86_INTEL_SGX_INTRINSICS:
     - signature: long sgx_ioc_enclave_create(struct sgx_encl *encl, void __user *arg)
       help:  |+
-        Intel SGX (Software Guard Extensions) instructions are required.
+        需要Intel Software Guard Extensions（SGX）指令。
 
     - signature: long sgx_ioc_enclave_add_pages(struct sgx_encl *encl, void __user *arg)
       help:  |+
-        Intel SGX (Software Guard Extensions) instructions are required.
+        需要Intel Software Guard Extensions（SGX）指令。
 
     - signature: long sgx_ioc_enclave_init(struct sgx_encl *encl, void __user *arg)
       help:  |+
-        Intel SGX (Software Guard Extensions) instructions are required.
+        需要Intel Software Guard Extensions（SGX）指令。
 
     - signature: long sgx_ioc_enclave_provision(struct sgx_encl *encl, void __user *arg)
       help:  |+
-        Intel SGX (Software Guard Extensions) instructions are required.
+        需要Intel Software Guard Extensions（SGX）指令。
 
     - signature: vdso_sgx_enter_enclave_t()
       notes: typedef for 'int vdso_sgx_enter_enclave_t (unsigned long rdi, unsigned long rsi, unsigned long rdx, unsigned int function, unsigned long r8, unsigned long r9, struct sgx_enclave_run *run)'
       help:  |+
-        Intel SGX (Software Guard Extensions) instructions are required.
+        需要Intel Software Guard Extensions（SGX）指令。
 
-# Intel Transactional Synchronization Extensions (TSX) Instructions
+# Intel Transactional Synchronization Extensions（TSX）指令。
 x86_INTEL_TSX_INLINE_ASSEMBLY:
-    - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?(\s*//.*)?\(.*(XACQUIRE|XRELEASE|XBEGIN|XEND|XABORT|XTEST)
+    - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(XACQUIRE|XRELEASE|XBEGIN|XEND|XABORT|XTEST)
       help: |+
-        Intel TSX (Transactional Synchronization Extensions) instructions are required.
+        需要Intel Transactional Synchronization Extensions（TSX ）指令。
 
-# Intel Memory Protection Extensions (MPX) Instructions
+# Intel Memory Protection Extensions（MPX）指令。
 x86_INTEL_MPX_INLINE_ASSEMBLY:
     - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(BNDMK|BNDCL|BNDCU|BNDCN|BNDMOV|BNDLDX|BNDSTX)
       help: |+
-        Intel MPX (Memory Protection Extensions) instructions are required.
+        需要Intel Memory Protection Extensions（MPX）指令。
 
-# Intel Software Guard Extensions (SGX) Instructions
+# Intel Software Guard Extensions（SGX）指令。
 x86_INTEL_SGX_INLINE_ASSEMBLY:
     - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(ENCLS|ENCLU|ENCLV)
       help: |+
-        Intel SGX (Software Guard Extensions) instructions are required.
+        需要Intel Software Guard Extensions（SGX）指令。
 
 # Intel Safer Mode Extensions (SMX) Instructions
 x86_INTEL_SMX_INLINE_ASSEMBLY:
@@ -5979,543 +6031,543 @@ x86_INTEL_VMX_INLINE_ASSEMBLY:
       help: |+
         Intel VMX (Virtual-Machine Extensions) instructions are required.
 
-# Intel Advanced Vector Extensions 512 (AVX-512) Instructions
+# Intel Advanced Vector Extensions 512（AVX-512）指令。
 x86_INTEL_AVX512_INLINE_ASSEMBLY:
     - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(KADD(B|D|Q|W))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VBROADCAST(I|F)(32|64)X(2|4|8))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(KAND(B|D|NB|ND|NQ))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(KMOV(B|D|Q))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(KNOT(B|D|Q))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(KOR(B|D|Q))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(KORTEST(B|D|Q))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(KSHIFTL(B|D|Q))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(KSHIFTR(B|D|Q))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(KTEST(B|D|Q|W))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(KUNPCK(DQ|WD))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(KXNOR(B|D|Q))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(KXOR(B|D|Q))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VADDP(D|S))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VALIGN(D|Q))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VANDNP(D|S))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VANDP(D|S))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VBLENDMP(D|S))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VBROADCASTSS)
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VCMPP(D|S))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VCOMPRESSP(D|S))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VCVTDQ2P(D|S))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VCVTPD2(DQ|PS|QQ|UDQ|UQQ))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VCVTPH2(DQ|PS|PD||PH|QQ|UDQ|UQQ))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VCVTQQ2P(D|S))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VCVTTPD2(DQ|QQ|UDQ|UQQ))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VCVTTPS2(DQ|QQ|UDQ|UQQ))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VCVTUDQ2P(D|S))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VCVTUQQ2P(D|S))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VDBPSADBW)
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VDIVP(D|S))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VEXP2P(D|S))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VEXPANDP(D|S))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VEXTRACT(F|I)(32|64)X(2|4))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VFIXUPIMMP(D|S))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VFMADD132P(D|S))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VFMADD213P(D|S))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VFMADD231P(D|S))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VFMADDSUB132P(D|S))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VFMADDSUB213P(D|S))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VFMADDSUB231P(D|S))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VFMSUB132P(D|S))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VFMSUB213P(D|S))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VFMSUB231P(D|S))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VFMSUBADD132P(D|S))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VFMSUBADD213P(D|S))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VFMSUBADD231P(D|S))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VFNMADD132P(D|S))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VFNMADD213P(D|S))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VFNMADD231P(D|S))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VFNMSUB132P(D|S))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VFNMSUB213P(D|S))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VFNMSUB231P(D|S))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VFPCLASSP(D|S))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VFPCLASSS(D|S))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VGATHERDP(D|S))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VGATHERPF0DP(D|S))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VGATHERPF0QP(D|S))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VGATHERPF1DP(D|S))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VGATHERPF1QP(D|S))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VGATHERQP(D|S))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VGETEXPP(D|S))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VGETMANTP(D|S))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VINSERT(I|F)32X(4|8))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VINSERT(I|F)64X2)
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VMAXP(D|S))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VMINP(D|S))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VMOVAP(D|S))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VMOVDDUP)
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VMOVDQ(A32|A64|U8|U16|U32|U64))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VMOVNT(DQ|DQA|PD|PS))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VMOVS(H|L)DUP)
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VMOVUP(D|S))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VMULP(D|S))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VORP(D|S))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VPABS(B|D|Q|W))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VPACK(S|U)(SDW|SWB))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VPADD(B|D|Q|SB|SW|USB|USW|W))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VPALIGNR)
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VPAND(D|ND|NQ|Q))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VPAVG(B|W))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VPBLENDM(B|D|Q|W))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VPBROADCAST(B|D|Q|W|MB2Q|MW2D))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VPCMP(B|D|EQQ|GTB|GTD|GTQ|GTW|Q|UB|UD|UQ|UW|W))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VPCOMPRESS(D|Q))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VPCONFLICT(D|Q))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VPERMD)
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VPERMI(2B|2D|2PD|2PS|2Q|2W|LPD|LPS))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VPERMP(D|S))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VPERMQ)
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VPERMT2(B|D|PD|PS|Q|W))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VPERMW)
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VPEXPAND(D|Q))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VPEXTR(B|D))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VPGATHER(DD|DQ|QD|QQ))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VPINSR(B|D|Q|W))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VPLZCNT(D|Q))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VPMADD52(H|L)UQ)
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VPMADD(UBSW|WD))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VPMAX(S|U)(B|D|Q|W))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VPMIN(S|U)(B|D|Q|W))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VPMOV(B2M|D2M|DB|DW|M2B|M2D|M2Q|M2W|Q2M|QB|QD|QW))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VPMOV(S|US)(DB|DW|QB|QD|QW|WB))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VPMOVSX(BD|BQ|BW|DQ|WD|WQ))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VPMOVZX(BD|BQ|BW|DQ|WD|WQ))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VPMOV(W2M|WB))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VPMUL(DQ|HRSW|HUW|HW|LD|LQ|LW|TISHIFTQB|UDQ))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VPOR(D|Q))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VPROL(D|Q))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VPROLV(D|Q))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VPROR(D|Q))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VPRORV(D|Q))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VPSADBW)
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VPSCATTER(DD|DQ|QD|QQ))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VPSHUF(B|D|HW|LW))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VPSLL(D|DQ|Q|VD|VQ|VW|W))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VPSRA(D|Q|VD|VQ|VW|W))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VPSRL(D|DQ|Q|VD|VQ|VW|W))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VPSUB(B|D|Q|SB|SW|USB|USW|W))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VPTERNLOG(D|Q))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VPTESTM(B|D|Q|W))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VPTESTNM(B|D|Q|W))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VPUNPCK(H|L)(BW|DQ|QDQ|WD))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VPXOR(D|Q))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VRANGE(PD|PS|SD|SS))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VRCP14P(D|S))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VRCP28(PD|PS|SD|SS))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VREDUCE(PD|PS|SS))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VRNDSCALEP(D|S))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VRSQRT14P(D|S))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VSCALEFP(D|S))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VSCATTERD(PD|PS))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VSCATTERPF(0|1)(DPD|DPS|QPD|QPS))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VSCATTERQP(D|S))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VSHUFF(32|64)X(2|4))
       help: |+
@@ -6523,62 +6575,58 @@ x86_INTEL_AVX512_INLINE_ASSEMBLY:
 
     - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VSHUFI(32|64)X(2|4))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VSHUFP(D|S))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VSQRTP(D|S))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VSUBP(D|S))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VUNPCKHP(D|S))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VUNPCKLP(D|S))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
     - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VXORP(D|S))
       help: |+
-        Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+        需要Intel Advanced Vector Extensions 512（AVX-512）指令。
 
-# Intel INVPCID Instructions
+# Intel Invalidate Process-Context Identifier（INVPCID）指令。
 x86_INTEL_INVPCID_INLINE_ASSEMBLY:
     - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(INVPCID)
 
-# AMD64 TBM (Trailing Bit Manipulation) Instructions
+# AMD64 Trailing Bit Manipulation（TBM）指令。
 # NOTE: No Intel processors (at least through Coffee Lake) support TBM.
 x86_AMD_TBM_INLINE_ASSEMBLY:
     - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(BEXTR|BLCFILL|BLCI|BLCIC|BLCMSK|BLCS|BLSFILL|BLSIC|T1MSKC|TZMSK)
 
-# AMD64 LWP (Lightweight Profiling) Instructions
+# AMD64 Lightweight Profiling（LWP）指令。
 # http://developer.amd.com/wordpress/media/2012/10/43724.pdf
 x86_AMD_LWP_INLINE_ASSEMBLY:
     - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(LLWPCB|SLWPCB|LWPVAL|LWPINS)
 
-# Intel MPX (Memory Protection Extensions) Instructions.
+# Intel Memory Protection Extensions（MPX）指令。
 x86_INTEL_MPX_COMPILER_OPTION:
     - pattern: -check-pointers-mpx=(rw|write)
       help: |+
-        '-check-pointers-mpx' requires Intel MPX (Memory Protection Extensions) instructions.
+        '-check-pointers-mpx'需要Intel Memory Protection Extensions（MPX）指令。
 
     - pattern: /Qcheck-pointers-mpx:(rw|write)
       help: |+
-        '/Qcheck-pointers-mpx' requires Intel MPX (Memory Protection Extensions) instructions.
-
-X86_PRAGMA:
-    - pattern: ^\s*#\s*pragma\s+simd(?:\s|$)
-      help: pragma simd works on Intel processors only.
+        '/Qcheck-pointers-mpx'需要Intel Memory Protection Extensions（MPX）指令。
 
 
-# Intrinsics not for x86/x86-64/32-bit arm/aarch64
+# 不适用x86/x86-64/arm/arm64/aarch64的内在函数。
 OTHER_ARCH_INTRINSICS:
     - pattern: (?:\s|^)_addcary(?:\w+|\(.*)
     - pattern: (?:\s|^)_allow_cpu_features\W
@@ -6603,15 +6651,14 @@ INCOMPATIBLE_UCRT_INTRINSICS:
     - signature: unsigned __int64 _rotr64(unsigned __int64, int)
     - signature: char *_strset(char *, int)
     - signature: wchar_t *_wcsset(wchar_t *, wchar_t)
-#   - signature: wchar_t *wcscat(wchar_t *, const wchar_t *)
+    - signature: wchar_t *wcscat(wchar_t *, const wchar_t *)
     - signature: char *strset(char *, char)
-#   - signature: int wcscmp(const wchar_t *, const wchar_t *)
-#   - signature: size_t wcslen(const wchar_t *)
+    - signature: int wcscmp(const wchar_t *, const wchar_t *)
+    - signature: size_t wcslen(const wchar_t *)
 
-# for cpp standard check
+# cpp standard检查。
 CPP_STD_CODES:
-
-    - pattern: (?i)(fetch_(xor|and|sub|add))\s*\((.*memory_order_(?!seq_cst).*)\)
+    - pattern: (?i)((>|.)fetch_(xor|and|sub|add))\s*\((?!.*memory_order_(relaxed|consume|acquire|release|acq_rel|seq_cst).*)
       help: |+
           检测 atomic 接口 (没有使用 memory order).
 
@@ -6619,7 +6666,7 @@ CPP_STD_CODES:
 
           详见: https://en.cppreference.com/w/cpp/atomic/memory_order
 
-    - pattern: (?si)((>|.)compare_exchange_(weak|strong))\s*\((?!.*memory_order_(relaxed|consume|acquire|release|acq_rel|seq_cst).*)
+    - pattern: (?i)((>|.)compare_exchange_(weak|strong))\s*\((?!.*memory_order_(relaxed|consume|acquire|release|acq_rel|seq_cst).*)
       help: |+
           检测 atomic 接口 (没有使用 memory order).
 
@@ -6679,7 +6726,7 @@ CPP_STD_CODES:
 
     - signature: type __sync_fetch_and_nand(type *ptr, type value, ...)
       help: |+
-          推荐使用 type __atomic_add_fetch(type * ptr, type val, int memorder)
+          推荐使用 type __atomic_fetch_nand(type * ptr, type val, int memorder)
 
           注意 memorder 的正确使用.
 
@@ -6687,7 +6734,7 @@ CPP_STD_CODES:
 
     - signature: type __sync_add_and_fetch(type *ptr, type value, ...)
       help: |+
-          推荐使用 type __atomic_and_fetch(type * ptr, type val, int memorder)
+          推荐使用 type __atomic_add_fetch(type * ptr, type val, int memorder)
 
           注意 memorder 的正确使用.
 
@@ -6749,88 +6796,339 @@ CPP_STD_CODES:
 
           详见: https://gcc.gnu.org/onlinedocs/gcc/_005f_005fatomic-Builtins.html
 
-#for header file check
-INCOMPATIBLE_HEADER_FILE:
-    - pattern: \#include\s+[\'\"<]emmintrin.h[\'\">]
+# 适用于 ARM/ARM64/AARCH64 和 X86/X86-64 的 Python 扩展包
+COMMON_AARCH64_AND_X86_PYTHON_EXTENSION_PACKAGES:
+    - pattern: (.*)[from|import](\s+)(keystone-engine)(?![a-zA-Z0-9-])
       help: |+
-          检测到使用 emmintrin.h 文件
+          Keystone 是一个轻量级的多平台、多架构的汇编程序框架。
+          支持多种架构，包括Arm, Arm64 (AArch64/Armv8), Ethereum Virtual Machine, Hexagon, Mips, PowerPC, Sparc, SystemZ & X86 (include 16/32/64bit)
 
-          该头文件是 x86/x86-64 架构专用的, 不兼容 arm/aarch64 等架构;
+          详见： https://pypi.org/project/keystone-engine/
 
-    - pattern: \#include\s+[\'\"<]x86intrin.h[\'\">]
+    - pattern: (.*)[from|import](\s+)(fibers)(?![a-zA-Z0-9-])
       help: |+
-          检测到使用 x86intrin.h 文件
-        
-          该头文件是 x86/x86-64 架构专用的, 不兼容 arm/aarch64 等架构;
+          Fibers是 Python 中用于协作多任务处理的轻量级原语， 提供了代码运行时暂停和恢复的方法
+          目前支持的架构包括86, x86-64, ARM, MIPS64, PPC64 和 s390x
 
-    - pattern: \#include\s+[\'\"<]mmintrin.h[\'\">]
-      help: |+
-          检测到使用 mmintrin.h 文件
-          
-          该头文件是 x86/x86-64 架构专用的, 不兼容 arm/aarch64 等架构;
+          详见： https://pypi.org/project/fibers/
 
-    - pattern: \#include\s+[\'\"<]xmmintrin.h[\'\">]
+# 仅适用于 ARM/ARM64/AARCH64 的 Python扩展包。
+AARCH64_PYTHON_EXTENSION_PACKAGES:
+    - pattern: (.*)[from|import](\s+)(pycuda-arm-linux)(?![a-zA-Z0-9-])
       help: |+
-          检测到使用 xmmintrin.h 文件
-          
-          该头文件是 x86/x86-64 架构专用的, 不兼容 arm/aarch64 等架构;
+          PyCUDA 是 CUDA 的 Python 编程环境, 支持从 Python 访问 Nvidia 的 CUDA 并行计算 API。
 
-    - pattern: \#include\s+[\'\"<]pmmintrin.h[\'\">]
-      help: |+
-          检测到使用 pmmintrin.h 文件
-          
-          该头文件是 x86/x86-64 架构专用的, 不兼容 arm/aarch64 等架构;
+          详见： https://pypi.org/project/pycuda-arm-linux/
 
-    - pattern: \#include\s+[\'\"<]tmmintrin.h[\'\">]
+    - pattern: (.*)[from|import](\s+)(HTSeq-arm-linux)(?![a-zA-Z0-9-])
       help: |+
-          检测到使用 tmmintrin.h 文件
-          
-          该头文件是 x86/x86-64 架构专用的, 不兼容 arm/aarch64 等架构;
+          一个 Python 库，用于促进高通量测序 (HTS) 实验数据的处理和分析。
 
-    - pattern: \#include\s+[\'\"<]smmintrin.h[\'\">]
-      help: |+
-          检测到使用 smmintrin.h 文件
-          
-          该头文件是 x86/x86-64 架构专用的, 不兼容 arm/aarch64 等架构;
+          详见： https://pypi.org/project/HTSeq-arm-linux/
 
-    - pattern: \#include\s+[\'\"<]nmmintrin.h[\'\">]
+    - pattern: (.*)[from|import](\s+)(wlauto)(?![a-zA-Z0-9-])
       help: |+
-          检测到使用 nmmintrin.h 文件
-          
-          该头文件是 x86/x86-64 架构专用的, 不兼容 arm/aarch64 等架构;
+          用于在 ARM 设备上自动化工作负载执行和测量收集的框架。
 
-    - pattern: \#include\s+[\'\"<]ammintrin.h[\'\">]
-      help: |+
-          检测到使用 ammintrin.h 文件
-          
-          该头文件是 x86/x86-64 架构专用的, 不兼容 arm/aarch64 等架构;
+          详见： https://pypi.org/project/wlauto/
 
-    - pattern: \#include\s+[\'\"<]wmmintrin.h[\'\">]
+# 仅适用于 x86/x86-64 的 Python扩展包。
+X86_PYTHON_EXTENSION_PACKAGES:
+    - pattern: (.*)[from|import](\s+)(pyqbdi)(?![a-zA-Z0-9-])
       help: |+
-          检测到使用 wmmintrin.h 文件
-          
-          该头文件是 x86/x86-64 架构专用的, 不兼容 arm/aarch64 等架构;
+          QuarkslaB Dynamic binary Instrumentation (QBDI) 是一个模块化、跨平台和跨架构的 DBI 框架。
+          目前仅支持在 x86、x86-64 架构上运行的 Linux、macOS、Android 和 Windows 操作系统。
+          支持 ARM 和 AArch64 指令集，但它们仍需要在 x86 和 x86-64 集成。
 
-    - pattern: \#include\s+[\'\"<]immintrin.h[\'\">]
-      help: |+
-          检测到使用 immintrin.h 文件
-          
-          该头文件是 x86/x86-64 架构专用的, 不兼容 arm/aarch64 等架构;
+          详见： https://pypi.org/project/PyQBDI/
 
-    - pattern: \#include\s+[\'\"<]zmmintrin.h[\'\">]
+    - pattern: (.*)[from|import](\s+)(onednn-cpu-iomp)(?![a-zA-Z0-9-])
       help: |+
-          检测到使用 zmmintrin.h 文件
-          
-          该头文件是 x86/x86-64 架构专用的, 不兼容 arm/aarch64 等架构;
+          intel oneDNN 是一个用于深度学习应用的性能库。
+          该库包括为英特尔架构的处理器和显卡优化的神经网络的基本构建块。
 
-    - pattern: \#include\s+[\'\"<]mm3dnow.h[\'\">]
-      help: |+
-          检测到使用 mm3dnow.h 文件
-          
-          该头文件是 x86/x86-64 架构专用的, 不兼容 arm/aarch64 等架构;
+          适用处理器:
+          ·Intel Atom® processors with Intel® Streaming SIMD Extensions
+          ·Intel® Core™ processors
+          ·Intel® Xeon® processors
+          ·Intel® Xeon® Scalable processors
 
-    - pattern: \#include\s+[\'\"<]popcntintrin.h[\'\">]
+          详见： https://pypi.org/project/onednn-cpu-iomp/
+                https://software.intel.com/content/www/us/en/develop/tools/oneapi/components/onednn.html#gs.d1geey
+
+    - pattern: (.*)[from|import](\s+)(onednn-cpu-vcomp)(?![a-zA-Z0-9-])
       help: |+
-          检测到使用 popcntintrin.h 文件
-          
-          该头文件是 x86/x86-64 架构专用的, 不兼容 arm/aarch64 等架构;
+          intel oneDNN 是一个用于深度学习应用的性能库。
+          该库包括为英特尔架构的处理器和显卡优化的神经网络的基本构建块。
+
+          适用处理器:
+          ·Intel Atom® processors with Intel® Streaming SIMD Extensions
+          ·Intel® Core™ processors
+          ·Intel® Xeon® processors
+          ·Intel® Xeon® Scalable processors
+
+          详见： https://pypi.org/project/onednn-cpu-vcomp/
+                https://software.intel.com/content/www/us/en/develop/tools/oneapi/components/onednn.html#gs.d1efte
+
+    - pattern: (.*)[from|import](\s+)(onednn-cpu-tbb)(?![a-zA-Z0-9-])
+      help: |+
+          intel oneDNN 是一个用于深度学习应用的性能库。
+          该库包括为英特尔架构的处理器和显卡优化的神经网络的基本构建块。
+
+          适用处理器:
+          ·Intel Atom® processors with Intel® Streaming SIMD Extensions
+          ·Intel® Core™ processors
+          ·Intel® Xeon® processors
+          ·Intel® Xeon® Scalable processors
+
+          详见： https://pypi.org/project/onednn-cpu-tbb/
+                https://software.intel.com/content/www/us/en/develop/tools/oneapi/components/onednn.html#gs.dlgzr3
+
+    - pattern: (.*)[from|import](\s+)(onednn-devel-cpu-vcomp)(?![a-zA-Z0-9-])
+      help: |+
+          intel oneDNN 是一个用于深度学习应用的性能库。
+          该库包括为英特尔架构的处理器和显卡优化的神经网络的基本构建块。
+
+          适用处理器:
+          ·Intel Atom® processors with Intel® Streaming SIMD Extensions
+          ·Intel® Core™ processors
+          ·Intel® Xeon® processors
+          ·Intel® Xeon® Scalable processors
+
+          详见： https://pypi.org/project/onednn-devel-cpu-vcomp/
+                https://software.intel.com/content/www/us/en/develop/tools/oneapi/components/onednn.html#gs.dlh28m
+
+    - pattern: (.*)[from|import](\s+)(onednn-devel-cpu-tbb)(?![a-zA-Z0-9-])
+      help: |+
+          intel oneDNN 是一个用于深度学习应用的性能库。
+          该库包括为英特尔架构的处理器和显卡优化的神经网络的基本构建块。
+
+          适用处理器:
+          ·Intel Atom® processors with Intel® Streaming SIMD Extensions
+          ·Intel® Core™ processors
+          ·Intel® Xeon® processors
+          ·Intel® Xeon® Scalable processors
+
+          详见： https://pypi.org/project/onednn-devel-cpu-tbb/
+                https://software.intel.com/content/www/us/en/develop/tools/oneapi/components/onednn.html#gs.dlh5hz
+
+    - pattern: (.*)[from|import](\s+)(onednn-devel-cpu-iomp)(?![a-zA-Z0-9-])
+      help: |+
+          intel oneDNN 是一个用于深度学习应用的性能库。
+          该库包括为英特尔架构的处理器和显卡优化的神经网络的基本构建块。
+
+          适用处理器:
+          ·Intel Atom® processors with Intel® Streaming SIMD Extensions
+          ·Intel® Core™ processors
+          ·Intel® Xeon® processors
+          ·Intel® Xeon® Scalable processors
+
+          详见： https://pypi.org/project/onednn-devel-cpu-iomp/
+                https://software.intel.com/content/www/us/en/develop/tools/oneapi/components/onednn.html#gs.dlh9cd
+
+    - pattern: (.*)[from|import](\s+)(onednn-cpu-dpcpp-gpu-dpcpp)(?![a-zA-Z0-9-])
+      help: |+
+          intel oneDNN 是一个用于深度学习应用的性能库。
+          该库包括为英特尔架构的处理器和显卡优化的神经网络的基本构建块。
+
+          适用处理器:
+          ·Intel Atom® processors with Intel® Streaming SIMD Extensions
+          ·Intel® Core™ processors
+          ·Intel® Xeon® processors
+          ·Intel® Xeon® Scalable processors
+
+          详见： https://pypi.org/project/onednn-cpu-dpcpp-gpu-dpcpp/
+                https://software.intel.com/content/www/us/en/develop/tools/oneapi/components/onednn.html#gs.dlhd1f
+
+    - pattern: (.*)[from|import](\s+)(onednn-devel-cpu-dpcpp-gpu-dpcpp)(?![a-zA-Z0-9])
+      help: |+
+          intel oneDNN 是一个用于深度学习应用的性能库。
+          该库包括为英特尔架构的处理器和显卡优化的神经网络的基本构建块。
+
+          适用处理器:
+          ·Intel Atom® processors with Intel® Streaming SIMD Extensions
+          ·Intel® Core™ processors
+          ·Intel® Xeon® processors
+          ·Intel® Xeon® Scalable processors
+
+          详见： https://pypi.org/project/onednn-devel-cpu-dpcpp-gpu-dpcpp/
+                https://software.intel.com/content/www/us/en/develop/tools/oneapi/components/onednn.html#gs.dlkzkl
+
+    - pattern: (.*)[from|import](\s+)(daal4py)(?![a-zA-Z0-9-])
+      help: |+
+          Intel oneAPI Data Analytics Library 库
+          旨在提供对Intel oneAPI 数据分析库的抽象，以便直接使用或集成到自己的框架中。
+
+          详见： https://pypi.org/project/daal4py/
+
+    - pattern: (.*)[from|import](\s+)(daal-static)(?![a-zA-Z0-9-])
+      help: |+
+          Intel oneAPI Data Analytics Library 库
+          旨在提供对Intel oneAPI 数据分析库的抽象，以便直接使用或集成到自己的框架中。
+
+          适用处理器:
+          ·Intel® Core™ processors
+          ·Intel® Xeon® processors
+
+          详见： https://pypi.org/project/daal-static/
+                https://software.intel.com/content/www/us/en/develop/tools/oneapi/components/onedal.html#gs.dlmryu
+
+    - pattern: (.*)[from|import](\s+)(daal-include)(?![a-zA-Z0-9-])
+      help: |+
+          Intel oneAPI Data Analytics Library 库
+          旨在提供对Intel oneAPI 数据分析库的抽象，以便直接使用或集成到自己的框架中。
+
+          适用处理器:
+          ·Intel® Core™ processors
+          ·Intel® Xeon® processors
+
+          详见： https://pypi.org/project/daal-include/
+                https://software.intel.com/content/www/us/en/develop/tools/oneapi/components/onedal.html#gs.dlmxrf
+
+    - pattern: (.*)[from|import](\s+)(daal)(?![a-zA-Z0-9-])
+      help: |+
+          Intel oneAPI Data Analytics Library 库
+          旨在提供对Intel oneAPI 数据分析库的抽象，以便直接使用或集成到自己的框架中。
+
+          适用处理器:
+          ·Intel® Core™ processors
+          ·Intel® Xeon® processors
+
+          详见： https://pypi.org/project/daal/
+                https://software.intel.com/content/www/us/en/develop/tools/oneapi/components/onedal.html#gs.dlmzj9
+
+    - pattern: (.*)[from|import](\s+)(daal-devel)(?![a-zA-Z0-9-])
+      help: |+
+          Intel oneAPI Data Analytics Library 库
+          旨在提供对Intel oneAPI 数据分析库的抽象，以便直接使用或集成到自己的框架中。
+
+          适用处理器:
+          ·Intel® Core™ processors
+          ·Intel® Xeon® processors
+
+          详见： https://pypi.org/project/daal-devel/
+                https://software.intel.com/content/www/us/en/develop/tools/oneapi/components/onedal.html#gs.dln2ht
+
+    - pattern: (.*)[from|import](\s+)(scikit-learn-intelex)(?![a-zA-Z0-9-])
+      help: |+
+          Intel(R) Extension for Scikit-learn 是一种加速 Scikit-learn 应用程序的方式。
+          加速是通过使用Intel oneAPI 数据分析库 (oneDAL) 实现的。
+
+          详见： https://pypi.org/project/scikit-learn-intelex/
+
+    - pattern: (.*)[from|import](\s+)(intel-openmp)(?![a-zA-Z0-9-])
+      help: |+
+          Intel OpenMP* Runtime 库，Windows系统上的X86动态库
+
+          详见： https://pypi.org/project/intel-openmp/
+                https://software.intel.com/content/www/us/en/develop/tools/opencl-sdk.html
+
+    - pattern: (.*)[from|import](\s+)(intel-opencl-rt)(?![a-zA-Z0-9-])
+      help: |+
+          Intel oneAPI OpenCL* Runtime 库
+
+          详见： https://pypi.org/project/intel-opencl-rt/
+                https://software.intel.com/content/www/us/en/develop/tools/opencl-sdk.html
+
+    - pattern: (.*)[from|import](\s+)(intel-fortran-rt)(?![a-zA-Z0-9-])
+      help: |+
+          Intel® oneAPI Fortran Compiler Runtime 库
+
+          适用处理器:
+          ·Intel® Core™ processors
+          ·Intel® Xeon® processor family
+          ·Intel® Xeon® Scalable processors
+
+          详见： https://pypi.org/project/intel-fortran-rt/
+                https://software.intel.com/content/www/us/en/develop/tools/oneapi/components/fortran-compiler.html#gs.dlk9ew
+
+    - pattern: (.*)[from|import](\s+)(mkl-devel)(?![a-zA-Z0-9-])
+      help: |+
+          Intel® oneAPI Math Kernel Library，一个计算数学库，适用于需要最高性能的应用程序
+
+          适用处理器:
+          ·Intel Atom® processors
+          ·Intel® Core™ processors
+          ·Intel® Xeon® Scalable processors
+
+          详见： https://pypi.org/project/mkl-devel/
+                https://software.intel.com/content/www/us/en/develop/tools/oneapi/components/onemkl.html#gs.dlo33g
+
+    - pattern: (.*)[from|import](\s+)(mkl-dpcpp)(?![a-zA-Z0-9-])
+      help: |+
+          Intel® oneAPI Math Kernel Library，一个计算数学库，适用于需要最高性能的应用程序
+
+          适用处理器:
+          ·Intel Atom® processors
+          ·Intel® Core™ processors
+          ·Intel® Xeon® Scalable processors
+
+          详见： https://pypi.org/project/mkl-dpcpp/
+                https://software.intel.com/content/www/us/en/develop/tools/oneapi/components/onemkl.html#gs.dlm4qc
+
+    - pattern: (.*)[from|import](\s+)(mkl-include)(?![a-zA-Z0-9-])
+      help: |+
+          Intel® oneAPI Math Kernel Library，一个计算数学库，适用于需要最高性能的应用程序
+
+          适用处理器:
+          ·Intel Atom® processors
+          ·Intel® Core™ processors
+          ·Intel® Xeon® Scalable processors
+
+          详见： https://pypi.org/project/mkl-include/
+                https://software.intel.com/content/www/us/en/develop/tools/oneapi/components/onemkl.html#gs.dlm7el
+
+    - pattern: (.*)[from|import](\s+)(mkl-static)(?![a-zA-Z0-9-])
+      help: |+
+          Intel® oneAPI Math Kernel Library，一个计算数学库，适用于需要最高性能的应用程序
+
+          适用处理器:
+          ·Intel Atom® processors
+          ·Intel® Core™ processors
+          ·Intel® Xeon® Scalable processors
+
+          详见： https://pypi.org/project/mkl-static/
+                https://software.intel.com/content/www/us/en/develop/tools/oneapi/components/onemkl.html#gs.dlmajs
+
+    - pattern: (.*)[from|import](\s+)(mkl)(?![a-zA-Z0-9-])
+      help: |+
+          Intel® oneAPI Math Kernel Library，一个计算数学库，适用于需要最高性能的应用程序
+
+          适用处理器:
+          ·Intel Atom® processors
+          ·Intel® Core™ processors
+          ·Intel® Xeon® Scalable processors
+
+          详见： https://pypi.org/project/mkl/
+                https://software.intel.com/content/www/us/en/develop/tools/oneapi/components/onemkl.html#gs.dlmdkk
+
+    - pattern: (.*)[from|import](\s+)(mkl-devel-dpcpp)(?![a-zA-Z0-9-])
+      help: |+
+          Intel® oneAPI Math Kernel Library，一个计算数学库，适用于需要最高性能的应用程序
+
+          适用处理器:
+          ·Intel Atom® processors
+          ·Intel® Core™ processors
+          ·Intel® Xeon® Scalable processors
+
+          详见： https://pypi.org/project/mkl-devel-dpcpp/
+                https://software.intel.com/content/www/us/en/develop/tools/oneapi/components/onemkl.html#gs.dlmfwo
+
+    - pattern: (.*)[from|import](\s+)(dpcpp-cpp-rt)(?![a-zA-Z0-9-])
+      help: |+
+          Intel® oneAPI DPC++/C++ Compiler Runtime
+
+          适用处理器:
+          ·Intel® Core™ processors
+          ·Intel® Xeon® processor family
+          ·Intel® Xeon® Scalable processors
+
+          详见： https://pypi.org/project/dpcpp-cpp-rt/
+                https://software.intel.com/content/www/us/en/develop/tools/oneapi/components/dpc-compiler.html#gs.dlq4sa
+
+    - pattern: (.*)[from|import](\s+)(iced-x86)(?![a-zA-Z0-9-])
+      help: |+
+          iced-x86 是一个极快且正确的 x86/x64 反汇编器、汇编器和指令解码器
+          支持所有Intel和AMD的指令
+
+          详见： https://pypi.org/project/iced-x86/
