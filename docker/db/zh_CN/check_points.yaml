@@ -14,20 +14,20 @@ COMMON_AARCH64_AND_X86_PYTHON_EXTENSION_PACKAGES:
 
           详见： https://pypi.org/project/fibers/
 
-# Python extension packages only available for arm/arm64/aarch64 
+# Python extension packages only available for arm/arm64/aarch64
 AARCH64_PYTHON_EXTENSION_PACKAGES:
     - pattern: (.*)(pycuda-arm-linux)(?![a-zA-Z0-9-])
       help: |+
           PyCUDA 是 CUDA 的 Python 编程环境, 支持从 Python 访问 Nvidia 的 CUDA 并行计算 API。
 
           详见： https://pypi.org/project/pycuda-arm-linux/
-    
+
     - pattern: (.*)(HTSeq-arm-linux)(?![a-zA-Z0-9-])
       help: |+
           一个 Python 库，用于促进高通量测序 (HTS) 实验数据的处理和分析。
 
           详见： https://pypi.org/project/HTSeq-arm-linux/
-    
+
     - pattern: (.*)(wlauto)(?![a-zA-Z0-9-])
       help: |+
           用于在 ARM 设备上自动化工作负载执行和测量收集的框架。
@@ -43,12 +43,12 @@ X86_PYTHON_EXTENSION_PACKAGES:
           支持 ARM 和 AArch64 指令集，但它们仍需要在 x86 和 x86-64 集成。
 
           详见： https://pypi.org/project/PyQBDI/
-    
+
     - pattern: (.*)(onednn-cpu-iomp)(?![a-zA-Z0-9-])
       help: |+
           intel oneDNN 是一个用于深度学习应用的性能库。
           该库包括为英特尔架构的处理器和显卡优化的神经网络的基本构建块。
-          
+
           适用处理器:
           ·Intel Atom® processors with Intel® Streaming SIMD Extensions
           ·Intel® Core™ processors
@@ -71,7 +71,7 @@ X86_PYTHON_EXTENSION_PACKAGES:
 
           详见： https://pypi.org/project/onednn-cpu-vcomp/
                 https://software.intel.com/content/www/us/en/develop/tools/oneapi/components/onednn.html#gs.d1efte
-    
+
     - pattern: (.*)(onednn-cpu-tbb)(?![a-zA-Z0-9-])
       help: |+
           intel oneDNN 是一个用于深度学习应用的性能库。
@@ -85,7 +85,7 @@ X86_PYTHON_EXTENSION_PACKAGES:
 
           详见： https://pypi.org/project/onednn-cpu-tbb/
                 https://software.intel.com/content/www/us/en/develop/tools/oneapi/components/onednn.html#gs.dlgzr3
-    
+
     - pattern: (.*)(onednn-devel-cpu-vcomp)(?![a-zA-Z0-9-])
       help: |+
           intel oneDNN 是一个用于深度学习应用的性能库。
@@ -99,7 +99,7 @@ X86_PYTHON_EXTENSION_PACKAGES:
 
           详见： https://pypi.org/project/onednn-devel-cpu-vcomp/
                 https://software.intel.com/content/www/us/en/develop/tools/oneapi/components/onednn.html#gs.dlh28m
-    
+
     - pattern: (.*)(onednn-devel-cpu-tbb)(?![a-zA-Z0-9-])
       help: |+
           intel oneDNN 是一个用于深度学习应用的性能库。
@@ -113,7 +113,7 @@ X86_PYTHON_EXTENSION_PACKAGES:
 
           详见： https://pypi.org/project/onednn-devel-cpu-tbb/
                 https://software.intel.com/content/www/us/en/develop/tools/oneapi/components/onednn.html#gs.dlh5hz
-    
+
     - pattern: (.*)(onednn-devel-cpu-iomp)(?![a-zA-Z0-9-])
       help: |+
           intel oneDNN 是一个用于深度学习应用的性能库。
@@ -141,7 +141,7 @@ X86_PYTHON_EXTENSION_PACKAGES:
 
           详见： https://pypi.org/project/onednn-cpu-dpcpp-gpu-dpcpp/
                 https://software.intel.com/content/www/us/en/develop/tools/oneapi/components/onednn.html#gs.dlhd1f
-    
+
     - pattern: (.*)(onednn-devel-cpu-dpcpp-gpu-dpcpp)(?![a-zA-Z0-9])
       help: |+
           intel oneDNN 是一个用于深度学习应用的性能库。
@@ -210,7 +210,7 @@ X86_PYTHON_EXTENSION_PACKAGES:
 
           详见： https://pypi.org/project/daal-devel/
                 https://software.intel.com/content/www/us/en/develop/tools/oneapi/components/onedal.html#gs.dln2ht
-    
+
     - pattern: (.*)(scikit-learn-intelex)(?![a-zA-Z0-9-])
       help: |+
           Intel(R) Extension for Scikit-learn 是一种加速 Scikit-learn 应用程序的方式。
@@ -224,7 +224,7 @@ X86_PYTHON_EXTENSION_PACKAGES:
 
           详见： https://pypi.org/project/intel-openmp/
                 https://software.intel.com/content/www/us/en/develop/tools/opencl-sdk.html
-    
+
     - pattern: (.*)(intel-opencl-rt)(?![a-zA-Z0-9-])
       help: |+
           Intel oneAPI OpenCL* Runtime 库
@@ -243,7 +243,7 @@ X86_PYTHON_EXTENSION_PACKAGES:
 
           详见： https://pypi.org/project/intel-fortran-rt/
                 https://software.intel.com/content/www/us/en/develop/tools/oneapi/components/fortran-compiler.html#gs.dlk9ew
-    
+
     - pattern: (.*)(mkl-devel)(?![a-zA-Z0-9-])
       help: |+
           Intel® oneAPI Math Kernel Library，一个计算数学库，适用于需要最高性能的应用程序
@@ -315,7 +315,7 @@ X86_PYTHON_EXTENSION_PACKAGES:
 
           详见： https://pypi.org/project/mkl-devel-dpcpp/
                 https://software.intel.com/content/www/us/en/develop/tools/oneapi/components/onemkl.html#gs.dlmfwo
-    
+
     - pattern: (.*)(dpcpp-cpp-rt)(?![a-zA-Z0-9-])
       help: |+
           Intel® oneAPI DPC++/C++ Compiler Runtime
@@ -330,7 +330,7 @@ X86_PYTHON_EXTENSION_PACKAGES:
 
     - pattern: (.*)(iced-x86)(?![a-zA-Z0-9-])
       help: |+
-          iced-x86 是一个极快且正确的 x86/x64 反汇编器、汇编器和指令解码器
+          iced-x86 是一个极快且正确的 x86/x64 反汇编器，汇编器和指令解码器
           支持所有Intel和AMD的指令
 
           详见： https://pypi.org/project/iced-x86/

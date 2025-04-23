@@ -1,4 +1,4 @@
-# Intrinsics available with gcc on x86, x86_64, arm, arm64, aarch64, sw64
+# Intrinsics available on x86, x86_64, 32-bit arm, aarch64
 COMMON_INTRINSICS:
     - signature: void * __builtin_apply_args ()
     - signature: void * __builtin_apply (void (*function)(), void *arguments, size_t size)
@@ -140,8 +140,9 @@ COMMON_INTRINSICS:
     - signature: bool __sync_bool_compare_and_swap (type *ptr, type oldval, type newval, ...)
     - signature: type __sync_val_compare_and_swap (type *ptr, type oldval, type newval, ...)
 
-# Intrinsics available with gcc on arm, arm64, aarch64
-AARCH64_INTRINSICS:
+# Intrinsics available with gcc on aarch64.
+AARCH64_GCC_INTRINSICS:
+    # where: gcc/AArch64-Built_002din-Functions.html
     - signature: unsigned int __builtin_aarch64_get_fpcr ()
     - signature: void __builtin_aarch64_set_fpcr (unsigned int)
     - signature: unsigned int __builtin_aarch64_get_fpsr ()
@@ -150,146 +151,11 @@ AARCH64_INTRINSICS:
     - signature: void __builtin_aarch64_set_fpcr64 (unsigned long long)
     - signature: unsigned long long __builtin_aarch64_get_fpsr64 ()
     - signature: void __builtin_aarch64_set_fpsr64 (unsigned long long)
-    - signature: int __builtin_arm_getwcgr0 (void)
-    - signature: void __builtin_arm_setwcgr0 (int)
-    - signature: int __builtin_arm_getwcgr1 (void)
-    - signature: void __builtin_arm_setwcgr1 (int)
-    - signature: int __builtin_arm_getwcgr2 (void)
-    - signature: void __builtin_arm_setwcgr2 (int)
-    - signature: int __builtin_arm_getwcgr3 (void)
-    - signature: void __builtin_arm_setwcgr3 (int)
-    - signature: int __builtin_arm_textrmsb (v8qi, int)
-    - signature: int __builtin_arm_textrmsh (v4hi, int)
-    - signature: int __builtin_arm_textrmsw (v2si, int)
-    - signature: int __builtin_arm_textrmub (v8qi, int)
-    - signature: int __builtin_arm_textrmuh (v4hi, int)
-    - signature: int __builtin_arm_textrmuw (v2si, int)
-    - signature: v8qi __builtin_arm_tinsrb (v8qi, int, int)
-    - signature: v4hi __builtin_arm_tinsrh (v4hi, int, int)
-    - signature: v2si __builtin_arm_tinsrw (v2si, int, int)
-    - signature: long long __builtin_arm_tmia (long long, int, int)
-    - signature: long long __builtin_arm_tmiabb (long long, int, int)
-    - signature: long long __builtin_arm_tmiabt (long long, int, int)
-    - signature: long long __builtin_arm_tmiaph (long long, int, int)
-    - signature: long long __builtin_arm_tmiatb (long long, int, int)
-    - signature: long long __builtin_arm_tmiatt (long long, int, int)
-    - signature: int __builtin_arm_tmovmskb (v8qi)
-    - signature: int __builtin_arm_tmovmskh (v4hi)
-    - signature: int __builtin_arm_tmovmskw (v2si)
-    - signature: long long __builtin_arm_waccb (v8qi)
-    - signature: long long __builtin_arm_wacch (v4hi)
-    - signature: long long __builtin_arm_waccw (v2si)
-    - signature: v8qi __builtin_arm_waddb (v8qi, v8qi)
-    - signature: v8qi __builtin_arm_waddbss (v8qi, v8qi)
-    - signature: v8qi __builtin_arm_waddbus (v8qi, v8qi)
-    - signature: v4hi __builtin_arm_waddh (v4hi, v4hi)
-    - signature: v4hi __builtin_arm_waddhss (v4hi, v4hi)
-    - signature: v4hi __builtin_arm_waddhus (v4hi, v4hi)
-    - signature: v2si __builtin_arm_waddw (v2si, v2si)
-    - signature: v2si __builtin_arm_waddwss (v2si, v2si)
-    - signature: v2si __builtin_arm_waddwus (v2si, v2si)
-    - signature: v8qi __builtin_arm_walign (v8qi, v8qi, int)
-    - signature: long long __builtin_arm_wand(long long, long long)
-    - signature: long long __builtin_arm_wandn (long long, long long)
-    - signature: v8qi __builtin_arm_wavg2b (v8qi, v8qi)
-    - signature: v8qi __builtin_arm_wavg2br (v8qi, v8qi)
-    - signature: v4hi __builtin_arm_wavg2h (v4hi, v4hi)
-    - signature: v4hi __builtin_arm_wavg2hr (v4hi, v4hi)
-    - signature: v8qi __builtin_arm_wcmpeqb (v8qi, v8qi)
-    - signature: v4hi __builtin_arm_wcmpeqh (v4hi, v4hi)
-    - signature: v2si __builtin_arm_wcmpeqw (v2si, v2si)
-    - signature: v8qi __builtin_arm_wcmpgtsb (v8qi, v8qi)
-    - signature: v4hi __builtin_arm_wcmpgtsh (v4hi, v4hi)
-    - signature: v2si __builtin_arm_wcmpgtsw (v2si, v2si)
-    - signature: v8qi __builtin_arm_wcmpgtub (v8qi, v8qi)
-    - signature: v4hi __builtin_arm_wcmpgtuh (v4hi, v4hi)
-    - signature: v2si __builtin_arm_wcmpgtuw (v2si, v2si)
-    - signature: long long __builtin_arm_wmacs (long long, v4hi, v4hi)
-    - signature: long long __builtin_arm_wmacsz (v4hi, v4hi)
-    - signature: long long __builtin_arm_wmacu (long long, v4hi, v4hi)
-    - signature: long long __builtin_arm_wmacuz (v4hi, v4hi)
-    - signature: v4hi __builtin_arm_wmadds (v4hi, v4hi)
-    - signature: v4hi __builtin_arm_wmaddu (v4hi, v4hi)
-    - signature: v8qi __builtin_arm_wmaxsb (v8qi, v8qi)
-    - signature: v4hi __builtin_arm_wmaxsh (v4hi, v4hi)
-    - signature: v2si __builtin_arm_wmaxsw (v2si, v2si)
-    - signature: v8qi __builtin_arm_wmaxub (v8qi, v8qi)
-    - signature: v4hi __builtin_arm_wmaxuh (v4hi, v4hi)
-    - signature: v2si __builtin_arm_wmaxuw (v2si, v2si)
-    - signature: v8qi __builtin_arm_wminsb (v8qi, v8qi)
-    - signature: v4hi __builtin_arm_wminsh (v4hi, v4hi)
-    - signature: v2si __builtin_arm_wminsw (v2si, v2si)
-    - signature: v8qi __builtin_arm_wminub (v8qi, v8qi)
-    - signature: v4hi __builtin_arm_wminuh (v4hi, v4hi)
-    - signature: v2si __builtin_arm_wminuw (v2si, v2si)
-    - signature: v4hi __builtin_arm_wmulsm (v4hi, v4hi)
-    - signature: v4hi __builtin_arm_wmulul (v4hi, v4hi)
-    - signature: v4hi __builtin_arm_wmulum (v4hi, v4hi)
-    - signature: long long __builtin_arm_wor (long long, long long)
-    - signature: v2si __builtin_arm_wpackdss (long long, long long)
-    - signature: v2si __builtin_arm_wpackdus (long long, long long)
-    - signature: v8qi __builtin_arm_wpackhss (v4hi, v4hi)
-    - signature: v8qi __builtin_arm_wpackhus (v4hi, v4hi)
-    - signature: v4hi __builtin_arm_wpackwss (v2si, v2si)
-    - signature: v4hi __builtin_arm_wpackwus (v2si, v2si)
-    - signature: long long __builtin_arm_wrord (long long, long long)
-    - signature: long long __builtin_arm_wrordi (long long, int)
-    - signature: v4hi __builtin_arm_wrorh (v4hi, long long)
-    - signature: v4hi __builtin_arm_wrorhi (v4hi, int)
-    - signature: v2si __builtin_arm_wrorw (v2si, long long)
-    - signature: v2si __builtin_arm_wrorwi (v2si, int)
-    - signature: v2si __builtin_arm_wsadb (v2si, v8qi, v8qi)
-    - signature: v2si __builtin_arm_wsadbz (v8qi, v8qi)
-    - signature: v2si __builtin_arm_wsadh (v2si, v4hi, v4hi)
-    - signature: v2si __builtin_arm_wsadhz (v4hi, v4hi)
-    - signature: v4hi __builtin_arm_wshufh (v4hi, int)
-    - signature: long long __builtin_arm_wslld (long long, long long)
-    - signature: long long __builtin_arm_wslldi (long long, int)
-    - signature: v4hi __builtin_arm_wsllh (v4hi, long long)
-    - signature: v4hi __builtin_arm_wsllhi (v4hi, int)
-    - signature: v2si __builtin_arm_wsllw (v2si, long long)
-    - signature: v2si __builtin_arm_wsllwi (v2si, int)
-    - signature: long long __builtin_arm_wsrad (long long, long long)
-    - signature: long long __builtin_arm_wsradi (long long, int)
-    - signature: v4hi __builtin_arm_wsrah (v4hi, long long)
-    - signature: v4hi __builtin_arm_wsrahi (v4hi, int)
-    - signature: v2si __builtin_arm_wsraw (v2si, long long)
-    - signature: v2si __builtin_arm_wsrawi (v2si, int)
-    - signature: long long __builtin_arm_wsrld (long long, long long)
-    - signature: long long __builtin_arm_wsrldi (long long, int)
-    - signature: v4hi __builtin_arm_wsrlh (v4hi, long long)
-    - signature: v4hi __builtin_arm_wsrlhi (v4hi, int)
-    - signature: v2si __builtin_arm_wsrlw (v2si, long long)
-    - signature: v2si __builtin_arm_wsrlwi (v2si, int)
-    - signature: v8qi __builtin_arm_wsubb (v8qi, v8qi)
-    - signature: v8qi __builtin_arm_wsubbss (v8qi, v8qi)
-    - signature: v8qi __builtin_arm_wsubbus (v8qi, v8qi)
-    - signature: v4hi __builtin_arm_wsubh (v4hi, v4hi)
-    - signature: v4hi __builtin_arm_wsubhss (v4hi, v4hi)
-    - signature: v4hi __builtin_arm_wsubhus (v4hi, v4hi)
-    - signature: v2si __builtin_arm_wsubw (v2si, v2si)
-    - signature: v2si __builtin_arm_wsubwss (v2si, v2si)
-    - signature: v2si __builtin_arm_wsubwus (v2si, v2si)
-    - signature: v4hi __builtin_arm_wunpckehsb (v8qi)
-    - signature: v2si __builtin_arm_wunpckehsh (v4hi)
-    - signature: long long __builtin_arm_wunpckehsw (v2si)
-    - signature: v4hi __builtin_arm_wunpckehub (v8qi)
-    - signature: v2si __builtin_arm_wunpckehuh (v4hi)
-    - signature: long long __builtin_arm_wunpckehuw (v2si)
-    - signature: v4hi __builtin_arm_wunpckelsb (v8qi)
-    - signature: v2si __builtin_arm_wunpckelsh (v4hi)
-    - signature: long long __builtin_arm_wunpckelsw (v2si)
-    - signature: v4hi __builtin_arm_wunpckelub (v8qi)
-    - signature: v2si __builtin_arm_wunpckeluh (v4hi)
-    - signature: long long __builtin_arm_wunpckeluw (v2si)
-    - signature: v8qi __builtin_arm_wunpckihb (v8qi, v8qi)
-    - signature: v4hi __builtin_arm_wunpckihh (v4hi, v4hi)
-    - signature: v2si __builtin_arm_wunpckihw (v2si, v2si)
-    - signature: v8qi __builtin_arm_wunpckilb (v8qi, v8qi)
-    - signature: v4hi __builtin_arm_wunpckilh (v4hi, v4hi)
-    - signature: v2si __builtin_arm_wunpckilw (v2si, v2si)
-    - signature: long long __builtin_arm_wxor (long long, long long)
-    - signature: long long __builtin_arm_wzero ()
+
+# Intrinsics available on aarch64.
+AARCH64_NEON_INTRINSICS:
+    # where: https://developer.arm.com/architectures/instruction-sets/intrinsics/#f:@navigationhierarchiessimdisa=[Neon]&f:@navigationhierarchiesarchitectures=[A64]
+    # require： -mfpu=neon
     - signature: uint32x2_t vadd_u32 (uint32x2_t, uint32x2_t)
       help: |+
           built-in intrinsics for the ARM Advanced SIMD extension are available when the -mfpu=neon switch is used
@@ -2176,6 +2042,163 @@ AARCH64_INTRINSICS:
     - signature: uint32x4_t vreinterpretq_u32_f32 (float32x4_t)
     - signature: uint32x4_t vreinterpretq_u32_p16 (poly16x8_t)
     - signature: uint32x4_t vreinterpretq_u32_p8 (poly8x16_t)
+    - pattern: (?:\s|^)v\w+_[bfsu](?:8|16|32|64)\W
+
+# SVE intrinsics avalivable on aarch64.
+AARCH64_SVE_INTRINSICS:
+    - pattern: (?:\s|^)sv\w+_[bfsu](?:8|16|32|64)\W
+    - pattern: (?:\s|^)svu?int(?:32|64)_t\W
+    - pattern: (?:\s|^)svfloat(?:32|64)_t\W
+    - pattern: (?:\s|^)svbool_t\W
+
+# Intrinsics available on 32-bit arm.
+ARM_INTRINSICS:
+    # where: gcc/ARM-iWMMXt-Built_002din-Functions.html
+    # require -mcpu=iwmmxt
+    - signature: int __builtin_arm_getwcgr0 (void)
+    - signature: void __builtin_arm_setwcgr0 (int)
+    - signature: int __builtin_arm_getwcgr1 (void)
+    - signature: void __builtin_arm_setwcgr1 (int)
+    - signature: int __builtin_arm_getwcgr2 (void)
+    - signature: void __builtin_arm_setwcgr2 (int)
+    - signature: int __builtin_arm_getwcgr3 (void)
+    - signature: void __builtin_arm_setwcgr3 (int)
+    - signature: int __builtin_arm_textrmsb (v8qi, int)
+    - signature: int __builtin_arm_textrmsh (v4hi, int)
+    - signature: int __builtin_arm_textrmsw (v2si, int)
+    - signature: int __builtin_arm_textrmub (v8qi, int)
+    - signature: int __builtin_arm_textrmuh (v4hi, int)
+    - signature: int __builtin_arm_textrmuw (v2si, int)
+    - signature: v8qi __builtin_arm_tinsrb (v8qi, int, int)
+    - signature: v4hi __builtin_arm_tinsrh (v4hi, int, int)
+    - signature: v2si __builtin_arm_tinsrw (v2si, int, int)
+    - signature: long long __builtin_arm_tmia (long long, int, int)
+    - signature: long long __builtin_arm_tmiabb (long long, int, int)
+    - signature: long long __builtin_arm_tmiabt (long long, int, int)
+    - signature: long long __builtin_arm_tmiaph (long long, int, int)
+    - signature: long long __builtin_arm_tmiatb (long long, int, int)
+    - signature: long long __builtin_arm_tmiatt (long long, int, int)
+    - signature: int __builtin_arm_tmovmskb (v8qi)
+    - signature: int __builtin_arm_tmovmskh (v4hi)
+    - signature: int __builtin_arm_tmovmskw (v2si)
+    - signature: long long __builtin_arm_waccb (v8qi)
+    - signature: long long __builtin_arm_wacch (v4hi)
+    - signature: long long __builtin_arm_waccw (v2si)
+    - signature: v8qi __builtin_arm_waddb (v8qi, v8qi)
+    - signature: v8qi __builtin_arm_waddbss (v8qi, v8qi)
+    - signature: v8qi __builtin_arm_waddbus (v8qi, v8qi)
+    - signature: v4hi __builtin_arm_waddh (v4hi, v4hi)
+    - signature: v4hi __builtin_arm_waddhss (v4hi, v4hi)
+    - signature: v4hi __builtin_arm_waddhus (v4hi, v4hi)
+    - signature: v2si __builtin_arm_waddw (v2si, v2si)
+    - signature: v2si __builtin_arm_waddwss (v2si, v2si)
+    - signature: v2si __builtin_arm_waddwus (v2si, v2si)
+    - signature: v8qi __builtin_arm_walign (v8qi, v8qi, int)
+    - signature: long long __builtin_arm_wand(long long, long long)
+    - signature: long long __builtin_arm_wandn (long long, long long)
+    - signature: v8qi __builtin_arm_wavg2b (v8qi, v8qi)
+    - signature: v8qi __builtin_arm_wavg2br (v8qi, v8qi)
+    - signature: v4hi __builtin_arm_wavg2h (v4hi, v4hi)
+    - signature: v4hi __builtin_arm_wavg2hr (v4hi, v4hi)
+    - signature: v8qi __builtin_arm_wcmpeqb (v8qi, v8qi)
+    - signature: v4hi __builtin_arm_wcmpeqh (v4hi, v4hi)
+    - signature: v2si __builtin_arm_wcmpeqw (v2si, v2si)
+    - signature: v8qi __builtin_arm_wcmpgtsb (v8qi, v8qi)
+    - signature: v4hi __builtin_arm_wcmpgtsh (v4hi, v4hi)
+    - signature: v2si __builtin_arm_wcmpgtsw (v2si, v2si)
+    - signature: v8qi __builtin_arm_wcmpgtub (v8qi, v8qi)
+    - signature: v4hi __builtin_arm_wcmpgtuh (v4hi, v4hi)
+    - signature: v2si __builtin_arm_wcmpgtuw (v2si, v2si)
+    - signature: long long __builtin_arm_wmacs (long long, v4hi, v4hi)
+    - signature: long long __builtin_arm_wmacsz (v4hi, v4hi)
+    - signature: long long __builtin_arm_wmacu (long long, v4hi, v4hi)
+    - signature: long long __builtin_arm_wmacuz (v4hi, v4hi)
+    - signature: v4hi __builtin_arm_wmadds (v4hi, v4hi)
+    - signature: v4hi __builtin_arm_wmaddu (v4hi, v4hi)
+    - signature: v8qi __builtin_arm_wmaxsb (v8qi, v8qi)
+    - signature: v4hi __builtin_arm_wmaxsh (v4hi, v4hi)
+    - signature: v2si __builtin_arm_wmaxsw (v2si, v2si)
+    - signature: v8qi __builtin_arm_wmaxub (v8qi, v8qi)
+    - signature: v4hi __builtin_arm_wmaxuh (v4hi, v4hi)
+    - signature: v2si __builtin_arm_wmaxuw (v2si, v2si)
+    - signature: v8qi __builtin_arm_wminsb (v8qi, v8qi)
+    - signature: v4hi __builtin_arm_wminsh (v4hi, v4hi)
+    - signature: v2si __builtin_arm_wminsw (v2si, v2si)
+    - signature: v8qi __builtin_arm_wminub (v8qi, v8qi)
+    - signature: v4hi __builtin_arm_wminuh (v4hi, v4hi)
+    - signature: v2si __builtin_arm_wminuw (v2si, v2si)
+    - signature: v4hi __builtin_arm_wmulsm (v4hi, v4hi)
+    - signature: v4hi __builtin_arm_wmulul (v4hi, v4hi)
+    - signature: v4hi __builtin_arm_wmulum (v4hi, v4hi)
+    - signature: long long __builtin_arm_wor (long long, long long)
+    - signature: v2si __builtin_arm_wpackdss (long long, long long)
+    - signature: v2si __builtin_arm_wpackdus (long long, long long)
+    - signature: v8qi __builtin_arm_wpackhss (v4hi, v4hi)
+    - signature: v8qi __builtin_arm_wpackhus (v4hi, v4hi)
+    - signature: v4hi __builtin_arm_wpackwss (v2si, v2si)
+    - signature: v4hi __builtin_arm_wpackwus (v2si, v2si)
+    - signature: long long __builtin_arm_wrord (long long, long long)
+    - signature: long long __builtin_arm_wrordi (long long, int)
+    - signature: v4hi __builtin_arm_wrorh (v4hi, long long)
+    - signature: v4hi __builtin_arm_wrorhi (v4hi, int)
+    - signature: v2si __builtin_arm_wrorw (v2si, long long)
+    - signature: v2si __builtin_arm_wrorwi (v2si, int)
+    - signature: v2si __builtin_arm_wsadb (v2si, v8qi, v8qi)
+    - signature: v2si __builtin_arm_wsadbz (v8qi, v8qi)
+    - signature: v2si __builtin_arm_wsadh (v2si, v4hi, v4hi)
+    - signature: v2si __builtin_arm_wsadhz (v4hi, v4hi)
+    - signature: v4hi __builtin_arm_wshufh (v4hi, int)
+    - signature: long long __builtin_arm_wslld (long long, long long)
+    - signature: long long __builtin_arm_wslldi (long long, int)
+    - signature: v4hi __builtin_arm_wsllh (v4hi, long long)
+    - signature: v4hi __builtin_arm_wsllhi (v4hi, int)
+    - signature: v2si __builtin_arm_wsllw (v2si, long long)
+    - signature: v2si __builtin_arm_wsllwi (v2si, int)
+    - signature: long long __builtin_arm_wsrad (long long, long long)
+    - signature: long long __builtin_arm_wsradi (long long, int)
+    - signature: v4hi __builtin_arm_wsrah (v4hi, long long)
+    - signature: v4hi __builtin_arm_wsrahi (v4hi, int)
+    - signature: v2si __builtin_arm_wsraw (v2si, long long)
+    - signature: v2si __builtin_arm_wsrawi (v2si, int)
+    - signature: long long __builtin_arm_wsrld (long long, long long)
+    - signature: long long __builtin_arm_wsrldi (long long, int)
+    - signature: v4hi __builtin_arm_wsrlh (v4hi, long long)
+    - signature: v4hi __builtin_arm_wsrlhi (v4hi, int)
+    - signature: v2si __builtin_arm_wsrlw (v2si, long long)
+    - signature: v2si __builtin_arm_wsrlwi (v2si, int)
+    - signature: v8qi __builtin_arm_wsubb (v8qi, v8qi)
+    - signature: v8qi __builtin_arm_wsubbss (v8qi, v8qi)
+    - signature: v8qi __builtin_arm_wsubbus (v8qi, v8qi)
+    - signature: v4hi __builtin_arm_wsubh (v4hi, v4hi)
+    - signature: v4hi __builtin_arm_wsubhss (v4hi, v4hi)
+    - signature: v4hi __builtin_arm_wsubhus (v4hi, v4hi)
+    - signature: v2si __builtin_arm_wsubw (v2si, v2si)
+    - signature: v2si __builtin_arm_wsubwss (v2si, v2si)
+    - signature: v2si __builtin_arm_wsubwus (v2si, v2si)
+    - signature: v4hi __builtin_arm_wunpckehsb (v8qi)
+    - signature: v2si __builtin_arm_wunpckehsh (v4hi)
+    - signature: long long __builtin_arm_wunpckehsw (v2si)
+    - signature: v4hi __builtin_arm_wunpckehub (v8qi)
+    - signature: v2si __builtin_arm_wunpckehuh (v4hi)
+    - signature: long long __builtin_arm_wunpckehuw (v2si)
+    - signature: v4hi __builtin_arm_wunpckelsb (v8qi)
+    - signature: v2si __builtin_arm_wunpckelsh (v4hi)
+    - signature: long long __builtin_arm_wunpckelsw (v2si)
+    - signature: v4hi __builtin_arm_wunpckelub (v8qi)
+    - signature: v2si __builtin_arm_wunpckeluh (v4hi)
+    - signature: long long __builtin_arm_wunpckeluw (v2si)
+    - signature: v8qi __builtin_arm_wunpckihb (v8qi, v8qi)
+    - signature: v4hi __builtin_arm_wunpckihh (v4hi, v4hi)
+    - signature: v2si __builtin_arm_wunpckihw (v2si, v2si)
+    - signature: v8qi __builtin_arm_wunpckilb (v8qi, v8qi)
+    - signature: v4hi __builtin_arm_wunpckilh (v4hi, v4hi)
+    - signature: v2si __builtin_arm_wunpckilw (v2si, v2si)
+    - signature: long long __builtin_arm_wxor (long long, long long)
+    - signature: long long __builtin_arm_wzero ()
+
+# Intrinsics available with MSVC on 32-bit arm.
+ARM_MSVC_INTRINSICS:
+    # where: https://learn.microsoft.com/en-us/cpp/intrinsics/arm-intrinsics?source=recommendations&view=msvc-170 MSVC？
     - signature: __int64 _arm_smlal(__int64 _RdHiLo, int _Rn, int _Rm)
     - signature: unsigned __int64 _arm_umlal(unsigned __int64 _RdHiLo, unsigned int _Rn, unsigned int _Rm)
     - signature: unsigned int _arm_clz(unsigned int _Rm)
@@ -2338,7 +2361,10 @@ AARCH64_INTRINSICS:
     - signature: int _SubSatInt(int, int)
     - signature: void _WriteBankedReg(int _Value, int _Reg)
     - signature: void _WriteStatusReg(int, int, int)
-    # Begin of ARM Support for Intrinsics from Other Architectures
+
+# Intrinsics available with MSVC on aarch64.
+AARCH64_MSVC_INTRINSICS:
+    # where: https://learn.microsoft.com/en-us/cpp/intrinsics/arm64-intrinsics?view=msvc-170
     - signature: void __assume(int)
     - signature: void __code_seg(const char *)
     - signature: void __cdecl __debugbreak(void)
@@ -2375,7 +2401,6 @@ AARCH64_INTRINSICS:
     - signature: unsigned char _rotr8(unsigned char _Value, unsigned char _Shift)
     - signature: int __cdecl _setjmpex(jmp_buf)
     - signature: void _WriteBarrier(void)
-    # End of ARM Support for Intrinsics from Other Architectures
     - signature: long _InterlockedAdd(long _volatile*, long)
     - signature: __int64 _InterlockedAdd64(__int64 volatile*, __int64)
     - signature: __int64 _InterlockedAdd64_acq(__int64 volatile*, __int64)
@@ -2515,11 +2540,6 @@ AARCH64_INTRINSICS:
     - signature: unsigned char _interlockedbittestandset_acq(long volatile*, long)
     - signature: unsigned char _interlockedbittestandset_nf(long volatile*, long)
     - signature: unsigned char _interlockedbittestandset_rel(long volatile*, long)
-    - pattern: (?:\s|^)v\w+_[bfsu](?:8|16|32|64)\W
-    - pattern: (?:\s|^)sv\w+_[bfsu](?:8|16|32|64)\W
-    - pattern: (?:\s|^)svu?int(?:32|64)_t\W
-    - pattern: (?:\s|^)svfloat(?:32|64)_t\W
-    - pattern: (?:\s|^)svbool_t\W
     - pattern: (?:\s|^)_arm_\w+
     - pattern: (?:\s|^)_ARM_BARRIER_SY\W
     - pattern: (?:\s|^)_ARM_BARRIER_ST\W
@@ -2533,1029 +2553,904 @@ AARCH64_INTRINSICS:
 AARCH64_COMPILER_OPTION_CHECKPOINTS:
     - pattern: .*[= "]+-m64[ \n"]+.*
       help: |+
-          -m64 是 x86 64 位应用编译选项, m64 选项设置 int 为 32 bits 及 long 指针为 64 bits, 为 AMD 的 x86 64 架构生成代码.在 ARM64 平台无法支持.
+          -m64 is the x86 64-bit application compilation option. The m64 option sets int to 32 bits and long pointer to 64 bits, generating code for x86_64 architecture. It is not supported on the Arm64 platform.
 
-          解决方法:
+          Solution:
 
-            将 ARM64 平台对应的编译选项设置为 "-mabi=lp64".
+            Set the compilation option corresponding to the Arm64 platform to "-mabi=lp64".
 
-          详细指导请参考: https://gcc.gnu.org/onlinedocs/gcc/AArch64-Options.html；https://gcc.gnu.org/onlinedocs/gcc/x86-Options.html
-
-    - pattern: .*[= "]+-march=.*
-      help: |+
-          Makefile 中包含 "-march" 与 -mtune 编译参数, 提示参数不兼容.
-
-          解决方法:
-
-            兼容的调整后参数为:
-
-            -march=armv8.1-a -tune=cortex-a72
-
-          参数设置指导请参考:https://gcc.gnu.org/onlinedocs/gcc/ARM-Options.html；https://gcc.gnu.org/onlinedocs/gcc/AArch64-Options.html；https://gcc.gnu.org/onlinedocs/gcc/x86-Options.html
-
-    - pattern: .*[= "]+-mtune=.*
-      help: |+
-          如果使用了 gcc 9.1 以上的版本, 在编译时增加编译选项指定使用 tsv110 流水线, 使编译器按照 Kunpeng 处理器的流水线编排指令执行顺序, 充分利用流水线的指令集并行, 提升性能.
-
-          解决方法:
-
-            编译选项中添加 "-mtune=tsv110".
-
-          详细指导请参考: https://gcc.gnu.org/onlinedocs/gcc/AArch64-Options.html；https://gcc.gnu.org/onlinedocs/gcc/x86-Options.html
+            For detailed instructions, please refer to: https://gcc.gnu.org/onlinedocs/gcc/AArch64-Options.html; https://gcc.gnu.org/onlinedocs/gcc/x86-Options.html
 
     - pattern: .*[= "]+-O2[ \n"]+.*
       help: |+
-          编译优化选项设置 "-O2" 级别及以上时, 相同的浮点数乘加运算在 x86 平台和 ARM64 平台的运算结果, 在小数点后16位存在差异.
+          When the compiler optimization option is set to "-O2" level or above, the calculation results of the same floating-point multiplication and addition operation on the x86 platform and the ARM64 platform have differences in the 16 decimal places.
 
-          原因:
+          Reason:
 
-            ARM64 平台编译优化选项设置为 "-O2" 级别及以上, 进行浮点数的乘加运算 (a+=b*c), 运算结果的精度只能精确到小数点后16位.在配置 "-O2" 选项时, gcc 使用融合指令 fmadd 完成乘加运算, 而不是 fadd 和 fmul.
+            When the compiler optimization option is set to "-O2" level or above on the ARM64 platform, the precision of the floating-point multiplication and addition operation (a+=b*c) can only be accurate to 16 decimal places. When configuring the "-O2" option, gcc uses the fused instruction fmadd to complete the multiplication and addition operation instead of fadd and fmul.
 
-            fmadd 将浮点数的乘法和加法看成不可分的一个操作, 不对中间结果进行舍入, 从而导致计算结果有所差别.
+            fmadd regards the multiplication and addition of floating-point numbers as an inseparable operation and does not round the intermediate results, resulting in different calculation results.
 
-          对系统的影响:
+          Impact on the system:
 
-            编译优化选项设置 "-O2" 级别及以上时, 浮点乘加运算的性能有提升, 但是运算的精度受到影响.
+            When the compiler optimization option is set to "-O2" level or above, the performance of floating-point multiplication and addition operations is improved, but the accuracy of the operation is affected.
 
-          解决方法:
+          Solution:
 
-            添加编译选项 "-ffp-contract=off" 可以关闭该优化.
-
-          详细指导请参考:https://gcc.gnu.org/onlinedocs/gcc/AArch64-Options.html；https://gcc.gnu.org/onlinedocs/gcc/x86-Options.html
+            Add the compilation option "-ffp-contract=off" This optimization can be turned off.
 
     - pattern: .*[= "]+-msse2[ \n"]+.*
       help: |+
-          ARM 不支持通过 -msse2, -msse4.1 等选项开启 SSE 浮点标量相关指令集.
+          ARM does not support SSE floating-point scalar instruction sets enabled by -msse2, -msse4.1 and other options.
 
-          For the x86-32 compiler, you must use -march=cpu-type, -msse or -msse2 switches to enable SSE extensions and make this option effective. For the x86-64 compiler, these extensions are enabled by default.
+            For the x86 compiler, you must use -march=cpu-type, -msse or -msse2 switches to enable SSE extensions and make this option effective. For the x86_64 compiler, these extensions are enabled by default.
 
-          在编译时增加编译选项指定处理器架构为 ARMv8, 使编译器按照 ARMv8 处理器的架构和微架构生成可执行程序, 提升性能.
+            When compiling, add a compilation option to specify the processor architecture as Armv8, so that the compiler generates executable programs according to the architecture and microarchitecture of the Armv8 processor to improve performance.
 
-          解决方法:
+          Solution:
 
-            编译选项中添加 "-march=armv8-a".
+            Add "-march=armv8-a" to the compilation options.
 
-          详细指导请参考:https://gcc.gnu.org/onlinedocs/gcc/AArch64-Options.html；https://gcc.gnu.org/onlinedocs/gcc/x86-Options.html
+            For detailed instructions, please refer to: https://gcc.gnu.org/onlinedocs/gcc/AArch64-Options.html; https://gcc.gnu.org/onlinedocs/gcc/x86-Options.html
 
     - pattern: .*[= "]+-msse4\.1[ \n"]+.*
       help: |+
-          ARM 不支持通过 -msse2, -msse4.1 等选项开启 SSE 浮点标量相关指令集.
-
-          Feature modifiers used with -march and -mcpu can be any of the following and their inverses nofeature:
-
-          crc: Enable CRC extension. This is on by default for -march=armv8.1-a.
-
-          crypto: Enable Crypto extension. This also enables Advanced SIMD and floating-point instructions.
-
-          解决方法:
-
-            编译选项中添加 "-march=armv8.1-a+crc".
-
-          详细指导请参考:https://gcc.gnu.org/onlinedocs/gcc/AArch64-Options.html；https://gcc.gnu.org/onlinedocs/gcc/x86-Options.html
-
-    - pattern: .*[= "]+-mpclmul[ \n"]+.*
-      help: |+
-          在 x86 上使用 -msse2, -mpclmul, -maes 开启相关扩展指令集.
+          Arm does not support SSE floating-point scalar instruction sets enabled by -msse2, -msse4.1, etc.
 
           Feature modifiers used with -march and -mcpu can be any of the following and their inverses no feature:
 
-          crc: Enable CRC extension. This is on by default for -march=armv8.1-a.
+            crc: Enable CRC extension. This is on by default for -march=armv8.1-a.
 
-          crypto: Enable Crypto extension. This also enables Advanced SIMD and floating-point instructions.
+            crypto: Enable Crypto extension. This also enables Advanced SIMD and floating-point instructions.
 
-          解决方法:
+          Solution:
 
-            编译选项中添加 "-march=armv8.1-a+crypto".
+            Add "-march=armv8.1-a+crc" to the compilation options.
 
-          详细指导请参考:https://gcc.gnu.org/onlinedocs/gcc/AArch64-Options.html；https://gcc.gnu.org/onlinedocs/gcc/x86-Options.html
+            For detailed instructions, please refer to: https://gcc.gnu.org/onlinedocs/gcc/AArch64-Options.html; https://gcc.gnu.org/onlinedocs/gcc/x86-Options.html
+
+    - pattern: .*[= "]+-mpclmul[ \n"]+.*
+      help: |+
+          On x86, use -msse2, -mpclmul, -maes to enable the relevant extended instruction set.
+
+          Feature modifiers used with -march and -mcpu can be any of the following and their inverses no feature:
+
+            crc: Enable CRC extension. This is on by default for -march=armv8.1-a.
+
+            crypto: Enable Crypto extension. This also enables Advanced SIMD and floating-point instructions.
+
+          Solution:
+
+            Add "-march=armv8.1-a+crypto" to the compilation options.
+
+            For detailed instructions, please refer to: https://gcc.gnu.org/onlinedocs/gcc/AArch64-Options.html; https://gcc.gnu.org/onlinedocs/gcc/x86-Options.html
 
     - pattern: .*[= "]+-maes[ \n"]+.*
 
       help: |+
-          在 x86 上使用 -msse2, -mpclmul, -maes 开启相关扩展指令集.
+          On x86, use -msse2, -mpclmul, -maes to enable the relevant extended instruction set.
 
           Feature modifiers used with -march and -mcpu can be any of the following and their inverses no feature:
 
-          crc: Enable CRC extension. This is on by default for -march=armv8.1-a.
+            crc: Enable CRC extension. This is on by default for -march=armv8.1-a.
 
-          crypto: Enable Crypto extension. This also enables Advanced SIMD and floating-point instructions.
+            crypto: Enable Crypto extension. This also enables Advanced SIMD and floating-point instructions.
 
-          解决方法:
+          Solution:
 
-            编译选项中添加 "-march=armv8.1-a+crypto".
+            Add "-march=armv8.1-a+crypto" to the compilation options.
 
-          详细指导请参考:https://gcc.gnu.org/onlinedocs/gcc/AArch64-Options.html；https://gcc.gnu.org/onlinedocs/gcc/x86-Options.html
+            For detailed instructions, see:
+                https://gcc.gnu.org/onlinedocs/gcc/AArch64-Options.html;
+                https://gcc.gnu.org/onlinedocs/gcc/x86-Options.html
 
 AARCH64_INLINE_ASSEMBLY_CHECKPOINTS:
     - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+[_]*goto[_]*)?(\s*//.*)?\s*\([a-zA-Z0-9_\s]*"(?!yield|isb|dmb|dsb)(\soshld|\soshst|\sosh|\snshld|\snshst|\snsh|\sishld|\sishst|\sish|\sld|\sst|\ssy)?.*memory
       help: |+
-          这是一个编译器屏障, 编译器屏障仅能防止编译器因优化而引入的乱序, 对弱内存顺序模型处理器运行时乱序执行无效.
+          This is a compiler barrier. The compiler barrier can only prevent the disorder introduced by the compiler due to optimization. It is invalid for the disordered execution of the weak memory order model processor at runtime.
 
-          由于 ARM 是弱内存顺序模型处理器, 建议做如下修改.
+          Since ARM is a weak memory order model processor, it is recommended to make the following modifications.
 
-          适配方案
-          --------
-          x86 上示例代码
-          ---
-          由于 x86 处理器是强内存顺序模型的, 它保证了内存的操作顺序不会被打乱,
-          因此仅仅使用编译器屏障即可.
+          Modification plan:
+            Sample code on x86/64
+            ---
+            Since the x86 processor is a strong memory order model, it ensures that the order of memory operations will not be disrupted,
+            Therefore, only the compiler barrier is used.
 
-              //GCC 确保该指令执行前的读和写内存操作先与该指令后的读和写内存操作完成
-              __asm__ __volatile__("" : : : "memory");
+            //GCC ensures that the read and write memory operations before the execution of this instruction are completed before the read and write memory operations after the instruction
+            __asm__ __volatile__("" : : : "memory");
 
-          ARM 上对应的修改示例
-          ---
-          1.  如果是 C++ 代码, 推荐使用 C++11 标准的 std::atomic_thread_fence(std::memory_order order) 接口,
-              这个接口可支持各种平台.
+            Corresponding modification example on Arm
+            1. If it is C++ code, it is recommended to use the std::atomic_thread_fence(std::memory_order order) interface of the C++11 standard,
+            This interface can support various platforms.
 
-              具体使用方法见:
+            For specific usage, see:
+                https://en.cppreference.com/w/cpp/atomic/atomic_thread_fence
+                https://en.cppreference.com/w/cpp/atomic/memory_order
 
-                  https://en.cppreference.com/w/cpp/atomic/atomic_thread_fence
-                  https://en.cppreference.com/w/cpp/atomic/memory_order
+            2. Use GCC intrinsic __sync_synchronize function instead
+            -#define barrier() __asm__ ("" : : : "memory")
+            +#define barrier() __sync_synchronize()
 
-          2. 使用 GCC intrinsic __sync_synchronize 函数替代
-
-                -#define barrier() __asm__ ("" : : : "memory")
-                +#define barrier() __sync_synchronize()
-
-          3. 或者使用下面的汇编指令
-
-                __asm__ __volatile__ ("dmb ish" : : : "memory");
+            3. Or use the following assembly instruction
+            __asm__ __volatile__ ("dmb ish" : : : "memory");
 
     - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+[_]*goto[_]*)?(\s*//.*)?\s*\(.*sfence
       help: |+
-          x86/64 架构提供了三种内存屏障指令: (1) sfence (2) lfence (3) mfence
+          The x86/64 architecture provides three memory barrier instructions: (1) sfence (2) lfence (3) mfence
 
-            sfence: sfence 指令前后的写入指令, 按照在 sfence 前后的指令序进行执行.
-                    注意, 写屏障一般需要与读屏障或数据依赖屏障配对使用.
+            sfence: The write instructions before and after the sfence instruction are executed in the same order as the instructions before and after the sfence instruction.
+            Note that write barriers are usually used in combination with read barriers or data dependency barriers.
 
-            lfence: lfence 指令前后的读取指令, 按照在 lfence 前后的指令序进行执行.
-                    注意, 读屏障一般要跟写屏障配对使用.
+            lfence: The read instructions before and after the lfence instruction are executed in the same order as the instructions before and after the lfence instruction.
+            Note that read barriers are usually used in combination with write barriers.
 
-            mfence: 确保所有 mfence 指令之前的写入指令, 都在该 mfence 指令之后的
-                    写入令之前执行; 同时, 还确保所有 mfence 指令之后的读取指令,
-                    都在该 mfence 指令之前的读取指令之后执行.
+            mfence: Ensures that all write instructions before the mfence instruction are executed before the write instruction after the mfence instruction; at the same time, it also ensures that all read instructions after the mfence instruction are executed after the read instruction before the mfence instruction.
 
-          修改方案
-          --------
+          Modification plan:
 
-          1.  对于 C 或者 C++11 以下代码
+            1. For the following code in C or C++11
 
-                x86 上示例代码:
-                ---
-                __asm__ __volatile__("sfence" : : : "memory");
-                __asm__ __volatile__("lfence" : : : "memory");
-                __asm__ __volatile__("mfence" : : : "memory");
+            Example code on x86/64:
+            ---
+            __asm__ __volatile__("sfence" : : : "memory");
+            __asm__ __volatile__("lfence" : : : "memory");
+            __asm__ __volatile__("mfence" : : : "memory");
 
-                ARM 上对应的修改示例:
-                ---
-                __asm__ __volatile__("dmb ishst" : : : "memory");
-                __asm__ __volatile__("dmb ishld" : : : "memory");
-                __asm__ __volatile__("dmb ish" : : : "memory");
+            Corresponding modification examples on ARM:
+            ---
+            __asm__ __volatile__("dmb ishst" : : : "memory");
+            __asm__ __volatile__("dmb ishld" : : : "memory");
+            __asm__ __volatile__("dmb ish" : : : "memory");
 
-          2.  对于 C++11 及以上代码, 推荐 (适用于 gcc-4.8 及以上版本)
+            2. For C++11 and above code, it is recommended (applicable to gcc-4.8 and above)
 
-              使用 C++11 的 std::atomic_thread_fence(std::memory_order order) 接口.
+            Use C++11's std::atomic_thread_fence(std::memory_order order) interface.
 
-              具体使用方法见:
-                  https://en.cppreference.com/w/cpp/atomic/atomic_thread_fence
-                  https://en.cppreference.com/w/cpp/atomic/memory_order
+            For specific usage, see:
+            https://en.cppreference.com/w/cpp/atomic/atomic_thread_fence
+             https://en.cppreference.com/w/cpp/atomic/memory_order
 
     - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+[_]*goto[_]*)?(\s*//.*)?\s*\(.*lfence
       help: |+
-          x86/64 系统架构提供了三种内存屏障指令:(1) sfence ; (2) lfence ; (3) mfence.
+          The x86/64 system architecture provides three memory barrier instructions: (1) sfence; (2) lfence; (3) mfence.
 
-          sfence 确保: sfence 指令前后的写入指令, 按照在 sfence 前后的指令序进行执行.注意, 写屏障一般需要与读屏障或数据依赖屏障配对使用.
+            sfence ensures that the write instructions before and after the sfence instruction are executed in the same order as the instructions before and after the sfence instruction. Note that write barriers are usually used in conjunction with read barriers or data dependency barriers.
 
-          lfence 确保: lfence 指令前后的读取指令, 按照在 lfence 前后的指令序进行执行.注意, 读屏障一般要跟写屏障配对使用.
+            lfence ensures that the read instructions before and after the lfence instruction are executed in the same order as the instructions before and after the lfence instruction. Note that read barriers are usually used in conjunction with write barriers.
 
-          mfence 确保: 确保所有 mfence 指令之前的写入指令, 都在该 mfence 指令之后的写入令之前执行；同时, 还确保所有 mfence 指令之后的读取指令, 都在该 mfence 指令之前的读取指令之后执行.
+            mfence ensures that all write instructions before the mfence instruction are executed before the write instructions after the mfence instruction; at the same time, it also ensures that all read instructions after the mfence instruction are executed after the read instructions before the mfence instruction.
 
-          修改方案:
+          Modification plan:
 
-          推荐(gcc-4.8以及以上时):
-            使用C++11标准的std::atomic_thread_fence(std::memory_order order)接口,可支持各种平台.
-            具体使用方法见:
-                https://en.cppreference.com/w/cpp/atomic/atomic_thread_fence
-                https://en.cppreference.com/w/cpp/atomic/memory_order
+            Recommended (for gcc-4.8 and above):
+            Using the C++11 standard std::atomic_thread_fence(std::memory_order order) interface, it can support various platforms.
+            For specific usage, see:
+            https://en.cppreference.com/w/cpp/atomic/atomic_thread_fence
+            https://en.cppreference.com/w/cpp/atomic/memory_order
 
-          x86 上示例代码:
-          ---
-          __asm__ __volatile__("sfence" : : : "memory");
-          __asm__ __volatile__("lfence" : : : "memory");
-          __asm__ __volatile__("mfence" : : : "memory");
+            Example code on x86/64:
+            ---
+            __asm__ __volatile__("sfence" : : : "memory");
+            __asm__ __volatile__("lfence" : : : "memory");
+            __asm__ __volatile__("mfence" : : : "memory");
 
-          ARM 上对应的修改示例:
-          ---
-          __asm__ __volatile__("dmb ishst" : : : "memory");
-          __asm__ __volatile__("dmb ishld" : : : "memory");
-          __asm__ __volatile__("dmb ish" : : : "memory");
+            Corresponding modification example on ARM:
+            ---
+            __asm__ __volatile__("dmb ishst" : : : "memory");
+            __asm__ __volatile__("dmb ishld" : : : "memory");
+            __asm__ __volatile__("dmb ish" : : : "memory");
 
     - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+[_]*goto[_]*)?(\s*//.*)?\s*\(.*mfence
       help: |+
-          x86/64 系统架构提供了三种内存屏障指令:(1) sfence ; (2) lfence ; (3) mfence.
+          The x86/64 system architecture provides three memory barrier instructions: (1) sfence; (2) lfence; (3) mfence.
 
-          sfence 确保: sfence 指令前后的写入指令, 按照在 sfence 前后的指令序进行执行.注意, 写屏障一般需要与读屏障或数据依赖屏障配对使用.
+            sfence ensures that the write instructions before and after the sfence instruction are executed in the same order as the instructions before and after the sfence instruction. Note that write barriers are usually used in conjunction with read barriers or data dependency barriers.
 
-          lfence 确保: lfence 指令前后的读取指令, 按照在 lfence 前后的指令序进行执行.注意, 读屏障一般要跟写屏障配对使用.
+            lfence ensures that the read instructions before and after the lfence instruction are executed in the same order as the instructions before and after the lfence instruction. Note that read barriers are usually used in conjunction with write barriers.
 
-          mfence 确保: 确保所有 mfence 指令之前的写入指令, 都在该 mfence 指令之后的写入令之前执行；同时, 还确保所有 mfence 指令之后的读取指令, 都在该 mfence 指令之前的读取指令之后执行.
+            mfence ensures that all write instructions before the mfence instruction are executed before the write instructions after the mfence instruction; at the same time, it also ensures that all read instructions after the mfence instruction are executed after the read instructions before the mfence instruction.
 
-          修改方案:
+          Modification plan:
 
-          推荐(gcc-4.8以及以上时):
-            使用C++11标准的std::atomic_thread_fence(std::memory_order order)接口,可支持各种平台.
-            具体使用方法见:
-                https://en.cppreference.com/w/cpp/atomic/atomic_thread_fence
-                https://en.cppreference.com/w/cpp/atomic/memory_order
+            Recommended (for gcc-4.8 and above):
+            Using the C++11 standard std::atomic_thread_fence(std::memory_order order) interface, it can support various platforms.
+            For specific usage, see:
+            https://en.cppreference.com/w/cpp/atomic/atomic_thread_fence
+            https://en.cppreference.com/w/cpp/atomic/memory_order
 
-          x86 上示例代码:
-          ---
-          __asm__ __volatile__("sfence" : : : "memory");
-          __asm__ __volatile__("lfence" : : : "memory");
-          __asm__ __volatile__("mfence" : : : "memory");
+            Example code on x86/64:
+            ---
+            __asm__ __volatile__("sfence" : : : "memory");
+            __asm__ __volatile__("lfence" : : : "memory");
+            __asm__ __volatile__("mfence" : : : "memory");
 
-          ARM 上对应的修改示例:
-          ---
-          __asm__ __volatile__("dmb ishst" : : : "memory");
-          __asm__ __volatile__("dmb ishld" : : : "memory");
-          __asm__ __volatile__("dmb ish" : : : "memory");
-
-    - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+[_]*goto[_]*)?(\s*//.*)?\s*\(.*crc32b
-      help: |+
-          CRC32 系列指令主要用于计算字符串的32位 CRC 校验码, 输入待计算的字符串, 输出 32 位 CRC 多项式校验码.使用 CRC32 指令的方式有2种:一种是直接使用（内联）汇编代码；另一种是借助编译器 intrinsics.
-
-          现象描述: 在 ARM 上可能出现的编译错误: unknown mnemonic 'crc32q' -- 'crc32q (x3),x2' 或 operand1should be an integer register -- 'crc32b (x1),x0' 或 unrecognized command line option '-msse4.2'.
-
-          可能原因: x86 使用的是 crc32b 和 crc32q 汇编指令完成 CRC32C 校验值计算功能, 而 Arm64 平台用 crc32cb, crc32ch, crc32cw, crc32cx 4 个汇编指令完成 CRC32C 校验值计算功能.
-
-          修改方案: 请使用 crc32cb, crc32ch, crc32cw, crc32cx 取代 x86 的 CRC32 系列汇编指令, 并在编译时添加编译参数 '-mcpu=generic+crc'.
-
-          x86 上示例代码:
-          ---
-          static inline uint32_t SSE4_crc32_u8(uint32_t crc, uint8_t v)
-          {
-              __asm__("crc32b %1, %0" : "+r"(crc) : "rm"(v));
-              return crc;
-          }
-
-          ARM 上对应的修改示例:
-          ---
-          static inline uint32_t SSE4_crc32_u8(uint32_t crc, uint8_t value)
-          {
-              __asm__ __volatile__("crc32cb %w[c], %w[c], %w[v]":[c]"+r"(crc):[v]"r"(value));
-              return crc;
-          }
-
-          注意: 修改后需要增加 -march=armv8-a+crc  编译选项.
-
-    - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+[_]*goto[_]*)?(\s*//.*)?\s*\(.*crc32w
-      help: |+
-          CRC32 系列指令主要用于计算字符串的32位 CRC 校验码, 输入待计算的字符串, 输出32位 crc 多项式校验码.使用 CRC32 指令的方式有2种:一种是直接使用（内联）汇编代码；另一种是借助编译器 intrinsics.
-
-          现象描述: 在 ARM 上可能出现的编译错误: unknown mnemonic 'crc32q' -- 'crc32q (x3),x2' 或 operand1should be an integer register -- 'crc32b (x1),x0' 或 unrecognized command line option '-msse4.2'.
-
-          可能原因: x86 使用的是 crc32b 和 crc32q 汇编指令完成 CRC32C 校验值计算功能, 而 Arm64 平台用 crc32cb, crc32ch, crc32cw, crc32cx 4 个汇编指令完成 CRC32C 校验值计算功能.
-
-          修改方案: 请使用 crc32cb, crc32ch, crc32cw, crc32cx 取代 x86 的 CRC32 系列汇编指令, 并在编译时添加编译参数 '-mcpu=generic+crc'.
-
-          x86 上示例代码:
-          ---
-          static inline uint32_t SSE4_crc32_u16(uint32_t crc, uint16_t v)
-          {
-              __asm__("crc32w %1, %0" : "+r"(crc) : "rm"(v));
-              return crc;
-          }
-
-          ARM 上对应的修改示例:
-          ---
-          static inline uint32_t SSE4_crc32_u16(uint32_t crc, uint16_t value)
-          {
-              __asm__ __volatile__("crc32ch %w[c], %w[c], %w[v]":[c]"+r"(crc):[v]"r"(value));
-              return crc;
-          }
-
-          注意: 修改后需要增加 -march=armv8-a+crc 编译选项.
+            Corresponding modification example on Arm:
+            ---
+            __asm__ __volatile__("dmb ishst" : : : "memory");
+            __asm__ __volatile__("dmb ishld" : : : "memory");
+            __asm__ __volatile__("dmb ish" : : : "memory");
 
     - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+[_]*goto[_]*)?(\s*//.*)?\s*\(.*crc32l
       help: |+
-          CRC32 系列指令主要用于计算字符串的32位 CRC 校验码, 输入待计算的字符串, 输出32位 crc 多项式校验码.使用 CRC32 指令的方式有2种:一种是直接使用（内联）汇编代码；另一种是借助编译器 intrinsics.
+          The CRC32 series of instructions are mainly used to calculate the 32-bit CRC checksum of a string. The string to be calculated is input and the 32-bit crc polynomial checksum is output. There are two ways to use the CRC32 instruction: one is to use the (inline) assembly code directly; the other is to use the compiler intrinsics.
 
-          现象描述: 在 ARM 上可能出现的编译错误: unknown mnemonic 'crc32q' -- 'crc32q (x3),x2' 或 operand1should be an integer register -- 'crc32b (x1),x0' 或 unrecognized command line option '-msse4.2'.
+          Phenomenon description: Compilation errors that may occur on ARM: unknown mnemonic 'crc32q' -- 'crc32q (x3),x2' or operand1should be an integer register -- 'crc32b (x1),x0' or unrecognized command line option '-msse4.2'.
 
-          可能原因: x86 使用的是 crc32b 和 crc32q 汇编指令完成 CRC32C 校验值计算功能, 而 Arm64 平台用 crc32cb, crc32ch, crc32cw, crc32cx 4 个汇编指令完成 CRC32C 校验值计算功能.
+          Possible reasons: x86 uses crc32b and crc32q assembly instructions to complete the CRC32C checksum calculation function, while the Arm64 platform uses crc32cb, crc32ch, crc32cw, crc32cx 4 assembly instructions to complete CRC32C Checksum calculation function.
 
-          修改方案: 请使用 crc32cb, crc32ch, crc32cw, crc32cx 取代 x86 的 CRC32 系列汇编指令, 并在编译时添加编译参数 '-mcpu=generic+crc'.
+          Modification plan:
+            Please use crc32cb, crc32ch, crc32cw, crc32cx to replace the CRC32 series assembly instructions of x86, and add the compilation parameter '-mcpu=generic+crc' when compiling.
 
-          x86 上示例代码:
-          ---
-          static inline uint32_t SSE4_crc32_u32(uint32_t crc, uint32_t v)
-          {
-              __asm__("crc32l %1, %0" : "+r"(crc) : "rm"(v));
-              return crc;
-          }
+            Sample code on x86/64:
+            ---
+            static inline uint32_t SSE4_crc32_u32(uint32_t crc, uint32_t v)
+            {
+                __asm__("crc32l %1, %0" : "+r"(crc) : "rm"(v));
+                return crc;
+            }
 
-          ARM 上对应的修改示例:
-          ---
-          static inline uint32_t SSE4_crc32_u32(uint32_t crc, uint32_t value)
-          {
-              __asm__ __volatile__("crc32cw %w[c], %w[c], %w[v]":[c]"+r"(crc):[v]"r"(value));
-              return crc;
-          }
+            Corresponding modification example on ARM:
+            static inline uint32_t SSE4_crc32_u32(uint32_t crc, uint32_t value)
+            {
+                __asm__ __volatile__("crc32cw %w[c], %w[c], %w[v]":[c]"+r"(crc):[v]"r"(value));
+                return crc;
+            }
 
-          注意: 修改后需要增加 -march=armv8-a+crc 编译选项.
+            Note: After modification, you need to add the -march=armv8-a+crc compilation option.
 
     - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+[_]*goto[_]*)?(\s*//.*)?\s*\(.*crc32q
       help: |+
-          CRC32 系列指令主要用于计算字符串的32位 CRC 校验码, 输入待计算的字符串, 输出32位 crc 多项式校验码.使用 CRC32 指令的方式有2种:一种是直接使用（内联）汇编代码；另一种是借助编译器 intrinsics.
+          The CRC32 series of instructions are mainly used to calculate the 32-bit CRC checksum of a string. The string to be calculated is input and the 32-bit crc polynomial checksum is output. There are two ways to use the CRC32 instruction: one is to use the (inline) assembly code directly; the other is to use the compiler intrinsics.
 
-          现象描述: 在 ARM 上可能出现的编译错误: unknown mnemonic 'crc32q' -- 'crc32q (x3),x2' 或 operand1should be an integer register -- 'crc32b (x1),x0' 或 unrecognized command line option '-msse4.2'.
+          Phenomenon description:
+            Compilation errors that may occur on ARM: unknown mnemonic 'crc32q' -- 'crc32q (x3),x2' or operand1should be an integer register -- 'crc32b (x1),x0' or unrecognized command line option '-msse4.2'.
 
-          可能原因: x86 使用的是 crc32b 和 crc32q 汇编指令完成 CRC32C 校验值计算功能, 而 Arm64 平台用 crc32cb, crc32ch, crc32cw, crc32cx 4 个汇编指令完成 CRC32C 校验值计算功能.
+          Possible reasons:
+            x86 uses crc32b and crc32q assembly instructions to complete the CRC32C checksum calculation function, while the Arm64 platform uses crc32cb, crc32ch, crc32cw, crc32cx 4 assembly instructions to complete CRC32C Checksum calculation function.
 
-          修改方案: 请使用 crc32cb, crc32ch, crc32cw, crc32cx 取代 x86 的 CRC32 系列汇编指令, 并在编译时添加编译参数 '-mcpu=generic+crc'.
+          Modification plan:
+            Please use crc32cb, crc32ch, crc32cw, crc32cx to replace the CRC32 series assembly instructions of x86, and add the compilation parameter '-mcpu=generic+crc' when compiling.
 
-          x86 上示例代码:
-          ---
-          static inline uint32_t SSE4_crc32_u64(uint32_t crc, uint64_t v)
-          {
-              uint64_t result = crc;
-              __asm__("crc32q %1, %0" : "+r"(result) : "rm"(v));
-              return result;
-          }
+            Sample code on x86/64:
+            static inline uint32_t SSE4_crc32_u64(uint32_t crc, uint64_t v)
+            {
+                uint64_t result = crc;
+                __asm__("crc32q %1, %0" : "+r"(result) : "rm"(v));
+                return result;
+            }
 
-          ARM 上对应的修改示例:
-          ---
-          static inline uint32_t SSE4_crc32_u64(uint32_t crc, uint64_t alue)
-          {
-              __asm__ __volatile__("crc32cx %w[c], %w[c], %x[v]":[c]"+r"(crc):[v]"r"(value));
-              return crc;
-          }
+            Corresponding modification example on ARM:
+            static inline uint32_t SSE4_crc32_u64(uint32_t crc, uint64_t alue)
+            {
+                __asm____volatile__("crc32cx %w[c], %w[c], %x[v]":[c]"+r"(crc):[v]"r"(value));
+                return crc;
+            }
 
-          注意: 修改后需要增加 -march=armv8-a+crc  编译选项.
+            Note: After modification, you need to add -march=armv8-a+crc compilation option.
 
     - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+[_]*goto[_]*)?(\s*//.*)?\s*\(.*bswap
       help: |+
-          现象描述: 在 ARM 上可能出现的编译错误: Error: unknown mnemonic 'bswap' -- 'bswap x3'.
+          Phenomenon description: Compilation error that may occur on ARM: Error: unknown mnemonic 'bswap' -- 'bswap x3'.
 
-          可能原因: bswap 是 x86 的字节序反序指令, 需替换为 Arm64 的 rev 指令.
+          Possible cause: bswap is the byte order reversal instruction of x86, which needs to be replaced by the rev instruction of Arm64.
 
-          修改方案:
+          Modification plan:
 
-          x86 上示例代码:
-          ---
-          inline uint32_t bswap(uint32_t val)
-          {
-              __asm__("bswap %0" : "=r" (val) : "0" (val));
-              retrun val;
-          }
+            Example code on x86/64:
+            ---
+            inline uint32_t bswap(uint32_t val)
+            {
+                __asm__("bswap %0" : "=r" (val) : "0" (val));
+                retrun val;
+            }
 
-          ARM 上对应的修改示例:
-          ---
-          inline uint32_t bswap(uint32_t val)
-          {
-              __asm__("rev %w[dst], %w[src]" : [dst]"=r"(val) : [src]"r"(val));
-          }
+            Corresponding modification example on ARM:
+            inline uint32_t bswap(uint32_t val)
+            {
+                __asm__("rev %w[dst], %w[src]" : [dst]"=r"(val) : [src]"r"(val));
+            }
 
-    - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+[_]*goto[_]*)?(\s*//.*)?\s*\(.*rep\s
+    - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+[_]*goto[_]*)?(\s*//.*)?\s*\(.*rep[ ;]
       help: |+
-          现象描述: 在 ARM 上可能出现的编译错误: unknown mnemonic 'rep' -- 'rep'.
+          Phenomenon description: Compilation error that may occur on ARM: unknown mnemonic 'rep' -- 'rep'.
 
-          可能原因: rep 为 x86 的重复执行指令, 需替换为 Arm64 的 rept 指令.
+          Possible reason:
+            rep is the repeated execution instruction of x86, which needs to be replaced with the rept instruction of Arm64.
 
-          修改方案:
+          Modification plan:
+            Sample code on x86/64:
+            #define nop __asm__ __volatile__("rep;nop" ::: "memory")
 
-          x86 上示例代码:
-          ---
-          #define nop __asm__ __volatile__("rep;nop" ::: "memory")
-
-          ARM 上对应的修改示例, 本样例实现空指令, 参数 n 为循环次数: :
-          ---
-          #define __nops(n) ".rept " #n "\nnop\n.endr\n"
-          #define nops(n) asm volatile(__nops(n))
+            Corresponding modification example on ARM, this example implements the no instruction, and the parameter n is the number of loops:
+            #define __nops(n) ".rept " #n "\nnop\n.endr\n"
+            #define nops(n) asm volatile(__nops(n))
 
     - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+[_]*goto[_]*)?(\s*//.*)?\s*\(.*pause
       help: |+
-          Pause 功能:给处理器提供提示, 提高 spin-wait 循环的性能.
+          Pause function: Provides hints to the processor to improve the performance of the spin-wait loop.
 
-          修改方案:
+          Modification plan:
+            Example code on x86/64:
+                __asm__ __volatile__("pause" : : : "memory");
+                __asm__ __volatile__("pause");
 
-          x86 上示例代码:
-          ---
-          __asm__ __volatile__("pause" : : : "memory");
-          __asm__ __volatile__("pause");
-
-          ARM 上对应的修改示例:
-          ---
-          __asm__ __volatile__("yield" : : : "memory");
-          __asm__ __volatile__("yield");
+            Corresponding modification example on ARM:
+                __asm__ __volatile__("yield" : : : "memory");
+                __asm__ __volatile__("yield");
 
     - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+[_]*goto[_]*)?(\s*//.*)?\s*\(.*"rdtsc"
       help: |+
-          TSC 是时间戳计数器的缩写, 它是 Pentium 兼容处理器中的一个计数器, 它记录自启动以来处理器消耗的时钟周期数.在每个时钟到来时, 该计数器自动加一.因为 TSC 随着处理器周期速率的变化而变化, 所以它提供了非常高的精确度.它经常被用来分析和检测代码.TSC 的值可以通过 rdtsc 指令来读取.
+          TSC is the abbreviation of time stamp counter. It is a counter in Pentium compatible processors that records the number of clock cycles consumed by the processor since startup. The counter is automatically incremented by one at each clock. Because TSC changes with the processor cycle rate, it provides very high accuracy. It is often used to analyze and detect code. The value of TSC can be read through the rdtsc instruction.
 
-          修改方案:
+          Modification plan:
 
-          x86 上示例代码:
-          ---
-          static uint64_t Rdtsc()
-          {
-              uint32_t lo, hi;
-              __asm__ __volatile__ ("rdtsc" : "=a" (lo), "=d" (hi));
-              return (uint64_t)hi << 32 | lo;
-          }
+            Sample code on x86/64:
+            static uint64_t Rdtsc()
+            {
+                uint32_t lo, hi;
+                __asm__ __volatile__ ("rdtsc" : "=a" (lo), "=d" (hi));
+                return (uint64_t)hi << 32 | lo;
+            }
 
-          ARM 上对应的修改示例:
-          ---
-          方法一: 采用 cntvct_el0 , 但其采用的是外部时钟频率, 和 rdtsc 无法达到等价替换（rdtsc 采用的是主频）, 可进行近似替换.
-          static uint64_t Rdtsc()
-          {
-              uint64_t count_num;
-              Current_Speed = 2400; // Current Speed = 2400MHz
-              External_Clock = 100; // External Clock = 100MHz
-              __asm__ __volatile__ ("mrs %0, cntvct_el0" : "=r" (count_num));
-              return count_num *（Current_Speed / External_Clock）；
-          }
+            Corresponding modification example on ARM:
+            Method 1: Use cntvct_el0, but it uses the external clock frequency, and cannot achieve equivalent replacement with rdtsc (rdtsc uses the main frequency). Approximate replacement can be performed.
+            static uint64_t Rdtsc()
+            {
+                uint64_t count_num;
+                Current_Speed ​​= 2400; // Current Speed ​​= 2400MHz
+                External_Clock = 100; // External Clock = 100MHz
+                __asm__ __volatile__ ("mrs %0, cntvct_el0" : "=r" (count_num));
+                return count_num * (Current_Speed ​​/ External_Clock);
+            }
 
-          方法二: 使用 Linux 提供的获取时间函数 clock_gettime 进行近似替换.
-          static uint64_t Rdtsc()
-          {
-              struct timespec tmp;
-              clock_gettime(CLOCK_MONOTONIC, &tmp);
-              return tmp.tv_sec * 2400000000 + (uint64_t)tmp.tv_nsec * 2.4; // 2400000000 和 2.4 基于服务器主频而定
-          }
+            Method 2: Use the clock_gettime function provided by Linux for approximate replacement.
+            static uint64_t Rdtsc()
+            {
+                struct timespec tmp;
+                clock_gettime(CLOCK_MONOTONIC, &tmp);
+                return tmp.tv_sec * 2400000000 + (uint64_t)tmp.tv_nsec * 2.4; // 2400000000 and 2.4 are based on the server's main frequency
+            }
 
-          方法三: ARM 有 Performance Monitors Control Register 系列寄存器, 其中 PMCCNTR_EL0 就类似于 x86 的 TSC 寄存器.但默认情况用户态是不可读的, 需要内核态使能后才能读取.具体可参考 http://ilinuxkernel.com/?p=1755.
+            Method 3: ARM has a series of Performance Monitors Control Register registers, among which PMCCNTR_EL0 is similar to the TSC register of x86. However, it is not readable in user mode by default and can only be read after kernel mode is enabled. For details, please refer to http://ilinuxkernel.com/?p=1755.
 
-          a. 下载 read aarch64 TSC , 解压压缩包, 在 arrch64_tsc 目录下执行 make 命令, 安装相应内核驱动, 生成如下文件.
-          Makefile modules.order Module.symvers pmu.c pmu.ko pmu.mod.c pmu.mod.o pmu.o
+            a. Download read aarch64 TSC, unzip the compressed package, execute the make command in the arrch64_tsc directory, install the corresponding kernel driver, and generate the following files.
+            Makefile modules.order Module.symvers pmu.c pmu.ko pmu.mod.c pmu.mod.o pmu.o
 
-          b. 执行 insmod pmu.ko 命令安装内核模块, 使能内核态（初次执行即可）.
+            b. Execute the insmod pmu.ko command to install the kernel module and enable kernel mode (first execution).
 
-          c. 代码替换:
-          static uint64_t Rdtsc()
-          {
-              uint64_t count_num;
-              __asm__ __volatile__ ("mrs %0, PMCCNTR_EL0" : "+r" (count_num));
-              return count_num；
-          }
+            c. Code replacement:
+            static uint64_t Rdtsc()
+            {
+                uint64_t count_num;
+                __asm__ __volatile__ ("mrs %0, PMCCNTR_EL0" ​​: "+r" (count_num));
+                return count_num;
+            }
 
     - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+[_]*goto[_]*)?(\s*//.*)?\s*\(.*popcntq
       help: |+
-          POPCNT 函数主要实现功能是进行1个数的统计.
+          The main function of the POPCNT function is to count 1 number.
 
-          修改方案:
+          Modification plan:
+            Example code on x86/64:
+            static inline int64_t POPCNT_popcnt_u64(uint64_t a)
+            {
+                int64_t result;
+                __asm__("popcntq %1, %0" : "=r"(result) : "mr"(a) : "cc");
+                return result;
+            }
 
-          x86 上示例代码:
-          ---
-          static inline int64_t POPCNT_popcnt_u64(uint64_t a)
-          {
-              int64_t result;
-              __asm__("popcntq %1, %0" : "=r"(result) : "mr"(a) : "cc");
-              return result;
-          }
-
-          ARM 上对应的修改示例:
-          ---
-          #include <arm_neon.h>
-          static inline int POPCNT_popcnt_u64(uint64_t x)
-          {
-              uint64_t count_result = 0;
-              uint64_t count[1];
-              uint8x8_t input_val,count8x8_val;
-              uint16x4_t count16x4_val;
-              uint32x2_t count32x2_val;
-              uint64x1_t count64x1_val;
-              input_val = vld1_u8((unsigned char *) &x);
-              count8x8_val = vcnt_u8(input_val);
-              count16x4_val = vpaddl_u8(count8x8_val);
-              count32x2_val = vpaddl_u16(count16x4_val);
-              count64x1_val = vpaddl_u32(count32x2_val);
-              vst1_u64(count, count64x1_val);
-              count_result=count[0];
-              return count_result;
-          }
+            Corresponding modification example on ARM:
+            #include <arm_neon.h>
+            static inline int POPCNT_popcnt_u64(uint64_t x)
+            {
+                uint64_t count_result = 0;
+                uint64_t count[1];
+                uint8x8_t input_val,count8x8_val;
+                uint16x4_t count16x4_val;
+                uint32x2_t count32x2_val;
+                uint64x1_t count64x1_val;
+                input_val = vld1_u8((unsigned char *) &x);
+                count8x8_val = vcnt_u8(input_val);
+                count16x4_val = vpaddl_u8(count8x8_val);
+                count32x2_val = vpaddl_u16(count16x4_val);
+                count64x1_val = vpaddl_u32(count32x2_val);
+                vst1_u64(count, count64x1_val);
+                count_result=count[0];
+                return count_result;
+            }
 
     - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+[_]*goto[_]*)?(\s*//.*)?\s*\(.*addl
       help: |+
-          函数功能: 对整数变量进行原子加.
+          Function: Atomic addition of integer variables.
 
-          修改方案:
+          Modification plan:
+            Example code on x86/64:
+            static inline void atomic_add(int i, atomic_t *v)
+            {
+                asm volatile(LOCK_PREFIX "addl %1,%0" : "+m" (v->counter) : "ir" (i));
+            }
 
-          x86 上示例代码:
-          ---
-          static inline void atomic_add(int i, atomic_t *v)
-          {
-              asm volatile(LOCK_PREFIX "addl %1,%0" : "+m" (v->counter) : "ir" (i));
-          }
+            Corresponding modification example on ARM:
+            Method 1: Replace with gcc's built-in atomic operation
+            __sync_add_and_fetch(&_value.counter,1)
 
-          ARM 上对应的修改示例:
-          ---
-          第1种方法: 使用 gcc 自带原子操作替换
-          __sync_add_and_fetch(&_value.counter,1)
-
-          第2种方法: 使用内联汇编替换
-          void atomic_add(int i)
-          {
-              unsigned int tmp;
-              int result;
-              __asm__ volatile(" prfm pstl1strm, %2\n"
-                    "1: ldaxr %w0, %2\n"    //加载数据到寄存器
-                    " add %w0, %w0, %w3\n"  //加操作
-                    " stlxr %w1, %w0, %2\n" //加后的数据写入内存并判断是否写入成功
-                    " cbnz %w1, 1b"         //若写入内存失败, 重新执行加操作
+            Method 2: Replace with inline assembly
+            void atomic_add(int i)
+            {
+                unsigned int tmp;
+                int result;
+                __asm__ volatile(
+                    " prfm pstl1strm, %2\n"
+                    "1: ldaxr %w0, %2\n" //Load data into register
+                    " add %w0, %w0, %w3\n" //addition operation
+                    " stlxr %w1, %w0, %2\n" //write the added data to the memory and determine whether the write is successful
+                    " cbnz %w1, 1b" //if the write to the memory fails, re-execute the addition operation
                     : "=&r"(result), "=&r"(tmp), "+Q"(_value.counter)
                     : "Ir"(i)
-              )
-          }
+                )
+            }
 
     - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+[_]*goto[_]*)?(\s*//.*)?\s*\(.*"subl
       help: |+
-          函数功能: 对整数变量进行原子减.
+          Function: Atomic reduction of integer variables.
 
-          修改方案:
+          Modification plan:
 
-          x86 上示例代码:
-          ---
-          static inline void atomic_sub(int i, atomic_t *v)
-          {
-              asm volatile(LOCK_PREFIX "subl %1,%0" : "+m" (v->counter) : "ir" (i));
-          }
+            Example code on x86:
+            static inline void atomic_sub(int i, atomic_t *v)
+            {
+                asm volatile(LOCK_PREFIX "subl %1,%0" : "+m" (v->counter) : "ir" (i));
+            }
 
-          ARM 上对应的修改示例:
-          ---
-          第1种方法: 使用 gcc 自带原子操作替换
-          __sync_sub_and_fetch(&_value.counter,1);
+            Corresponding modification example on ARM:
+            Method 1: Replace with gcc's built-in atomic operation
+            __sync_sub_and_fetch(&_value.counter,1);
 
-          第2种方法: 使用内联汇编替换
-          void atomic_sub (int i)
-          {
-              unsigned int tmp;
-              int result;
-              __asm__ volatile(" prfm pstl1strm, %2\n"
-                    "1: ldaxr %w0, %2\n"    //加载数据到寄存器
-                    " sub %w0, %w0, %w3\n"  //减操作
-                    " stlxr %w1, %w0, %2\n" //减后的数据写入内存, 并判断是否写入成功
-                    " cbnz %w1, 1b"         //若写入内存失败, 重新执行减操作
+            Method 2: Replace with inline assembly
+            void atomic_sub (int i)
+            {
+                unsigned int tmp;
+                int result;
+                __asm__ volatile(
+                    " prfm pstl1strm, %2\n"
+                    "1: ldaxr %w0, %2\n" //Load data into register
+                    " sub %w0, %w0, %w3\n" //Subtraction operation
+                    " stlxr %w1, %w0, %2\n" //Write the subtracted data to the memory and determine whether the write is successful
+                    " cbnz %w1, 1b" //If the write to the memory fails, re-execute the subtraction operation
                     : "=&r"(result), "=&r"(tmp), "+Q"(_value.counter)
                     : "Ir"(i)
-              )
-          }
+                )
+            }
 
     - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+[_]*goto[_]*)?(\s*//.*)?\s*\(.*"decl
       help: |+
-          函数说明: 对整数进行减操作, 并判断执行原子减后结果是否为0.
+          Function description: Performs a subtraction operation on an integer and determines whether the result after atomic subtraction is 0.
 
-          修改方案:
+          Modification plan:
 
-          x86 上示例代码:
-          ---
-          static inline int atomic_dec_and_test(atomic_t *v)
-          {
-              unsigned char c;
-              asm volatile(LOCK_PREFIX "decl %0; sete %1" : "+m" (v->counter), "=qm" (c) : : "memory");
-              return c != 0;
-          }
+            Example code on x86:
+            static inline int atomic_dec_and_test(atomic_t *v)
+            {
+                unsigned char c;
+                asm volatile(LOCK_PREFIX "decl %0; sete %1" : "+m" (v->counter), "=qm" (c) : : "memory");
+                return c != 0;
+            }
 
-          ARM 上对应的修改示例:
-          ---
-          第1种方法: 使用 gcc 自带原子操作函数替换
-          __sync_sub_and_fetch(&_value.counter, i)
+            Corresponding modification example on ARM:
+            Method 1: Replace with gcc's own atomic operation function
+            __sync_sub_and_fetch(&_value.counter, i)
 
-          第2种方法: 使用内联汇编替换 (i 传1, 并对 result 作判断)
-          static inline int atomic_sub_return(int i, atomic_t *v)
-          {
-              unsigned long tmp;
-              int result;
-              prefetchw(&v->counter);
-              __asm__ volatile ("\n\t"
-                  "@ atomic_sub\n\t"
-                  "1: ldrex %0, [%3]\n\t"
-                  " sub %0, %0, %4\n\t"
-                  " strex %1, %0, [%3]\n\t"
-                  " teq %1, #0\n\t"
-                  " bne 1b"
-                  : "=&r" (result), "=&r" (tmp), "+Qo" (v->counter)
-                  : "r" (&v->counter), "Ir" (i)
-                  : "cc");
-              return result;
-          }
+            Method 2: Replace with inline assembly (i is passed 1, and result is judged)
+            static inline int atomic_sub_return(int i, atomic_t *v)
+            {
+                unsigned long tmp;
+                int result;
+                prefetchw(&v->counter);
+                __asm__ volatile ("\n\t"
+                    "@ atomic_sub\n\t"
+                    "1: ldrex %0, [%3]\n\t"
+                    " sub %0, %0, %4\n\t"
+                    "strex %1, %0, [%3]\n\t"
+                    "teq %1, #0\n\t"
+                    " bne 1b"
+                    : "=&r" (result), "=&r" (tmp), "+Qo" (v->counter)
+                    : "r" (&v->counter), "Ir" (i)
+                    : "cc"
+                );
+                return result;
+            }
 
     - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+[_]*goto[_]*)?(\s*//.*)?\s*\(.*"incl
       help: |+
-          函数说明: 对整数进行加操作, 并判断返回是否为0.
+          Function description: Perform addition operations on integers and determine whether the return value is 0.
 
-          修改方案:
+          Modification plan:
 
-          x86 上示例代码:
-          ---
-          static inline int atomic_inc_and_test(atomic_t *v)
-          {
-              unsigned char c;
-              asm volatile(LOCK_PREFIX "incl %0; sete %1" : "+m" (v->counter), "=qm" (c) : : "memory");
-              return c != 0;
-          }
+            Example code on x86:
+            static inline int atomic_inc_and_test(atomic_t *v)
+            {
+                unsigned char c;
+                asm volatile(LOCK_PREFIX "incl %0; sete %1" : "+m" (v->counter), "=qm" (c) : : "memory");
+                return c != 0;
+            }
 
-          ARM 上对应的修改示例:
-          ---
-          第1种方法: 使用 gcc 自带原子操作函数替换
-          __sync_add_and_fetch(&_value.counter, i)
+            Corresponding modification example on ARM:
+            Method 1: Replace with gcc's own atomic operation function
+            __sync_add_and_fetch(&_value.counter, i)
 
-          第2种方法: 使用内联汇编替换 (i 传1, 并对 result 作判断)
-          static inline void atomic_fetch_add(int i, atomic_t *v)
-          {
-              unsigned long tmp;
-              int result, val;//写预取
-              prefetchw(&v->counter);
-              __asm__ volatile("\n\t"
-                  "@ atomic_fetch\n\t"
-                  "1: ldrex %0, [%4]\n\t" @result, tmp
-                  //执行v->counter+i（5%）操作, 并将执行结果放入val（%1）所在的寄存器中
-                  " add %1, %0, %5\n\t" @result,
-                  " strex %2, %1, [%4]\n\t" @tmp, result, tmp
-                  " teq %2, #0\n\t" @tmp
-                  " bne 1b"
-                  : "=&r"(result), "=&r"(val), "=&r"(tmp), "+Qo"(v->counter)
-                  : "r"(&v->counter), "Ir"(i)
-                  : "cc");
-              return result;
-          }
+            Method 2: Replace with inline assembly (i is passed 1, and result is judged)
+            static inline void atomic_fetch_add(int i, atomic_t *v)
+            {
+                unsigned long tmp;
+                int result, val;//Write prefetch
+                prefetchw(&v->counter);
+                __asm__ volatile("\n\t"
+                    "@ atomic_fetch\n\t"
+                    "1: ldrex %0, [%4]\n\t" @result, tmp
+                    //Execute v->counter+i (5%) operation, and put the execution result into the register where val (%1) is located
+                    " add %1, %0, %5\n\t" @result,
+                    " strex %2, %1, [%4]\n\t" @tmp, result, tmp
+                    " teq %2, #0\n\t" @tmp
+                    " bne 1b"
+                    : "=&r"(result), "=&r"(val), "=&r"(tmp), "+Qo"(v->counter)
+                    : "r"(&v->counter), "Ir"(i)
+                    : "cc"
+                );
+                return result;
+            }
 
     - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+[_]*goto[_]*)?(\s*//.*)?\s*\(.*"xaddq
       help: |+
-          ARM 的汇编语言与 x86 完全不同, 需要重写, 涉及使用嵌入汇编的代码, 都需要针对 ARM 进行配套修改.
+          ARM's assembly language is completely different from x86 and needs to be rewritten. Code involving embedded assembly needs to be modified for ARM.
 
-          修改方案: 需要重新实现汇编代码段.
+          Modification plan:
+            The assembly code segment needs to be re-implemented.
 
-          x86 上示例代码:
-          ---
-          static inline long atomic64_add_and_return(long i, atomic64_t *v)
-          {
-              long i = i;
-              asm_volatile_("lock ; " "xaddq %0, %1;"
-              :"=r"(i)
-              :"m"(v->counter), "0"(i));
-              return i + __i;
-          }
+            Sample code on x86/64:
+            static inline long atomic64_add_and_return(long i, atomic64_t *v)
+            {
+                long i = i;
+                asm_volatile_(
+                    "lock ; " "xaddq %0, %1;"
+                    :"=r"(i)
+                    :"m"(v->counter), "0"(i)
+                );
+                return i + __i;
+            }
 
-          在 ARM 平台上使用 gcc 内置函数实现:
-          ---
-          static __inline__ long atomic64_add_and_return(long i, atomic64_t *v)
-          {
-              return __sync_add_and_fetch(&((v)->counter), i);
-          }
+            Use gcc built-in function implementation on ARM platform:
+            static __inline__ long atomic64_add_and_return(long i, atomic64_t *v)
+            {
+                return __sync_add_and_fetch(&((v)->counter), i);
+            }
 
-          以 __sync_add_and_fetch 为例, 编译后其反汇编对应代码如下所示:
-
-            <__sync_add_and_fetch >:
-            ldxr    x2, [x0]
-            add     x2, x2, x1
-            stlxr   w3, x2, [x0]
+            With Take __sync_add_and_fetch as an example. After compilation, the corresponding disassembled code is as follows:
+                <__sync_add_and_fetch >:
+                ldxr x2, [x0]
+                add x2, x2, x1
+                stlxr w3, x2, [x0]
 
     - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+[_]*goto[_]*)?(\s*//.*)?\s*\(.*"pcmpestrm
       help: |+
-          函数功能: 检查 str2 中每个字节元素 (m128i_u8[index]) 是否在 str1 中存在, 如果存在,  result 中的相应 bit 位上置1.
+          Function: Check if each byte element (m128i_u8[index]) in str2 exists in str1. If so, set the corresponding bit in result to 1.
 
-          pcmpestrm 对应的 Intrinsic 函数详细说明, 请参考 https://software.intel.com/sites/landingpage/IntrinsicsGuide/
+          For detailed description of the Intrinsic function corresponding to pcmpestrm, please refer to https://software.intel.com/sites/landingpage/IntrinsicsGuide/
 
-          修改方案:
+          Modification plan:
 
-          x86 上示例代码:
-          ---
-          template<int MODE>
-          static inline __m128i SSE4_cmpestrm(__m128i str1, int len1, __m128i str2, int len2)
-          {
-              #ifdef __clang__
-              /// Use asm reg rather than Yz output constraint to workaround LLVM bug 13199
-              /// clang doesn't support Y-prefixed asm constraints.
-              register volatile __m128i result asm ("xmm0");
-              __asm__ __volatile__ ("pcmpestrm %5, %2, %1": "=x"(result) : "x"(str1), "xm"(str2), "a"(len1), "d"(len2), "i"(MODE) : "cc");
-              #else
-              __m128i result;
-              __asm__ __volatile__ ("pcmpestrm %5, %2, %1": "=Yz"(result) : "x"(str1), "xm"(str2), "a"(len1), "d"(len2), "i"(MODE) : "cc");
-              #endif
-              return result;
-          }
+            Sample code on x86/64:
+            template<int MODE>
+            static inline __m128i SSE4_cmpestrm(__m128i str1, int len1, __m128i str2, int len2)
+            {
+                #ifdef __clang__
+                /// Use asm reg rather than Yz output constraint to workaround LLVM bug 13199
+                /// clang doesn't support Y-prefixed asm constraints.
+                register volatile __m128i result asm ("xmm0");
+                __asm__ __volatile__ ("pcmpestrm %5, %2, %1": "=x"(result) : "x"(str1), "xm"(str2), "a"(len1), "d"(len2), "i"(MODE) : "cc");
+                #else
+                __m128i result;
+                __asm__ __volatile__ ("pcmpestrm %5, %2, %1": "=Yz"(result) : "x"(str1), "xm"(str2), "a"(len1), "d"(len2), "i"(MODE) : "cc");
+                #endif
+                return result;
+            }
 
-          ARM 上对应的修改示例:
-          ---
-          #include <arm_neon.h>
-          typedef union __attribute__((aligned(16))) __oword
-          {
-              int32x4_t m128i;
-              uint8_t m128i_u8[16];
-          } __oword;
-          template<int MODE>
+            Corresponding modification example on ARM:
+            #include <arm_neon.h>
+            typedef union __attribute__((aligned(16))) __oword
+            {
+                int32x4_t m128i;
+                uint8_t m128i_u8[16];
+            } __oword;
+             template<int MODE>
 
-          static inline uint16_t SSE4_cmpestrm(int32x4_t str1, int len1, int32x4_t str2, int len2)
-          {
-              __oword a, b;
-              a.m128i = str1;
-              b.m128i = str2;
-              uint16_t result = 0;
-              uint16_t i = 0;
-              uint16_t j = 0;
-              // Impala中用到的模式 STRCHR_MODE = PCMPSTR_EQUAL_ANY | PCMPSTR_UBYTE_OPS
-              for (i = 0; i < len2; i++) {
-                  for ( j = 0; j < len1; j++) {
-                      if (a.m128i_u8[j] == b.m128i_u8[i]) {
-                          result |= (1 << i);
-                      }
-                  }
-              }
-              return result;
-          }
+            static inline uint16_t SSE4_cmpestrm(int32x4_t str1, int len1, int32x4_t str2, int len2)
+            {
+                __oword a, b;
+                a.m128i = str1;
+                b.m128i = str2;
+                uint16_t result = 0;
+                uint16_t i = 0;
+                uint16_t j = 0;
+                // Mode used in Impala STRCHR_MODE = PCMPSTR_EQUAL_ANY | PCMPSTR_UBYTE_OPS
+                for (i = 0; i < len2; i++) {
+                    for ( j = 0; j < len1; j++) {
+                        if (a.m128i_u8[j] == b.m128i_u8[i]) {
+                            result |= (1 << i);
+                        }
+                    }
+                }
+                return result;
+            }
 
     - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+[_]*goto[_]*)?(\s*//.*)?\s*\(.*"pcmpestri
       help: |+
-          函数功能: 按照 MODEL 规则（ EQUAL_EACH、 NEG_POLARITY）比较 str1 和 str2 中的元素, 比较并返回首个不相同元素的索引值.
+          Function: Compare the elements in str1 and str2 according to the MODEL rule (EQUAL_EACH, NEG_POLARITY), compare and return the index value of the first different element.
 
-          pcmpestri 对应的 Intrinsic 函数详细说明, 请参考 https://software.intel.com/sites/landingpage/IntrinsicsGuide/
+          For detailed description of the Intrinsic function corresponding to pcmpestri, please refer to https://software.intel.com/sites/landingpage/IntrinsicsGuide/
 
-          修改方案:
+          Modification plan:
 
-          x86 上示例代码:
-          ---
-          template<int MODE>
-          static inline int SSE4_cmpestri(__m128i str1, int len1, __m128i str2, int len2)
-          {
+            Sample code on x86/64:
+            template<int MODE>
+            static inline int SSE4_cmpestri(__m128i str1, int len1, __m128i str2, int len2)
+            {
                 int result;
                 __asm__ __volatile__("pcmpestri %5, %2, %1": "=c"(result) : "x"(str1), "xm"(str2), "a"(len1), "d"(len2), "i"(MODE) : "cc");
                 return result;
-          }
+            }
 
-          ARM 上对应的修改示例:
-          ---
-          #include <arm_neon.h>
+            Corresponding modification example on ARM:
+            #include <arm_neon.h>
 
-          template<int MODE>
-          static inline int SSE4_cmpestri(int32x4_t str1, int len1, int32x4_t str2, int len2)
-          {
-              __oword a, b;
-              a.m128i = str1;
-              b.m128i = str2;
-              int len_s, len_l;
-              if (len1 > len2) {
-                  len_s = len2;
-                  len_l = len1;
-              } else {
-                  len_s = len1;
-                  len_l = len2;
-              }
-              int result;
-              int i;
+            template<int MODE>
+            static inline int SSE4_cmpestri(int32x4_t str1, int len1, int32x4_t str2, int len2)
+            {
+                __oword a, b;
+                a.m128i = str1;
+                b.m128i = str2;
+                int len_s, len_l;
+                if (len1 > len2) {
+                    len_s = len2;
+                    len_l = len1;
+                } else {
+                    len_s = len1;
+                    len_l = len2;
+                }
+                int result;
+                int i;
 
-              // 本例替换的模式STRCMP_MODE = PCMPSTR_EQUAL_EACH | PCMPSTR_UBYTE_OPS | PCMPSTR_NEG_POLARITY
-              for(i = 0; i < len_s; i++)
-              {
-                  if (a.m128i_u8[i] == b.m128i_u8[i])
-                  {
-                      break;
-                  }
-              }
-              result = i;
-              if (result == len_s) result = len_l;
-              return result;
-          }
+                // The mode replaced in this example STRCMP_MODE = PCMPSTR_EQUAL_EACH | PCMPSTR_UBYTE_OPS | PCMPSTR_NEG_POLARITY
+                for(i = 0; i < len_s; i++) {
+                    if (a.m128i_u8[i] == b.m128i_u8[i]) {
+                        break;
+                    }
+                }
+                result = i;
+                if (result == len_s) result = len_l;
+                return result;
+             }
 
     - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+[_]*goto[_]*)?(\s*//.*)?\s*\(.*MOVDQU
       help: |+
-          指令功能 Move unaligned double quadword. 实现寄存器到寄存器, 寄存器到地址的数据拷贝.
+          Instruction function Move unaligned double quadword. Implement data copy from register to register and register to address.
 
-          修改方案:
+          Modification plan:
 
-          x86 上示例代码:
-          ---
-          MOVDQU xmm1, xmm2/m128
+            Example code on x86/64:
+            MOVDQU xmm1, xmm2/m128
 
-          ARM 上对应的修改示例:
-          ---
-          ; ldp 指令: Load Pair Registers (extended): loads two doublewords from memory addressed by addr to Xt1 and Xt2.
-          LDP Xt1, Xt2, addr
+            Corresponding modification example on ARM:
+            ; ldp instruction: Load Pair Registers (extended): loads two doublewords from memory addressed by addr to Xt1 and Xt2.
+            LDP Xt1, Xt2, addr
 
-          ; stp 指令: Store Pair Registers (extended): stores two doublewords from Xt1 and Xt2 to memory addressed by addr.
-          STP Xt1, Xt2, addr
+            ; stp instruction: Store Pair Registers (extended): stores two doublewords from Xt1 and Xt2 to memory addressed by addr.
+            STP Xt1, Xt2, addr
 
     - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+[_]*goto[_]*)?(\s*//.*)?\s*\(.*PAND
       help: |+
-          PAND 指令功能, 按位做 and 运算.
+          PAND instruction function, bitwise AND operation.
 
-          修改方案:
+          Modification plan:
 
-          x86 上示例代码:
-          ---
-          指令用法, 128 位按位做 and 运算:
-          PAND xmm1, xmm2/m128
+            Sample code on x86/64:
+            Instruction usage, 128-bit bitwise AND operation:
 
-          在 ARM 上替换为 NEON 指令采用128位寄存器:
-          ---
-          Bitwise AND (vector). Where <T> is 8B or 16B (though an assembler should accept any valid format).
-          AND Vd.<T>, Vn.<T>, Vm.<T>
+            PAND xmm1, xmm2/m128
+
+            Replace with NEON instruction on ARM using 128-bit register:
+            Bitwise AND (vector). Where <T> is 8B or 16B (though an assembler should accept any valid format).
+
+            AND Vd.<T>, Vn.<T>, Vm.<T>
 
     - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+[_]*goto[_]*)?(\s*//.*)?\s*\(.*Pxor
       help: |+
-          pxor 指令功能, 按位做 xor 运算.
+          pxor instruction function, bitwise xor operation.
 
-          修改方案:
+          Modification plan:
 
-          x86 上示例代码:
-          ---
-          指令用法, 128位按位做 xor 运算:
-          Pxor xmm1, xmm2/m128
+            Example code on x86/64:
+            Instruction usage, 128-bit bitwise xor operation:
 
-          在 ARM 上替换为 eor:
-          ---
-          Bitwise exclusive OR (vector). Where <T> is 8B or 16B (an assembler should accept any valid arrangement).
-          EOR Vd.<T>, Vn.<T>, Vm.<T>
+            Pxor xmm1, xmm2/m128
+
+            Replace with eor on ARM:
+            Bitwise exclusive OR (vector). Where <T> is 8B or 16B (an assembler should accept any valid arrangement).
+
+            EOR Vd.<T>, Vn.<T>, Vm.<T>
 
     - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+[_]*goto[_]*)?(\s*//.*)?\s*\(.*PSHUFB
       help: |+
-          修改方案:
+          Modification:
 
-          x86 上示例代码:
-          ---
-          PSHUFB — Packed Shuffle Bytes, 按照索引在目标寄存器中进行查表操作:
-          PSHUFB xmm1, xmm2/m128
+            Example code on x86/64:
+            PSHUFB — Packed Shuffle Bytes, perform table lookup in the target register according to the index:
+            PSHUFB xmm1, xmm2/m128
 
-
-          在 ARM 上替换为 TBL 指令:
-          ---
-          Table lookup (vector). Where <T> may be 8B or 16B, and Vn* is a list of between one and four consecutively numbered vector registers each holding sixteen 8-bit table elements. The list braces "{ }" are concrete symbols, and do not indicate an optional field as elsewhere in this manual.
-          TBL Vd.<T>, {Vn*.16B}, Vm.<T>2
+            Replace with TBL instruction on ARM:
+            Table lookup (vector). Where <T> may be 8B or 16B, and Vn* is a list of between one and four consecutively numbered vector registers each holding sixteen 8-bit table elements. The list braces "{ }" are concrete symbols, and do not indicate an optional field as elsewhere in this manual.
+            TBL Vd.<T>, {Vn*.16B}, Vm.<T>2
 
 # Intrinsics available for x86/x86-64 processors
 X86_INTRINSICS:
     - pattern: .*_mm_srli_epi64.*
       help: |+
-          函数功能
-          --------
+          Function Description:
+            Shift a right based on the size of imm, add 0 to the shifted bits, and return the result of the operation.
 
-          基于 imm 的大小对 a 进行右移操作, 移动后的位以 0 进行补充, 并返回操作的结果.
+            For detailed description, please refer to https://software.intel.com/sites/landingpage/IntrinsicsGuide/
 
-          详细说明, 请参考 https://software.intel.com/sites/landingpage/IntrinsicsGuide/
+          Modification plan:
 
-          修改方案
+            Example code on x86/64:
+            __m128i _mm_srli_epi64 (__m128i a, int imm);
 
-          x86 上示例代码:
-          ---
-          __m128i _mm_srli_epi64 (__m128i a, int imm) ;
+            Corresponding modification example on ARM:
+            #include <arm_neon.h>
 
-          ARM 上对应的修改示例:
-          ---
-          #include <arm_neon.h>
-
-          int64x2_t Arm_mm_srli_epi64 (int64x2_t a,int imm)
-          {
-              int64x2_t ret;
-              if ((imm) <= 0) {
-                  ret = a;
-              }
-              else if ((imm)> 63) {
-                  ret = vdupq_n_s64(0);
-              }
-              else {
-                  ret = vreinterpretq_s64_u64(vshrq_n_u64(vreinterpretq_u64_s64(a), imm));
-              }
-              return ret;
-          }
+            int64x2_t Arm_mm_srli_epi64 (int64x2_t a,int imm)
+            {
+                int64x2_t ret;
+                if ((imm) <= 0) {
+                    ret = a;
+                } else if ((imm)> 63) {
+                    ret = vdupq_n_s64(0);
+                } else {
+                    ret = vreinterpretq_s64_u64(vshrq_n_u64(vreinterpretq_u64_s64(a), imm));
+                }
+                return ret;
+            }
 
     - pattern: .*_mm_shuffle_epi8.*
       help: |+
-          函数功能: 按照 shuffle_mask 二进制掩码对 data 进行移位操作, 将移位后的数存储在 results 变量中.
+          Function Description:
+            Shift data according to the shuffle_mask binary mask, and store the shifted number in the results variable.
 
-          _mm_shuffle_epi8  详细说明, 请参考 https://software.intel.com/sites/landingpage/IntrinsicsGuide/
+            For detailed description of _mm_shuffle_epi8, please refer to https://software.intel.com/sites/landingpage/IntrinsicsGuide/
 
-          修改方案:
+          Modification plan:
 
-          x86 上示例代码:
-          ---
-          __m128i results = _mm_shuffle_epi8(data, shuffle_mask);
+            Example code on x86/64:
+            __m128i results = _mm_shuffle_epi8(data, shuffle_mask);
 
-          ARM 上对应的修改示例:
-          ---
-          #include <arm_neon.h>
-          #define int8x16_to_8x8x2(v) ((int8x8x2_t) { vget_low_s8(v), vget_high_s8(v) })
+            Corresponding modification example on ARM:
+            #include <arm_neon.h>
+            #define int8x16_to_8x8x2(v) ((int8x8x2_t) { vget_low_s8(v), vget_high_s8(v) })
 
-          int8x16_t results = vcombine_s8(vtbl2_s8(int8x16_to_8x8x2(data), vget_low_s8(shuffle_mask)), vtbl2_s8(int8x1 6_to_8x8x2(data), vget_high_s8(shuffle_mask)));
+            int8x16_t results = vcombine_s8(vtbl2_s8(int8x16_to_8x8x2(data), vget_low_s8(shuffle_mask)), vtbl2_s8(int8x1 6_to_8x8x2(data), vget_high_s8(shuffle_mask)));
 
     - pattern: .*_mm_extract_ps.*
       help: |+
-          函数功能: 从 results 中分别加载其 0、1、2、3 通道内的数存储到 a、b、c、d 中.
+          Function Description:
+            Load the numbers in channels 0, 1, 2, and 3 from results and store them in channels a, b, c, and d.
 
-          _mm_extract_ps  详细说明, 请参考 https://software.intel.com/sites/landingpage/IntrinsicsGuide/
+            For detailed description of _mm_extract_ps, please refer to https://software.intel.com/sites/landingpage/IntrinsicsGuide/
 
-          修改方案:
+          Modification plan:
 
-          x86 上示例代码:
-          ---
-          inline void DoExtractM128(__m128i results, uint32_t *a, uint32_t *b, uint32_t *c, uint32_t *d)
-          {
-              *a = _mm_extract_ps((__v4sf)results, 0);
-              *b = _mm_extract_ps((__v4sf)results, 1);
-              *c = _mm_extract_ps((__v4sf)results, 2);
-              *d = _mm_extract_ps((__v4sf)results, 3);
-          }
+            Sample code on x86/64:
+            inline void DoExtractM128(__m128i results, uint32_t *a, uint32_t *b, uint32_t *c, uint32_t *d)
+            {
+                *a = _mm_extract_ps((__v4sf)results, 0);
+                *b = _mm_extract_ps((__v4sf)results, 1);
+                *c = _mm_extract_ps((__v4sf)results, 2);
+                *d = _mm_extract_ps((__v4sf)results, 3);
+            }
 
-          ARM 上对应的修改示例:
-          ---
-          #include <arm_neon.h>
+            Corresponding modification example on ARM:
+            #include <arm_neon.h>
 
-          inline void DoExtractM128(int8x16_t results, uint32_t *a, uint32_t *b, uint32_t *c, uint32_t *d)
-          {
-              *a = vgetq_lane_u32(vreinterpretq_u32_s8(results), 0);
-              *b = vgetq_lane_u32(vreinterpretq_u32_s8(results), 1);
-              *c = vgetq_lane_u32(vreinterpretq_u32_s8(results), 2);
-              *d = vgetq_lane_u32(vreinterpretq_u32_s8(results), 3);
-          }
+            inline void DoExtractM128(int8x16_t results, uint32_t *a, uint32_t *b, uint32_t *c, uint32_t *d)
+            {
+                *a = vgetq_lane_u32(vreinterpretq_u32_s8(results), 0);
+                *b = vgetq_lane_u32(vreinterpretq_u32_s8(results), 1);
+                *c = vgetq_lane_u32(vreinterpretq_u32_s8(results), 2);
+                *d = vgetq_lane_u32(vreinterpretq_u32_s8(results), 3);
+            }
 
     - pattern: .*_mm_set1_epi64x.*
       help: |+
-          函数功能: 将64位的整数以复制形式填充到128位的向量 a 中.
+          Function Description:
+            Fill the 64-bit integer into the 128-bit vector a in copy form.
 
-          _mm_set1_epi64x  详细说明, 请参考 https://software.intel.com/sites/landingpage/IntrinsicsGuide/
+            For detailed description of _mm_set1_epi64x, please refer to https://software.intel.com/sites/landingpage/IntrinsicsGuide/
 
-          修改方案:
+          Modification plan:
 
-          x86 上示例代码:
-          ---
-          __m128i a = _mm_set1_epi64x(0x86b0426193d86e66ull) ;
+            Example code on x86/64:
+            __m128i a = _mm_set1_epi64x(0x86b0426193d86e66ull);
 
-          ARM 上对应的修改示例:
-          ---
-          #include <arm_neon.h>
-          int64x2_t a = vdupq_n_s64(0x86b0426193d86e66ull);
+            Corresponding modification example on ARM:
+            #include <arm_neon.h>
+            int64x2_t a = vdupq_n_s64(0x86b0426193d86e66ull);
 
     - pattern: .*_mm_mul_epu32.*
       help: |+
-          函数功能: 将 a 和 b 中的64位元素的第32位无符号数分别相乘, 并存储为64位无符号数中.
+          Function Description:
+            Multiply the 32nd bit of the 64-bit elements in a and b respectively, and store them as 64-bit unsigned numbers.
 
-          _mm_mul_epu32  详细说明, 请参考 https://software.intel.com/sites/landingpage/IntrinsicsGuide/
+            For detailed description of _mm_mul_epu32, please refer to https://software.intel.com/sites/landingpage/IntrinsicsGuide/
 
-          修改方案:
+          Modification plan:
 
-          x86 上示例代码:
-          ---
-          __m128i _mm_mul_epu32 (__m128i a, __m128i b);
+            Example code on x86/64:
+            __m128i _mm_mul_epu32 (__m128i a, __m128i b);
 
-          ARM 上对应的修改示例:
-          ---
-          #include <arm_neon.h>
+            Corresponding modification example on ARM:
+            #include <arm_neon.h>
 
-          uint64x2_t Arm_mm_mul_epu32(int32X4_t a, int32x4_t b)
-          {
-              uint64x2_t result = { uint64_t(a[0] * b[0]), uint64_t(a[2] * b[2])};
-              return result;
-          }
+            uint64x2_t Arm_mm_mul_epu32(int32X4_t a, int32x4_t b)
+            {
+                uint64x2_t result = { uint64_t(a[0] * b[0]), uint64_t(a[2] * b[2])};
+                return result;
+            }
 
     - pattern: .*_mm_add_epi64.*
       help: |+
-          函数功能: 对向量 a 和 b 中的2个64位整数分别进行相加, 并将结果保存输出.
+          Function Description:
+            Add the two 64-bit integers in vectors a and b respectively, and save the result for output.
 
-          _mm_add_epi64  详细说明, 请参考 https://software.intel.com/sites/landingpage/IntrinsicsGuide/
+            For detailed description of _mm_add_epi64, please refer to https://software.intel.com/sites/landingpage/IntrinsicsGuide/
 
-          修改方案:
+          Modification plan:
 
-          x86 上示例代码:
-          ---
-          __m128i _mm_add_epi64(__m128i a, __m128i b)
+            Example code on x86/64:
+            __m128i _mm_add_epi64(__m128i a, __m128i b)
 
-          ARM 上对应的修改示例:
-          ---
-          #include <arm_neon.h> Int64x2_t vaddq_s64(Int64x2_t a, Int64x2_t b);
+            Corresponding modification example on ARM:
+            #include <arm_neon.h> Int64x2_t vaddq_s64(Int64x2_t a, Int64x2_t b);
 
     - pattern: .*_mm_testz_si128.*
       help: |+
-          函数功能: 计算 a 和 b 的位运算结果.
+          Function Description:
+            Calculate the bitwise operation result of a and b.
 
-          _mm_testz_si128  详细说明, 请参考 https://software.intel.com/sites/landingpage/IntrinsicsGuide/
+            For detailed description of _mm_testz_si128, please refer to https://software.intel.com/sites/landingpage/IntrinsicsGuide/
 
-          修改方案:
+          Modification plan:
 
-          x86 上示例代码:
-          ---
-          all_zeros = _mm_testz_si128(zero_bytes, zero_bytes);
+            Sample code on x86/64:
+            all_zeros = _mm_testz_si128(zero_bytes, zero_bytes);
 
-          ARM 上对应的修改示例:
-          ---
-          #include <arm_neon.h>
-          all_zeros = vgetq_lane_s32(vandq_s32(zero_bytes, zero_bytes), 0) == 0;
+            Corresponding modification example on ARM:
+            #include <arm_neon.h>
+            all_zeros = vgetq_lane_s32(vandq_s32(zero_bytes, zero_bytes), 0) == 0;
 
     - pattern: .*_mm_cvtsi128_si64.*
       help: |+
-          函数功能: 拷贝 a 中的低64位整数.
+          Function Description:
+            Copy the lower 64-bit integer in a.
 
-          _mm_cvtsi128_si64  详细说明, 请参考 https://software.intel.com/sites/landingpage/IntrinsicsGuide/
+            For detailed description of _mm_cvtsi128_si64, please refer to https://software.intel.com/sites/landingpage/IntrinsicsGuide/
 
-          修改方案:
+          Modification plan:
 
-          x86 上示例代码:
-          ---
-          all_zeros = _mm_cvtsi128_si64(zero_bytes) == 0;
+            Example code on x86:
+            all_zeros = _mm_cvtsi128_si64(zero_bytes) == 0;
 
-          ARM 上对应的修改示例:
-          ---
-          #include <arm_neon.h>
-          all_zeros = vgetq_lane_u64(vreinterpretq_u64_s32(zero_bytes),0) == 0;
+            Corresponding modification example on ARM:
+            #include <arm_neon.h>
+            all_zeros = vgetq_lane_u64(vreinterpretq_u64_s32(zero_bytes),0) == 0;
 
     - signature: char _InterlockedAnd8(char volatile *, char)
     - signature: char _InterlockedAnd8_np(char *, char)
@@ -6009,7 +5904,7 @@ X86_INTEL_SGX_INTRINSICS:
 
 # Intel Transactional Synchronization Extensions (TSX) Instructions
 x86_INTEL_TSX_INLINE_ASSEMBLY:
-    - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(XACQUIRE|XRELEASE|XBEGIN|XEND|XABORT|XTEST)
+    - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?(\s*//.*)?\(.*(XACQUIRE|XRELEASE|XBEGIN|XEND|XABORT|XTEST)
       help: |+
         Intel TSX (Transactional Synchronization Extensions) instructions are required.
 
@@ -6331,291 +6226,295 @@ x86_INTEL_AVX512_INLINE_ASSEMBLY:
       help: |+
         Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
 
-    - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VMULP(D|S))
+    - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VMULP(D|S))
       help: |+
         Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
 
-    - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VORP(D|S))
+    - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VORP(D|S))
       help: |+
         Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
 
-    - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VPABS(B|D|Q|W))
+    - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VPABS(B|D|Q|W))
       help: |+
         Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
 
-    - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VPACK(S|U)(SDW|SWB))
+    - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VPACK(S|U)(SDW|SWB))
       help: |+
         Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
 
-    - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VPADD(B|D|Q|SB|SW|USB|USW|W))
+    - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VPADD(B|D|Q|SB|SW|USB|USW|W))
       help: |+
         Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
 
-    - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VPALIGNR)
+    - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VPALIGNR)
       help: |+
         Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
 
-    - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VPAND(D|ND|NQ|Q))
+    - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VPAND(D|ND|NQ|Q))
       help: |+
         Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
 
-    - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VPAVG(B|W))
+    - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VPAVG(B|W))
       help: |+
         Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
 
-    - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VPBLENDM(B|D|Q|W))
+    - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VPBLENDM(B|D|Q|W))
       help: |+
         Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
 
-    - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VPBROADCAST(B|D|Q|W|MB2Q|MW2D))
+    - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VPBROADCAST(B|D|Q|W|MB2Q|MW2D))
       help: |+
         Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
 
-    - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VPCMP(B|D|EQQ|GTB|GTD|GTQ|GTW|Q|UB|UD|UQ|UW|W))
+    - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VPCMP(B|D|EQQ|GTB|GTD|GTQ|GTW|Q|UB|UD|UQ|UW|W))
       help: |+
         Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
 
-    - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VPCOMPRESS(D|Q))
+    - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VPCOMPRESS(D|Q))
       help: |+
         Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
 
-    - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VPCONFLICT(D|Q))
+    - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VPCONFLICT(D|Q))
       help: |+
         Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
 
-    - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VPERMD)
+    - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VPERMD)
       help: |+
         Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
 
-    - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VPERMI(2B|2D|2PD|2PS|2Q|2W|LPD|LPS))
+    - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VPERMI(2B|2D|2PD|2PS|2Q|2W|LPD|LPS))
       help: |+
         Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
 
-    - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VPERMP(D|S))
+    - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VPERMP(D|S))
       help: |+
         Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
 
-    - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VPERMQ)
+    - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VPERMQ)
       help: |+
         Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
 
-    - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VPERMT2(B|D|PD|PS|Q|W))
+    - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VPERMT2(B|D|PD|PS|Q|W))
       help: |+
         Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
 
-    - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VPERMW)
+    - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VPERMW)
       help: |+
         Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
 
-    - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VPEXPAND(D|Q))
+    - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VPEXPAND(D|Q))
       help: |+
         Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
 
-    - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VPEXTR(B|D))
+    - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VPEXTR(B|D))
       help: |+
         Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
 
-    - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VPGATHER(DD|DQ|QD|QQ))
+    - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VPGATHER(DD|DQ|QD|QQ))
       help: |+
         Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
 
-    - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VPINSR(B|D|Q|W))
+    - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VPINSR(B|D|Q|W))
       help: |+
         Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
 
-    - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VPLZCNT(D|Q))
+    - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VPLZCNT(D|Q))
       help: |+
         Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
 
-    - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VPMADD52(H|L)UQ)
+    - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VPMADD52(H|L)UQ)
       help: |+
         Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
 
-    - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VPMADD(UBSW|WD))
+    - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VPMADD(UBSW|WD))
       help: |+
         Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
 
-    - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VPMAX(S|U)(B|D|Q|W))
+    - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VPMAX(S|U)(B|D|Q|W))
       help: |+
         Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
 
-    - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VPMIN(S|U)(B|D|Q|W))
+    - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VPMIN(S|U)(B|D|Q|W))
       help: |+
         Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
 
-    - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VPMOV(B2M|D2M|DB|DW|M2B|M2D|M2Q|M2W|Q2M|QB|QD|QW))
+    - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VPMOV(B2M|D2M|DB|DW|M2B|M2D|M2Q|M2W|Q2M|QB|QD|QW))
       help: |+
         Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
 
-    - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VPMOV(S|US)(DB|DW|QB|QD|QW|WB))
+    - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VPMOV(S|US)(DB|DW|QB|QD|QW|WB))
       help: |+
         Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
 
-    - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VPMOVSX(BD|BQ|BW|DQ|WD|WQ))
+    - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VPMOVSX(BD|BQ|BW|DQ|WD|WQ))
       help: |+
         Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
 
-    - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VPMOVZX(BD|BQ|BW|DQ|WD|WQ))
+    - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VPMOVZX(BD|BQ|BW|DQ|WD|WQ))
       help: |+
         Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
 
-    - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VPMOV(W2M|WB))
+    - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VPMOV(W2M|WB))
       help: |+
         Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
 
-    - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VPMUL(DQ|HRSW|HUW|HW|LD|LQ|LW|TISHIFTQB|UDQ))
+    - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VPMUL(DQ|HRSW|HUW|HW|LD|LQ|LW|TISHIFTQB|UDQ))
       help: |+
         Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
 
-    - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VPOR(D|Q))
+    - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VPOR(D|Q))
       help: |+
         Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
 
-    - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VPROL(D|Q))
+    - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VPROL(D|Q))
       help: |+
         Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
 
-    - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VPROLV(D|Q))
+    - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VPROLV(D|Q))
       help: |+
         Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
 
-    - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VPROR(D|Q))
+    - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VPROR(D|Q))
       help: |+
         Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
 
-    - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VPRORV(D|Q))
+    - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VPRORV(D|Q))
       help: |+
         Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
 
-    - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VPSADBW)
+    - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VPSADBW)
       help: |+
         Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
 
-    - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VPSCATTER(DD|DQ|QD|QQ))
+    - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VPSCATTER(DD|DQ|QD|QQ))
       help: |+
         Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
 
-    - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VPSHUF(B|D|HW|LW))
+    - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VPSHUF(B|D|HW|LW))
       help: |+
         Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
 
-    - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VPSLL(D|DQ|Q|VD|VQ|VW|W))
+    - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VPSLL(D|DQ|Q|VD|VQ|VW|W))
       help: |+
         Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
 
-    - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VPSRA(D|Q|VD|VQ|VW|W))
+    - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VPSRA(D|Q|VD|VQ|VW|W))
       help: |+
         Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
 
-    - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VPSRL(D|DQ|Q|VD|VQ|VW|W))
+    - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VPSRL(D|DQ|Q|VD|VQ|VW|W))
       help: |+
         Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
 
-    - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VPSUB(B|D|Q|SB|SW|USB|USW|W))
+    - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VPSUB(B|D|Q|SB|SW|USB|USW|W))
       help: |+
         Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
 
-    - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VPTERNLOG(D|Q))
+    - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VPTERNLOG(D|Q))
       help: |+
         Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
 
-    - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VPTESTM(B|D|Q|W))
+    - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VPTESTM(B|D|Q|W))
       help: |+
         Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
 
-    - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VPTESTNM(B|D|Q|W))
+    - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VPTESTNM(B|D|Q|W))
       help: |+
         Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
 
-    - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VPUNPCK(H|L)(BW|DQ|QDQ|WD))
+    - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VPUNPCK(H|L)(BW|DQ|QDQ|WD))
       help: |+
         Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
 
-    - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VPXOR(D|Q))
+    - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VPXOR(D|Q))
       help: |+
         Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
 
-    - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VRANGE(PD|PS|SD|SS))
+    - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VRANGE(PD|PS|SD|SS))
       help: |+
         Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
 
-    - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VRCP14P(D|S))
+    - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VRCP14P(D|S))
       help: |+
         Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
 
-    - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VRCP28(PD|PS|SD|SS))
+    - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VRCP28(PD|PS|SD|SS))
       help: |+
         Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
 
-    - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VREDUCE(PD|PS|SS))
+    - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VREDUCE(PD|PS|SS))
       help: |+
         Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
 
-    - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VRNDSCALEP(D|S))
+    - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VRNDSCALEP(D|S))
       help: |+
         Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
 
-    - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VRSQRT14P(D|S))
+    - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VRSQRT14P(D|S))
       help: |+
         Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
 
-    - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VSCALEFP(D|S))
+    - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VSCALEFP(D|S))
       help: |+
         Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
 
-    - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VSCATTERD(PD|PS))
+    - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VSCATTERD(PD|PS))
       help: |+
         Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
 
-    - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VSCATTERPF(0|1)(DPD|DPS|QPD|QPS))
+    - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VSCATTERPF(0|1)(DPD|DPS|QPD|QPS))
       help: |+
         Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
 
-    - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VSCATTERQP(D|S))
+    - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VSCATTERQP(D|S))
       help: |+
         Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
 
-    - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VSHUFF(32|64)X(2|4))
+    - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VSHUFF(32|64)X(2|4))
       help: |+
         Intel Advanced Vector Extensions 512 (AVX-512) instructions are required.
 
-    - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VSHUFI(32|64)X(2|4))
+    - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VSHUFI(32|64)X(2|4))
       help: |+
         Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
 
-    - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VSHUFP(D|S))
+    - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VSHUFP(D|S))
       help: |+
         Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
 
-    - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VSQRTP(D|S))
+    - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VSQRTP(D|S))
       help: |+
         Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
 
-    - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VSUBP(D|S))
+    - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VSUBP(D|S))
       help: |+
         Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
 
-    - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VUNPCKHP(D|S))
+    - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VUNPCKHP(D|S))
       help: |+
         Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
 
-    - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VUNPCKLP(D|S))
+    - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VUNPCKLP(D|S))
       help: |+
         Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
 
-    - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(VXORP(D|S))
+    - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(VXORP(D|S))
       help: |+
         Intel AVX-512 (Advanced Vector Extensions 512) instructions are required.
+
+# Intel INVPCID Instructions
+x86_INTEL_INVPCID_INLINE_ASSEMBLY:
+    - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(INVPCID)
 
 # AMD64 TBM (Trailing Bit Manipulation) Instructions
 # NOTE: No Intel processors (at least through Coffee Lake) support TBM.
 x86_AMD_TBM_INLINE_ASSEMBLY:
-    - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(BEXTR|BLCFILL|BLCI|BLCIC|BLCMSK|BLCS|BLSFILL|BLSIC|T1MSKC|TZMSK)
+    - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(BEXTR|BLCFILL|BLCI|BLCIC|BLCMSK|BLCS|BLSFILL|BLSIC|T1MSKC|TZMSK)
 
 # AMD64 LWP (Lightweight Profiling) Instructions
 # http://developer.amd.com/wordpress/media/2012/10/43724.pdf
 x86_AMD_LWP_INLINE_ASSEMBLY:
-    - pattern: (?mis)\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+goto)?\(.*(LLWPCB|SLWPCB|LWPVAL|LWPINS)
+    - pattern: (^|\s)(__asm__|__asm|_asm|asm)(\s+volatile)?(\s+goto)?\(.*(LLWPCB|SLWPCB|LWPVAL|LWPINS)
 
 # Intel MPX (Memory Protection Extensions) Instructions.
 x86_INTEL_MPX_COMPILER_OPTION:
@@ -6627,8 +6526,12 @@ x86_INTEL_MPX_COMPILER_OPTION:
       help: |+
         '/Qcheck-pointers-mpx' requires Intel MPX (Memory Protection Extensions) instructions.
 
+X86_PRAGMA:
+    - pattern: ^\s*#\s*pragma\s+simd(?:\s|$)
+      help: pragma simd works on Intel processors only.
 
-# Intrinsics not for x86/x86-64/arm/arm64/aarch64
+
+# Intrinsics not for x86/x86-64/32-bit arm/aarch64
 OTHER_ARCH_INTRINSICS:
     - pattern: (?:\s|^)_addcary(?:\w+|\(.*)
     - pattern: (?:\s|^)_allow_cpu_features\W
@@ -6653,744 +6556,263 @@ INCOMPATIBLE_UCRT_INTRINSICS:
     - signature: unsigned __int64 _rotr64(unsigned __int64, int)
     - signature: char *_strset(char *, int)
     - signature: wchar_t *_wcsset(wchar_t *, wchar_t)
-    - signature: wchar_t *wcscat(wchar_t *, const wchar_t *)
+#   - signature: wchar_t *wcscat(wchar_t *, const wchar_t *)
     - signature: char *strset(char *, char)
-    - signature: int wcscmp(const wchar_t *, const wchar_t *)
-    - signature: size_t wcslen(const wchar_t *)
+#   - signature: int wcscmp(const wchar_t *, const wchar_t *)
+#   - signature: size_t wcslen(const wchar_t *)
 
 # for cpp standard check
 CPP_STD_CODES:
-    - pattern: (?i)((>|.)fetch_(xor|and|sub|add))\s*\((?!.*memory_order_(relaxed|consume|acquire|release|acq_rel|seq_cst).*)
+
+    - pattern: (?i)(fetch_(xor|and|sub|add))\s*\((.*memory_order_(?!seq_cst).*)\)
       help: |+
-          检测 atomic 接口 (没有使用 memory order).
+          Detect atomic interface (no memory order).
 
-          推荐使用合适的 c++ memory order, 优化程序性能;
+          It is recommended to use appropriate C++ memory order to optimize program performance;
 
-          详见: https://en.cppreference.com/w/cpp/atomic/memory_order
+          For details, see:
+            https://en.cppreference.com/w/cpp/atomic/memory_order
 
-    - pattern: (?i)((>|.)compare_exchange_(weak|strong))\s*\((?!.*memory_order_(relaxed|consume|acquire|release|acq_rel|seq_cst).*)
+    - pattern: (?si)((>|.)compare_exchange_(weak|strong))\s*\((?!.*memory_order_(relaxed|consume|acquire|release|acq_rel|seq_cst).*)
       help: |+
-          检测 atomic 接口 (没有使用 memory order).
+          Detect atomic interface (no memory order).
 
-          推荐使用合适的 c++ memory order, 优化程序性能;
+          It is recommended to use appropriate C++ memory order to optimize program performance;
 
-          详见: https://en.cppreference.com/w/cpp/atomic/memory_order
+          For details, see:
+            https://en.cppreference.com/w/cpp/atomic/memory_order
 
     - pattern: (?i)(.*__atomic_(load_n|load|store_n|store|exchange_n|exchange|compare_exchange_n|compare_exchange|add_fetch|sub_fetch|and_fetch|xor_fetch|or_fetch|nand_fetch|fetch_add|fetch_sub|fetch_and|fetch_xor|fetch_or|fetch_nand|test_and_set|clear|))\s*\((?!.*memory_order_(relaxed|consume|acquire|release|acq_rel|seq_cst).*)
       help: |+
-          检测 __atomic Built-in Functions (没有使用 memory order).
+          Detect __atomic Built-in Functions (no memory order).
 
-          推荐使用合适的 memory order, 优化程序性能;
+          It is recommended to use appropriate memory order to optimize program performance;
 
-          详见:
-              https://gcc.gnu.org/onlinedocs/gcc/_005f_005fatomic-Builtins.html
-              https://en.cppreference.com/w/cpp/atomic/memory_order
+          For details, see:
+            https://gcc.gnu.org/onlinedocs/gcc/_005f_005fatomic-Builtins.html
+            https://en.cppreference.com/w/cpp/atomic/memory_order
 
     - signature: type __sync_fetch_and_add(type *ptr, type value, ...)
       help: |+
-          推荐使用 type __atomic_fetch_add(type * ptr, type val, int memorder)
+          It is recommended to use type __atomic_fetch_add(type * ptr, type val, int memorder)
 
-          注意 memorder 的正确使用.
+          Pay attention to the correct use of memorder.
 
-          详见: https://gcc.gnu.org/onlinedocs/gcc/_005f_005fatomic-Builtins.html
+          For details, see:
+            https://gcc.gnu.org/onlinedocs/gcc/_005f_005fatomic-Builtins.html
+            https://en.cppreference.com/w/cpp/atomic/memory_order
 
     - signature: type __sync_fetch_and_sub(type *ptr, type value, ...)
       help: |+
-          推荐使用 type __atomic_fetch_sub(type * ptr, type val, int memorder)
+          It is recommended to use type __atomic_fetch_sub(type * ptr, type val, int memorder)
 
-          注意 memorder 的正确使用.
+          Pay attention to the correct use of memorder.
 
-          详见: https://gcc.gnu.org/onlinedocs/gcc/_005f_005fatomic-Builtins.html
+          For details, see:
+            https://gcc.gnu.org/onlinedocs/gcc/_005f_005fatomic-Builtins.html
+            https://en.cppreference.com/w/cpp/atomic/memory_order
 
     - signature: type __sync_fetch_and_or(type *ptr, type value, ...)
       help: |+
-          推荐使用 type __atomic_fetch_or (type * ptr, type val, int memorder)
+          It is recommended to use type __atomic_fetch_or (type * ptr, type val, int memorder)
 
-          注意 memorder 的正确使用.
+          Pay attention to the correct use of memorder.
 
-          详见: https://gcc.gnu.org/onlinedocs/gcc/_005f_005fatomic-Builtins.html
+          For details, see:
+            https://gcc.gnu.org/onlinedocs/gcc/_005f_005fatomic-Builtins.html
+            https://en.cppreference.com/w/cpp/atomic/memory_order
 
     - signature: type __sync_fetch_and_and(type *ptr, type value, ...)
       help: |+
-          推荐使用type __atomic_fetch_and(type *ptr, type val, int memorder)
+          It is recommended to use type __atomic_fetch_and(type *ptr, type val, int memorder)
 
-          注意 memorder 的正确使用.
+          Pay attention to the correct use of memorder.
 
-          详见: https://gcc.gnu.org/onlinedocs/gcc/_005f_005fatomic-Builtins.html
+          For details, see:
+            https://gcc.gnu.org/onlinedocs/gcc/_005f_005fatomic-Builtins.html
+            https://en.cppreference.com/w/cpp/atomic/memory_order
 
     - signature: type __sync_fetch_and_xor(type *ptr, type value, ...)
       help: |+
-          推荐使用 type __atomic_fetch_xor(type * ptr, type val, int memorder)
+          It is recommended to use type __atomic_fetch_xor(type * ptr, type val, int memorder)
 
-          注意 memorder 的正确使用.
+          Pay attention to the correct use of memorder.
 
-          详见: https://gcc.gnu.org/onlinedocs/gcc/_005f_005fatomic-Builtins.html
+          For details, see:
+            https://gcc.gnu.org/onlinedocs/gcc/_005f_005fatomic-Builtins.html
+            https://en.cppreference.com/w/cpp/atomic/memory_order
 
     - signature: type __sync_fetch_and_nand(type *ptr, type value, ...)
       help: |+
-          推荐使用 type __atomic_add_fetch(type * ptr, type val, int memorder)
+          It is recommended to use type __atomic_fetch_nand(type * ptr, type val, int memorder)
 
-          注意 memorder 的正确使用.
+          Pay attention to the correct use of memorder.
 
-          详见: https://gcc.gnu.org/onlinedocs/gcc/_005f_005fatomic-Builtins.html
+          For details, see:
+            https://gcc.gnu.org/onlinedocs/gcc/_005f_005fatomic-Builtins.html
+            https://en.cppreference.com/w/cpp/atomic/memory_order
 
     - signature: type __sync_add_and_fetch(type *ptr, type value, ...)
       help: |+
-          推荐使用 type __atomic_and_fetch(type * ptr, type val, int memorder)
+          It is recommended to use type __atomic_add_fetch(type * ptr, type val, int memorder)
 
-          注意 memorder 的正确使用.
+          Pay attention to the correct use of memorder.
 
-          详见: https://gcc.gnu.org/onlinedocs/gcc/_005f_005fatomic-Builtins.html
+          For details, see:
+            https://gcc.gnu.org/onlinedocs/gcc/_005f_005fatomic-Builtins.html
+            https://en.cppreference.com/w/cpp/atomic/memory_order
 
     - signature: type __sync_sub_and_fetch(type *ptr, type value, ...)
       help: |+
-          推荐使用 type __atomic_sub_fetch(type * ptr, type val, int memorder)
+          It is recommended to use type __atomic_sub_fetch(type * ptr, type val, int memorder)
 
-          注意 memorder 的正确使用.
+          Pay attention to the correct use of memorder.
 
-          详见: https://gcc.gnu.org/onlinedocs/gcc/_005f_005fatomic-Builtins.html
+          For details, see:
+            https://gcc.gnu.org/onlinedocs/gcc/_005f_005fatomic-Builtins.html
+            https://en.cppreference.com/w/cpp/atomic/memory_order
 
     - signature: type __sync_or_and_fetch(type *ptr, type value, ...)
       help: |+
-          推荐使用 type __atomic_or_fetch(type * ptr, type val, int memorder)
+          It is recommended to use type __atomic_or_fetch(type * ptr, type val, int memorder)
 
-          注意 memorder 的正确使用.
+          Pay attention to the correct use of memorder.
 
-          详见: https://gcc.gnu.org/onlinedocs/gcc/_005f_005fatomic-Builtins.html
+          For details, see:
+            https://gcc.gnu.org/onlinedocs/gcc/_005f_005fatomic-Builtins.html
 
     - signature: type __sync_and_and_fetch(type *ptr, type value, ...)
       help: |+
-          推荐使用 type __atomic_and_fetch(type * ptr, type val, int memorder)
+          It is recommended to use type __atomic_and_fetch(type * ptr, type val, int memorder)
 
-          注意 memorder 的正确使用.
+          Pay attention to the correct use of memorder.
 
-          详见: https://gcc.gnu.org/onlinedocs/gcc/_005f_005fatomic-Builtins.html
+          For details, see:
+            https://gcc.gnu.org/onlinedocs/gcc/_005f_005fatomic-Builtins.html
+            https://en.cppreference.com/w/cpp/atomic/memory_order
 
     - signature: type __sync_xor_and_fetch(type *ptr, type value, ...)
       help: |+
-          推荐使用 type __atomic_xor_fetch(type * ptr, type val, int memorder)
+          It is recommended to use type __atomic_xor_fetch(type * ptr, type val, int memorder)
 
-          注意 memorder 的正确使用.
+          Pay attention to the correct use of memorder.
 
-          详见: https://gcc.gnu.org/onlinedocs/gcc/_005f_005fatomic-Builtins.html
+          For details, see:
+            https://gcc.gnu.org/onlinedocs/gcc/_005f_005fatomic-Builtins.html
+            https://en.cppreference.com/w/cpp/atomic/memory_order
 
     - signature: type __sync_nand_and_fetch(type *ptr, type value, ...)
       help: |+
-          推荐使用 type __atomic_nand_fetch(type * ptr, type val, int memorder)
+          It is recommended to use type __atomic_nand_fetch(type * ptr, type val, int memorder)
 
-          注意 memorder 的正确使用.
+          Pay attention to the correct use of memorder.
 
-          详见: https://gcc.gnu.org/onlinedocs/gcc/_005f_005fatomic-Builtins.html
+          For details, see:
+            https://gcc.gnu.org/onlinedocs/gcc/_005f_005fatomic-Builtins.html
+            https://en.cppreference.com/w/cpp/atomic/memory_order
 
     - signature: bool __sync_bool_compare_and_swap(type *ptr, type oldval, type newval, ...)
       help: |+
-          推荐使用 bool __atomic_compare_exchange(type * ptr, type * expected, type * desired, bool weak, int success_memorder, int failure_memorder)
+          It is recommended to use bool __atomic_compare_exchange(type * ptr, type * expected, type * desired, bool weak, int success_memorder, int failure_memorder)
 
-          注意 memorder 的正确使用.
+          Pay attention to the correct use of memorder.
 
-          详见: https://gcc.gnu.org/onlinedocs/gcc/_005f_005fatomic-Builtins.html
+          For details, see:
+            https://gcc.gnu.org/onlinedocs/gcc/_005f_005fatomic-Builtins.html
+            https://en.cppreference.com/w/cpp/atomic/memory_order
 
     - signature: type __sync_val_compare_and_swap(type *ptr, type oldval, type newval, ...)
       help: |+
-          推荐使用 bool __atomic_compare_exchange_n(type * ptr, type * expected, type desired, bool weak, int success_memorder, int failure_memorder)
+          It is recommended to use bool __atomic_compare_exchange_n(type * ptr, type * expected, type desired, bool weak, int success_memorder, int failure_memorder)
 
-          注意 memorder 的正确使用.
+          Pay attention to the correct use of memorder.
 
-          详见: https://gcc.gnu.org/onlinedocs/gcc/_005f_005fatomic-Builtins.html
+          For details, see:
+            https://gcc.gnu.org/onlinedocs/gcc/_005f_005fatomic-Builtins.html
+            https://en.cppreference.com/w/cpp/atomic/memory_order
 
-# Intrinsics available with plan9_go on x86, x86_64, arm, arm64, aarch64
-PLAN9_GOLANG_COMMON:
-    - pattern: (^|\s+)(MOVB|MOVW)($|\s)
-    - pattern: (^|\s+)(ADDW|SUBW)($|\s)
-    - pattern: (^|\s+)(MULW|MULL)($|\s)
-    - pattern: (^|\s+)(FADDD|FSUBD|FMULD)($|\s)
-    - pattern: (^|\s+)(FDIVD)($|\s)
-    - pattern: (^|\s+)(WORD)($|\s)
-    - pattern: (^|\s+)(LAST)($|\s)
+#for header file check
+INCOMPATIBLE_HEADER_FILE:
+    - pattern: \#include\s+[\'\"<]emmintrin.h[\'\">]
+      help: |+
+          Detected the use of emmintrin.h file
 
-# Intrinsics available with plan9_go on x86, x86_64, arm, arm64, aarch64
-PLAN9_GOLANG_X86_AND_AARCH64:
-    - pattern: (^|\s+)(ADDL|SUBL)($|\s)
-    - pattern: (^|\s+)(MULSD)($|\s)
-    - pattern: (^|\s+)(ADCW)($|\s)
-    - pattern: (^|\s+)(ANDW)($|\s)
-    - pattern: (^|\s+)(CMPW)($|\s)
-    - pattern: (^|\s+)(CRC32B|CRC32W)($|\s)
-    - pattern: (^|\s+)(HLT)($|\s)
-    - pattern: (^|\s+)(LSLW)($|\s)
-    - pattern: (^|\s+)(NEGW)($|\s)
-    - pattern: (^|\s+)(RORW)($|\s)
-    - pattern: (^|\s+)(FMOVD)($|\s)
-    - pattern: (^|\s+)(VMOVQ|VMOVD)($|\s)
-    - pattern: (^|\s+)(AESIMC)($|\s)
+          This header file is dedicated to x86/x86-64 architecture and is not compatible with arm/aarch64 and other architectures;
 
-# Intrinsics available with plan9_go on x86, x86_64
-PLAN9_GOLANG_X86:
-    - pattern: (^|\s+)(AAA|AAD|AAM|AAS)($|\s)
-    - pattern: (^|\s+)(ADCB|ADCL|ADCQ|ADCXL|ADCXQ)($|\s)
-    - pattern: (^|\s+)(ADDB|ADDPD|ADDPS|ADDQ|ADDL)($|\s)
-    - pattern: (^|\s+)(ADDSD|ADDSS|ADDSUBPD|ADDSUBPS)($|\s)
-    - pattern: (^|\s+)(ADJSP|ADOXL|ADOXQ)($|\s)
-    - pattern: (^|\s+)(AESDEC|AESDECLAST|AESENC|AESENCLAST|AESKEYGENASSIST)($|\s)
-    - pattern: (^|\s+)(ANDB|ANDL|ANDNL|ANDNPD|ANDNPS)($|\s)
-    - pattern: (^|\s+)(ANDNQ|ANDPD|ANDPS|ANDQ|ARPL)($|\s)
-    - pattern: (^|\s+)(BEXTRL|BEXTRQ)($|\s)
-    - pattern: (^|\s+)(BLENDPD|BLENDPS|BLENDVPD|BLENDVPS|BLSIL)($|\s)
-    - pattern: (^|\s+)(BLSIQ|BLSMSKL|BLSMSKQ|BLSRL|BLSRQ)($|\s)
-    - pattern: (^|\s+)(BOUNDL|BOUNDW)($|\s)
-    - pattern: (^|\s+)(BSFL|BSFQ|BSFW)($|\s)
-    - pattern: (^|\s+)(BSRL|BSRQ|BSRW)($|\s)
-    - pattern: (^|\s+)(BSWAPL|BSWAPQ)($|\s)
-    - pattern: (^|\s+)(BTCL|BTCQ|BTCW)($|\s)
-    - pattern: (^|\s+)(BTL|BTQ|BTRL|BTRQ|BTRW)($|\s)
-    - pattern: (^|\s+)(BTSL|BTSQ|BTSW|BTW)($|\s)
-    - pattern: (^|\s+)(BYTE|BZHIL|BZHIQ)($|\s)
-    - pattern: (^|\s+)(CBW|CDQ|CDQE)($|\s)
-    - pattern: (^|\s+)(CLAC|CLC|CLD|CLDEMOTE)($|\s)
-    - pattern: (^|\s+)(CLFLUSH|CLFLUSHOPT|CLI|CLTS|CLWB|CMC)($|\s)
-    - pattern: (^|\s+)(CMOVLCC|CMOVLCS|CMOVLEQ|CMOVLGE|CMOVLGT)($|\s)
-    - pattern: (^|\s+)(CMOVLHI|CMOVLLE|CMOVLLS|CMOVLLT|CMOVLMI)($|\s)
-    - pattern: (^|\s+)(CMOVLNE|CMOVLOC|CMOVLOS|CMOVLPC|CMOVLPL)($|\s)
-    - pattern: (^|\s+)(CMOVLPS|CMOVQCC|CMOVQCS|CMOVQEQ|CMOVQGE)($|\s)
-    - pattern: (^|\s+)(CMOVQGT|CMOVQHI|CMOVQLE|CMOVQLS|CMOVQLT)($|\s)
-    - pattern: (^|\s+)(CMOVQMI|CMOVQNE|CMOVQOC|CMOVQOS|CMOVQPC)($|\s)
-    - pattern: (^|\s+)(CMOVQPL|CMOVQPS|CMOVWCC|CMOVWCS|CMOVWEQ)($|\s)
-    - pattern: (^|\s+)(CMOVWGE|CMOVWGT|CMOVWHI|CMOVWLE|CMOVWLS)($|\s)
-    - pattern: (^|\s+)(CMOVWLT|CMOVWMI|CMOVWNE|CMOVWOC|CMOVWOS)($|\s)
-    - pattern: (^|\s+)(CMOVWPC|CMOVWPL|CMOVWPS)($|\s)
-    - pattern: (^|\s+)(CMPB|CMPL|CMPPD|CMPPS|CMPQ)($|\s)
-    - pattern: (^|\s+)(CMPSB|CMPSD|CMPSL|CMPSQ|CMPSS|CMPSW)($|\s)
-    - pattern: (^|\s+)(CMPXCHG16B|CMPXCHG8B|CMPXCHGB|CMPXCHGL|CMPXCHGQ|CMPXCHGW)($|\s)
-    - pattern: (^|\s+)(COMISD|COMISS|CPUID|CQO)($|\s)
-    - pattern: (^|\s+)(CRC32L|CRC32Q)($|\s)
-    - pattern: (^|\s+)(CVTPD2PL|CVTPD2PS|CVTPL2PD|CVTPL2PS|CVTPS2PD)($|\s)
-    - pattern: (^|\s+)(CVTPS2PL|CVTSD2SL|CVTSD2SQ|CVTSD2SS|CVTSL2SD)($|\s)
-    - pattern: (^|\s+)(CVTSL2SS|CVTSQ2SD|CVTSQ2SS|CVTSS2SD|CVTSS2SL)($|\s)
-    - pattern: (^|\s+)(CVTSS2SQ|CVTTPD2PL|CVTTPS2PL|CVTTSD2SL|CVTTSD2SQ)($|\s)
-    - pattern: (^|\s+)(CVTTSS2SL|CVTTSS2SQ|CWD|CWDE)($|\s)
-    - pattern: (^|\s+)(DAA|DAS)($|\s)
-    - pattern: (^|\s+)(DECB|DECL|DECQ|DECW)($|\s)
-    - pattern: (^|\s+)(DIVB|DIVL|DIVPD|DIVPS)($|\s)
-    - pattern: (^|\s+)(DIVQ|DIVSD|DIVSS|DIVW)($|\s)
-    - pattern: (^|\s+)(DPPD|DPPS|EMMS|ENTER|EXTRACTPS)($|\s)
-    - pattern: (^|\s+)(F2XM1|FABS)($|\s)
-    - pattern: (^|\s+)(FADDDP|FADDF|FADDL|FADDW)($|\s)
-    - pattern: (^|\s+)(FBLD|FBSTP)($|\s)
-    - pattern: (^|\s+)(FCHS|FCLEX)($|\s)
-    - pattern: (^|\s+)(FCMOVB|FCMOVBE|FCMOVCC|FCMOVCS|FCMOVE)($|\s)
-    - pattern: (^|\s+)(FCMOVEQ|FCMOVHI|FCMOVLS|FCMOVNB|FCMOVNBE)($|\s)
-    - pattern: (^|\s+)(FCMOVNE|FCMOVNU|FCMOVU|FCMOVUN)($|\s)
-    - pattern: (^|\s+)(FCOMD|FCOMDP|FCOMDPP|FCOMF|FCOMFP)($|\s)
-    - pattern: (^|\s+)(FCOMI|FCOMIP|FCOML|FCOMLP|FCOMW|FCOMWP)($|\s)
-    - pattern: (^|\s+)(FCOS|FDECSTP)($|\s)
-    - pattern: (^|\s+)(FDIVDP|FDIVF|FDIVL|FDIVRD|FDIVRDP)($|\s)
-    - pattern: (^|\s+)(FDIVRF|FDIVRL|FDIVRW|FDIVW|FFREE)($|\s)
-    - pattern: (^|\s+)(FINCSTP|FINIT)($|\s)
-    - pattern: (^|\s+)(FLD1|FLDCW|FLDENV|FLDL2E|FLDL2T)($|\s)
-    - pattern: (^|\s+)(FLDLG2|FLDLN2|FLDPI|FLDZ)($|\s)
-    - pattern: (^|\s+)(FMOVB|FMOVBP|FMOVDP|FMOVF|FMOVFP)($|\s)
-    - pattern: (^|\s+)(FMOVL|FMOVLP|FMOVV|FMOVVP|FMOVW)($|\s)
-    - pattern: (^|\s+)(FMOVWP|FMOVX|FMOVXP)($|\s)
-    - pattern: (^|\s+)(FMULDP|FMULF|FMULL|FMULW|FNOP)($|\s)
-    - pattern: (^|\s+)(FPATAN|FPREM|FPREM1|FPTAN)($|\s)
-    - pattern: (^|\s+)(FRNDINT|FRSTOR)($|\s)
-    - pattern: (^|\s+)(FSAVE|FSCALE|FSIN|FSINCOS|FSQRT)($|\s)
-    - pattern: (^|\s+)(FSTCW|FSTENV|FSTSW)($|\s)
-    - pattern: (^|\s+)(FSUBDP|FSUBF|FSUBL|FSUBRD|FSUBRDP)($|\s)
-    - pattern: (^|\s+)(FSUBRF|FSUBRL|FSUBRW|FSUBW|FTST)($|\s)
-    - pattern: (^|\s+)(FUCOM|FUCOMI|FUCOMIP|FUCOMP|FUCOMPP)($|\s)
-    - pattern: (^|\s+)(FXAM|FXCHD|FXRSTOR|FXRSTOR64|FXSAVE|FXSAVE64)($|\s)
-    - pattern: (^|\s+)(FXTRACT|FYL2X|FYL2XP1)($|\s)
-    - pattern: (^|\s+)(HADDPD|HADDPS|HSUBPD|HSUBPS)($|\s)
-    - pattern: (^|\s+)(ICEBP|IDIVB|IDIVL|IDIVQ|IDIVW)($|\s)
-    - pattern: (^|\s+)(IMUL3L|IMUL3Q|IMUL3W|IMULB|IMULL|IMULQ|IMULW)($|\s)
-    - pattern: (^|\s+)(INB|INCB|INCL|INCQ|INCW)($|\s)
-    - pattern: (^|\s+)(INL|INSB|INSERTPS|INSL|INSW)($|\s)
-    - pattern: (^|\s+)(INT|INTO|INVD|INVLPG|INVPCID|INW)($|\s)
-    - pattern: (^|\s+)(IRETL|IRETQ|IRETW)($|\s)
-    - pattern: (^|\s+)(JCC|JCS|JCXZL|JCXZQ|JCXZW)($|\s)
-    - pattern: (^|\s+)(JEQ|JGE|JGT|JHI|JLE|JLS)($|\s)
-    - pattern: (^|\s+)(JLT|JMI|JNE|JOC|JOS|JPC)($|\s)
-    - pattern: (^|\s+)(JPL|JPS)($|\s)
-    - pattern: (^|\s+)(KADDB|KADDD|KADDQ|KADDW)($|\s)
-    - pattern: (^|\s+)(KANDB|KANDD|KANDNB|KANDND)($|\s)
-    - pattern: (^|\s+)(KANDNQ|KANDNW|KANDQ|KANDW)($|\s)
-    - pattern: (^|\s+)(KMOVB|KMOVD|KMOVQ|KMOVW)($|\s)
-    - pattern: (^|\s+)(KNOTB|KNOTD|KNOTQ|KNOTW)($|\s)
-    - pattern: (^|\s+)(KORB|KORD|KORQ)($|\s)
-    - pattern: (^|\s+)(KORTESTB|KORTESTD|KORTESTQ|KORTESTW|KORW)($|\s)
-    - pattern: (^|\s+)(KSHIFTLB|KSHIFTLD|KSHIFTLQ|KSHIFTLW)($|\s)
-    - pattern: (^|\s+)(KSHIFTRB|KSHIFTRD|KSHIFTRQ|KSHIFTRW)($|\s)
-    - pattern: (^|\s+)(KTESTB|KTESTD|KTESTQ|KTESTW)($|\s)
-    - pattern: (^|\s+)(KUNPCKBW|KUNPCKDQ|KUNPCKWD)($|\s)
-    - pattern: (^|\s+)(KXNORB|KXNORD|KXNORQ|KXNORW)($|\s)
-    - pattern: (^|\s+)(KXORB|KXORD|KXORQ|KXORW)($|\s)
-    - pattern: (^|\s+)(LAHF|LARL|LARQ|LARW)($|\s)
-    - pattern: (^|\s+)(LDDQU|LDMXCSR)($|\s)
-    - pattern: (^|\s+)(LEAL|LEAQ|LEAVEL|LEAVEQ|LEAVEW|LEAW)($|\s)
-    - pattern: (^|\s+)(LFENCE|LFSL|LFSQ|LFSW)($|\s)
-    - pattern: (^|\s+)(LGDT|LGSL|LGSQ|LGSW)($|\s)
-    - pattern: (^|\s+)(LIDT|LLDT|LMSW|LOCK)($|\s)
-    - pattern: (^|\s+)(LODSB|LODSL|LODSQ|LODSW)($|\s)
-    - pattern: (^|\s+)(LONG|LOOP|LOOPEQ|LOOPNE)($|\s)
-    - pattern: (^|\s+)(LSLL|LSLQ|LSSL|LSSQ|LSSW)($|\s)
-    - pattern: (^|\s+)(LTR|LZCNTL|LZCNTQ|LZCNTW)($|\s)
-    - pattern: (^|\s+)(MASKMOVOU|MASKMOVQ)($|\s)
-    - pattern: (^|\s+)(MAXPD|MAXPS|MAXSD|MAXSS|MFENCE)($|\s)
-    - pattern: (^|\s+)(MINPD|MINPS|MINSD|MINSS)($|\s)
-    - pattern: (^|\s+)(MONITOR|MOVAPD|MOVAPS)($|\s)
-    - pattern: (^|\s+)(MOVBELL|MOVBEQQ|MOVBEWW|MOVBLSX|MOVBLZX)($|\s)
-    - pattern: (^|\s+)(MOVBQSX|MOVBQZX|MOVBWSX|MOVBWZX)($|\s)
-    - pattern: (^|\s+)(MOVDDUP|MOVHLPS|MOVHPD|MOVHPS)($|\s)
-    - pattern: (^|\s+)(MOVL|MOVLHPS|MOVLPD|MOVLPS)($|\s)
-    - pattern: (^|\s+)(MOVLQSX|MOVLQZX|MOVMSKPD|MOVMSKPS)($|\s)
-    - pattern: (^|\s+)(MOVNTDQA|MOVNTIL|MOVNTIQ|MOVNTO)($|\s)
-    - pattern: (^|\s+)(MOVNTPD|MOVNTPS|MOVNTQ)($|\s)
-    - pattern: (^|\s+)(MOVO|MOVOU|MOVQ|MOVQL|MOVQOZX)($|\s)
-    - pattern: (^|\s+)(MOVSB|MOVSD|MOVSHDUP|MOVSL|MOVSLDUP)($|\s)
-    - pattern: (^|\s+)(MOVSQ|MOVSS|MOVSW|MOVSWW)($|\s)
-    - pattern: (^|\s+)(MOVUPD|MOVUPS)($|\s)
-    - pattern: (^|\s+)(MOVWLSX|MOVWLZX|MOVWQSX|MOVWQZX)($|\s)
-    - pattern: (^|\s+)(MOVZWW|MPSADBW)($|\s)
-    - pattern: (^|\s+)(MULB|MULPD|MULPS|MULQ)($|\s)
-    - pattern: (^|\s+)(MULSS|MULXL|MULXQ|MWAIT)($|\s)
-    - pattern: (^|\s+)(NEGB|NEGL|NEGQ)($|\s)
-    - pattern: (^|\s+)(NOPL|NOPW|NOTB|NOTL|NOTQ|NOTW)($|\s)
-    - pattern: (^|\s+)(ORB|ORL|ORPD|ORPS|ORQ|ORW)($|\s)
-    - pattern: (^|\s+)(OUTB|OUTL|OUTSB|OUTSL|OUTSW|OUTW)($|\s)
-    - pattern: (^|\s+)(PABSB|PABSD|PABSW)($|\s)
-    - pattern: (^|\s+)(PACKSSLW|PACKSSWB|PACKUSDW|PACKUSWB)($|\s)
-    - pattern: (^|\s+)(PADDB|PADDL|PADDQ)($|\s)
-    - pattern: (^|\s+)(PADDSB|PADDSW|PADDUSB|PADDUSW|PADDW)($|\s)
-    - pattern: (^|\s+)(PALIGNR|PAND|PANDN|PAUSE)($|\s)
-    - pattern: (^|\s+)(PAVGB|PAVGW|PBLENDVB|PBLENDW)($|\s)
-    - pattern: (^|\s+)(PCLMULQDQ|PCMPEQB|PCMPEQL|PCMPEQQ)($|\s)
-    - pattern: (^|\s+)(PCMPEQW|PCMPESTRI|PCMPESTRM)($|\s)
-    - pattern: (^|\s+)(PCMPGTB|PCMPGTL|PCMPGTQ|PCMPGTW)($|\s)
-    - pattern: (^|\s+)(PCMPISTRI|PCMPISTRM|PDEPL|PDEPQ)($|\s)
-    - pattern: (^|\s+)(PEXTL|PEXTQ)($|\s)
-    - pattern: (^|\s+)(PEXTRB|PEXTRD|PEXTRQ|PEXTRW)($|\s)
-    - pattern: (^|\s+)(PHADDD|PHADDSW|PHADDW|PHMINPOSUW)($|\s)
-    - pattern: (^|\s+)(PHSUBD|PHSUBSW|PHSUBW)($|\s)
-    - pattern: (^|\s+)(PINSRB|PINSRD|PINSRQ|PINSRW)($|\s)
-    - pattern: (^|\s+)(PMADDUBSW|PMADDWL)($|\s)
-    - pattern: (^|\s+)(PMAXSB|PMAXSD|PMAXSW|PMAXUB|PMAXUD|PMAXUW)($|\s)
-    - pattern: (^|\s+)(PMINSB|PMINSD|PMINSW|PMINUB|PMINUD|PMINUW)($|\s)
-    - pattern: (^|\s+)(PMOVMSKB|PMOVSXBD|PMOVSXBQ|PMOVSXBW|PMOVSXDQ)($|\s)
-    - pattern: (^|\s+)(PMOVSXWD|PMOVSXWQ|PMOVZXBD|PMOVZXBQ|PMOVZXBW)($|\s)
-    - pattern: (^|\s+)(PMOVZXDQ|PMOVZXWD|PMOVZXWQ|PMULDQ|PMULHRSW)($|\s)
-    - pattern: (^|\s+)(PMULHUW|PMULHW|PMULLD|PMULLW|PMULULQ)($|\s)
-    - pattern: (^|\s+)(POPAL|POPAW|POPCNTL|POPCNTQ|POPCNTW)($|\s)
-    - pattern: (^|\s+)(POPFL|POPFQ|POPFW)($|\s)
-    - pattern: (^|\s+)(POPL|POPQ|POPW|POR)($|\s)
-    - pattern: (^|\s+)(PREFETCHNTA|PREFETCHT0|PREFETCHT1|PREFETCHT2)($|\s)
-    - pattern: (^|\s+)(PSADBW|PSHUFB|PSHUFD|PSHUFHW|PSHUFL|PSHUFLW|PSHUFW)($|\s)
-    - pattern: (^|\s+)(PSIGNB|PSIGND|PSIGNW)($|\s)
-    - pattern: (^|\s+)(PSLLL|PSLLO|PSLLQ|PSLLW)($|\s)
-    - pattern: (^|\s+)(PSRAL|PSRAW|PSRLL|PSRLO|PSRLQ|PSRLW)($|\s)
-    - pattern: (^|\s+)(PSUBB|PSUBL|PSUBQ)($|\s)
-    - pattern: (^|\s+)(PSUBSB|PSUBSW|PSUBUSB|PSUBUSW|PSUBW|PTEST)($|\s)
-    - pattern: (^|\s+)(PUNPCKHBW|PUNPCKHLQ|PUNPCKHQDQ|PUNPCKHWL|PUNPCKLBW)($|\s)
-    - pattern: (^|\s+)(PUNPCKLLQ|PUNPCKLQDQ|PUNPCKLWL)($|\s)
-    - pattern: (^|\s+)(PUSHAL|PUSHAW|PUSHFL|PUSHFQ|PUSHFW)($|\s)
-    - pattern: (^|\s+)(PUSHL|PUSHQ|PUSHW|PXOR|QUAD)($|\s)
-    - pattern: (^|\s+)(RCLB|RCLL|RCLQ|RCLW)($|\s)
-    - pattern: (^|\s+)(RCPPS|RCPSS)($|\s)
-    - pattern: (^|\s+)(RCRB|RCRL|RCRQ|RCRW)($|\s)
-    - pattern: (^|\s+)(RDFSBASEL|RDFSBASEQ|RDGSBASEL|RDGSBASEQ)($|\s)
-    - pattern: (^|\s+)(RDMSR|RDPKRU|RDPMC)($|\s)
-    - pattern: (^|\s+)(RDRANDL|RDRANDQ|RDRANDW)($|\s)
-    - pattern: (^|\s+)(RDSEEDL|RDSEEDQ|RDSEEDW)($|\s)
-    - pattern: (^|\s+)(RDTSC|RDTSCP|REP|REPN)($|\s)
-    - pattern: (^|\s+)(RETFL|RETFQ|RETFW)($|\s)
-    - pattern: (^|\s+)(ROLB|ROLL|ROLQ|ROLW)($|\s)
-    - pattern: (^|\s+)(RORB|RORL|RORQ|RORXL|RORXQ)($|\s)
-    - pattern: (^|\s+)(ROUNDPD|ROUNDPS|ROUNDSD|ROUNDSS)($|\s)
-    - pattern: (^|\s+)(RSM|RSQRTPS|RSQRTSS)($|\s)
-    - pattern: (^|\s+)(SAHF|SALB|SALL|SALQ|SALW)($|\s)
-    - pattern: (^|\s+)(SARB|SARL|SARQ|SARW)($|\s)
-    - pattern: (^|\s+)(SARXL|SARXQ)($|\s)
-    - pattern: (^|\s+)(SBBB|SBBL|SBBQ|SBBW)($|\s)
-    - pattern: (^|\s+)(SCASB|SCASL|SCASQ|SCASW)($|\s)
-    - pattern: (^|\s+)(SETCC|SETCS|SETEQ|SETGE|SETGT)($|\s)
-    - pattern: (^|\s+)(SETHI|SETLE|SETLS|SETLT|SETMI)($|\s)
-    - pattern: (^|\s+)(SETNE|SETOC|SETOS|SETPC|SETPL)($|\s)
-    - pattern: (^|\s+)(SETPS|SFENCE|SGDT)($|\s)
-    - pattern: (^|\s+)(SHA1MSG1|SHA1MSG2|SHA1NEXTE|SHA1RNDS4)($|\s)
-    - pattern: (^|\s+)(SHA256MSG1|SHA256MSG2|SHA256RNDS2)($|\s)
-    - pattern: (^|\s+)(SHLB|SHLL|SHLQ|SHLW|SHLXL|SHLXQ)($|\s)
-    - pattern: (^|\s+)(SHRB|SHRL|SHRQ|SHRW)($|\s)
-    - pattern: (^|\s+)(SHRXL|SHRXQ|SHUFPD|SHUFPS)($|\s)
-    - pattern: (^|\s+)(SIDT|SLDTL|SLDTQ|SLDTW)($|\s)
-    - pattern: (^|\s+)(SMSWL|SMSWQ|SMSWW)($|\s)
-    - pattern: (^|\s+)(SQRTPD|SQRTPS|SQRTSD|SQRTSS)($|\s)
-    - pattern: (^|\s+)(STAC|STC|STD|STI)($|\s)
-    - pattern: (^|\s+)(STMXCSR|STOSB|STOSL|STOSQ|STOSW)($|\s)
-    - pattern: (^|\s+)(STRL|STRQ|STRW)($|\s)
-    - pattern: (^|\s+)(SUBB|SUBPD|SUBPS|SUBQ|SUBL|SUBSD|SUBSS|SWAPGS)($|\s)
-    - pattern: (^|\s+)(SYSCALL|SYSENTER|SYSENTER64|SYSEXIT|SYSEXIT64|SYSRET)($|\s)
-    - pattern: (^|\s+)(TESTB|TESTL|TESTQ|TESTW)($|\s)
-    - pattern: (^|\s+)(TPAUSE|TZCNTL|TZCNTQ|TZCNTW)($|\s)
-    - pattern: (^|\s+)(UCOMISD|UCOMISS|UD1|UD2|UMWAIT)($|\s)
-    - pattern: (^|\s+)(UNPCKHPD|UNPCKHPS|UNPCKLPD|UNPCKLPS|UMONITOR)($|\s)
-    - pattern: (^|\s+)(V4FMADDPS|V4FMADDSS|V4FNMADDPS|V4FNMADDSS)($|\s)
-    - pattern: (^|\s+)(VADDPD|VADDPS|VADDSD|VADDSS|VADDSUBPD|VADDSUBPS)($|\s)
-    - pattern: (^|\s+)(VAESDEC|VAESDECLAST|VAESENC|VAESENCLAST|VAESIMC|VAESKEYGENASSIST)($|\s)
-    - pattern: (^|\s+)(VALIGND|VALIGNQ)($|\s)
-    - pattern: (^|\s+)(VANDNPD|VANDNPS|VANDPD|VANDPS)($|\s)
-    - pattern: (^|\s+)(VBLENDMPD|VBLENDMPS|VBLENDPD|VBLENDPS|VBLENDVPD|VBLENDVPS)($|\s)
-    - pattern: (^|\s+)(VBROADCASTF128|VBROADCASTF32X2|VBROADCASTF32X4|VBROADCASTF32X8|VBROADCASTF64X2)($|\s)
-    - pattern: (^|\s+)(VBROADCASTF64X4|VBROADCASTI128|VBROADCASTI32X2|VBROADCASTI32X4|VBROADCASTI32X8)($|\s)
-    - pattern: (^|\s+)(VBROADCASTI64X2|VBROADCASTI64X4|VBROADCASTSD|VBROADCASTSS)($|\s)
-    - pattern: (^|\s+)(VCMPPD|VCMPPS|VCMPSD|VCMPSS)($|\s)
-    - pattern: (^|\s+)(VCOMISD|VCOMISS|VCOMPRESSPD|VCOMPRESSPS)($|\s)
-    - pattern: (^|\s+)(VCVTDQ2PD|VCVTDQ2PS|VCVTPD2DQ|VCVTPD2DQX|VCVTPD2DQY)($|\s)
-    - pattern: (^|\s+)(VCVTPD2PS|VCVTPD2PSX|VCVTPD2PSY|VCVTPD2QQ|VCVTPD2UDQ)($|\s)
-    - pattern: (^|\s+)(VCVTPD2UDQX|VCVTPD2UDQY|VCVTPD2UQQ|VCVTPH2PS)($|\s)
-    - pattern: (^|\s+)(VCVTPS2DQ|VCVTPS2PD|VCVTPS2PH|VCVTPS2QQ|VCVTPS2UDQ|VCVTPS2UQQ)($|\s)
-    - pattern: (^|\s+)(VCVTQQ2PD|VCVTQQ2PS|VCVTQQ2PSX|VCVTQQ2PSY)($|\s)
-    - pattern: (^|\s+)(VCVTSD2SI|VCVTSD2SIQ|VCVTSD2SS|VCVTSD2USI|VCVTSD2USIL|VCVTSD2USIQ)($|\s)
-    - pattern: (^|\s+)(VCVTSI2SDL|VCVTSI2SDQ|VCVTSI2SSL|VCVTSI2SSQ)($|\s)
-    - pattern: (^|\s+)(VCVTSS2SD|VCVTSS2SI|VCVTSS2SIQ|VCVTSS2USI|VCVTSS2USIL|VCVTSS2USIQ)($|\s)
-    - pattern: (^|\s+)(VCVTTPD2DQ|VCVTTPD2DQX|VCVTTPD2DQY|VCVTTPD2QQ)($|\s)
-    - pattern: (^|\s+)(VCVTTPD2UDQ|VCVTTPD2UDQX|VCVTTPD2UDQY|VCVTTPD2UQQ)($|\s)
-    - pattern: (^|\s+)(VCVTTPS2DQ|VCVTTPS2QQ|VCVTTPS2UDQ|VCVTTPS2UQQ)($|\s)
-    - pattern: (^|\s+)(VCVTTSD2SI|VCVTTSD2SIQ|VCVTTSD2USI|VCVTTSD2USIL|VCVTTSD2USIQ)($|\s)
-    - pattern: (^|\s+)(VCVTTSS2SI|VCVTTSS2SIQ|VCVTTSS2USI|VCVTTSS2USIL|VCVTTSS2USIQ)($|\s)
-    - pattern: (^|\s+)(VCVTUDQ2PD|VCVTUDQ2PS|VCVTUQQ2PD|VCVTUQQ2PS|VCVTUQQ2PSX|VCVTUQQ2PSY)($|\s)
-    - pattern: (^|\s+)(VCVTUSI2SD|VCVTUSI2SDL|VCVTUSI2SDQ)($|\s)
-    - pattern: (^|\s+)(VCVTUSI2SS|VCVTUSI2SSL|VCVTUSI2SSQ|VDBPSADBW)($|\s)
-    - pattern: (^|\s+)(VDIVPD|VDIVPS|VDIVSD|VDIVSS)($|\s)
-    - pattern: (^|\s+)(VDPPD|VDPPS|VERR|VERW)($|\s)
-    - pattern: (^|\s+)(VEXP2PD|VEXP2PS|VEXPANDPD|VEXPANDPS)($|\s)
-    - pattern: (^|\s+)(VEXTRACTF128|VEXTRACTF32X4|VEXTRACTF32X8|VEXTRACTF64X2|VEXTRACTF64X4|VEXTRACTI128)($|\s)
-    - pattern: (^|\s+)(VEXTRACTI32X4|VEXTRACTI32X8|VEXTRACTI64X2|VEXTRACTI64X4|VEXTRACTPS)($|\s)
-    - pattern: (^|\s+)(VFIXUPIMMPD|VFIXUPIMMPS|VFIXUPIMMSD|VFIXUPIMMSS)($|\s)
-    - pattern: (^|\s+)(VFMADD132PD|VFMADD132PS|VFMADD132SD|VFMADD132SS)($|\s)
-    - pattern: (^|\s+)(VFMADD213PD|VFMADD213PS|VFMADD213SD|VFMADD213SS)($|\s)
-    - pattern: (^|\s+)(VFMADD231PD|VFMADD231PS|VFMADD231SD|VFMADD231SS)($|\s)
-    - pattern: (^|\s+)(VFMADDSUB132PD|VFMADDSUB132PS|VFMADDSUB213PD|VFMADDSUB213PS|VFMADDSUB231PD|VFMADDSUB231PS)($|\s)
-    - pattern: (^|\s+)(VFMSUB132PD|VFMSUB132PS|VFMSUB132SD|VFMSUB132SS)($|\s)
-    - pattern: (^|\s+)(VFMSUB213PD|VFMSUB213PS|VFMSUB213SD|VFMSUB213SS)($|\s)
-    - pattern: (^|\s+)(VFMSUB231PD|VFMSUB231PS|VFMSUB231SD|VFMSUB231SS)($|\s)
-    - pattern: (^|\s+)(VFMSUBADD132PD|VFMSUBADD132PS|VFMSUBADD213PD|VFMSUBADD213PS|VFMSUBADD231PD|VFMSUBADD231PS)($|\s)
-    - pattern: (^|\s+)(VFNMADD132PD|VFNMADD132PS|VFNMADD132SD|VFNMADD132SS)($|\s)
-    - pattern: (^|\s+)(VFNMADD213PD|VFNMADD213PS|VFNMADD213SD|VFNMADD213SS)($|\s)
-    - pattern: (^|\s+)(VFNMADD231PD|VFNMADD231PS|VFNMADD231SD|VFNMADD231SS)($|\s)
-    - pattern: (^|\s+)(VFNMSUB132PD|VFNMSUB132PS|VFNMSUB132SD|VFNMSUB132SS)($|\s)
-    - pattern: (^|\s+)(VFNMSUB213PD|VFNMSUB213PS|VFNMSUB213SD|VFNMSUB213SS)($|\s)
-    - pattern: (^|\s+)(VFNMSUB231PD|VFNMSUB231PS|VFNMSUB231SD|VFNMSUB231SS)($|\s)
-    - pattern: (^|\s+)(VFPCLASSPD|VFPCLASSPDX|VFPCLASSPDY|VFPCLASSPDZ)($|\s)
-    - pattern: (^|\s+)(VFPCLASSPS|VFPCLASSPSX|VFPCLASSPSY|VFPCLASSPSZ)($|\s)
-    - pattern: (^|\s+)(VFPCLASSSD|VFPCLASSSS|VGATHERDPD|VGATHERDPS)($|\s)
-    - pattern: (^|\s+)(VGATHERPF0DPD|VGATHERPF0DPS|VGATHERPF0QPD|VGATHERPF0QPS)($|\s)
-    - pattern: (^|\s+)(VGATHERPF1DPD|VGATHERPF1DPS|VGATHERPF1QPD|VGATHERPF1QPS)($|\s)
-    - pattern: (^|\s+)(VGATHERQPD|VGATHERQPS)($|\s)
-    - pattern: (^|\s+)(VGETEXPPD|VGETEXPPS|VGETEXPSD|VGETEXPSS)($|\s)
-    - pattern: (^|\s+)(VGETMANTPD|VGETMANTPS|VGETMANTSD|VGETMANTSS)($|\s)
-    - pattern: (^|\s+)(VGF2P8AFFINEINVQB|VGF2P8AFFINEQB|VGF2P8MULB)($|\s)
-    - pattern: (^|\s+)(VHADDPD|VHADDPS|VHSUBPD|VHSUBPS)($|\s)
-    - pattern: (^|\s+)(VINSERTF128|VINSERTF32X4|VINSERTF32X8|VINSERTF64X2|VINSERTF64X4)($|\s)
-    - pattern: (^|\s+)(VINSERTI128|VINSERTI32X4|VINSERTI32X8|VINSERTI64X2|VINSERTI64X4)($|\s)
-    - pattern: (^|\s+)(VINSERTPS|VLDDQU|VLDMXCSR)($|\s)
-    - pattern: (^|\s+)(VMASKMOVDQU|VMASKMOVPD|VMASKMOVPS)($|\s)
-    - pattern: (^|\s+)(VMAXPD|VMAXPS|VMAXSD|VMAXSS)($|\s)
-    - pattern: (^|\s+)(VMINPD|VMINPS|VMINSD|VMINSS)($|\s)
-    - pattern: (^|\s+)(VMOVAPD|VMOVAPS|VMOVDDUP)($|\s)
-    - pattern: (^|\s+)(VMOVDQA|VMOVDQA32|VMOVDQA64)($|\s)
-    - pattern: (^|\s+)(VMOVDQU|VMOVDQU16|VMOVDQU32|VMOVDQU64|VMOVDQU8)($|\s)
-    - pattern: (^|\s+)(VMOVHLPS|VMOVHPD|VMOVHPS)($|\s)
-    - pattern: (^|\s+)(VMOVLHPS|VMOVLPD|VMOVLPS)($|\s)
-    - pattern: (^|\s+)(VMOVMSKPD|VMOVMSKPS)($|\s)
-    - pattern: (^|\s+)(VMOVNTDQ|VMOVNTDQA|VMOVNTPD|VMOVNTPS)($|\s)
-    - pattern: (^|\s+)(VMOVSD|VMOVSHDUP|VMOVSLDUP|VMOVSS)($|\s)
-    - pattern: (^|\s+)(VMOVUPD|VMOVUPS|VMPSADBW)($|\s)
-    - pattern: (^|\s+)(VMULPD|VMULPS|VMULSD|VMULSS)($|\s)
-    - pattern: (^|\s+)(VORPD|VORPS|VP4DPWSSD|VP4DPWSSDS)($|\s)
-    - pattern: (^|\s+)(VPABSB|VPABSD|VPABSQ|VPABSW)($|\s)
-    - pattern: (^|\s+)(VPACKSSDW|VPACKSSWB|VPACKUSDW|VPACKUSWB)($|\s)
-    - pattern: (^|\s+)(VPADDB|VPADDD|VPADDQ)($|\s)
-    - pattern: (^|\s+)(VPADDSB|VPADDSW|VPADDUSB|VPADDUSW|VPADDW)($|\s)
-    - pattern: (^|\s+)(VPALIGNR)($|\s)
-    - pattern: (^|\s+)(VPAND|VPANDD|VPANDN|VPANDND|VPANDNQ|VPANDQ)($|\s)
-    - pattern: (^|\s+)(VPAVGB|VPAVGW)($|\s)
-    - pattern: (^|\s+)(VPBLENDD|VPBLENDMB|VPBLENDMD|VPBLENDMQ|VPBLENDMW|VPBLENDVB|VPBLENDW)($|\s)
-    - pattern: (^|\s+)(VPBROADCASTB|VPBROADCASTD)($|\s)
-    - pattern: (^|\s+)(VPBROADCASTMB2Q|VPBROADCASTMW2D)($|\s)
-    - pattern: (^|\s+)(VPBROADCASTQ|VPBROADCASTW|VPCLMULQDQ)($|\s)
-    - pattern: (^|\s+)(VPCMPB|VPCMPD)($|\s)
-    - pattern: (^|\s+)(VPCMPEQB|VPCMPEQD|VPCMPEQQ|VPCMPEQW)($|\s)
-    - pattern: (^|\s+)(VPCMPESTRI|VPCMPESTRM)($|\s)
-    - pattern: (^|\s+)(VPCMPGTB|VPCMPGTD|VPCMPGTQ|VPCMPGTW)($|\s)
-    - pattern: (^|\s+)(VPCMPISTRI|VPCMPISTRM|VPCMPQ)($|\s)
-    - pattern: (^|\s+)(VPCMPUB|VPCMPUD|VPCMPUQ|VPCMPUW|VPCMPW)($|\s)
-    - pattern: (^|\s+)(VPCOMPRESSB|VPCOMPRESSD|VPCOMPRESSQ|VPCOMPRESSW|VPCONFLICTD|VPCONFLICTQ)($|\s)
-    - pattern: (^|\s+)(VPDPBUSD|VPDPBUSDS|VPDPWSSD|VPDPWSSDS)($|\s)
-    - pattern: (^|\s+)(VPERM2F128|VPERM2I128|VPERMB|VPERMD)($|\s)
-    - pattern: (^|\s+)(VPERMI2B|VPERMI2D|VPERMI2PD|VPERMI2PS)($|\s)
-    - pattern: (^|\s+)(VPERMI2Q|VPERMI2W|VPERMILPD|VPERMILPS)($|\s)
-    - pattern: (^|\s+)(VPERMPD|VPERMPS|VPERMQ)($|\s)
-    - pattern: (^|\s+)(VPERMT2B|VPERMT2D|VPERMT2PD|VPERMT2PS)($|\s)
-    - pattern: (^|\s+)(VPERMT2Q|VPERMT2W|VPERMW)($|\s)
-    - pattern: (^|\s+)(VPEXPANDB|VPEXPANDD|VPEXPANDQ|VPEXPANDW)($|\s)
-    - pattern: (^|\s+)(VPEXTRB|VPEXTRD|VPEXTRQ|VPEXTRW)($|\s)
-    - pattern: (^|\s+)(VPGATHERDD|VPGATHERDQ|VPGATHERQD|VPGATHERQQ)($|\s)
-    - pattern: (^|\s+)(VPHADDD|VPHADDSW|VPHADDW|VPHMINPOSUW)($|\s)
-    - pattern: (^|\s+)(VPHSUBD|VPHSUBSW|VPHSUBW)($|\s)
-    - pattern: (^|\s+)(VPINSRB|VPINSRD|VPINSRQ|VPINSRW)($|\s)
-    - pattern: (^|\s+)(VPLZCNTD|VPLZCNTQ)($|\s)
-    - pattern: (^|\s+)(VPMADD52HUQ|VPMADD52LUQ|VPMADDUBSW|VPMADDWD)($|\s)
-    - pattern: (^|\s+)(VPMASKMOVD|VPMASKMOVQ)($|\s)
-    - pattern: (^|\s+)(VPMAXSB|VPMAXSD|VPMAXSQ|VPMAXSW)($|\s)
-    - pattern: (^|\s+)(VPMAXUB|VPMAXUD|VPMAXUQ|VPMAXUW)($|\s)
-    - pattern: (^|\s+)(VPMINSB|VPMINSD|VPMINSQ|VPMINSW)($|\s)
-    - pattern: (^|\s+)(VPMINUB|VPMINUD|VPMINUQ|VPMINUW)($|\s)
-    - pattern: (^|\s+)(VPMOVB2M|VPMOVD2M|VPMOVDB|VPMOVDW)($|\s)
-    - pattern: (^|\s+)(VPMOVM2B|VPMOVM2D|VPMOVM2Q|VPMOVM2W|VPMOVMSKB)($|\s)
-    - pattern: (^|\s+)(VPMOVQ2M|VPMOVQB|VPMOVQD|VPMOVQW)($|\s)
-    - pattern: (^|\s+)(VPMOVSDB|VPMOVSDW|VPMOVSQB|VPMOVSQD|VPMOVSQW|VPMOVSWB)($|\s)
-    - pattern: (^|\s+)(VPMOVSXBD|VPMOVSXBQ|VPMOVSXBW|VPMOVSXDQ|VPMOVSXWD|VPMOVSXWQ)($|\s)
-    - pattern: (^|\s+)(VPMOVUSDB|VPMOVUSDW|VPMOVUSQB|VPMOVUSQD|VPMOVUSQW|VPMOVUSWB)($|\s)
-    - pattern: (^|\s+)(VPMOVW2M|VPMOVWB)($|\s)
-    - pattern: (^|\s+)(VPMOVZXBD|VPMOVZXBQ|VPMOVZXBW|VPMOVZXDQ|VPMOVZXWD|VPMOVZXWQ)($|\s)
-    - pattern: (^|\s+)(VPMULDQ|VPMULHRSW|VPMULHUW|VPMULHW)($|\s)
-    - pattern: (^|\s+)(VPMULLD|VPMULLQ|VPMULLW)($|\s)
-    - pattern: (^|\s+)(VPMULTISHIFTQB|VPMULUDQ)($|\s)
-    - pattern: (^|\s+)(VPOPCNTB|VPOPCNTD|VPOPCNTQ|VPOPCNTW)($|\s)
-    - pattern: (^|\s+)(VPOR|VPORD|VPORQ)($|\s)
-    - pattern: (^|\s+)(VPROLD|VPROLQ|VPROLVD|VPROLVQ)($|\s)
-    - pattern: (^|\s+)(VPRORD|VPRORQ|VPRORVD|VPRORVQ|VPSADBW)($|\s)
-    - pattern: (^|\s+)(VPSCATTERDD|VPSCATTERDQ|VPSCATTERQD|VPSCATTERQQ)($|\s)
-    - pattern: (^|\s+)(VPSHLDD|VPSHLDQ|VPSHLDVD|VPSHLDVQ|VPSHLDVW|VPSHLDW)($|\s)
-    - pattern: (^|\s+)(VPSHRDD|VPSHRDQ|VPSHRDVD|VPSHRDVQ|VPSHRDVW|VPSHRDW)($|\s)
-    - pattern: (^|\s+)(VPSHUFB|VPSHUFBITQMB|VPSHUFD|VPSHUFHW|VPSHUFLW)($|\s)
-    - pattern: (^|\s+)(VPSIGNB|VPSIGND|VPSIGNW)($|\s)
-    - pattern: (^|\s+)(VPSLLD|VPSLLDQ|VPSLLQ|VPSLLVD|VPSLLVQ|VPSLLVW|VPSLLW)($|\s)
-    - pattern: (^|\s+)(VPSRAD|VPSRAQ|VPSRAVD|VPSRAVQ|VPSRAVW|VPSRAW)($|\s)
-    - pattern: (^|\s+)(VPSRLD|VPSRLDQ|VPSRLQ|VPSRLVD|VPSRLVQ|VPSRLVW|VPSRLW)($|\s)
-    - pattern: (^|\s+)(VPSUBB|VPSUBD|VPSUBQ|VPSUBSB|VPSUBSW|VPSUBUSB|VPSUBUSW|VPSUBW)($|\s)
-    - pattern: (^|\s+)(VPTERNLOGD|VPTERNLOGQ)($|\s)
-    - pattern: (^|\s+)(VPTEST|VPTESTMB|VPTESTMD|VPTESTMQ|VPTESTMW)($|\s)
-    - pattern: (^|\s+)(VPTESTNMB|VPTESTNMD|VPTESTNMQ|VPTESTNMW)($|\s)
-    - pattern: (^|\s+)(VPUNPCKHBW|VPUNPCKHDQ|VPUNPCKHQDQ|VPUNPCKHWD)($|\s)
-    - pattern: (^|\s+)(VPUNPCKLBW|VPUNPCKLDQ|VPUNPCKLQDQ|VPUNPCKLWD)($|\s)
-    - pattern: (^|\s+)(VPXOR|VPXORD|VPXORQ)($|\s)
-    - pattern: (^|\s+)(VRANGEPD|VRANGEPS|VRANGESD|VRANGESS)($|\s)
-    - pattern: (^|\s+)(VRCP14PD|VRCP14PS|VRCP14SD|VRCP14SS)($|\s)
-    - pattern: (^|\s+)(VRCP28PD|VRCP28PS|VRCP28SD|VRCP28SS)($|\s)
-    - pattern: (^|\s+)(VRCPPS|VRCPSS)($|\s)
-    - pattern: (^|\s+)(VREDUCEPD|VREDUCEPS|VREDUCESD|VREDUCESS)($|\s)
-    - pattern: (^|\s+)(VRNDSCALEPD|VRNDSCALEPS|VRNDSCALESD|VRNDSCALESS)($|\s)
-    - pattern: (^|\s+)(VROUNDPD|VROUNDPS|VROUNDSD|VROUNDSS)($|\s)
-    - pattern: (^|\s+)(VRSQRT14PD|VRSQRT14PS|VRSQRT14SD|VRSQRT14SS)($|\s)
-    - pattern: (^|\s+)(VRSQRT28PD|VRSQRT28PS|VRSQRT28SD|VRSQRT28SS)($|\s)
-    - pattern: (^|\s+)(VRSQRTPS|VRSQRTSS)($|\s)
-    - pattern: (^|\s+)(VSCALEFPD|VSCALEFPS|VSCALEFSD|VSCALEFSS)($|\s)
-    - pattern: (^|\s+)(VSCATTERDPD|VSCATTERDPS)($|\s)
-    - pattern: (^|\s+)(VSCATTERPF0DPD|VSCATTERPF0DPS|VSCATTERPF0QPD|VSCATTERPF0QPS)($|\s)
-    - pattern: (^|\s+)(VSCATTERPF1DPD|VSCATTERPF1DPS|VSCATTERPF1QPD|VSCATTERPF1QPS)($|\s)
-    - pattern: (^|\s+)(VSCATTERQPD|VSCATTERQPS)($|\s)
-    - pattern: (^|\s+)(VSHUFF32X4|VSHUFF64X2|VSHUFI32X4|VSHUFI64X2)($|\s)
-    - pattern: (^|\s+)(VSHUFPD|VSHUFPS)($|\s)
-    - pattern: (^|\s+)(VSQRTPD|VSQRTPS|VSQRTSD|VSQRTSS)($|\s)
-    - pattern: (^|\s+)(VSTMXCSR)($|\s)
-    - pattern: (^|\s+)(VSUBPD|VSUBPS|VSUBSD|VSUBSS)($|\s)
-    - pattern: (^|\s+)(VTESTPD|VTESTPS|VUCOMISD|VUCOMISS)($|\s)
-    - pattern: (^|\s+)(VUNPCKHPD|VUNPCKHPS|VUNPCKLPD|VUNPCKLPS)($|\s)
-    - pattern: (^|\s+)(VXORPD|VXORPS|VZEROALL|VZEROUPPER)($|\s)
-    - pattern: (^|\s+)(WAIT|WBINVD|WRFSBASEL|WRFSBASEQ|WRGSBASEL|WRGSBASEQ)($|\s)
-    - pattern: (^|\s+)(WRMSR|WRPKRU|XABORT|XACQUIRE)($|\s)
-    - pattern: (^|\s+)(XADDB|XADDL|XADDQ|XADDW)($|\s)
-    - pattern: (^|\s+)(XBEGIN)($|\s)
-    - pattern: (^|\s+)(XCHGB|XCHGL|XCHGQ|XCHGW)($|\s)
-    - pattern: (^|\s+)(XEND|XGETBV|XLAT)($|\s)
-    - pattern: (^|\s+)(XORB|XORL)($|\s)
-    - pattern: (^|\s+)(XORPD|XORPS)($|\s)
-    - pattern: (^|\s+)(XORQ|XORW)($|\s)
-    - pattern: (^|\s+)(XRELEASE)($|\s)
-    - pattern: (^|\s+)(XRSTOR|XRSTOR64|XRSTORS|XRSTORS64)($|\s)
-    - pattern: (^|\s+)(XSAVE|XSAVE64|XSAVEC|XSAVEC64|XSAVEOPT|XSAVEOPT64|XSAVES|XSAVES64)($|\s)
-    - pattern: (^|\s+)(XSETBV|XTEST)($|\s)
+    - pattern: \#include\s+[\'\"<]x86intrin.h[\'\">]
+      help: |+
+          Detected the use of x86intrin.h file
 
-# Intrinsics available with plan9_go on arm, arm64, aarch64
-PLAN9_GOLANG_AARCH64:
-    - pattern: (^|\s+)(BEQ|BNE|BLT|BLE|BGT|BGE)($|\s)
-    - pattern: (^|\s+)(MOVBU|MOVH|MOVHU|MOVWU|MOVF|MOVD)($|\s)
-    - pattern: (^|\s+)(UMULH)($|\s)
-    - pattern: (^|\s+)(FADDS|FSUBS|FMULS)($|\s)
-    - pattern: (^|\s+)(FDIVS)($|\s)
-    - pattern: (^|\s+)(FCVTSD|FCVTDS)($|\s)
-    - pattern: (^|\s+)(FSQRTS|FSQRTD)($|\s)
-    - pattern: (^|\s+)(AND|BIC)($|\s)
-    - pattern: (^|\s+)(SLL|SRL|SRA)($|\s)
-    - pattern: (^|\s+)(NOOP)($|\s)
-    - pattern: (^|\s+)(RSB|RSC|TEQ)($|\s)
-    - pattern: (^|\s+)(MOVWD|MOVWF|MOVDW|MOVFW|MOVFD|MOVDF)($|\s)
-    - pattern: (^|\s+)(CMPF|CMPD)($|\s)
-    - pattern: (^|\s+)(ADDF|ADDD)($|\s)
-    - pattern: (^|\s+)(SUBF|SUBD)($|\s)
-    - pattern: (^|\s+)(MULF|MULD)($|\s)
-    - pattern: (^|\s+)(NMULF|NMULD)($|\s)
-    - pattern: (^|\s+)(MULAF|MULAD)($|\s)
-    - pattern: (^|\s+)(NMULAF|NMULAD)($|\s)
-    - pattern: (^|\s+)(MULSF)($|\s)
-    - pattern: (^|\s+)(NMULSF|NMULSD)($|\s)
-    - pattern: (^|\s+)(FMULAF|FMULAD|FNMULAF|FNMULAD)($|\s)
-    - pattern: (^|\s+)(FMULSF|FMULSD|FNMULSF|FNMULSD)($|\s)
-    - pattern: (^|\s+)(DIVF|DIVD)($|\s)
-    - pattern: (^|\s+)(SQRTF|SQRTD)($|\s)
-    - pattern: (^|\s+)(ABSF|ABSD)($|\s)
-    - pattern: (^|\s+)(NEGF|NEGD)($|\s)
-    - pattern: (^|\s+)(MULU|DIVU|MMUL|DIV)($|\s)
-    - pattern: (^|\s+)(MOD|MODU)($|\s)
-    - pattern: (^|\s+)(DIVHW|DIVUHW)($|\s)
-    - pattern: (^|\s+)(MOVBS|MOVHS|MOVM)($|\s)
-    - pattern: (^|\s+)(SWPBU|RFE|SWI)($|\s)
-    - pattern: (^|\s+)(MULA|MULS|MMULA|MMULS)($|\s)
-    - pattern: (^|\s+)(MULAL|MULLU|MULALU)($|\s)
-    - pattern: (^|\s+)(BX|BXRET)($|\s)
-    - pattern: (^|\s+)(LDREX|STREX|LDREXD|STREXD)($|\s)
-    - pattern: (^|\s+)(PLD)($|\s)
-    - pattern: (^|\s+)(REVSH)($|\s)
-    - pattern: (^|\s+)(XTAB|XTAH|XTABU|XTAHU)($|\s)
-    - pattern: (^|\s+)(BFX|BFXU|BFC)($|\s)
-    - pattern: (^|\s+)(MULWT|MULWB|MULBB)($|\s)
-    - pattern: (^|\s+)(MULAWT|MULAWB|MULABB)($|\s)
-    - pattern: (^|\s+)(MRC)($|\s)
-    - pattern: (^|\s+)(ADC|ADCS|ADCSW)($|\s)
-    - pattern: (^|\s+)(ADD|ADDS|ADDSW)($|\s)
-    - pattern: (^|\s+)(ADR|ADRP)($|\s)
-    - pattern: (^|\s+)(ANDS|ANDSW)($|\s)
-    - pattern: (^|\s+)(ASR|ASRW)($|\s)
-    - pattern: (^|\s+)(AT)($|\s)
-    - pattern: (^|\s+)(BFI|BFIW)($|\s)
-    - pattern: (^|\s+)(BFM|BFMW)($|\s)
-    - pattern: (^|\s+)(BFXIL|BFXILW)($|\s)
-    - pattern: (^|\s+)(BICS|BICSW|BICW)($|\s)
-    - pattern: (^|\s+)(BRK)($|\s)
-    - pattern: (^|\s+)(CBNZ|CBNZW)($|\s)
-    - pattern: (^|\s+)(CBZ|CBZW)($|\s)
-    - pattern: (^|\s+)(CCMN|CCMNW)($|\s)
-    - pattern: (^|\s+)(CCMP|CCMPW)($|\s)
-    - pattern: (^|\s+)(CINC|CINCW)($|\s)
-    - pattern: (^|\s+)(CINV|CINVW)($|\s)
-    - pattern: (^|\s+)(CLREX|CLS|CLSW|CLZ|CLZW)($|\s)
-    - pattern: (^|\s+)(CMN|CMNW|CMP)($|\s)
-    - pattern: (^|\s+)(CNEG|CNEGW)($|\s)
-    - pattern: (^|\s+)(CRC32CB|CRC32CH|CRC32CW|CRC32CX|CRC32H|CRC32X)($|\s)
-    - pattern: (^|\s+)(CSEL|CSELW|CSET|CSETM|CSETMW|CSETW)($|\s)
-    - pattern: (^|\s+)(CSINC|CSINCW|CSINV|CSINVW|CSNEG|CSNEGW)($|\s)
-    - pattern: (^|\s+)(DC|DCPS1|DCPS2|DCPS3)($|\s)
-    - pattern: (^|\s+)(DMB)($|\s)
-    - pattern: (^|\s+)(DRPS)($|\s)
-    - pattern: (^|\s+)(DSB)($|\s)
-    - pattern: (^|\s+)(EON|EONW|EOR|EORW)($|\s)
-    - pattern: (^|\s+)(ERET)($|\s)
-    - pattern: (^|\s+)(EXTR|EXTRW)($|\s)
-    - pattern: (^|\s+)(HINT|HVC)($|\s)
-    - pattern: (^|\s+)(IC|ISB)($|\s)
-    - pattern: (^|\s+)(LDADDAB|LDADDAD|LDADDAH|LDADDAW|LDADDALB|LDADDALD|LDADDALH|LDADDALW)($|\s)
-    - pattern: (^|\s+)(LDADDB|LDADDD|LDADDH|LDADDW|LDADDLB|LDADDLD|LDADDLH|LDADDLW)($|\s)
-    - pattern: (^|\s+)(LDAR|LDARB|LDARH|LDARW)($|\s)
-    - pattern: (^|\s+)(LDAXP|LDAXPW|LDAXR|LDAXRB|LDAXRH|LDAXRW)($|\s)
-    - pattern: (^|\s+)(LDCLRAB|LDCLRAD|LDCLRAH|LDCLRAW)($|\s)
-    - pattern: (^|\s+)(LDCLRALB|LDCLRALD|LDCLRALH|LDCLRALW)($|\s)
-    - pattern: (^|\s+)(LDCLRB|LDCLRD|LDCLRH|LDCLRW)($|\s)
-    - pattern: (^|\s+)(LDCLRLB|LDCLRLD|LDCLRLH|LDCLRLW)($|\s)
-    - pattern: (^|\s+)(LDEORAB|LDEORAD|LDEORAH|LDEORAW)($|\s)
-    - pattern: (^|\s+)(LDEORALB|LDEORALD|LDEORALH|LDEORALW)($|\s)
-    - pattern: (^|\s+)(LDEORB|LDEORD|LDEORH|LDEORW)($|\s)
-    - pattern: (^|\s+)(LDEORLB|LDEORLD|LDEORLH|LDEORLW)($|\s)
-    - pattern: (^|\s+)(LDORAB|LDORAD|LDORAH|LDORAW)($|\s)
-    - pattern: (^|\s+)(LDORALB|LDORALD|LDORALH|LDORALW)($|\s)
-    - pattern: (^|\s+)(LDORB|LDORD|LDORH|LDORW)($|\s)
-    - pattern: (^|\s+)(LDORLB|LDORLD|LDORLH|LDORLW)($|\s)
-    - pattern: (^|\s+)(LDP|LDPW|LDPSW)($|\s)
-    - pattern: (^|\s+)(LDXR|LDXRB|LDXRH|LDXRW|LDXP|LDXPW)($|\s)
-    - pattern: (^|\s+)(LSL|LSR|LSRW)($|\s)
-    - pattern: (^|\s+)(MADD|MADDW|MNEG|MNEGW)($|\s)
-    - pattern: (^|\s+)(MOVK|MOVKW|MOVN|MOVNW|MOVZ|MOVZW)($|\s)
-    - pattern: (^|\s+)(MRS|MSR|MSUB|MSUBW)($|\s)
-    - pattern: (^|\s+)(MUL|MVN|MVNW)($|\s)
-    - pattern: (^|\s+)(NEG|NEGS|NEGSW)($|\s)
-    - pattern: (^|\s+)(NGC|NGCS|NGCSW|NGCW)($|\s)
-    - pattern: (^|\s+)(ORN|ORNW|ORR|ORRW)($|\s)
-    - pattern: (^|\s+)(PRFM|PRFUM|RBIT|RBITW)($|\s)
-    - pattern: (^|\s+)(REM|REMW|REV|REV16|REV16W|REV32|REVW)($|\s)
-    - pattern: (^|\s+)(ROR)($|\s)
-    - pattern: (^|\s+)(SBC|SBCS|SBCSW|SBCW)($|\s)
-    - pattern: (^|\s+)(SBFIZ|SBFIZW|SBFM|SBFMW|SBFX|SBFXW)($|\s)
-    - pattern: (^|\s+)(SDIV|SDIVW|SEV|SEVL)($|\s)
-    - pattern: (^|\s+)(SMADDL|SMC|SMNEGL|SMSUBL|SMULH|SMULL)($|\s)
-    - pattern: (^|\s+)(STXR|STXRB|STXRH|STXP|STXPW|STXRW)($|\s)
-    - pattern: (^|\s+)(STLP|STLPW|STLR|STLRB|STLRH|STLRW)($|\s)
-    - pattern: (^|\s+)(STLXP|STLXPW|STLXR|STLXRB|STLXRH|STLXRW)($|\s)
-    - pattern: (^|\s+)(STP|STPW)($|\s)
-    - pattern: (^|\s+)(SUB|SUBS|SUBSW|SVC)($|\s)
-    - pattern: (^|\s+)(SXTB|SXTBW|SXTH|SXTHW|SXTW)($|\s)
-    - pattern: (^|\s+)(SYS|SYSL)($|\s)
-    - pattern: (^|\s+)(TBNZ|TBZ|TLBI|TST|TSTW)($|\s)
-    - pattern: (^|\s+)(UBFIZ|UBFIZW|UBFM|UBFMW|UBFX|UBFXW)($|\s)
-    - pattern: (^|\s+)(UDIV|UDIVW)($|\s)
-    - pattern: (^|\s+)(UMADDL|UMNEGL|UMSUBL|UMULL)($|\s)
-    - pattern: (^|\s+)(UREM|UREMW)($|\s)
-    - pattern: (^|\s+)(UXTB|UXTH|UXTW|UXTBW|UXTHW)($|\s)
-    - pattern: (^|\s+)(WFE|WFI)($|\s)
-    - pattern: (^|\s+)(YIELD)($|\s)
-    - pattern: (^|\s+)(MOVNP|MOVNPW|MOVP|MOVPD|MOVPQ|MOVPS|MOVPSW|MOVPW)($|\s)
-    - pattern: (^|\s+)(SWPAD|SWPAW|SWPAH|SWPAB)($|\s)
-    - pattern: (^|\s+)(SWPALD|SWPALW|SWPALH|SWPALB)($|\s)
-    - pattern: (^|\s+)(SWPD|SWPW|SWPH|SWPB)($|\s)
-    - pattern: (^|\s+)(SWPLD|SWPLW|SWPLH|SWPLB)($|\s)
-    - pattern: (^|\s+)(CASD|CASW|CASH|CASB)($|\s)
-    - pattern: (^|\s+)(CASAD|CASAW|CASLD|CASLW)($|\s)
-    - pattern: (^|\s+)(CASALD|CASALW|CASALH|CASALB)($|\s)
-    - pattern: (^|\s+)(CASPD|CASPW)($|\s)
-    - pattern: (^|\s+)(BCS|BHS|BCC|BLO|BMI)($|\s)
-    - pattern: (^|\s+)(BPL|BVS|BVC|BHI|BLS)($|\s)
-    - pattern: (^|\s+)(FABSD|FABSS)($|\s)
-    - pattern: (^|\s+)(FCCMPD|FCCMPED|FCCMPS|FCCMPES)($|\s)
-    - pattern: (^|\s+)(FCMPD|FCMPED|FCMPES|FCMPS)($|\s)
-    - pattern: (^|\s+)(FCVTZSD|FCVTZSDW|FCVTZSS|FCVTZSSW)($|\s)
-    - pattern: (^|\s+)(FCVTZUD|FCVTZUDW|FCVTZUS|FCVTZUSW)($|\s)
-    - pattern: (^|\s+)(FLDPD|FLDPS)($|\s)
-    - pattern: (^|\s+)(FMOVQ|FMOVS)($|\s)
-    - pattern: (^|\s+)(VMOVS)($|\s)
-    - pattern: (^|\s+)(FNEGD|FNEGS)($|\s)
-    - pattern: (^|\s+)(FSTPD|FSTPS)($|\s)
-    - pattern: (^|\s+)(SCVTFD|SCVTFS|SCVTFWD|SCVTFWS)($|\s)
-    - pattern: (^|\s+)(UCVTFD|UCVTFS|UCVTFWD|UCVTFWS)($|\s)
-    - pattern: (^|\s+)(DWORD)($|\s)
-    - pattern: (^|\s+)(FCSELS|FCSELD)($|\s)
-    - pattern: (^|\s+)(FMAXS|FMINS|FMAXD|FMIND)($|\s)
-    - pattern: (^|\s+)(FMAXNMS|FMAXNMD)($|\s)
-    - pattern: (^|\s+)(FNMULS|FNMULD)($|\s)
-    - pattern: (^|\s+)(FRINTNS|FRINTND|FRINTPS|FRINTPD)($|\s)
-    - pattern: (^|\s+)(FRINTMS|FRINTMD|FRINTZS|FRINTZD)($|\s)
-    - pattern: (^|\s+)(FRINTAS|FRINTAD|FRINTXS|FRINTXD)($|\s)
-    - pattern: (^|\s+)(FRINTIS|FRINTID)($|\s)
-    - pattern: (^|\s+)(FMADDS|FMADDD|FMSUBS|FMSUBD)($|\s)
-    - pattern: (^|\s+)(FNMADDS|FNMADDD|FNMSUBS|FNMSUBD)($|\s)
-    - pattern: (^|\s+)(FMINNMS|FMINNMD)($|\s)
-    - pattern: (^|\s+)(FCVTDH|FCVTHS|FCVTHD|FCVTSH)($|\s)
-    - pattern: (^|\s+)(AESD|AESE|AESMC)($|\s)
-    - pattern: (^|\s+)(SHA1C|SHA1H|SHA1M|SHA1P|SHA1SU0|SHA1SU1)($|\s)
-    - pattern: (^|\s+)(SHA256H|SHA256H2|SHA256SU0|SHA256SU1)($|\s)
-    - pattern: (^|\s+)(SHA512H|SHA512H2|SHA512SU0|SHA512SU1)($|\s)
-    - pattern: (^|\s+)(VADD|VADDP|VAND)($|\s)
-    - pattern: (^|\s+)(VBIF|VBCAX)($|\s)
-    - pattern: (^|\s+)(VCMEQ|VCNT)($|\s)
-    - pattern: (^|\s+)(VEOR|VEOR3|VMOV)($|\s)
-    - pattern: (^|\s+)(VLD1|VLD2|VLD3|VLD4)($|\s)
-    - pattern: (^|\s+)(VLD1R|VLD2R|VLD3R|VLD4R)($|\s)
-    - pattern: (^|\s+)(VORR|VREV16|VREV32|VREV64)($|\s)
-    - pattern: (^|\s+)(VST1|VST2|VST3|VST4)($|\s)
-    - pattern: (^|\s+)(VDUP|VADDV|VMOVI|VUADDLV|VSUB)($|\s)
-    - pattern: (^|\s+)(VFMLA|VFMLS|VPMULL|VPMULL2)($|\s)
-    - pattern: (^|\s+)(VEXT|VRBIT|VRAX1)($|\s)
-    - pattern: (^|\s+)(VUSHR|VUSHLL|VUSHLL2)($|\s)
-    - pattern: (^|\s+)(VUXTL|VUXTL2|VUZP1|VUZP2)($|\s)
-    - pattern: (^|\s+)(VSHL|VSRI|VSLI)($|\s)
-    - pattern: (^|\s+)(VBSL|VBIT|VTBL|VXAR)($|\s)
-    - pattern: (^|\s+)(VZIP1|VZIP2|VCMTST)($|\s)
-    - pattern: (^|\s+)(VUADDW2|VUADDW|VUSRA)($|\s)
+          This header file is dedicated to the x86/x86-64 architecture and is not compatible with architectures such as arm/aarch64;
+
+    - pattern: \#include\s+[\'\"<]mmintrin.h[\'\">]
+      help: |+
+          Detected the use of mmintrin.h file
+
+          This header file is dedicated to x86/x86-64 architecture and is not compatible with arm/aarch64 and other architectures;
+
+    - pattern: \#include\s+[\'\"<]xmmintrin.h[\'\">]
+      help: |+
+          Detected the use of xmmintrin.h file
+
+          This header file is dedicated to x86/x86-64 architecture and is not compatible with arm/aarch64 and other architectures;
+
+    - pattern: \#include\s+[\'\"<]pmmintrin.h[\'\">]
+      help: |+
+          The use of pmmintrin.h file is detected
+
+          This header file is dedicated to the x86/x86-64 architecture and is not compatible with architectures such as arm/aarch64;
+
+    - pattern: \#include\s+[\'\"<]tmmintrin.h[\'\">]
+      help: |+
+          Detected the use of tmmintrin.h file
+
+          This header file is dedicated to x86/x86-64 architecture and is not compatible with arm/aarch64 and other architectures;
+
+    - pattern: \#include\s+[\'\"<]smmintrin.h[\'\">]
+      help: |+
+          Detected the use of smmintrin.h file
+
+          This header file is dedicated to x86/x86-64 architecture and is not compatible with arm/aarch64 and other architectures;
+
+    - pattern: \#include\s+[\'\"<]nmmintrin.h[\'\">]
+      help: |+
+          The use of nmmintrin.h file was detected
+
+          This header file is dedicated to the x86/x86-64 architecture and is not compatible with architectures such as arm/aarch64;
+
+    - pattern: \#include\s+[\'\"<]ammintrin.h[\'\">]
+      help: |+
+          The use of ammintrin.h file was detected
+
+          This header file is dedicated to the x86/x86-64 architecture and is not compatible with architectures such as arm/aarch64;
+
+    - pattern: \#include\s+[\'\"<]wmmintrin.h[\'\">]
+      help: |+
+          Detected the use of wmmintrin.h file
+
+          This header file is dedicated to x86/x86-64 architecture and is not compatible with arm/aarch64 and other architectures;
+
+    - pattern: \#include\s+[\'\"<]immintrin.h[\'\">]
+      help: |+
+          Detected the use of immintrin.h file
+
+          This header file is dedicated to x86/x86-64 architecture and is not compatible with arm/aarch64 and other architectures;
+
+    - pattern: \#include\s+[\'\"<]zmmintrin.h[\'\">]
+      help: |+
+          Detected the use of zmmintrin.h file
+
+          This header file is dedicated to x86/x86-64 architecture and is not compatible with arm/aarch64 and other architectures;
+
+    - pattern: \#include\s+[\'\"<]mm3dnow.h[\'\">]
+      help: |+
+          Detected the use of mm3dnow.h file
+
+          This header file is dedicated to x86/x86-64 architecture and is not compatible with arm/aarch64 and other architectures;
+
+    - pattern: \#include\s+[\'\"<]popcntintrin.h[\'\">]
+      help: |+
+          The use of popcntintrin.h file is detected
+
+          This header file is dedicated to the x86/x86-64 architecture and is not compatible with architectures such as arm/aarch64;

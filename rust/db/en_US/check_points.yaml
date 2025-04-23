@@ -369,362 +369,443 @@ AARCH64_INTRINSICS:
 AARCH64_COMPILER_OPTION_CHECKPOINTS:
     - pattern: .*[= "]+-m64[ \n"]+.*
       help: |+
-          -m64 是 x86 64 位应用编译选项, m64 选项设置 int 为 32 bits 及 long 指针为 64 bits, 为 AMD 的 x86 64 架构生成代码.在 ARM64 平台无法支持.
+          -m64 is an x86 64-bit application compilation option. The -m64 option sets int to 32 bits and long pointers to 64 bits, generating
+          code for AMD's x86 64-bit architeture. It is not supported on the ARM64 platform.
 
-          解决方法:
+          Solution:
+            Set the corresponding compilation option for the ARM64 platform to "-mabi=lp64".
 
-            将 ARM64 平台对应的编译选项设置为 "-mabi=lp64".
-
-          详细指导请参考: https://gcc.gnu.org/onlinedocs/gcc/AArch64-Options.html；https://gcc.gnu.org/onlinedocs/gcc/x86-Options.html
+          For detailed guidance, please refer to:
+            https://gcc.gnu.org/onlinedocs/gcc/AArch64-Options.html
+            https://gcc.gnu.org/onlinedocs/gcc/x86-Options.html
 
     - pattern: .*[= "]+-march=.*
       help: |+
-          Makefile 中包含 "-march" 与 -mtune 编译参数, 提示参数不兼容.
+          In the Makefile, the inclusion of the "-march" and "-mtune" compilation parameters results in an incompatibility error.
 
-          解决方法:
+          Solution:
+            The compatible adjusted parameters are: -march=armv8.1-a -tune=cortex-a72
 
-            兼容的调整后参数为:
-
-            -march=armv8.1-a -tune=cortex-a72
-
-          参数设置指导请参考:https://gcc.gnu.org/onlinedocs/gcc/ARM-Options.html；https://gcc.gnu.org/onlinedocs/gcc/AArch64-Options.html；https://gcc.gnu.org/onlinedocs/gcc/x86-Options.html
+          For parameter setting guidance, please refer to:
+            https://gcc.gnu.org/onlinedocs/gcc/ARM-Options.html
+            https://gcc.gnu.org/onlinedocs/gcc/AArch64-Options.html
+            https://gcc.gnu.org/onlinedocs/gcc/x86-Options.html
 
     - pattern: .*[= "]+-mtune=.*
       help: |+
-          如果使用了 gcc 9.1 以上的版本, 在编译时增加编译选项指定使用 tsv110 流水线, 使编译器按照 Kunpeng 处理器的流水线编排指令执行顺序, 充分利用流水线的指令集并行, 提升性能.
+          This option adjusts the code to take advantage of specific features and performance characteristics of the specified architecture,
+          such as its pipeline structure and instruction scheduling.
 
-          解决方法:
+          Solution:
+            Add the following compilation option: -mtune=neoverse-n2
 
-            编译选项中添加 "-mtune=tsv110".
-
-          详细指导请参考: https://gcc.gnu.org/onlinedocs/gcc/AArch64-Options.html；https://gcc.gnu.org/onlinedocs/gcc/x86-Options.html
+          For detailed guidance, please refer to:
+            https://gcc.gnu.org/onlinedocs/gcc/AArch64-Options.html
+            https://gcc.gnu.org/onlinedocs/gcc/x86-Options.html
 
     - pattern: .*[= "]+-O2[ \n"]+.*
       help: |+
-          编译优化选项设置 "-O2" 级别及以上时, 相同的浮点数乘加运算在 x86 平台和 ARM64 平台的运算结果, 在小数点后16位存在差异.
+          When the compilation option is set to the -O2 level or higher, the results of the same floating-point multiply-add operation on the x86
+          flatform and the ARM64 platform differ in the 16th decimal place.
 
-          原因:
+          The reason is that on the ARM64 platform, when the compilation option is set to -O2 level or higher,the precision of the floating-point
+          multiply-add operation(a+=b*c) can only be accurate to the 16th decimal place. At this time, gcc uses the fused instruction fmadd to
+          complete the multiply-add operation, instead of fadd and fmul. The fmadd instruciton treats the floating-point multiplication and addition
+          as an indivisible operation and does not round the intermediate result, leading to differences in the calculation results.
 
-            ARM64 平台编译优化选项设置为 "-O2" 级别及以上, 进行浮点数的乘加运算 (a+=b*c), 运算结果的精度只能精确到小数点后16位.在配置 "-O2" 选项时, gcc 使用融合指令 fmadd 完成乘加运算, 而不是 fadd 和 fmul.
+          Impact on the system:
+            When the compilation option is set to the -O2 level or higher, the performance on floating-point multiply-add operations is improved, but
+            the precision is affected.
 
-            fmadd 将浮点数的乘法和加法看成不可分的一个操作, 不对中间结果进行舍入, 从而导致计算结果有所差别.
+          Solution:
+            Add the compilation option -ffp-contract=off to disable the optimization.
 
-          对系统的影响:
-
-            编译优化选项设置 "-O2" 级别及以上时, 浮点乘加运算的性能有提升, 但是运算的精度受到影响.
-
-          解决方法:
-
-            添加编译选项 "-ffp-contract=off" 可以关闭该优化.
-
-          详细指导请参考:https://gcc.gnu.org/onlinedocs/gcc/AArch64-Options.html；https://gcc.gnu.org/onlinedocs/gcc/x86-Options.html
+          For detailed guidance, please refer to:
+            https://gcc.gnu.org/onlinedocs/gcc/AArch64-Options.html
+            https://gcc.gnu.org/onlinedocs/gcc/x86-Options.html
 
     - pattern: .*[= "]+-msse2[ \n"]+.*
       help: |+
-          ARM 不支持通过 -msse2, -msse4.1 等选项开启 SSE 浮点标量相关指令集.
+          The aarch64 architecture does not support enabling SSE scalar floating-point instruction sets with compilation options like -msse2 and -msse4.1.
 
-          For the x86-32 compiler, you must use -march=cpu-type, -msse or -msse2 switches to enable SSE extensions and make this option effective. For the x86-64 compiler, these extensions are enabled by default.
+          For the x86-32 compiler, you must use -march=cpu-type, -msse or -msse2 switches to enable SSE extensions and make this option effective. And for
+          the x86-64 compiler, these extensions are enabled by default.
 
-          在编译时增加编译选项指定处理器架构为 ARMv8, 使编译器按照 ARMv8 处理器的架构和微架构生成可执行程序, 提升性能.
+          Specifying the processor architecture as ARMv8 enables the compiler to generate executable programs based on the architecture and microarchitecture
+          of the ARMv8 processor, thereby enhancing performance.
 
-          解决方法:
+          Solution:
+            Add the compilation option -march=armv8-a.
 
-            编译选项中添加 "-march=armv8-a".
-
-          详细指导请参考:https://gcc.gnu.org/onlinedocs/gcc/AArch64-Options.html；https://gcc.gnu.org/onlinedocs/gcc/x86-Options.html
+          For detailed guidance, please refer to:
+            https://gcc.gnu.org/onlinedocs/gcc/AArch64-Options.html
+            https://gcc.gnu.org/onlinedocs/gcc/x86-Options.html
 
     - pattern: .*[= "]+-msse4\.1[ \n"]+.*
       help: |+
-          ARM 不支持通过 -msse2, -msse4.1 等选项开启 SSE 浮点标量相关指令集.
+          The aarch64 architecture does not support enabling SSE scalar floating-point instruction sets with compilation options like -msse2 and -msse4.1.
 
-          Feature modifiers used with -march and -mcpu can be any of the following and their inverses nofeature:
+          Feature modifiers used with -march and -mcpu can be any of the following and their inverses no feature:
+            crc: Enable CRC extension. This is on by default for -march=armv8.1-a.
+            crypto: Enable Crypto extension. This also enables Advanced SIMD and floating-point instructions.
 
-          crc: Enable CRC extension. This is on by default for -march=armv8.1-a.
+          Solution:
+            Add the compilation option -march=armv8.1-a+crc.
 
-          crypto: Enable Crypto extension. This also enables Advanced SIMD and floating-point instructions.
-
-          解决方法:
-
-            编译选项中添加 "-march=armv8.1-a+crc".
-
-          详细指导请参考:https://gcc.gnu.org/onlinedocs/gcc/AArch64-Options.html；https://gcc.gnu.org/onlinedocs/gcc/x86-Options.html
+          For detailed guidance, please refer to:
+            https://gcc.gnu.org/onlinedocs/gcc/AArch64-Options.html
+            https://gcc.gnu.org/onlinedocs/gcc/x86-Options.html
 
     - pattern: .*[= "]+-mpclmul[ \n"]+.*
       help: |+
-          在 x86 上使用 -msse2, -mpclmul, -maes 开启相关扩展指令集.
+          On x86 platform, use -msee2, -mpclmul and -maes to enable the relevant extended instruction sets.
 
           Feature modifiers used with -march and -mcpu can be any of the following and their inverses no feature:
+            crc: Enable CRC extension. This is on by default for -march=armv8.1-a.
+            crypto: Enable Crypto extension. This also enables Advanced SIMD and floating-point instructions.
 
-          crc: Enable CRC extension. This is on by default for -march=armv8.1-a.
+          Solution:
+            Add the compilation option -march=armv8.1-a+crypto.
 
-          crypto: Enable Crypto extension. This also enables Advanced SIMD and floating-point instructions.
-
-          解决方法:
-
-            编译选项中添加 "-march=armv8.1-a+crypto".
-
-          详细指导请参考:https://gcc.gnu.org/onlinedocs/gcc/AArch64-Options.html；https://gcc.gnu.org/onlinedocs/gcc/x86-Options.html
+          For detailed guidance, please refer to:
+            https://gcc.gnu.org/onlinedocs/gcc/AArch64-Options.html
+            https://gcc.gnu.org/onlinedocs/gcc/x86-Options.html
 
     - pattern: .*[= "]+-maes[ \n"]+.*
-
       help: |+
-          在 x86 上使用 -msse2, -mpclmul, -maes 开启相关扩展指令集.
+          On x86 platform, use -msee2, -mpclmul and -maes to enable the relevant extended instruction sets.
 
           Feature modifiers used with -march and -mcpu can be any of the following and their inverses no feature:
+            crc: Enable CRC extension. This is on by default for -march=armv8.1-a.
+            crypto: Enable Crypto extension. This also enables Advanced SIMD and floating-point instructions.
 
-          crc: Enable CRC extension. This is on by default for -march=armv8.1-a.
+          Solution:
+            Add the compilation option -march=armv8.1-a+crypto.
 
-          crypto: Enable Crypto extension. This also enables Advanced SIMD and floating-point instructions.
-
-          解决方法:
-
-            编译选项中添加 "-march=armv8.1-a+crypto".
-
-          详细指导请参考:https://gcc.gnu.org/onlinedocs/gcc/AArch64-Options.html；https://gcc.gnu.org/onlinedocs/gcc/x86-Options.html
+          For detailed guidance, please refer to:
+            https://gcc.gnu.org/onlinedocs/gcc/AArch64-Options.html
+            https://gcc.gnu.org/onlinedocs/gcc/x86-Options.html
 
 # https://doc.rust-lang.org/reference/inline-assembly.html
 AARCH64_INLINE_ASSEMBLY_CHECKPOINTS:
     - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\([a-zA-Z0-9_\s]*"(?!yield|isb|dmb|dsb)(\soshld|\soshst|\sosh|\snshld|\snshst|\snsh|\sishld|\sishst|\sish|\sld|\sst|\ssy)?.*memory
       help: |+
-          这是一个编译器屏障, 编译器屏障仅能防止编译器因优化而引入的乱序, 对弱内存顺序模型处理器运行时乱序执行无效.
+          This is a compiler barrier that only prevents out-of-order execution caused by compiler optimizations and is ineffective on processors with a weak memory ordering model.
 
-          由于 ARM 是弱内存顺序模型处理器, 建议做如下修改.
+          Since ARM is a processor with a weak memory ordering model, it is recommended to make the following modifications.
 
-          适配方案
+          Modification plan:
 
-          由于 x86 处理器是强内存顺序模型的, 它保证了内存的操作顺序不会被打乱,
-          因此仅仅使用编译器屏障即可.
+          Example code on x86:
+          ---
+          // Since x86 processors have a strong memory ordering model that ensures that memory operations are not out of order, compiler barriers alone are sufficient.
+          asm!("" : : : "memory");
 
-              asm!("" : : : "memory");
-
-          ARM 上对应的修改示例
-          使用下面的汇编指令
-
-              asm!("dmb ish" : : : "memory");
+          Corresponding Modifications on ARM:
+          ---
+          asm!("dmb ish" : : : "memory");
 
     - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*sfence
       help: |+
-          x86/64 架构提供了三种内存屏障指令: (1) sfence (2) lfence (3) mfence
+          The x86/64 architecture provides three types of memory barrier instructions: sfence, lfence and mfence.
 
-            sfence: sfence 指令前后的写入指令, 按照在 sfence 前后的指令序进行执行.
-                    注意, 写屏障一般需要与读屏障或数据依赖屏障配对使用.
+            sfence: Ensure that write instructions before and after the sfence instruction are executed in the order they appear relative
+            to the sfence instruction.
+            Note that write barriers generally need to be paired with read barriers or data dependency barriers.
 
-            lfence: lfence 指令前后的读取指令, 按照在 lfence 前后的指令序进行执行.
-                    注意, 读屏障一般要跟写屏障配对使用.
+            lfence: Ensure that read instructions before and after the lfence instruction are executed in the order they appear relative
+            to the lfence instruction.
+            Note that read barriers generally need to be paired with write barriers.
 
-            mfence: 确保所有 mfence 指令之前的写入指令, 都在该 mfence 指令之后的
-                    写入令之前执行; 同时, 还确保所有 mfence 指令之后的读取指令,
-                    都在该 mfence 指令之前的读取指令之后执行.
+            mfence: Ensure that all write instructions before the mfence instruction are executed before any write instructions after the
+            mfence instruction. Additionally, it ensures that all read instructions after the mfence instruction are executed after any read
+            instructions before the mfence instruction.
 
-          修改方案
-          --------
+          Modification plan:
 
-            x86 上示例代码:
-            ---
+          Example code on x86:
+          ---
             asm!("sfence" : : : "memory");
             asm!("lfence" : : : "memory");
             asm!("mfence" : : : "memory");
 
-            ARM 上对应的修改示例:
-            ---
+          Corresponding Modifications on ARM:
+          ---
             asm!("dmb ishst" : : : "memory");
             asm!("dmb ishld" : : : "memory");
             asm!("dmb ish" : : : "memory");
 
     - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*lfence
       help: |+
-          x86/64 系统架构提供了三种内存屏障指令:(1) sfence ; (2) lfence ; (3) mfence.
+          The x86/64 architecture provides three types of memory barrier instructions: sfence, lfence and mfence.
 
-          sfence 确保: sfence 指令前后的写入指令, 按照在 sfence 前后的指令序进行执行.注意, 写屏障一般需要与读屏障或数据依赖屏障配对使用.
+            sfence: Ensure that write instructions before and after the sfence instruction are executed in the order they appear relative
+            to the sfence instruction.
+            Note that write barriers generally need to be paired with read barriers or data dependency barriers.
 
-          lfence 确保: lfence 指令前后的读取指令, 按照在 lfence 前后的指令序进行执行.注意, 读屏障一般要跟写屏障配对使用.
+            lfence: Ensure that read instructions before and after the lfence instruction are executed in the order they appear relative
+            to the lfence instruction.
+            Note that read barriers generally need to be paired with write barriers.
 
-          mfence 确保: 确保所有 mfence 指令之前的写入指令, 都在该 mfence 指令之后的写入令之前执行；同时, 还确保所有 mfence 指令之后的读取指令, 都在该 mfence 指令之前的读取指令之后执行.
+            mfence: Ensure that all write instructions before the mfence instruction are executed before any write instructions after the
+            mfence instruction. Additionally, it ensures that all read instructions after the mfence instruction are executed after any read
+            instructions before the mfence instruction.
 
-          修改方案:
+          Modification plan:
 
-          x86 上示例代码:
+          Example code on x86:
           ---
-          asm!("sfence" : : : "memory");
-          asm!("lfence" : : : "memory");
-          asm!("mfence" : : : "memory");
+            asm!("sfence" : : : "memory");
+            asm!("lfence" : : : "memory");
+            asm!("mfence" : : : "memory");
 
-          ARM 上对应的修改示例:
+          Corresponding Modifications on ARM:
           ---
-          asm!("dmb ishst" : : : "memory");
-          asm!("dmb ishld" : : : "memory");
-          asm!("dmb ish" : : : "memory");
+            asm!("dmb ishst" : : : "memory");
+            asm!("dmb ishld" : : : "memory");
+            asm!("dmb ish" : : : "memory");
 
     - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*mfence
       help: |+
-          x86/64 系统架构提供了三种内存屏障指令:(1) sfence ; (2) lfence ; (3) mfence.
+          The x86/64 architecture provides three types of memory barrier instructions: sfence, lfence and mfence.
 
-          sfence 确保: sfence 指令前后的写入指令, 按照在 sfence 前后的指令序进行执行.注意, 写屏障一般需要与读屏障或数据依赖屏障配对使用.
+            sfence: Ensure that write instructions before and after the sfence instruction are executed in the order they appear relative
+            to the sfence instruction.
+            Note that write barriers generally need to be paired with read barriers or data dependency barriers.
 
-          lfence 确保: lfence 指令前后的读取指令, 按照在 lfence 前后的指令序进行执行.注意, 读屏障一般要跟写屏障配对使用.
+            lfence: Ensure that read instructions before and after the lfence instruction are executed in the order they appear relative
+            to the lfence instruction.
+            Note that read barriers generally need to be paired with write barriers.
 
-          mfence 确保: 确保所有 mfence 指令之前的写入指令, 都在该 mfence 指令之后的写入令之前执行；同时, 还确保所有 mfence 指令之后的读取指令, 都在该 mfence 指令之前的读取指令之后执行.
+            mfence: Ensure that all write instructions before the mfence instruction are executed before any write instructions after the
+            mfence instruction. Additionally, it ensures that all read instructions after the mfence instruction are executed after any read
+            instructions before the mfence instruction.
 
-          修改方案:
+          Modification plan:
 
-          x86 上示例代码:
+          Example code on x86:
           ---
-          asm!("sfence" : : : "memory");
-          asm!("lfence" : : : "memory");
-          asm!("mfence" : : : "memory");
+            asm!("sfence" : : : "memory");
+            asm!("lfence" : : : "memory");
+            asm!("mfence" : : : "memory");
 
-          ARM 上对应的修改示例:
+          Corresponding Modifications on ARM:
           ---
-          asm!("dmb ishst" : : : "memory");
-          asm!("dmb ishld" : : : "memory");
-          asm!("dmb ish" : : : "memory");
+            asm!("dmb ishst" : : : "memory");
+            asm!("dmb ishld" : : : "memory");
+            asm!("dmb ish" : : : "memory");
 
     - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*crc32b
       help: |+
-          CRC32 系列指令主要用于计算字符串的32位 CRC 校验码, 输入待计算的字符串, 输出 32 位 CRC 多项式校验码.使用 CRC32 指令的方式有2种:一种是直接使用（内联）汇编代码；另一种是借助编译器 intrinsics.
+          The CRC32 series of instructions are primarily used to compute the 32-bit CRC checksum of a string. The input is the string to be computed,
+          and the output is the 32-bit CRC polynomial checksum. There are two ways to use CRC32 instructions: one is to use inline assembly code,
+          the other is to use intrinsics.
 
-          现象描述: 在 ARM 上可能出现的编译错误: unknown mnemonic 'crc32q' -- 'crc32q (x3),x2' 或 operand1should be an integer register -- 'crc32b (x1),x0' 或 unrecognized command line option '-msse4.2'.
+          Problem:
+            On ARM64, the following compilation errors may occur: unknown mnemonic 'crc32q' -- 'crc32q (x3),x2'
+            or operand1 should be an integer register -- 'crc32b (x1),x0'
+            or unrecognized command line option '-msse4.2'.
 
-          可能原因: x86 使用的是 crc32b 和 crc32q 汇编指令完成 CRC32C 校验值计算功能, 而 Arm64 平台用 crc32cb, crc32ch, crc32cw, crc32cx 4 个汇编指令完成 CRC32C 校验值计算功能.
+          Possible causes:
+            x86 uses the crc32b and crc32q assembly instructions to perform CRC32C checksum calculations, while the ARM64 platform uses four assembly
+            instructions: crc32cb, crc32ch, crc32cw, and crc32cx to perform CRC32C checksum calculations.
 
-          修改方案: 请使用 crc32cb, crc32ch, crc32cw, crc32cx 取代 x86 的 CRC32 系列汇编指令, 并在编译时添加编译参数 '-mcpu=generic+crc'.
+          Solution:
+            Use crc32cb, crc32ch, crc32cw, and crc32cx to replace the CRC32 series assembly instructions on x86, and add the compilation parameter
+            -mcpu=generic+crc during compilation.
 
 
     - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*crc32w
       help: |+
-          CRC32 系列指令主要用于计算字符串的32位 CRC 校验码, 输入待计算的字符串, 输出32位 crc 多项式校验码.使用 CRC32 指令的方式有2种:一种是直接使用（内联）汇编代码；另一种是借助编译器 intrinsics.
+          The CRC32 series of instructions are primarily used to compute the 32-bit CRC checksum of a string. The input is the string to be computed,
+          and the output is the 32-bit CRC polynomial checksum. There are two ways to use CRC32 instructions: one is to use inline assembly code,
+          the other is to use intrinsics.
 
-          现象描述: 在 ARM 上可能出现的编译错误: unknown mnemonic 'crc32q' -- 'crc32q (x3),x2' 或 operand1should be an integer register -- 'crc32b (x1),x0' 或 unrecognized command line option '-msse4.2'.
+          Problem:
+            On ARM64, the following compilation errors may occur: unknown mnemonic 'crc32q' -- 'crc32q (x3),x2'
+            or operand1 should be an integer register -- 'crc32b (x1),x0'
+            or unrecognized command line option '-msse4.2'.
 
-          可能原因: x86 使用的是 crc32b 和 crc32q 汇编指令完成 CRC32C 校验值计算功能, 而 Arm64 平台用 crc32cb, crc32ch, crc32cw, crc32cx 4 个汇编指令完成 CRC32C 校验值计算功能.
+          Possible causes:
+            x86 uses the crc32b and crc32q assembly instructions to perform CRC32C checksum calculations, while the ARM64 platform uses four assembly
+            instructions: crc32cb, crc32ch, crc32cw, and crc32cx to perform CRC32C checksum calculations.
 
-          修改方案: 请使用 crc32cb, crc32ch, crc32cw, crc32cx 取代 x86 的 CRC32 系列汇编指令, 并在编译时添加编译参数 '-mcpu=generic+crc'.
+          Solution:
+            Use crc32cb, crc32ch, crc32cw, and crc32cx to replace the CRC32 series assembly instructions on x86, and add the compilation parameter
+            -mcpu=generic+crc during compilation..
 
 
     - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*crc32l
       help: |+
-          CRC32 系列指令主要用于计算字符串的32位 CRC 校验码, 输入待计算的字符串, 输出32位 crc 多项式校验码.使用 CRC32 指令的方式有2种:一种是直接使用（内联）汇编代码；另一种是借助编译器 intrinsics.
+          The CRC32 series of instructions are primarily used to compute the 32-bit CRC checksum of a string. The input is the string to be computed,
+          and the output is the 32-bit CRC polynomial checksum. There are two ways to use CRC32 instructions: one is to use inline assembly code,
+          the other is to use intrinsics.
 
-          现象描述: 在 ARM 上可能出现的编译错误: unknown mnemonic 'crc32q' -- 'crc32q (x3),x2' 或 operand1should be an integer register -- 'crc32b (x1),x0' 或 unrecognized command line option '-msse4.2'.
+          Problem:
+            On ARM64, the following compilation errors may occur: unknown mnemonic 'crc32q' -- 'crc32q (x3),x2'
+            or operand1 should be an integer register -- 'crc32b (x1),x0'
+            or unrecognized command line option '-msse4.2'.
 
-          可能原因: x86 使用的是 crc32b 和 crc32q 汇编指令完成 CRC32C 校验值计算功能, 而 Arm64 平台用 crc32cb, crc32ch, crc32cw, crc32cx 4 个汇编指令完成 CRC32C 校验值计算功能.
+          Possible causes:
+            x86 uses the crc32b and crc32q assembly instructions to perform CRC32C checksum calculations, while the ARM64 platform uses four assembly
+            instructions: crc32cb, crc32ch, crc32cw, and crc32cx to perform CRC32C checksum calculations.
 
-          修改方案: 请使用 crc32cb, crc32ch, crc32cw, crc32cx 取代 x86 的 CRC32 系列汇编指令, 并在编译时添加编译参数 '-mcpu=generic+crc'.
+          Solution:
+            Use crc32cb, crc32ch, crc32cw, and crc32cx to replace the CRC32 series assembly instructions on x86, and add the compilation parameter
+            -mcpu=generic+crc during compilation.
 
-          注意: 修改后需要增加 -march=armv8-a+crc 编译选项.
+          Note: After modification, you need to add the compilation option -march=armv8-a+crc.
 
     - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*crc32q
       help: |+
-          CRC32 系列指令主要用于计算字符串的32位 CRC 校验码, 输入待计算的字符串, 输出32位 crc 多项式校验码.使用 CRC32 指令的方式有2种:一种是直接使用（内联）汇编代码；另一种是借助编译器 intrinsics.
+          The CRC32 series of instructions are primarily used to compute the 32-bit CRC checksum of a string. The input is the string to be computed,
+          and the output is the 32-bit CRC polynomial checksum. There are two ways to use CRC32 instructions: one is to use inline assembly code,
+          the other is to use intrinsics.
 
-          现象描述: 在 ARM 上可能出现的编译错误: unknown mnemonic 'crc32q' -- 'crc32q (x3),x2' 或 operand1should be an integer register -- 'crc32b (x1),x0' 或 unrecognized command line option '-msse4.2'.
+          Problem:
+            On ARM64, the following compilation errors may occur: unknown mnemonic 'crc32q' -- 'crc32q (x3),x2'
+            or operand1 should be an integer register -- 'crc32b (x1),x0'
+            or unrecognized command line option '-msse4.2'.
 
-          可能原因: x86 使用的是 crc32b 和 crc32q 汇编指令完成 CRC32C 校验值计算功能, 而 Arm64 平台用 crc32cb, crc32ch, crc32cw, crc32cx 4 个汇编指令完成 CRC32C 校验值计算功能.
+          Possible causes:
+            x86 uses the crc32b and crc32q assembly instructions to perform CRC32C checksum calculations, while the ARM64 platform uses four assembly
+            instructions: crc32cb, crc32ch, crc32cw, and crc32cx to perform CRC32C checksum calculations.
 
-          修改方案: 请使用 crc32cb, crc32ch, crc32cw, crc32cx 取代 x86 的 CRC32 系列汇编指令, 并在编译时添加编译参数 '-mcpu=generic+crc'.
+          Solution:
+            Use crc32cb, crc32ch, crc32cw, and crc32cx to replace the CRC32 series assembly instructions on x86, and add the compilation parameter
+            -mcpu=generic+crc during compilation.
 
 
     - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*bswap
       help: |+
-          现象描述: 在 ARM 上可能出现的编译错误: Error: unknown mnemonic 'bswap' -- 'bswap x3'.
+          Problem:
+            On ARM64, the following compilation error may occur: Error: unknown mnemonic 'bswap' -- 'bswap x3'.
 
-          可能原因: bswap 是 x86 的字节序反序指令, 需替换为 Arm64 的 rev 指令.
+          Possible causes:
+            The bswap is the byte swap instruction for x86.
 
-          修改方案:
+          Solution:
+            Use the rev instruction on ARM64.
 
-          x86 上示例代码:
+          Example code on x86:
           ---
-              asm!("bswap %0" : "=r" (val) : "0" (val));
+          asm!("bswap %0" : "=r" (val) : "0" (val));
 
-          ARM 上对应的修改示例:
+          Corresponding Modifications on ARM:
           ---
-              asm!("rev %w[dst], %w[src]" : [dst]"=r"(val) : [src]"r"(val));
+          asm!("rev %w[dst], %w[src]" : [dst]"=r"(val) : [src]"r"(val));
 
     - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*rep\s
       help: |+
-          现象描述: 在 ARM 上可能出现的编译错误: unknown mnemonic 'rep' -- 'rep'.
+          Problem:
+            On ARM64, the following compilation error may occur: Error: unknown mnemonic 'rep' -- 'rep'.
 
-          可能原因: rep 为 x86 的重复执行指令, 需替换为 Arm64 的 rept 指令.
+          Possible causes:
+            The rep is the repeat prefix instruction for x86, used to repeat the execution of string operations.
+
+          Solution:
+            Use .rept assembler directive on ARM64.
 
     - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*pause
       help: |+
-          Pause 功能:给处理器提供提示, 提高 spin-wait 循环的性能.
+          On x86, the pause instruction provides a hint to the processor to improve the performance of spin-wait loops.
 
-          修改方案:
+          Modification plan:
 
-          x86 上示例代码:
+          Example code on x86:
           ---
           asm!("pause" : : : "memory");
           asm!("pause");
 
-          ARM 上对应的修改示例:
+          Corresponding Modifications on ARM:
           ---
           asm!("yield" : : : "memory");
           asm!("yield");
 
     - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*"rdtsc"
       help: |+
-          TSC 是时间戳计数器的缩写, 它是 Pentium 兼容处理器中的一个计数器, 它记录自启动以来处理器消耗的时钟周期数.在每个时钟到来时, 该计数器自动加一.因为 TSC 随着处理器周期速率的变化而变化, 所以它提供了非常高的精确度.它经常被用来分析和检测代码.TSC 的值可以通过 rdtsc 指令来读取.
+        TSC stands for Time Stamp Counter. It is a counter in Pentium-compatible processors that records the number of clock cycles consumed by
+        the processor since startup. The counter increments automatically with each clock cycle. Because the TSC changes with the processor's
+        clock rate, it provides very high precision. It is often used for code analysis and profiling.
 
+        On x86, The value of the TSC can be read using the rdtsc instruction.
 
     - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*popcntq
       help: |+
-          POPCNT 函数主要实现功能是进行1个数的统计.
-  
+          The POPCNT function, short for "population count," is used to count the number of 1 bits in a binary representation of a number.
 
     - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*addl
       help: |+
-          函数功能: 对整数变量进行原子加.
+          Function Description:
+            Perform atomic addition on integer variables.
 
-          修改方案:
+          Modification plan:
 
-          x86 上示例代码:
+          Example code on x86:
           ---
           asm!(LOCK_PREFIX "addl %1,%0" : "+m" (v->counter) : "ir" (i));
 
-          ARM 上对应的修改示例:
+          Corresponding Modifications on ARM:
           ---
-          asm!(" prfm pstl1strm, %2\n"
-                "1: ldaxr %w0, %2\n"    //加载数据到寄存器
-                " add %w0, %w0, %w3\n"  //加操作
-                " stlxr %w1, %w0, %2\n" //加后的数据写入内存并判断是否写入成功
-                " cbnz %w1, 1b"         //若写入内存失败, 重新执行加操作
-                : "=&r"(result), "=&r"(tmp), "+Q"(_value.counter)
-                : "Ir"(i)
+          1. Replace the atomic addition functionality with GCC's built-in atomic operations.
+          __sync_add_and_fetch(&_value.counter,1)
+
+          2. Replace the atomic addition functionality with inline assembly.
+          void atomic_add(int i)
+          {
+              unsigned int tmp;
+              int result;
+              asm!(" prfm pstl1strm, %2\n"
+                    "1: ldaxr %w0, %2\n"
+                    " add %w0, %w0, %w3\n"
+                    " stlxr %w1, %w0, %2\n"
+                    " cbnz %w1, 1b"
+                    : "=&r"(result), "=&r"(tmp), "+Q"(_value.counter)
+                    : "Ir"(i)
               )
+          }
 
     - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*"subl
       help: |+
-          函数功能: 对整数变量进行原子减.
+          Function Description:
+            Perform atomic subtraction on integer variables.
 
-          修改方案:
+          Solution:
+          -------
 
-          x86 上示例代码:
+          Example code on x86:
           ---
           asm!(LOCK_PREFIX "subl %1,%0" : "+m" (v->counter) : "ir" (i));
 
-          ARM 上对应的修改示例:
+          Corresponding Modifications on ARM:
           ---
-          asm!(" prfm pstl1strm, %2\n"
-                "1: ldaxr %w0, %2\n"    //加载数据到寄存器
-                " sub %w0, %w0, %w3\n"  //减操作
-                " stlxr %w1, %w0, %2\n" //减后的数据写入内存, 并判断是否写入成功
-                " cbnz %w1, 1b"         //若写入内存失败, 重新执行减操作
-                : "=&r"(result), "=&r"(tmp), "+Q"(_value.counter)
-                : "Ir"(i)
-          )
+          void atomic_sub (int i)
+          {
+              unsigned int tmp;
+              int result;
+              asm!(" prfm pstl1strm, %2\n"
+                    "1: ldaxr %w0, %2\n"
+                    " sub %w0, %w0, %w3\n"
+                    " stlxr %w1, %w0, %2\n"
+                    " cbnz %w1, 1b"
+                    : "=&r"(result), "=&r"(tmp), "+Q"(_value.counter)
+                    : "Ir"(i)
+              )
+          }
 
     - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*"decl
       help: |+
-          函数说明: 对整数进行减操作, 并判断执行原子减后结果是否为0.
+          Function Description:
+            Perform a subtraction operation on an integer and check if the result of the atomic subtraction is zero.
 
-          修改方案:
+          Solution:
+          -------
 
-          x86 上示例代码:
+          Example code on x86:
           ---
           asm!(LOCK_PREFIX "decl %0; sete %1" : "+m" (v->counter), "=qm" (c) : : "memory");
 
-          ARM 上对应的修改示例:
+          Corresponding Modifications on ARM:
           ---
           asm!("\n\t"
               "@ atomic_sub\n\t"
@@ -739,20 +820,21 @@ AARCH64_INLINE_ASSEMBLY_CHECKPOINTS:
 
     - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*"incl
       help: |+
-          函数说明: 对整数进行加操作, 并判断返回是否为0.
+          Function Description:
+            Perform an addition operation on an integer and check if the result is zero.
 
-          修改方案:
+          Solution:
+          -------
 
-          x86 上示例代码:
+          Example code on x86:
           ---
           asm!(LOCK_PREFIX "incl %0; sete %1" : "+m" (v->counter), "=qm" (c) : : "memory");
 
-          ARM 上对应的修改示例:
+          Corresponding Modifications on ARM:
           ---
           asm!("\n\t"
               "@ atomic_fetch\n\t"
               "1: ldrex %0, [%4]\n\t" @result, tmp
-              //执行v->counter+i（5%）操作, 并将执行结果放入val（%1）所在的寄存器中
               " add %1, %0, %5\n\t" @result,
               " strex %2, %1, [%4]\n\t" @tmp, result, tmp
               " teq %2, #0\n\t" @tmp
@@ -763,87 +845,108 @@ AARCH64_INLINE_ASSEMBLY_CHECKPOINTS:
 
     - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*"xaddq
       help: |+
-          ARM 的汇编语言与 x86 完全不同, 需要重写, 涉及使用嵌入汇编的代码, 都需要针对 ARM 进行配套修改.
+          Function Description:
+            Perform atomic addition on integer variables.
 
-          修改方案: 需要重新实现汇编代码段.
+          Solution:
+          -------
+
+          Example code on x86:
+          ---
+          static inline long atomic64_add_and_return(long i, atomic64_t *v)
+          {
+              long i = i;
+              asm!("lock ; " "xaddq %0, %1;"
+              :"=r"(i)
+              :"m"(v->counter), "0"(i));
+              return i + __i;
+          }
+
+          Use inline assmebly on ARM:
+          ---
+          static __inline__ long atomic64_add_and_return(long i, atomic64_t *v)
+          {
+              return __sync_add_and_fetch(&((v)->counter), i);
+          }
+
+          the aseembly code is as follows:
+            <__sync_add_and_fetch >:
+            ldxr    x2, [x0]
+            add     x2, x2, x1
+            stlxr   w3, x2, [x0]
 
     - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*"pcmpestrm
       help: |+
-          函数功能: 检查 str2 中每个字节元素 (m128i_u8[index]) 是否在 str1 中存在, 如果存在,  result 中的相应 bit 位上置1.
+          Function Description:
+            Compare packed byte or word elements in two source operands and generates a mask based on the comparison results.
 
-          pcmpestrm 对应的 Intrinsic 函数详细说明, 请参考 https://software.intel.com/sites/landingpage/IntrinsicsGuide/
+            For detailed information on the intrinsic function corresponding to pcmpestrm, please refer to Intel's Intrinsics Guide:
+            https://software.intel.com/sites/landingpage/IntrinsicsGuide/
 
 
     - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*"pcmpestri
       help: |+
-          函数功能: 按照 MODEL 规则（ EQUAL_EACH、 NEG_POLARITY）比较 str1 和 str2 中的元素, 比较并返回首个不相同元素的索引值.
+          Function Description:
+            According to the MODEL rules (EQUAL_EACH、 NEG_POLARITY), compare packed byte or word elements in two source operands and return the index of the first differing element.
 
-          pcmpestri 对应的 Intrinsic 函数详细说明, 请参考 https://software.intel.com/sites/landingpage/IntrinsicsGuide/
+            For detailed information on the intrinsic function corresponding to pcmpestri, please refer to Intel's Intrinsics Guide:
+            https://software.intel.com/sites/landingpage/IntrinsicsGuide/
 
 
     - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*MOVDQU
       help: |+
-          指令功能 Move unaligned double quadword. 实现寄存器到寄存器, 寄存器到地址的数据拷贝.
+          The MOVDQU instruction moves unaligned 128-bit data (double quadword) between memory and an XMM register.
 
-          修改方案:
-
-          x86 上示例代码:
+          Example code on x86:
           ---
           MOVDQU xmm1, xmm2/m128
 
-          ARM 上对应的修改示例:
+          Corresponding Modifications on ARM:
           ---
-          ; ldp 指令: Load Pair Registers (extended): loads two doublewords from memory addressed by addr to Xt1 and Xt2.
+          ldp: Load Pair Registers (extended): loads two doublewords from memory addressed by addr to Xt1 and Xt2.
+          stp: Store Pair Registers (extended): stores two doublewords from Xt1 and Xt2 to memory addressed by addr.
           LDP Xt1, Xt2, addr
-
-          ; stp 指令: Store Pair Registers (extended): stores two doublewords from Xt1 and Xt2 to memory addressed by addr.
           STP Xt1, Xt2, addr
 
     - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*PAND
       help: |+
-          PAND 指令功能, 按位做 and 运算.
+          The PAND instruction performs a bitwise AND operation.
 
-          修改方案:
-
-          x86 上示例代码:
+          Example code on x86:
           ---
-          指令用法, 128 位按位做 and 运算:
           PAND xmm1, xmm2/m128
 
-          在 ARM 上替换为 NEON 指令采用128位寄存器:
+          Use an equivalent NEON instruction on ARM:
           ---
           Bitwise AND (vector). Where <T> is 8B or 16B (though an assembler should accept any valid format).
           AND Vd.<T>, Vn.<T>, Vm.<T>
 
     - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*Pxor
       help: |+
-          pxor 指令功能, 按位做 xor 运算.
+          The PXOR instruction performs a bitwise XOR operation.
 
-          修改方案:
-
-          x86 上示例代码:
+          Example code on x86:
           ---
-          指令用法, 128位按位做 xor 运算:
-          Pxor xmm1, xmm2/m128
+          PXOR xmm1, xmm2/m128
 
-          在 ARM 上替换为 eor:
+          Use an equivalent NEON instruction on ARM:
           ---
-          Bitwise exclusive OR (vector). Where <T> is 8B or 16B (an assembler should accept any valid arrangement).
+          Bitwise exclusive OR (vector).Where <T> is 8B or 16B (an assembler should accept any valid arrangement).
           EOR Vd.<T>, Vn.<T>, Vm.<T>
 
     - pattern: (?mis)\A\s*(global_asm!|asm!|llvm_asm!)\(.*PSHUFB
       help: |+
-          修改方案:
+          The PSHUFB (Packed Shuffle Bytes) instruction performs a byte-wise shuffle of the source operand based on the shuffle control
+          mask provided in the destination operand.
 
-          x86 上示例代码:
+          Example code on x86:
           ---
-          PSHUFB — Packed Shuffle Bytes, 按照索引在目标寄存器中进行查表操作:
           PSHUFB xmm1, xmm2/m128
 
-
-          在 ARM 上替换为 TBL 指令:
+          Use an equivalent NEON instruction on ARM:
           ---
-          Table lookup (vector). Where <T> may be 8B or 16B, and Vn* is a list of between one and four consecutively numbered vector registers each holding sixteen 8-bit table elements. The list braces "{ }" are concrete symbols, and do not indicate an optional field as elsewhere in this manual.
+          Table lookup (vector). Where <T> may be 8B or 16B, and Vn* is a list of between one and four consecutively numbered vector registers each
+          holding sixteen 8-bit table elements. The list braces "{ }" are concrete symbols, and do not indicate an optional field as elsewhere in this manual.
           TBL Vd.<T>, {Vn*.16B}, Vm.<T>2
 
 # Intrinsics available for x86/x86-64 processors

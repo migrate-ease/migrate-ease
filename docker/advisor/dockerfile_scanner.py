@@ -16,12 +16,14 @@ limitations under the License.
 
 import os
 import re
+import time
 
 from common.arch_strings import AARCH64_ARCHS, NON_AARCH64_ARCHS
 from common.continuation_parser import ContinuationParser
 from common.naive_comment_parser import NaiveCommentParser
 from common.report_factory import ReportOutputFormat
-from .checkpoints import AARCH64_INCOMPATIBLE_EXTENSION_PACKAGES
+from common.checkpoint import init_checkpoints
+
 from .configuration_info_issue import ConfigurationInfoIssue
 from .docker_scanner import DockerScanner
 from .image_issue import ImageIssue
@@ -38,6 +40,8 @@ class DockerfileScanner(DockerScanner):
 
     NON_AARCH64_RE = re.compile(r'.*(%s).*' % '|'.join([(r'%s' % x) for x in NON_AARCH64_ARCHS]))
 
+    AARCH64_INCOMPATIBLE_EXTENSION_PACKAGES = []
+
     def __init__(self, output_format, arch, march):
         self.output_format = output_format
         self.arch = arch
@@ -45,6 +49,23 @@ class DockerfileScanner(DockerScanner):
 
         self.with_highlights = bool(
             output_format == ReportOutputFormat.HTML or self.output_format == ReportOutputFormat.JSON)
+        self.load_checkpoints()
+
+    def load_checkpoints(self):
+        super().load_checkpoints()
+
+        start_time = time.time()
+
+        self.AARCH64_INCOMPATIBLE_EXTENSION_PACKAGES = init_checkpoints(
+            self.checkpoints_content['X86_PYTHON_EXTENSION_PACKAGES'],
+            self.checkpoints_content["AARCH64_PYTHON_EXTENSION_PACKAGES"] +
+            self.checkpoints_content["COMMON_AARCH64_AND_X86_PYTHON_EXTENSION_PACKAGES"]
+        )
+
+        # please remember to remove lines for profiling after optimizing :)
+        end_time = time.time()
+
+        print('[Docker] Initialization of checkpoints took %f seconds.' % (end_time - start_time))
 
     def accepts_file(self, filename):
 
@@ -66,7 +87,7 @@ class DockerfileScanner(DockerScanner):
 
         if self.arch in AARCH64_ARCHS:
 
-            PACKAGE_CHECKPOINTS = AARCH64_INCOMPATIBLE_EXTENSION_PACKAGES
+            PACKAGE_CHECKPOINTS = self.AARCH64_INCOMPATIBLE_EXTENSION_PACKAGES
             ARCH_RE = self.NON_AARCH64_RE
 
         else:

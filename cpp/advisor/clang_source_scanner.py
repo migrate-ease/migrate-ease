@@ -17,18 +17,17 @@ limitations under the License.
 import json
 import os
 import re
+import time
 from typing import List
 
 from common.arch_strings import *
-from common.checkpoint import Checkpoint
+from common.checkpoint import Checkpoint, init_checkpoints
 from common.continuation_parser import ContinuationParser
 from common.find_port import find_matching_line_num
 from common.issue import Issue
-from .naive_comment_parser import NaiveCommentParser
 from common.report_factory import ReportOutputFormat
-from .checkpoints import ARM_INCOMPATIBLE_INTRINSICS, AARCH64_INLINE_ASSEMBLY_CHECKPOINTS, CPP_STD_CODES, \
-    INCOMPATIBLE_HEADER_FILE, N2_CLANG_INCOMPATIBLE_INTRINSICS, N2_GCC_INCOMPATIBLE_INTRINSICS, X86_PRAGMA, \
-    AARCH64_GCC_INCOMPATIBLE_INTRINSICS, AARCH64_CLANG_INCOMPATIBLE_INTRINSICS
+
+from .naive_comment_parser import NaiveCommentParser
 from .cpp_scanner import CppScanner
 from .cpp_std_issue import CPPStdCodesIssue
 from .incompatible_header_file_issue import IncompatibleHeaderFileIssue
@@ -53,6 +52,16 @@ class ClangSourceScanner(CppScanner):
     C_SOURCE_EXTENSIONS = ['.c', '.h', '.i']
     CPP_SOURCE_EXTENSIONS = ['.cc', '.cpp', '.cxx', '.h', '.hxx', '.hpp', '.ii']
 
+    ARM_INCOMPATIBLE_INTRINSICS = []
+    AARCH64_INLINE_ASSEMBLY_CHECKPOINTS = []
+    AARCH64_GCC_INCOMPATIBLE_INTRINSICS = []
+    AARCH64_CLANG_INCOMPATIBLE_INTRINSICS = []
+    CPP_STD_CODES = []
+    INCOMPATIBLE_HEADER_FILE = []
+    N2_CLANG_INCOMPATIBLE_INTRINSICS = []
+    N2_GCC_INCOMPATIBLE_INTRINSICS = []
+    X86_PRAGMA = []
+
     def __init__(self, output_format, arch, march, compiler='gcc', warning_level='L1'):
         self.output_format = output_format
         self.arch = arch
@@ -75,6 +84,61 @@ class ClangSourceScanner(CppScanner):
             with open(path) as file:
                 macros = json.load(file)
                 self.macros = macros[self.compiler]
+
+        self.load_checkpoints()
+
+    def load_checkpoints(self):
+        super().load_checkpoints()
+
+        start_time = time.time()
+
+
+        self.ARM_INCOMPATIBLE_INTRINSICS = init_checkpoints(
+            self.checkpoints_content['X86_INTRINSICS'] +
+            self.checkpoints_content['OTHER_ARCH_INTRINSICS'] +
+            self.checkpoints_content['INCOMPATIBLE_UCRT_INTRINSICS'] +
+            self.checkpoints_content['ARM_MSVC_INTRINSICS'] +
+            self.checkpoints_content['AARCH64_GCC_INTRINSICS'] +
+            self.checkpoints_content['AARCH64_NEON_INTRINSICS'] +
+            self.checkpoints_content['AARCH64_MSVC_INTRINSICS'],
+            self.checkpoints_content["COMMON_INTRINSICS"] + self.checkpoints_content["ARM_INTRINSICS"]
+        )
+        self.AARCH64_INLINE_ASSEMBLY_CHECKPOINTS = init_checkpoints(
+            self.checkpoints_content["AARCH64_INLINE_ASSEMBLY_CHECKPOINTS"]
+        )
+        self.CPP_STD_CODES = init_checkpoints(
+            self.checkpoints_content['CPP_STD_CODES']
+        )
+        self.INCOMPATIBLE_HEADER_FILE = init_checkpoints(
+            self.checkpoints_content['INCOMPATIBLE_HEADER_FILE']
+        )
+        self.X86_PRAGMA = init_checkpoints(self.checkpoints_content['X86_PRAGMA'])
+        self.AARCH64_GCC_INCOMPATIBLE_INTRINSICS = init_checkpoints(
+            self.checkpoints_content['X86_INTRINSICS'] +
+            self.checkpoints_content['OTHER_ARCH_INTRINSICS'] +
+            self.checkpoints_content['INCOMPATIBLE_UCRT_INTRINSICS'] +
+            self.checkpoints_content["ARM_INTRINSICS"] +
+            self.checkpoints_content['ARM_MSVC_INTRINSICS'] +
+            self.checkpoints_content['AARCH64_MSVC_INTRINSICS'],
+            self.checkpoints_content["COMMON_INTRINSICS"] + self.checkpoints_content["AARCH64_GCC_INTRINSICS"]
+        )
+        self.AARCH64_CLANG_INCOMPATIBLE_INTRINSICS = init_checkpoints(
+            self.checkpoints_content['X86_INTRINSICS'] +
+            self.checkpoints_content['OTHER_ARCH_INTRINSICS'] +
+            self.checkpoints_content['INCOMPATIBLE_UCRT_INTRINSICS'] +
+            self.checkpoints_content["ARM_INTRINSICS"] +
+            self.checkpoints_content['ARM_MSVC_INTRINSICS'] +
+            self.checkpoints_content['AARCH64_MSVC_INTRINSICS'] +
+            self.checkpoints_content['AARCH64_GCC_INTRINSICS'],
+            self.checkpoints_content["COMMON_INTRINSICS"]
+        )
+        self.N2_GCC_INCOMPATIBLE_INTRINSICS = self.AARCH64_GCC_INCOMPATIBLE_INTRINSICS
+        self.N2_CLANG_INCOMPATIBLE_INTRINSICS = self.AARCH64_CLANG_INCOMPATIBLE_INTRINSICS
+
+        # please remember to remove lines for profiling after optimizing :)
+        end_time = time.time()
+
+        print('[C/C++] Initialization of checkpoints took %f seconds.' % (end_time - start_time))
 
     def accepts_file(self, filename):
 
@@ -112,18 +176,18 @@ class ClangSourceScanner(CppScanner):
         if self.arch in AARCH64_ARCHS:
             if self.arch == N2_MARCH:
                 if self.compiler == 'gcc':
-                    ARCH_INCOMPATIBLE_INTRINSICS = N2_GCC_INCOMPATIBLE_INTRINSICS
+                    ARCH_INCOMPATIBLE_INTRINSICS = self.N2_GCC_INCOMPATIBLE_INTRINSICS
                 else:
-                    ARCH_INCOMPATIBLE_INTRINSICS = N2_CLANG_INCOMPATIBLE_INTRINSICS
+                    ARCH_INCOMPATIBLE_INTRINSICS = self.N2_CLANG_INCOMPATIBLE_INTRINSICS
             elif self.arch == AARCH64_ARCH:
                 if self.compiler == 'gcc':
-                    ARCH_INCOMPATIBLE_INTRINSICS = AARCH64_GCC_INCOMPATIBLE_INTRINSICS
+                    ARCH_INCOMPATIBLE_INTRINSICS = self.AARCH64_GCC_INCOMPATIBLE_INTRINSICS
                 else:
-                    ARCH_INCOMPATIBLE_INTRINSICS = AARCH64_CLANG_INCOMPATIBLE_INTRINSICS
+                    ARCH_INCOMPATIBLE_INTRINSICS = self.AARCH64_CLANG_INCOMPATIBLE_INTRINSICS
             else:
-                ARCH_INCOMPATIBLE_INTRINSICS = ARM_INCOMPATIBLE_INTRINSICS
-            ASSEMBLY_CHECKPOINTS = AARCH64_INLINE_ASSEMBLY_CHECKPOINTS
-            PRAGMA_CHECKPOINTS = X86_PRAGMA
+                ARCH_INCOMPATIBLE_INTRINSICS = self.ARM_INCOMPATIBLE_INTRINSICS
+            ASSEMBLY_CHECKPOINTS = self.AARCH64_INLINE_ASSEMBLY_CHECKPOINTS
+            PRAGMA_CHECKPOINTS = self.X86_PRAGMA
 
         else:
 
@@ -154,7 +218,7 @@ class ClangSourceScanner(CppScanner):
 
             #  header file check
             if self.check_state:
-                for c in INCOMPATIBLE_HEADER_FILE:
+                for c in self.INCOMPATIBLE_HEADER_FILE:
                     match = c.pattern_compiled.search(line)
                     if match:
                         issues.append(IncompatibleHeaderFileIssue(filename,
@@ -275,7 +339,7 @@ class ClangSourceScanner(CppScanner):
                 break
 
         #  cpp language check
-        for c in CPP_STD_CODES:
+        for c in self.CPP_STD_CODES:
             match = c.pattern_compiled.search(line)
             if match and not naive_cpp.in_other_arch_specific_code():
                 # search for multiple lines

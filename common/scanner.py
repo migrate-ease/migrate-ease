@@ -126,3 +126,7 @@ class BaseScanner:
             bool: True if the path contains a version control directory (e.g. .git), else False.
         """
         return any([('/%s/' % x) in path for x in BaseScanner.VCS_SUBDIRECTORIES])
+
+
+    def load_checkpoints():
+        pass

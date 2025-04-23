@@ -16,14 +16,15 @@ limitations under the License.
 """
 
 import re
+import time
 
 from common.arch_strings import AARCH64_ARCHS, NON_AARCH64_ARCHS
 from common.continuation_parser import ContinuationParser
 from common.report_factory import ReportOutputFormat
+from common.checkpoint import init_checkpoints
 from .arch_specific_library_issue import ArchSpecificLibraryIssue
 from .arch_specific_libs import ARM64_ARCH_SPECIFIC_LIBS
 from .build_command_issue import BuildCommandIssue
-from .checkpoints import AARCH64_COMPILER_OPTION_CHECKPOINTS
 from .define_other_arch_issue import DefineOtherArchIssue
 from .host_cpu_detection_issue import HostCpuDetectionIssue
 from .makefile_scanner import MakefileScanner
@@ -35,6 +36,8 @@ class Arm64MakefileScanner(MakefileScanner):
     """
     Scanner that scans Makefiles.
     """
+    AARCH64_COMPILER_OPTION_CHECKPOINTS = []
+
     ARCH_SPECIFIC_LIBS_RE = re.compile(r'(%s)' % '|'.join([(r'%s\b' % x) for x in ARM64_ARCH_SPECIFIC_LIBS]))
 
     #  ('!IF "$(CPU)" == "otherarch"')
@@ -64,6 +67,21 @@ class Arm64MakefileScanner(MakefileScanner):
         self.arch = arch
         self.march = march
         self.highlight_code_snippet = bool(self.output_format == ReportOutputFormat.HTML or self.output_format == ReportOutputFormat.JSON)
+        self.load_checkpoints()
+
+    def load_checkpoints(self):
+        super().load_checkpoints()
+
+        start_time = time.time()
+
+        self.AARCH64_COMPILER_OPTION_CHECKPOINTS = init_checkpoints(
+            self.checkpoints_content["AARCH64_COMPILER_OPTION_CHECKPOINTS"]
+            )
+
+        # please remember to remove lines for profiling after optimizing :)
+        end_time = time.time()
+
+        print('[C/C++] Initialization of checkpoints took %f seconds.' % (end_time - start_time))
 
     def scan_file_object(self, filename, file_obj, report):
 
@@ -166,7 +184,7 @@ class Arm64MakefileScanner(MakefileScanner):
                                                     target=command))
 
             #  other check points
-            for c in AARCH64_COMPILER_OPTION_CHECKPOINTS:
+            for c in self.AARCH64_COMPILER_OPTION_CHECKPOINTS:
 
                 match = c.pattern_compiled.search(line)
 
