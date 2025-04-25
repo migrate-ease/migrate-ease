@@ -16,6 +16,10 @@ limitations under the License.
 """
 
 import os
+import magic
+import subprocess
+import shutil
+import re
 import struct
 from typing import Tuple
 
@@ -78,8 +82,8 @@ def get_elf_machine_code(filename) -> {None, str}:
         } Elf32_Ehdr;
 
         e_ident
-            The initial bytes mark the file as an object file and provide machine-independent 
-            data with which to decode and interpret the file's contents. Complete descriptions 
+            The initial bytes mark the file as an object file and provide machine-independent
+            data with which to decode and interpret the file's contents. Complete descriptions
             appear below in ``ELF Identification''.
         e_type
             This member identifies the object file type.
@@ -196,3 +200,51 @@ def get_file_arch(machine_code):
 
     arch = arch_map.get(machine_code, None)
     return arch
+
+def is_library(filename):
+    WIN_DLL_RE = re.compile(r'^PE32.* \(DLL\).*MS Windows$')
+    ELF_RE = re.compile(r'^ELF (32|64)-bit\s.*(shared object|relocatable|executable),.*')
+    MACOS_DLL_RE = re.compile(r'^Mach-O\s.*\s(shared library|executable), flags\:.*')
+    OTHERS_FORMAT_RE = re.compile(r'.*(\sexecutable\s|\sor obj)(\s|ect )module')
+    STATIC_LIB_RE = re.compile(r' ar archive')
+    LIB_PATTERNS = [ELF_RE, WIN_DLL_RE, MACOS_DLL_RE, OTHERS_FORMAT_RE, STATIC_LIB_RE]
+
+    is_lib_obj = False
+    f_type = magic.from_file(filename)
+    for this_pattern in LIB_PATTERNS:
+        if re.search(this_pattern, f_type):
+            is_lib_obj = True
+            break
+
+    return is_lib_obj
+
+def get_target_machin(filename):
+    machine_RE = re.compile(r'(Intel 80386|i386|x86_64|x86-64|IA-64|armv7|arm64|ARM aarch64|PowerPC|IBM S/390|MIPS|SPARC|SPARC32PLUS|SPARC V9|SPARC32PLUS|PA-RISC|Alpha|Renesas SH|RISC-V 64)')
+    f_type = magic.from_file(filename)
+    match = re.search(machine_RE, f_type)
+    if match:
+        return match.group(0)
+
+    return 'Unknown machine'
+
+def get_machine_of_static_lib(filename):
+    # Make sure this is an AR file
+    if magic.from_file(filename) != 'current ar archive':
+        return None
+    files = subprocess.run(['ar', 't', filename], capture_output=True, text=True, check=True)
+    # Get first file name
+    object_files = files.stdout.splitlines()
+    test_obj = object_files[0] if object_files else None
+
+    # Create a temporary directory
+    process_id = os.getpid()
+    temp_dir = f"/tmp/{process_id}/"
+    os.makedirs(temp_dir, exist_ok=True)
+    # Extract the first object file
+    subprocess.run(['ar', 'x', filename, test_obj], cwd=temp_dir)
+    test_obj = os.path.join(temp_dir, test_obj)
+
+    code = get_a_elf_machine(test_obj)
+    shutil.rmtree(temp_dir)
+
+    return code
