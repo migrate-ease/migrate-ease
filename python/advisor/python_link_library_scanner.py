@@ -32,6 +32,7 @@ class PythonLinkLibraryScanner(PythonScanner):
 
     SO_RE = re.compile(r'.*[.](so)[.]?')
 
+
     def __init__(self, output_format, arch, march):
         self.output_format = output_format
         self.arch = arch
@@ -43,11 +44,17 @@ class PythonLinkLibraryScanner(PythonScanner):
     def accepts_file(self, filename):
 
         match = self.__class__.SO_RE.search(filename)
-        if match:
-            ext = '.so'
+        is_obj = is_library(filename)
+
+        # Only check object file
+        if is_obj:
+            if match:
+                ext = '.so'
+            else:
+                _, ext = os.path.splitext(filename)
+            return ext.lower() in self.__class__.PYTHON_DYNAMIC_LINK_LIBRARY_EXTENSIONS or ext.lower() in self.__class__.PYTHON_STATIC_LINK_LIBRARY_EXTENSIONS
         else:
-            _, ext = os.path.splitext(filename)
-        return ext.lower() in self.__class__.PYTHON_DYNAMIC_LINK_LIBRARY_EXTENSIONS or ext.lower() in self.__class__.PYTHON_STATIC_LINK_LIBRARY_EXTENSIONS
+            return False
 
     def scan_file_arch(self, match, file_arch):
 
@@ -64,6 +71,7 @@ class PythonLinkLibraryScanner(PythonScanner):
         issues = []
         lines = {}
         match = False
+        lib_idx = 0
 
         _, ext = os.path.splitext(filename)
 
@@ -71,9 +79,12 @@ class PythonLinkLibraryScanner(PythonScanner):
         if ext != '.a':
 
             machine_code = get_elf_machine_code(filename)
-            file_arch = get_file_arch(machine_code)
+            if not machine_code:
+                file_arch = get_target_machin(filename)
+            else:
+                file_arch = get_file_arch(machine_code)
 
-            lines = "the elf machine type of the link library: %s is %s" % (filename, file_arch)
+            lines[lib_idx] = "The machine type of the link library '%s' is %s" % (filename, file_arch)
 
             match = self.scan_file_arch(match, file_arch)
             if match:
@@ -85,12 +96,14 @@ class PythonLinkLibraryScanner(PythonScanner):
         # .a file
         else:
 
-            machine_codes = get_a_elf_machine(filename)
+            machine_codes = get_machine_of_static_lib(filename)
+            if not machine_codes:
+                return
             for key in machine_codes:
 
                 file_arch = get_file_arch(machine_codes[key])
 
-                lines = "the elf machine type of the link library: %s is %s" % (filename, file_arch)
+                lines[lib_idx] = "The machine type of the link library '%s' is %s" % (filename, file_arch)
 
                 match = self.scan_file_arch(match, file_arch)
                 if match:
@@ -102,8 +115,8 @@ class PythonLinkLibraryScanner(PythonScanner):
 
                 match = False
 
-        for issue in issues:
-            issue.set_code_snippet(issue.get_code_snippets(lines=lines, with_highlights=self.with_highlights))
+        for issue, line in zip(issues, lines):
+            issue.set_code_snippet(lines[line])
             report.add_issue(issue)
 
     def finalize_report(self, report):

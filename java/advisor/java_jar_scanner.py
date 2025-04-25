@@ -35,7 +35,7 @@ class JavaJarScanner(JavaScanner):
     JAVA_DYNAMIC_LINK_LIBRARY_EXTENSIONS = ['.so', '.dll', '.dylib', '.jnilib']
     JAVA_STATIC_LINK_LIBRARY_EXTENSIONS = ['.a', '.o']
 
-    ELF_RE = re.compile(r'ELF 64-bit.*, ARM aarch64,.*')
+    ARM64_ELF_RE = re.compile(r'ELF 64-bit.*, ARM aarch64,.*')
     LIBNAME_RE = re.compile(r'^(.*?)-(linux|osx|windows|win)(32|64)?(-\w+)?.*$')
 
     def __init__(self, output_format, arch, march):
@@ -103,7 +103,7 @@ class JavaJarScanner(JavaScanner):
                 support_target_arch = False
                 for f in libs_list_dict[this_lib]:
                     info = magic.from_file(f)
-                    found = re.match(self.__class__.ELF_RE, info)
+                    found = re.match(self.__class__.ARM64_ELF_RE, info)
                     if found:
                         # aarch64/linux version is found, mark this lib as "compatible"
                         support_target_arch = True
