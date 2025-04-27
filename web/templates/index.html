@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Migrate-ease Scanner</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="https://bootswatch.com/5/lumen/bootstrap.css">
+</head>
+<body>
+  <div class="container mt-5">
+    <div class="jumbotron">
+      <h1 class="display-3 text-primary">Arm64 Migration Advisor</h1>
+      <hr class="bg-primary">
+    </div>
+  </div>
+
+  <div class="container mt-4">
+    <div class="row">
+      <div id="status-panel" class="mt-1">
+        <div id="console-output" class="bg-dark text-light p-3" style="height: 550px; overflow-y: auto; font-family: monospace; font-size:12px; margin-bottom: 1rem!important">
+        </div>
+      </div>
+    </div>
+
+    <form id="scan-git-form" class="" name="scan-git-form">
+      <div class="row mb-3">
+        <div class="col-md-7">
+            <div class="input-group">
+            <span class="input-group-text">Git Repo</span>
+            <input type="text" name="git-repo" class="form-control" required>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="input-group">
+            <span class="input-group-text">Branch</span>
+            <input type="text" name="git-branch" class="form-control">
+          </div>
+        </div>
+        <div class="col-md-2">
+          <button class="btn btn-outline-primary" type="button" id="action-git-btn" style="width: 100%;">START SCAN</button>
+          <div id="report-pane" class="d-none">
+            <span class="label-success">Report:</span>
+            <a href="/report" class="btn border-0" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Download report"><i class="fas fa-download text-primary"></i></a>
+            <a href="/result" target="_blank" class="btn border-0" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="View report"><i class="fas fa-eye text-primary"></i></a>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+        $(document).ready(function() {
+            $('[data-bs-toggle="tooltip"]').tooltip();
+            // Form submission
+            $('#scan-git-form').on('submit', function(e) {
+                e.preventDefault();
+
+                var formData = new FormData(this);
+                console.log($(this).serialize())
+
+                $.ajax({
+                    url: '/scan/git',
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        if (response.status != 'ERROR') {
+                          $('#action-git-btn').html("<span class='spinner-border  spinner-border-sm' role='status' aria-hidden='true'></span>&nbsp;"+response.status);
+                          $('#status-panel').removeClass('d-none');
+                          pollStatus('#action-git-btn');
+                        } else {
+                          alert(response.message)
+                          // Re-enable button
+                          $('#action-git-btn').prop('disabled', false);
+                        }
+                    }
+                });
+            });
+            $('#action-git-btn').click(function() {
+                current_status = $(this).text();
+                if ('START SCAN' == current_status) {
+                    git_repo = $('input[name="git-repo"]').val();
+                    if (git_repo == '') {
+                        alert("No git repo is given!");
+                    } else {
+                        // Submit form
+                        $('#scan-git-form').submit();
+                        // Disable button to avoid multiple submissions
+                        $(this).prop('disabled', true);
+                    }
+                }
+            });
+
+            // Status poll
+            function pollStatus(btn_name) {
+                $.get('/status', function(response) {
+                    var consoleDiv = $('#console-output');
+                    consoleDiv.html(response.output.join('<br>'));
+                    // Auto-scroll to bottom
+                    consoleDiv.scrollTop(consoleDiv[0].scrollHeight);
+                    console.log(response.status + '/' + btn_name);
+
+                    switch (response.status) {
+                      case "UPLOADING":
+                          setTimeout(function(){pollStatus(btn_name);}, 1000);
+                          break;
+                      case "FETCHING":
+                      case "SCANNING":
+                          $(btn_name).contents().eq(1).replaceWith("&nbsp;"+response.status);
+                          setTimeout(function(){pollStatus(btn_name);}, 1000);
+                          break;
+                      case "FAILED":
+                      case "ERROR":
+                          $(btn_name).text(response.status);
+                          $(btn_name).addClass("btn-danger");
+                      default:
+                          // Re-enable button
+                          $('#action-git-btn').prop('disabled', false);
+                          $(btn_name).text(response.status);
+                          if (response.status == 'COMPLETED')
+                            $('#report-pane').removeClass('d-none')
+                    }
+                });
+            }
+
+            /*
+            $('#upload-form').on('submit', function(e) {
+                e.preventDefault();
+
+                var formData = new FormData(this);
+
+                $.ajax({
+                    url: '/scan/file',
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        if (response.status != 'ERROR') {
+                          $('#action-file-btn').html("<span class='spinner-border  spinner-border-sm' role='status' aria-hidden='true'></span>&nbsp;"+response.status);
+                          $('#status-panel').removeClass('d-none');
+                          pollStatus('#action-file-btn');
+                        } else {
+                          alert(response.message)
+                        }
+                    }
+                });
+            });
+            $('#action-file-btn').click(function() {
+                current_status = $(this).text();
+                if ('START SCAN' == current_status) {
+                    filename = $('input[name="file"]').val();
+                    if ($('input[name="file"]').val() == '') {
+                        alert("No package to scan!");
+                    } else {
+                        // submit form
+                        $('#upload-form').submit();
+                    }
+                } else if ('COMPLETED' == current_status) {
+                    window.location.href = '/result';
+                }
+            });
+            */
+        });
+
+  </script>
+</body>
+</html>
