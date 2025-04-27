@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Migrate-ease Scan Report</title>
+    <link rel="stylesheet" href="https://bootswatch.com/5/lumen/bootstrap.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+    <div class="container mt-5">
+    <div class="jumbotron">
+      <h1 class="display-3 text-primary">Arm64 Migration Advisor - Scan Report</h1>
+      <hr class="bg-primary"><p></p>
+    </div>
+   </div>
+    <div class="container mt-4">
+        <!-- Summary Group -->
+        <div class="card mb-4 shadow">
+          <div class="card-header bg-primary text-white">
+              <h4 class="mb-0">Summary</h4>
+          </div>
+          <div class="card-body">
+            <div class="row p-2">
+              <div class="col-md-3 text-center">
+                  <h5>Architecture</h5><p class="small">{{ results[0].result.march }}</p>
+                  <h5>Target OS</h5><p class="small">{{ results[0].result.target_os }}</p>
+                  {% if results[0].result.git_repo %}
+                  <h5>Repo</h5><p class="small">{{ results[0].result.git_repo }}</p>
+                  {% endif %}
+                  {% if results[0].result.branch %}
+                  <h5>Branch</h5><p class="small">{{ results[0].result.branch }}</p>
+                  {% endif %}
+                  <h5>Scan Completed</h5><p class="small">{{ results[0].modified_time }}</p>
+              </div>
+              <div class="col-md-9 text-center">
+                <h5>Project Overview</h5>
+                <div class="row">
+                  <div class="col-md-12 text-center">
+                    <table class="table table-striped">
+                      <thead>
+                        <tr>
+                          <th>File Type</th>
+                          <th>Number of Files</th>
+                          <th>Line of Code</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      {% for element in results %}
+                        {% for key, value in element.result.file_summary.items() %}
+                          {% if value.count != 0 %}
+                        <tr>
+                          <td>{{ value.fileName }}</td>
+                          <td>{{ value.count}}</td>
+                          <td>{{ value.loc}}</td>
+                        </tr>
+                          {% endif %}
+                        {% endfor %}
+                      {% endfor %}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Issues Accordion -->
+        <div class="card shadow">
+          <div class="card-header bg-dark text-white">
+            <h4 class="mb-0">Issues Detail</h4>
+          </div>
+          <ul class="nav nav-underline nav-fill mb-2">
+          {% for element in results %}
+            <li class="nav-item">
+              <button class="nav-link {% if element.name == 'cpp' %} active {% endif %}" data-bs-toggle="tab" data-bs-target="#{{ element.name }}-tab-pane" type="button" aria-controls="{{ element.name }}-tab-pane" aria-selected="true">{{ element.name }}
+              {% if element.result.total_issue_count != 0 %}
+              <span class="ms-2"><i class="btn fas fa-exclamation-triangle text-danger" style="font-size: 1rem;"></i></span
+              {% endif %}</button>
+            </li>
+          {% endfor %}
+          </ul>
+            <div class="card-body">
+              <div class="tab-content">
+                {% for element in results %}
+                <div class="tab-pane fade {% if element.name == 'cpp' %}show active {% endif %}" id="{{ element.name }}-tab-pane" aria-labelledby="{{ element.name }}-tab" tabindex="0">
+                  {% if element.result.total_issue_count != 0 %}
+                  <div class="accordion" id="{{ element.name }}-details-categoryAccordion">
+                    {% set categories = {} %}
+                    {% for issue in element.result.issues %}
+                      {% if issue.issue_type.type not in categories %}
+                          {% set _ = categories.update({issue.issue_type.type: []}) %}
+                      {% endif %}
+                      {% set _ = categories[issue.issue_type.type].append(issue) %}
+                    {% endfor %}
+                    {% for category, issues in categories.items() %}
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="{{ element.name }}-details-category-heading-{{ loop.index }}">
+                          <button class="accordion-button collapsed" type="button"
+                                  data-bs-toggle="collapse"
+                                  data-bs-target="#{{ element.name }}-details-category-collapse-{{ loop.index }}">
+                            <strong>{{ category }}</strong>
+                            <span class="badge bg-danger ms-2">{{ issues|length }} issues</span>
+                          </button>
+                        </h2>
+                        <div id="{{ element.name }}-details-category-collapse-{{ loop.index }}" class="accordion-collapse collapse"
+                             data-bs-parent="#{{ element.name }}-details-categoryAccordion">
+                          <div class="accordion-body p-0">
+                              <div class="accordion" id="#{{ element.name }}-details-issuesAccordion-{{ loop.index }}">
+                                {% set parent_loop_index = loop.index %}
+                                {% for issue in issues %}
+                                  {% set file_path = issue.filename.replace(element.result.root_directory + "/", "") %}
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="{{ element.name }}-details-issue-heading-{{ loop.index }}">
+                                      <button class="accordion-button collapsed ps-4" type="button" data-bs-toggle="collapse"
+                                              data-bs-target="#{{ element.name }}-details-issue-collapse-{{ category|replace(' ', '-') }}-{{ loop.index }}">
+                                        <div class="d-flex w-100 justify-content-between align-items-center">
+                                            <span>{{ file_path }}</span>
+                                            {% if issue.lineno > 0 %}
+                                            <span class="badge bg-secondary ms-2" style="margin-right: 1em;">line:
+                                                {{ issue.lineno }}
+                                            </span>
+                                            {% endif %}
+                                        </div>
+                                      </button>
+                                    </h2>
+                                    <div id="{{ element.name }}-details-issue-collapse-{{ category|replace(' ', '-') }}-{{ loop.index }}"
+                                         class="accordion-collapse collapse"
+                                         data-bs-parent="#{{ element.name }}-details-issuesAccordion-{{ parent_loop_index }}">
+                                      <div class="accordion-body">
+                                        <div class="row">
+                                          <div class="col-md-12">
+                                              <p>{{ issue.issue_type.des }}</p>
+                                              <p><strong>Description:</strong></p>
+                                              <p><pre><code>{{ issue.description | safe }}</code></pre></p>
+                                              {% if issue.recommendation %}
+                                              <p><strong>Recommendation:</strong></p>
+                                              <p>{{ issue.recommendation }}</p>
+                                              {% endif %}
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                            <p><strong>Code:</strong></p>
+                                            <pre><p class="code-block p-2 bg-secondary"><code>{{ issue.snippet | safe }}</code></p></pre>
+                                            </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                              </div>
+                          </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                  </div>
+                  {% else %}
+                  <h5 class="text-center text-primary">No issues found</h5>
+                  {% endif %}
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-4">
+          <a href="/" class="btn btn-primary">Return to Main Page</a>
+        </div>
+    </div>
+</body>
+</html>
