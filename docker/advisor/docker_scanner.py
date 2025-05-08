@@ -37,7 +37,7 @@ class DockerScanner(BaseScanner):
 
     def load_checkpoints(self):
         env_language = locale.getdefaultlocale()[0]
-        language = env_language if env_language is not None else 'en_US'
+        language = 'zh_CN' if env_language.startswith('zh_') else 'en_US'
         current_path = os.path.abspath(os.path.dirname(__file__))
         check_points_yml = os.path.abspath(current_path + './../db/' + language + '/check_points.yaml')
 
