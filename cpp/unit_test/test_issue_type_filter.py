@@ -17,16 +17,24 @@ limitations under the License.
 
 import unittest
 
-from advisor.issue_type_config import IssueTypeConfig
-from advisor.issue_type_filter import IssueTypeFilter
-from advisor.report import Report
+from common.issue_type_config import IssueTypeConfig
+from common.issue_type_filter import IssueTypeFilter
+from common.report import Report
+from common.issue import BaseReportItem
 
+from advisor.report_item import CPP_REPORT_TYPES
 from advisor.inline_asm_issue import InlineAsmIssue
+from advisor.issue_types import ISSUE_TYPES
+from advisor.cpp_scanner import CppScanner
 
 
 class TestIssueTypeFilter(unittest.TestCase):
     def test_finalize(self):
+        Report.REPORT_ITEM = BaseReportItem
+        Report.REPORT_ITEM.TYPES += CPP_REPORT_TYPES
+        Report.SCANNER = CppScanner
         report = Report('/root')
+
         issue_type_config = IssueTypeConfig(None)
         issue_type_filter = IssueTypeFilter(issue_type_config)
         issue_type_filter.initialize_report(report)
@@ -36,7 +44,7 @@ class TestIssueTypeFilter(unittest.TestCase):
         self.assertEqual(len(report.issues), 1)
 
         report = Report('/root')
-        issue_type_config = IssueTypeConfig('-InlineAsm')
+        issue_type_config = IssueTypeConfig('-InlineAsm', ISSUE_TYPES)
         issue_type_filter = IssueTypeFilter(issue_type_config)
         issue_type_filter.initialize_report(report)
         report.add_source_file('test.c')
@@ -45,7 +53,7 @@ class TestIssueTypeFilter(unittest.TestCase):
         self.assertEqual(len(report.issues), 0)
 
         report = Report('/root')
-        issue_type_config = IssueTypeConfig('InlineAsm')
+        issue_type_config = IssueTypeConfig('InlineAsm', ISSUE_TYPES)
         issue_type_filter = IssueTypeFilter(issue_type_config)
         issue_type_filter.initialize_report(report)
         report.add_source_file('test.c')
@@ -54,7 +62,7 @@ class TestIssueTypeFilter(unittest.TestCase):
         self.assertEqual(len(report.issues), 1)
 
         report = Report('/root')
-        issue_type_config = IssueTypeConfig('PreprocessorError')
+        issue_type_config = IssueTypeConfig('PreprocessorError', ISSUE_TYPES)
         issue_type_filter = IssueTypeFilter(issue_type_config)
         issue_type_filter.initialize_report(report)
         report.add_source_file('test.c')
@@ -63,7 +71,7 @@ class TestIssueTypeFilter(unittest.TestCase):
         self.assertEqual(len(report.issues), 0)
 
         report = Report('/root')
-        issue_type_config = IssueTypeConfig('aaa')
+        issue_type_config = IssueTypeConfig('aaa', ISSUE_TYPES)
         issue_type_filter = IssueTypeFilter(issue_type_config)
         issue_type_filter.initialize_report(report)
         report.add_source_file('test.c')
@@ -72,7 +80,7 @@ class TestIssueTypeFilter(unittest.TestCase):
         self.assertEqual(len(report.issues), 0)
 
         report = Report('/root')
-        issue_type_config = IssueTypeConfig(',PreprocessorError')
+        issue_type_config = IssueTypeConfig(',PreprocessorError', ISSUE_TYPES)
         issue_type_filter = IssueTypeFilter(issue_type_config)
         issue_type_filter.initialize_report(report)
         report.add_source_file('test.c')

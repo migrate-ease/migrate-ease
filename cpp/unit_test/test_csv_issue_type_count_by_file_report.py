@@ -20,21 +20,24 @@ import io
 import tempfile
 import unittest
 
-from advisor.csv_issue_type_count_by_file_report import CsvIssueTypeCountByFileReport
-from advisor.issue_type_config import IssueTypeConfig
-from advisor.report_factory import ReportOutputFormat
+from common.csv_issue_type_count_by_file_report import CsvIssueTypeCountByFileReport
+from common.issue_type_config import IssueTypeConfig
+from common.report_factory import ReportOutputFormat
+from common.report import Report
+from common.issue import BaseReportItem
 
-from advisor.arm64_config_guess_scanner import Arm64ConfigGuessScanner
 from advisor.arm64_source_scanner import Arm64SourceScanner
+from advisor.report_item import CPP_REPORT_TYPES
 
 
 class TestCsvIssueTypeCountByFileReport(unittest.TestCase):
 
     def test_output(self):
-        config_guess_scanner = Arm64ConfigGuessScanner()
-        source_scanner = Arm64SourceScanner(ReportOutputFormat.CSV_ISSUE_TYPE_COUNT_BY_FILE, arch='arm64')
+        source_scanner = Arm64SourceScanner(ReportOutputFormat.CSV_ISSUE_TYPE_COUNT_BY_FILE, arch='aarch64', march='', compiler='gcc', warning_level='L1')
 
         issue_type_config = IssueTypeConfig()
+        Report.REPORT_ITEM = BaseReportItem
+        Report.REPORT_ITEM.TYPES += CPP_REPORT_TYPES
         report = CsvIssueTypeCountByFileReport('/root', issue_type_config=issue_type_config)
 
         report.add_source_file('test_preprocessor.c')
@@ -49,6 +52,7 @@ class TestCsvIssueTypeCountByFileReport(unittest.TestCase):
                                         io_object,
                                         report)
 
+        # __GUNC__ is a valid macros defined by clang/gcc.
         report.add_source_file('test_compiler_specific.c')
         io_object = io.StringIO('#ifdef __GNUC__')
         source_scanner.scan_file_object('test_compiler_specific.c',
@@ -67,8 +71,7 @@ class TestCsvIssueTypeCountByFileReport(unittest.TestCase):
                                         io_object,
                                         report)
 
-        self.assertEqual(len(report.issues), 5)
-
+        self.assertEqual(len(report.issues), 4)
         with tempfile.NamedTemporaryFile(mode='w', delete=False) as ofp:
             report.write(ofp)
             fname = ofp.name

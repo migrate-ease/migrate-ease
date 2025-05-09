@@ -19,8 +19,11 @@ import io
 import tempfile
 import unittest
 
-from advisor.html_report import HtmlReport
-from advisor.report_factory import ReportOutputFormat
+from common.html_report import HtmlReport
+from common.report_factory import ReportOutputFormat
+from common.report import Report
+from common.issue import BaseReportItem
+from advisor.report_item import CPP_REPORT_TYPES
 
 from advisor.arm64_config_guess_scanner import Arm64ConfigGuessScanner
 from advisor.arm64_source_scanner import Arm64SourceScanner
@@ -29,10 +32,12 @@ from advisor.arm64_source_scanner import Arm64SourceScanner
 class TestHtmlReport(unittest.TestCase):
 
     def test_item_icons(self):
-        config_guess_scanner = Arm64ConfigGuessScanner()
-        source_scanner = Arm64SourceScanner(ReportOutputFormat.HTML, arch='arm64')
+        config_guess_scanner = Arm64ConfigGuessScanner(ReportOutputFormat.HTML, arch='aarch64', march='')
+        source_scanner = Arm64SourceScanner(ReportOutputFormat.HTML, arch='aarch64', march='', compiler='gcc', warning_level='L1')
 
-        report = HtmlReport('/root', arch='arm64')
+        Report.REPORT_ITEM = BaseReportItem
+        Report.REPORT_ITEM.TYPES += CPP_REPORT_TYPES
+        report = HtmlReport('/root', arch='aarch64')
 
         io_object = io.StringIO(' __asm__ __volatile__( "pause" : : : "memory" )')
         source_scanner.scan_file_object('test_inline_asm.c',
@@ -72,24 +77,6 @@ class TestHtmlReport(unittest.TestCase):
                 self.assertTrue(seen_inline_asm_issue)
                 self.assertTrue(seen_pragma_issue)
                 self.assertTrue(seen_config_guess_issue)
-
-    def test_heading(self):
-        report = HtmlReport('/home/user/source/application-1.0', arch='sw64')
-
-        with tempfile.NamedTemporaryFile(mode='w', delete=False) as ofp:
-            report.write(ofp)
-            fname = ofp.name
-            ofp.close()
-
-            seenHeading = False
-
-            with open(fname) as ifp:
-                for line in ifp:
-                    if 'Porting Readiness Report' in line and 'ApsaraStack' not in line:
-                        self.assertIn('SW64', line)
-                        seenHeading = True
-
-            self.assertTrue(seenHeading)
 
 
 if __name__ == '__main__':

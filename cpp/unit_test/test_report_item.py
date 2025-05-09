@@ -19,7 +19,7 @@ limitations under the License.
 import tempfile
 import unittest
 
-from advisor.report_item import ReportItem
+from common.issue import Issue
 
 
 class TestReportItem(unittest.TestCase):
@@ -31,10 +31,10 @@ class TestReportItem(unittest.TestCase):
             fname = ofp.name
             ofp.close()
 
-        report_item = ReportItem('description', fname, 5)
+        report_item = Issue('description', fname, 5)
         self.assertIn('<font style=\'color:red;\'>line5</font>', report_item.get_code_snippets(''))
 
-        report_item = ReportItem('', fname, 5)
+        report_item = Issue('', fname, 5)
         self.assertIn('<font style=\'color:red;\'>line5</font>', report_item.get_code_snippets(''))
 
 

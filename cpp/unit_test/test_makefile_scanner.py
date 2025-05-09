@@ -18,15 +18,18 @@ limitations under the License.
 import io
 import unittest
 
-from advisor.report import Report
+from common.report import Report
+from common.report_factory import ReportOutputFormat
+from common.issue import BaseReportItem
 
 from advisor.arm64_makefile_scanner import Arm64MakefileScanner
-from advisor.report_item import ReportItem
+from advisor.report_item import BUILD_COMMAND
+from advisor.report_item import CPP_REPORT_TYPES
 
 
 class TestMakefileScanner(unittest.TestCase):
     def test_accepts_file(self):
-        makefile_scanner = Arm64MakefileScanner()
+        makefile_scanner = Arm64MakefileScanner(output_format=ReportOutputFormat.JSON, arch='aarch64', march='')
         self.assertFalse(makefile_scanner.accepts_file('test'))
         self.assertTrue(makefile_scanner.accepts_file('Makefile'))
         self.assertTrue(makefile_scanner.accepts_file('makefile'))
@@ -41,7 +44,9 @@ class TestMakefileScanner(unittest.TestCase):
         self.assertTrue(makefile_scanner.accepts_file('MAKEFILE.MK'))
 
     def test_scan_file_object(self):
-        makefile_scanner = Arm64MakefileScanner()
+        makefile_scanner = Arm64MakefileScanner(output_format=ReportOutputFormat.JSON, arch='aarch64', march='')
+        Report.REPORT_ITEM = BaseReportItem
+        Report.REPORT_ITEM.TYPES += CPP_REPORT_TYPES
         report = Report('/root')
         io_object = io.StringIO('xxx')
         makefile_scanner.scan_file_object(
@@ -56,7 +61,9 @@ class TestMakefileScanner(unittest.TestCase):
         self.assertEqual(match.group(1), "otherarch")
 
     def test_arch_specific_libs(self):
-        makefile_scanner = Arm64MakefileScanner()
+        makefile_scanner = Arm64MakefileScanner(output_format=ReportOutputFormat.JSON, arch='aarch64', march='')
+        Report.REPORT_ITEM = BaseReportItem
+        Report.REPORT_ITEM.TYPES += CPP_REPORT_TYPES
         report = Report('/root')
         io_object = io.StringIO('-lotherarch')
         makefile_scanner.scan_file_object(
@@ -84,8 +91,10 @@ class TestMakefileScanner(unittest.TestCase):
         self.assertEqual(match.group(1), "libucrtd.lib")
 
     def test_old_crt(self):
-        makefile_scanner = Arm64MakefileScanner()
+        makefile_scanner = Arm64MakefileScanner(output_format=ReportOutputFormat.JSON, arch='aarch64', march='')
 
+        Report.REPORT_ITEM = BaseReportItem
+        Report.REPORT_ITEM.TYPES += CPP_REPORT_TYPES
         report = Report('/root')
         io_object = io.StringIO('LIBS=libcmt.lib')
         makefile_scanner.scan_file_object(
@@ -111,8 +120,10 @@ class TestMakefileScanner(unittest.TestCase):
         self.assertIsNotNone(match)
 
     def test_other_arch_cpu_line(self):
-        makefile_scanner = Arm64MakefileScanner()
+        makefile_scanner = Arm64MakefileScanner(output_format=ReportOutputFormat.JSON, arch='aarch64', march='')
 
+        Report.REPORT_ITEM = BaseReportItem
+        Report.REPORT_ITEM.TYPES += CPP_REPORT_TYPES
         report = Report('/root')
         io_object = io.StringIO('!IF "$(CPU)" == "x86"')
         makefile_scanner.scan_file_object(
@@ -173,8 +184,10 @@ class TestMakefileScanner(unittest.TestCase):
         self.assertEqual(match.group(1), './target.exe')
 
     def test_target_command(self):
-        makefile_scanner = Arm64MakefileScanner()
+        makefile_scanner = Arm64MakefileScanner(output_format=ReportOutputFormat.JSON, arch='aarch64', march='')
 
+        Report.REPORT_ITEM = BaseReportItem
+        Report.REPORT_ITEM.TYPES += CPP_REPORT_TYPES
         report = Report('/root')
         io_object = io.StringIO('target.exe: target.c\n./target.exe: target.c\n\tcl target.c /Fe:target.exe\n\nfoobar.h: target.exe\n\t./target.exe >foobar.h')
         makefile_scanner.scan_file_object(
@@ -196,8 +209,10 @@ class TestMakefileScanner(unittest.TestCase):
         self.assertEqual(match.group(2), 'B')
 
     def test_target_command_with_assignment(self):
-        makefile_scanner = Arm64MakefileScanner()
+        makefile_scanner = Arm64MakefileScanner(output_format=ReportOutputFormat.JSON, arch='aarch64', march='')
 
+        Report.REPORT_ITEM = BaseReportItem
+        Report.REPORT_ITEM.TYPES += CPP_REPORT_TYPES
         report = Report('/root')
         io_object = io.StringIO('TARGET=target.exe\n\n$(TARGET): target.c\n\tcl target.c /Fe:target.exe\n\nfoobar.h: $(TARGET)\n\t$(TARGET) >foobar.h')
         makefile_scanner.scan_file_object(
@@ -207,25 +222,27 @@ class TestMakefileScanner(unittest.TestCase):
         self.assertEqual(issue.target, 'target.exe')
 
     def test_build_command(self):
-        makefile_scanner = Arm64MakefileScanner()
-
+        makefile_scanner = Arm64MakefileScanner(output_format=ReportOutputFormat.JSON, arch='aarch64', march='')
+        
+        Report.REPORT_ITEM = BaseReportItem
+        Report.REPORT_ITEM.TYPES += BUILD_COMMAND
         report = Report('/root')
         io_object = io.StringIO('.PHONY: gofmt\ngofmt:\n\t"gofmt" -e -s -l $(GO_FILES) > $(FMT_LOG) || true')
         makefile_scanner.scan_file_object(
             'Makefile', io_object, report)
-        self.assertEqual(report.issues[0].item_type, ReportItem.BUILD_COMMAND)
+        self.assertEqual(report.issues[0].issue_type, BUILD_COMMAND)
 
         report = Report('/root')
         io_object = io.StringIO('CFLAGS = -O2 -Wno-system-headers')
         makefile_scanner.scan_file_object(
             'Makefile', io_object, report)
-        self.assertEqual(report.issues[0].item_type, ReportItem.BUILD_COMMAND)
+        self.assertEqual(report.issues[0].issue_type, BUILD_COMMAND)
 
         report = Report('/root')
         io_object = io.StringIO('maketables=aaa\ntables:	$(maketables)\n\t./$(maketables) > tables.go\n$(maketables): maketables.go\n\tgo build $^')
         makefile_scanner.scan_file_object(
             'Makefile', io_object, report)
-        self.assertEqual(report.issues[0].item_type, ReportItem.BUILD_COMMAND)
+        self.assertEqual(report.issues[0].issue_type, BUILD_COMMAND)
 
     def test_d_other_arch_re(self):
         match = Arm64MakefileScanner.D_OTHER_ARCH_RE.search('/Dfoo')
@@ -300,8 +317,9 @@ class TestMakefileScanner(unittest.TestCase):
         self.assertIsNone(match)
 
     def test_define_other_arch(self):
-        makefile_scanner = Arm64MakefileScanner()
-
+        makefile_scanner = Arm64MakefileScanner(output_format=ReportOutputFormat.JSON, arch='aarch64', march='')
+        Report.REPORT_ITEM = BaseReportItem
+        Report.REPORT_ITEM.TYPES += CPP_REPORT_TYPES
         report = Report('/root')
         io_object = io.StringIO('CFLAGS=/D__otherarch__')
         makefile_scanner.scan_file_object('Makefile',
@@ -317,7 +335,9 @@ class TestMakefileScanner(unittest.TestCase):
         self.assertEqual(len(report.issues), 3)
 
     def test_continuation(self):
-        makefile_scanner = Arm64MakefileScanner()
+        makefile_scanner = Arm64MakefileScanner(output_format=ReportOutputFormat.JSON, arch='aarch64', march='')
+        Report.REPORT_ITEM = BaseReportItem
+        Report.REPORT_ITEM.TYPES += CPP_REPORT_TYPES
         report = Report('/root')
         # Should be treated as a single line and only one issue reported.
         io_object = io.StringIO('LIBS=-lotherarch\\\n-lotherarch')

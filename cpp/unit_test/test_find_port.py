@@ -17,7 +17,7 @@ limitations under the License.
 
 import unittest
 
-from advisor.find_port import *
+from common.find_port import *
 
 
 class TestFindPort(unittest.TestCase):

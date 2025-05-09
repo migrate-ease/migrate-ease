@@ -1,30 +1,29 @@
 import tempfile
 import unittest
 
-from advisor.text_report import TextReport
+from common.text_report import TextReport
+from common.issue import Issue
+from common.report import Report
+from common.issue import BaseReportItem
 
-from advisor.report_item import ReportItem
+from advisor.report_item import CPP_REPORT_TYPES
+from advisor.cpp_scanner import CppScanner
 
 
 class TestTxtReport(unittest.TestCase):
 
     def test_write_report(self):
+        Report.REPORT_ITEM = BaseReportItem
+        Report.REPORT_ITEM.TYPES += CPP_REPORT_TYPES
+        Report.SCANNER = CppScanner
         report = TextReport('./root')
-        item1 = ReportItem('description')
+        item1 = Issue('description')
         report.add_issue(item1)
-        item2 = ReportItem('description', function='function')
+        item2 = Issue('description', filename='filename')
         report.add_issue(item2)
-        item3 = ReportItem('description', filename='filename')
+        item3 = Issue('description', filename='filename', lineno='12')
+        item3.set_code_snippet("code")
         report.add_issue(item3)
-        item4 = ReportItem('description', function='function', filename='filename')
-        report.add_issue(item4)
-        item5 = ReportItem('description', function='function', filename='filename', lineno='12')
-        report.add_issue(item5)
-        item6 = ReportItem('description', lineno='12', filename='filename')
-        report.add_issue(item6)
-        item7 = ReportItem('description', function='function', filename='filename', lineno='12')
-        item7.set_code_snippet("code")
-        report.add_issue(item7)
 
         with tempfile.NamedTemporaryFile(mode='w', delete=False) as ofp:
             report.write(ofp)

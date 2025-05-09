@@ -35,7 +35,18 @@ class NaiveCommentParser:
         Returns:
             bool: Is this line a comment?
         """
-        if line.lstrip().startswith('//') :
+        if line.lstrip().startswith('//'):
             return True
-        else:
-            return False
+        elif line.lstrip().startswith('/*'):
+            if not line.lstrip().endswith('*/'):
+                self.in_comment = True
+            return True
+        elif line.lstrip().endswith('*/'):
+            if self.in_comment:
+                self.in_comment = False
+                return True
+
+        if self.in_comment:
+            return True
+
+        return False

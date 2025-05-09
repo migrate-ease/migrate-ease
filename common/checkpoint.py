@@ -42,6 +42,9 @@ class Checkpoint:
 
     def __init__(self, checkpoint):
 
+        if checkpoint is None:
+            raise ValueError("checkpoint cannot be None")
+
         try:
             self.section = checkpoint
             self.isa = checkpoint.get("isa", default='').split(',')

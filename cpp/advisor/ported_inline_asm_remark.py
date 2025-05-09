@@ -16,14 +16,15 @@ limitations under the License.
 """
 
 from common.localization import _
-from .report_item import ReportItem
+from common.issue import Issue
+from .report_item import PORTED_INLINE_ASM_REMARK
 
 
-class PortedInlineAsmRemark(ReportItem):
+class PortedInlineAsmRemark(Issue):
 
     def __init__(self, ported_asm_source_files):
 
         description = _("%d inline assembly statements or intrinsics already have aarch64 equivalents") % ported_asm_source_files
 
         super().__init__(description=description,
-                         issue_type=ReportItem.PORTED_INLINE_ASM_REMARK)
+                         issue_type=PORTED_INLINE_ASM_REMARK)

@@ -185,7 +185,7 @@ __asm__ __volatile__("popcntq %1, %0" : "=r"(result) : "mr"(a) : "cc"); // expec
         __asm__("popcntq %1, %0" : "=r"(result) : "mr"(a) : "cc"); // expect: GolangInlineAsmIssue
         __asm__ __volatile__ goto("popcntq %1, %0" : "=r"(result) : "mr"(a) : "cc"); // expect: GolangInlineAsmIssue
         __asm__ __volatile__(// expect: GolangInlineAsmIssue
-                                "popcntq %1, %0" : "=r"(result) : "mr"(a) : "cc"); 
+                                "popcntq %1, %0" : "=r"(result) : "mr"(a) : "cc");
 
         // case14:(^|\s)([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+goto)?\(.*(?:\n|\r\n)*.*addl.*
 __asm__ __volatile__(LOCK_PREFIX "addl %1,%0" : "+m" (v->counter) : "ir" (i)); // expect: GolangInlineAsmIssue
@@ -199,7 +199,7 @@ __asm__ __volatile__(LOCK_PREFIX "addl %1,%0" : "+m" (v->counter) : "ir" (i)); /
         __asm__(LOCK_PREFIX "addl %1,%0" : "+m" (v->counter) : "ir" (i)); // expect: GolangInlineAsmIssue
         __asm__ __volatile__ goto(LOCK_PREFIX "addl %1,%0" : "+m" (v->counter) : "ir" (i)); // expect: GolangInlineAsmIssue
         __asm__ __volatile__(// expect: GolangInlineAsmIssue
-                                LOCK_PREFIX "addl %1,%0" : "+m" (v->counter) : "ir" (i));            
+                                LOCK_PREFIX "addl %1,%0" : "+m" (v->counter) : "ir" (i));
         asm volatile(LOCK_PREFIX "addl %1,%0" : "+m" (v->counter) : "ir" (i)); // expect: GolangInlineAsmIssue
 
         // case15:(^|\s)([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+goto)?\(.*(?:\n|\r\n)*.*subl.*
@@ -214,22 +214,22 @@ __asm__ __volatile__(LOCK_PREFIX "subl %1,%0" : "+m" (v->counter) : "ir" (i)); /
         __asm__(LOCK_PREFIX "subl %1,%0" : "+m" (v->counter) : "ir" (i)); // expect: GolangInlineAsmIssue
         __asm__ __volatile__ goto(LOCK_PREFIX "subl %1,%0" : "+m" (v->counter) : "ir" (i)); // expect: GolangInlineAsmIssue
         __asm__ __volatile__(// expect: GolangInlineAsmIssue
-                                LOCK_PREFIX "subl %1,%0" : "+m" (v->counter) : "ir" (i));                   
-        asm volatile(LOCK_PREFIX "subl %1,%0" : "+m" (v->counter) : "ir" (i)); // expect: GolangInlineAsmIssue  
+                                LOCK_PREFIX "subl %1,%0" : "+m" (v->counter) : "ir" (i));
+        asm volatile(LOCK_PREFIX "subl %1,%0" : "+m" (v->counter) : "ir" (i)); // expect: GolangInlineAsmIssue
 
         // case16:(^|\s)([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+goto)?\(.*(?:\n|\r\n)*.*decl.*
 __asm__ __volatile__(LOCK_PREFIX "decl %0; sete %1" : "+m" (v->counter), "=qm" (c) : : "memory"); // expect: GolangInlineAsmIssue
         __asm__ __volatile__(LOCK_PREFIX "decl %0; sete %1" : "+m" (v->counter), "=qm" (c) : : "memory"); // expect: GolangInlineAsmIssue
         asm__ __volatile__(LOCK_PREFIX "decl %0; sete %1" : "+m" (v->counter), "=qm" (c) : : "memory"); // expect: GolangInlineAsmIssue
-        _asm_ __volatile__(LOCK_PREFIX "decl %0; sete %1" : "+m" (v->counter), "=qm" (c) : : "memory"); // expect: GolangInlineAsmIssue 
+        _asm_ __volatile__(LOCK_PREFIX "decl %0; sete %1" : "+m" (v->counter), "=qm" (c) : : "memory"); // expect: GolangInlineAsmIssue
         asm__ __volatile__(LOCK_PREFIX "decl %0; sete %1" : "+m" (v->counter), "=qm" (c) : : "memory"); // expect: GolangInlineAsmIssue
         __asm__      __volatile__(LOCK_PREFIX "decl %0; sete %1" : "+m" (v->counter), "=qm" (c) : : "memory"); // expect: GolangInlineAsmIssue
         __asm__ volatile__(LOCK_PREFIX "decl %0; sete %1" : "+m" (v->counter), "=qm" (c) : : "memory"); // expect: GolangInlineAsmIssue
         __asm__ __volatile(LOCK_PREFIX "decl %0; sete %1" : "+m" (v->counter), "=qm" (c) : : "memory"); // expect: GolangInlineAsmIssue
         __asm__(LOCK_PREFIX "decl %0; sete %1" : "+m" (v->counter), "=qm" (c) : : "memory"); // expect: GolangInlineAsmIssue
         __asm__ __volatile__ goto(LOCK_PREFIX "decl %0; sete %1" : "+m" (v->counter), "=qm" (c) : : "memory"); // expect: GolangInlineAsmIssue
-        __asm__ __volatile__(// expect: GolangInlineAsmIssue 
-                                LOCK_PREFIX "decl %0; sete %1" : "+m" (v->counter), "=qm" (c) : : "memory"); 
+        __asm__ __volatile__(// expect: GolangInlineAsmIssue
+                                LOCK_PREFIX "decl %0; sete %1" : "+m" (v->counter), "=qm" (c) : : "memory");
         asm volatile(LOCK_PREFIX "decl %0; sete %1" : "+m" (v->counter), "=qm" (c) : : "memory"); // expect: GolangInlineAsmIssue
 
         // case17:(^|\s)([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+goto)?\(.*(?:\n|\r\n)*.*incl.*
@@ -244,7 +244,7 @@ __asm__ __volatile__(LOCK_PREFIX "incl %0; sete %1" : "+m" (v->counter), "=qm" (
         __asm__(LOCK_PREFIX "incl %0; sete %1" : "+m" (v->counter), "=qm" (c) : : "memory"); // expect: GolangInlineAsmIssue
         __asm__ __volatile__ goto(LOCK_PREFIX "incl %0; sete %1" : "+m" (v->counter), "=qm" (c) : : "memory"); // expect: GolangInlineAsmIssue
         __asm__ __volatile__( // expect: GolangInlineAsmIssue
-                                LOCK_PREFIX "incl %0; sete %1" : "+m" (v->counter), "=qm" (c) : : "memory");  
+                                LOCK_PREFIX "incl %0; sete %1" : "+m" (v->counter), "=qm" (c) : : "memory");
         asm volatile(LOCK_PREFIX "incl %0; sete %1" : "+m" (v->counter), "=qm" (c) : : "memory"); // expect: GolangInlineAsmIssue
 
         // case18:(^|\s)([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+goto)?\(.*(?:\n|\r\n)*.*xaddq.*
@@ -259,9 +259,9 @@ __asm__ __volatile__("lock ; " "xaddq %0, %1;" :"=r"(i)  :"m"(v->counter), "0"(i
         __asm__("lock ; " "xaddq %0, %1;" :"=r"(i)  :"m"(v->counter), "0"(i)); // expect: GolangInlineAsmIssue
         __asm__ __volatile__ goto("lock ; " "xaddq %0, %1;" :"=r"(i)  :"m"(v->counter), "0"(i)); // expect: GolangInlineAsmIssue
         __asm__ __volatile__(// expect: GolangInlineAsmIssue
-                                "lock ; " "xaddq %0, %1;" :"=r"(i)  :"m"(v->counter), "0"(i));   
+                                "lock ; " "xaddq %0, %1;" :"=r"(i)  :"m"(v->counter), "0"(i));
         asm _volatile_("lock ; " "xaddq %0, %1;" // expect: GolangInlineAsmIssue
-        :"=r"(i)  
+        :"=r"(i)
         :"m"(v->counter), "0"(i));
 
         // case19:(^|\s)([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+goto)?\(.*(?:\n|\r\n)*.*pcmpestrm.*
@@ -276,7 +276,7 @@ __asm__ __volatile__("pcmpestrm %5, %2, %1": "=Yz"(result) : "x"(str1), "xm"(str
         __asm__("pcmpestrm %5, %2, %1": "=Yz"(result) : "x"(str1), "xm"(str2), "a"(len1), "d"(len2), "i"(MODE) : "cc"); // expect: GolangInlineAsmIssue
         __asm__ __volatile__ goto("pcmpestrm %5, %2, %1": "=Yz"(result) : "x"(str1), "xm"(str2), "a"(len1), "d"(len2), "i"(MODE) : "cc"); // expect: GolangInlineAsmIssue
         __asm__ __volatile__(// expect: GolangInlineAsmIssue
-                                "pcmpestrm %5, %2, %1": "=Yz"(result) : "x"(str1), "xm"(str2), "a"(len1), "d"(len2), "i"(MODE) : "cc"); 
+                                "pcmpestrm %5, %2, %1": "=Yz"(result) : "x"(str1), "xm"(str2), "a"(len1), "d"(len2), "i"(MODE) : "cc");
 
         // case20:(^|\s)([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+goto)?\(.*(?:\n|\r\n)*.*pcmpestri.*
 __asm__ __volatile__("pcmpestri %5, %2, %1": "=c"(result) : "x"(str1), "xm"(str2), "a"(len1), "d"(len2), "i"(MODE) : "cc");// expect: GolangInlineAsmIssue
@@ -290,7 +290,7 @@ __asm__ __volatile__("pcmpestri %5, %2, %1": "=c"(result) : "x"(str1), "xm"(str2
         __asm__("pcmpestri %5, %2, %1": "=c"(result) : "x"(str1), "xm"(str2), "a"(len1), "d"(len2), "i"(MODE) : "cc"); // expect: GolangInlineAsmIssue
         __asm__ __volatile__ goto("pcmpestri %5, %2, %1": "=c"(result) : "x"(str1), "xm"(str2), "a"(len1), "d"(len2), "i"(MODE) : "cc");// expect: GolangInlineAsmIssue
         __asm__ __volatile__(// expect: GolangInlineAsmIssue
-                                "pcmpestri %5, %2, %1": "=c"(result) : "x"(str1), "xm"(str2), "a"(len1), "d"(len2), "i"(MODE) : "cc");  
+                                "pcmpestri %5, %2, %1": "=c"(result) : "x"(str1), "xm"(str2), "a"(len1), "d"(len2), "i"(MODE) : "cc");
 
         // case21:.*MOVDQU .*
         __asm__ __volatile__( // expect: GolangInlineAsmIssue
@@ -337,11 +337,11 @@ __asm__ __volatile__("pcmpestri %5, %2, %1": "=c"(result) : "x"(str1), "xm"(str2
 void printInt(int v) {
     printf("printint: %d\n", v);
 }
-    */
-    import "C"
+*/
+import "C"
 
-    func main() {
-        v := 42
-        C.printInt(C.int(v))
-    
-    }
+func main() {
+	v := 42
+	C.printInt(C.int(v))
+
+}

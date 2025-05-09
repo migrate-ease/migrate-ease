@@ -112,7 +112,6 @@ class TestNaiveFunctiontParser(unittest.TestCase):
         function_parser.parse_line('}')
         self.assertIsNone(function_parser.current_function)
 
-    @unittest.expectedFailure
     def test_function_definiton_like_macro(self):
         # the parser doesn't handle macros that look like function declarations but are actually for / while loops.
         function_parser = NaiveFunctionParser()

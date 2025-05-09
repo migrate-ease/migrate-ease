@@ -17,7 +17,8 @@ limitations under the License.
 
 import unittest
 
-from advisor.error import Error
+from common.error import Error
+from common.issue import BaseReportItem
 
 from advisor.arch_specific_library_issue import ArchSpecificLibraryIssue
 from advisor.compiler_specific_issue import CompilerSpecificIssue
@@ -25,50 +26,52 @@ from advisor.intrinsic_issue import Avx256IntrinsicIssue, Avx512IntrinsicIssue, 
 from advisor.no_equivalent_inline_asm_issue import NoEquivalentInlineAsmIssue
 from advisor.no_equivalent_intrinsic_issue import NoEquivalentIntrinsicIssue
 from advisor.ported_inline_asm_remark import PortedInlineAsmRemark
-from advisor.report_item import ReportItem
+from advisor.report_item import ( COMPILER_SPECIFIC, ARCH_SPECIFIC_LIBRARY, INTRINSIC,
+                                 AVX256_INTRINSIC, AVX512_INTRINSIC, NO_EQUIVALENT_INLINE_ASM,
+                                 NO_EQUIVALENT_INTRINSIC, PORTED_INLINE_ASM_REMARK)
 
 
 class TestItemType(unittest.TestCase):
 
     def test_compiler_specific_issue(self):
         issue = CompilerSpecificIssue('filename', 123, 'compiler', 'function')
-        self.assertEqual(issue.issue_type, ReportItem.COMPILER_SPECIFIC)
+        self.assertEqual(issue.issue_type, COMPILER_SPECIFIC)
 
     def test_arch_specific_library_issue(self):
-        issue = ArchSpecificLibraryIssue('filename', 123, 'archSpecificLibrary', 'arm64')
-        self.assertEqual(issue.issue_type, ReportItem.ARCH_SPECIFIC_LIBRARY)
+        issue = ArchSpecificLibraryIssue('filename', 123, 'archSpecificLibrary', 'aarch64')
+        self.assertEqual(issue.issue_type, ARCH_SPECIFIC_LIBRARY)
 
     def test_arch_specific_library_issue(self):
         issue = ArchSpecificLibraryIssue('filename', 123, 'archSpecificLibrary')
-        self.assertEqual(issue.issue_type, ReportItem.ARCH_SPECIFIC_LIBRARY)
+        self.assertEqual(issue.issue_type, ARCH_SPECIFIC_LIBRARY)
 
     def test_error(self):
         issue = Error('this is error', 'error', 123)
-        self.assertEqual(issue.issue_type, ReportItem.ERROR)
+        self.assertEqual(issue.issue_type, BaseReportItem.ERROR)
 
     def test_intrinsic_issue(self):
-        issue = IntrinsicIssue('filename', 123, 'arm64', 'intrinsic', function='function')
-        self.assertEqual(issue.issue_type, ReportItem.INTRINSIC)
+        issue = IntrinsicIssue('filename', 123, 'aarch64', 'intrinsic')
+        self.assertEqual(issue.issue_type, INTRINSIC)
 
     def test_avx256_intrinsic_issue(self):
-        issue = Avx256IntrinsicIssue('filename', 123, 'arm64', 'avx256intrinsic', function='function')
-        self.assertEqual(issue.issue_type, ReportItem.AVX256_INTRINSIC)
+        issue = Avx256IntrinsicIssue('filename', 123, 'aarch64', 'avx256intrinsic')
+        self.assertEqual(issue.issue_type, AVX256_INTRINSIC)
 
     def test_avx512_intrinsic_issue(self):
-        issue = Avx512IntrinsicIssue('filename', 123, 'arm64', 'intrinsic', function='function')
-        self.assertEqual(issue.issue_type, ReportItem.AVX512_INTRINSIC)
+        issue = Avx512IntrinsicIssue('filename', 123, 'aarch64', 'intrinsic')
+        self.assertEqual(issue.issue_type, AVX512_INTRINSIC)
 
     def test_no_equivalent_inline_asm_issue(self):
         issue = NoEquivalentInlineAsmIssue('filename', 123, 'function')
-        self.assertEqual(issue.issue_type, ReportItem.NO_EQUIVALENT_INLINE_ASM)
+        self.assertEqual(issue.issue_type, NO_EQUIVALENT_INLINE_ASM)
 
     def test_no_equivalent_intrinsic_issue(self):
         issue = NoEquivalentIntrinsicIssue('filename', 123, 'intrinsic', 'function')
-        self.assertEqual(issue.issue_type, ReportItem.NO_EQUIVALENT_INTRINSIC)
+        self.assertEqual(issue.issue_type, NO_EQUIVALENT_INTRINSIC)
 
     def test_ported_inline_asm_remark_issue(self):
         issue = PortedInlineAsmRemark(12)
-        self.assertEqual(issue.issue_type, ReportItem.PORTED_INLINE_ASM_REMARK)
+        self.assertEqual(issue.issue_type, PORTED_INLINE_ASM_REMARK)
 
 
 if __name__ == '__main__':

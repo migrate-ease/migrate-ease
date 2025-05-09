@@ -17,7 +17,7 @@ limitations under the License.
 
 import unittest
 
-from advisor.issue_type_config import IssueTypeConfig
+from common.issue_type_config import IssueTypeConfig
 
 from advisor.asm_source_issue import AsmSourceIssue
 from advisor.compiler_specific_issue import CompilerSpecificIssue
@@ -43,7 +43,7 @@ class TestIssueTypeConfig(unittest.TestCase):
 
     def test_all(self):
         expected_issue_types = [issue_type for issue_type in ISSUE_TYPES.values()]
-        issue_type_config = IssueTypeConfig('all')
+        issue_type_config = IssueTypeConfig('all', ISSUE_TYPES)
         actual_issue_types = issue_type_config.filter_issue_types(ISSUE_TYPES)
         self.assertEqual(set(expected_issue_types), set(actual_issue_types))
 
@@ -55,7 +55,7 @@ class TestIssueTypeConfig(unittest.TestCase):
 
     def test_explicit_list(self):
         expected_issue_types = [PreprocessorErrorIssue, AsmSourceIssue, InlineAsmIssue]
-        issue_type_config = IssueTypeConfig('PreprocessorError,AsmSource,InlineAsm')
+        issue_type_config = IssueTypeConfig('PreprocessorError,AsmSource,InlineAsm', ISSUE_TYPES)
         actual_issue_types = issue_type_config.filter_issue_types(ISSUE_TYPES)
         self.assertEqual(expected_issue_types, actual_issue_types)
 
@@ -70,7 +70,7 @@ class TestIssueTypeConfig(unittest.TestCase):
 
     def test_include(self):
         expected_issue_types = [issue_type for issue_type in ISSUE_TYPES.values()]
-        issue_type_config = IssueTypeConfig('+CompilerSpecific')
+        issue_type_config = IssueTypeConfig('+CompilerSpecific', ISSUE_TYPES)
         actual_issue_types = issue_type_config.filter_issue_types(ISSUE_TYPES)
         self.assertEqual(set(expected_issue_types), set(actual_issue_types))
 
@@ -85,7 +85,7 @@ class TestIssueTypeConfig(unittest.TestCase):
             return issubclass(issue_type, PreprocessorErrorIssue)
 
         expected_issue_types = [issue_type for issue_type in ISSUE_TYPES.values() if not is_expected_filtered(issue_type)]
-        issue_type_config = IssueTypeConfig('-PreprocessorError')
+        issue_type_config = IssueTypeConfig('-PreprocessorError', ISSUE_TYPES)
         actual_issue_types = issue_type_config.filter_issue_types(ISSUE_TYPES)
         self.assertEqual(set(expected_issue_types), set(actual_issue_types))
 
