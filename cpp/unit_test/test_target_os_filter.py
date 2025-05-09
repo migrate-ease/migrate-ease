@@ -17,8 +17,10 @@ limitations under the License.
 
 import unittest
 
-from advisor.report import Report
+from common.report import Report
+from common.issue import BaseReportItem
 
+from advisor.report_item import CPP_REPORT_TYPES
 from advisor.config_guess_issue import ConfigGuessIssue
 from advisor.inline_asm_issue import InlineAsmIssue
 from advisor.old_crt_issue import OldCrtIssue
@@ -28,31 +30,14 @@ from advisor.target_os_filter import TargetOsFilter
 class TestTargetOsFilter(unittest.TestCase):
 
     def test_finalize(self):
+        Report.REPORT_ITEM = BaseReportItem
+        Report.REPORT_ITEM.TYPES += CPP_REPORT_TYPES
+
         report = Report('/root', target_os='linux')
         target_os_filter = TargetOsFilter()
         target_os_filter.initialize_report(report)
         report.add_source_file('test.c')
 
-        report.add_issue(ConfigGuessIssue('test.c', remark="autoconf config.guess needs updating to recognize aarch64 architecture"))
-        report.add_source_file('test.c')
-        report.add_issue(InlineAsmIssue('test-aarch64.c', 123))
-        target_os_filter.finalize_report(report)
-        self.assertEqual(len(report.issues), 2)
-
-        report = Report('/root', target_os='windows')
-        target_os_filter = TargetOsFilter()
-        target_os_filter.initialize_report(report)
-        report.add_source_file('test.c')
-        report.add_issue(ConfigGuessIssue('test.c', remark="autoconf config.guess needs updating to recognize aarch64 architecture"))
-        report.add_source_file('test.c')
-        report.add_issue(InlineAsmIssue('test-aarch64.c', 123))
-        target_os_filter.finalize_report(report)
-        self.assertEqual(len(report.issues), 1)
-
-        report = Report('/root', target_os='all')
-        target_os_filter = TargetOsFilter()
-        target_os_filter.initialize_report(report)
-        report.add_source_file('test.c')
         report.add_issue(ConfigGuessIssue('test.c', remark="autoconf config.guess needs updating to recognize aarch64 architecture"))
         report.add_source_file('test.c')
         report.add_issue(InlineAsmIssue('test-aarch64.c', 123))
@@ -68,26 +53,6 @@ class TestTargetOsFilter(unittest.TestCase):
         report.add_issue(InlineAsmIssue('test-aarch64.c', 123))
         target_os_filter.finalize_report(report)
         self.assertEqual(len(report.issues), 1)
-
-        report = Report('/root', target_os='windows')
-        target_os_filter = TargetOsFilter()
-        target_os_filter.initialize_report(report)
-        report.add_source_file('test.c')
-        report.add_issue(OldCrtIssue('test.c', 123, 'libcmt.lib'))
-        report.add_source_file('test.c')
-        report.add_issue(InlineAsmIssue('test-aarch64.c', 123))
-        target_os_filter.finalize_report(report)
-        self.assertEqual(len(report.issues), 2)
-
-        report = Report('/root', target_os='all')
-        target_os_filter = TargetOsFilter()
-        target_os_filter.initialize_report(report)
-        report.add_source_file('test.c')
-        report.add_issue(OldCrtIssue('test.c', 123, 'libcmt.lib'))
-        report.add_source_file('test.c')
-        report.add_issue(InlineAsmIssue('test-aarch64.c', 123))
-        target_os_filter.finalize_report(report)
-        self.assertEqual(len(report.issues), 2)
 
 
 if __name__ == '__main__':

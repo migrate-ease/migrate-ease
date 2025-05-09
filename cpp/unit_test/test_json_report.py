@@ -20,21 +20,26 @@ import json
 import tempfile
 import unittest
 
-from advisor.issue_type_config import IssueTypeConfig
-from advisor.json_report import JsonReport
-from advisor.report_factory import ReportOutputFormat
+from common.issue_type_config import IssueTypeConfig
+from common.json_report import JsonReport
+from common.report_factory import ReportOutputFormat
+from common.report import Report
+from common.issue import BaseReportItem
 
 from advisor.arm64_config_guess_scanner import Arm64ConfigGuessScanner
 from advisor.arm64_source_scanner import Arm64SourceScanner
+from advisor.report_item import CPP_REPORT_TYPES
 
 
 class TestJsonReport(unittest.TestCase):
 
     def test_output(self):
-        config_guess_scanner = Arm64ConfigGuessScanner()
-        source_scanner = Arm64SourceScanner(ReportOutputFormat.JSON, arch='arm64')
+        config_guess_scanner = Arm64ConfigGuessScanner(ReportOutputFormat.JSON, arch='aarch64', march='')
+        source_scanner = Arm64SourceScanner(ReportOutputFormat.JSON, arch='aarch64', march='', compiler='gcc', warning_level='L1')
 
         issue_type_config = IssueTypeConfig()
+        Report.REPORT_ITEM = BaseReportItem
+        Report.REPORT_ITEM.TYPES += CPP_REPORT_TYPES
         report = JsonReport('/root', issue_type_config=issue_type_config)
 
         report.add_source_file('/root/src/test_inline_asm.c')
@@ -102,9 +107,12 @@ class TestJsonReport(unittest.TestCase):
 
     def test_issue_count_equals_zero(self):
 
-        source_scanner = Arm64SourceScanner(ReportOutputFormat.JSON, arch='arm64')
+        source_scanner = Arm64SourceScanner(ReportOutputFormat.JSON, arch='aarch64', march='', compiler='gcc', warning_level='L1')
 
         issue_type_config = IssueTypeConfig()
+        Report.REPORT_ITEM = BaseReportItem
+        Report.REPORT_ITEM.TYPES += CPP_REPORT_TYPES
+        JsonReport.lang = 'cpp'
         report = JsonReport('/root', issue_type_config=issue_type_config)
 
         report.add_source_file('/root/src/test.c')

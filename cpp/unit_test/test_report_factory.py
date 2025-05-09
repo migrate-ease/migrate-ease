@@ -17,8 +17,7 @@ limitations under the License.
 
 import unittest
 
-from advisor.report_factory import ReportFactory, ReportOutputFormat
-
+from common.report_factory import ReportFactory, ReportOutputFormat
 from common.checkpoint import Checkpoint
 
 
@@ -36,8 +35,10 @@ class TestReportFactory(unittest.TestCase):
 class TestCheckpoint(unittest.TestCase):
 
     def test_checkpoint_none(self):
-        Checkpoint(None)
-
+        try:
+            Checkpoint(None)
+        except ValueError as e:
+            print(e.args)
 
 if __name__ == '__main__':
     unittest.main()

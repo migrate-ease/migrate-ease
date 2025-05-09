@@ -16,14 +16,15 @@ limitations under the License.
 """
 
 from common.localization import _
-from .report_item import ReportItem
+from common.issue import Issue
+from .report_item import PORTED_SOURCE_FILES_REMARK
 
 
-class PortedSourceFilesRemark(ReportItem):
+class PortedSourceFilesRemark(Issue):
 
     def __init__(self, ported_source_files):
 
         description = _("%d source files are already ported to aarch64") % ported_source_files
 
         super().__init__(description=description,
-                         issue_type=ReportItem.PORTED_SOURCE_FILES_REMARK)
+                         issue_type=PORTED_SOURCE_FILES_REMARK)

@@ -16,10 +16,10 @@ limitations under the License.
 """
 
 from common.localization import _
-from .report_item import ReportItem
+from common.issue import BaseReportItem
 
 
-class OtherIssues(ReportItem):
+class OtherIssues(BaseReportItem):
 
     def __init__(self, filename, count):
 
@@ -27,4 +27,4 @@ class OtherIssues(ReportItem):
 
         super().__init__(description=description,
                          filename=filename,
-                         issue_type=ReportItem.OTHER)
+                         issue_type=BaseReportItem.OTHER)
