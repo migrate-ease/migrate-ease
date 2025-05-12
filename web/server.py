@@ -27,6 +27,7 @@ import zipfile
 import uuid
 import git
 import shutil
+import argparse
 from werkzeug.utils import secure_filename
 from threading import Thread
 from datetime import datetime
@@ -276,4 +277,7 @@ def download_report():
     return send_file(zip_filename, as_attachment=True, download_name="report.zip")
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=80, debug=True)
+    parser = argparse.ArgumentParser(description='Migrate-ease Web UI server')
+    parser.add_argument('--port', type=int, default=8080, help='Port to run the server on (default: 8080)')
+    args = parser.parse_args()
+    app.run(host='0.0.0.0', port=args.port, debug=True)
