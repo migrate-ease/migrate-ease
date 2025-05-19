@@ -70,7 +70,7 @@ class HtmlReport(Report):
             file_summary=self.SCANNER.FILE_SUMMARY,
             file_sum_count=count,
             date=datetime.datetime.now().strftime("%Y-%m-%d at %H:%M:%S"),
-            arch=self.arch,
+            march=self.march,
             quiet=self.quiet,
             progress=self.progress,
             output=self.output,

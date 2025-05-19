@@ -29,12 +29,12 @@ from advisor.arm64_config_guess_scanner import Arm64ConfigGuessScanner
 class TestConfigGuessScanner(unittest.TestCase):
 
     def test_accepts_file_arm64(self):
-        config_guess_scanner = Arm64ConfigGuessScanner(ReportOutputFormat.JSON, arch='aarch64', march='')
+        config_guess_scanner = Arm64ConfigGuessScanner(ReportOutputFormat.JSON, march='armv8-a')
         self.assertFalse(config_guess_scanner.accepts_file('test'))
         self.assertTrue(config_guess_scanner.accepts_file('config.guess'))
 
     def test_scan_file_object_arm64(self):
-        config_guess_scanner = Arm64ConfigGuessScanner(ReportOutputFormat.JSON, arch='aarch64', march='')
+        config_guess_scanner = Arm64ConfigGuessScanner(ReportOutputFormat.JSON, march='armv8-a')
 
         Report.REPORT_ITEM = BaseReportItem
         Report.REPORT_ITEM.TYPES += CPP_REPORT_TYPES

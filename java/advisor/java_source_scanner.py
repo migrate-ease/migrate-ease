@@ -19,7 +19,6 @@ import re
 from collections import defaultdict
 
 from common.localization import _
-from common.arch_strings import AARCH64_ARCHS
 from common.report_factory import ReportOutputFormat
 
 from .java_scanner import JavaScanner
@@ -30,13 +29,12 @@ class JavaSourceScanner(JavaScanner):
 
     JAVA_SOURCE_EXTENSION = ['.java']
 
-    def __init__(self, output_format, arch, march):
+    def __init__(self, output_format, march):
         self.output_format = output_format
-        self.arch = arch
         self.march = march
 
         self.with_highlights = bool(
-            output_format == ReportOutputFormat.HTML or self.output_format == ReportOutputFormat.JSON)
+            self.output_format == ReportOutputFormat.HTML or self.output_format == ReportOutputFormat.JSON)
 
     def accepts_file(self, filename):
 
@@ -100,7 +98,7 @@ class JavaSourceScanner(JavaScanner):
                     if pattern.search(line) and not line_number in comment_loc:
                         issues.append(JavaSourceIssue(filename,
                                             lineno=line_number,
-                                            arch=self.arch,
+                                            march=self.march,
                                             checkpoint=pattern.pattern)
                                             )
                         break  # Stop checking other patterns for this line

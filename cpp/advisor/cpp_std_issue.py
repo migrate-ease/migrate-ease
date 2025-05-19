@@ -22,7 +22,7 @@ from .report_item import CPP_STD_CODES
 
 class CPPStdCodesIssue(Issue):
 
-    def __init__(self, filename, lineno, arch=None, intrinsic=None, item_type=CPP_STD_CODES, checkpoint=None, description=None):
+    def __init__(self, filename, lineno, march=None, intrinsic=None, item_type=CPP_STD_CODES, checkpoint=None, description=None):
 
         if not description:
             description = _("cpp standard language check")

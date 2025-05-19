@@ -21,9 +21,8 @@ from lxml import etree
 
 
 from common.localization import _ as i18n
-from common.arch_strings import AARCH64_ARCHS
 from common.report_factory import ReportOutputFormat
-from common.checkpoint import init_checkpoints
+from common.checkpoint import init_checkpoints, Checkpoint
 
 from .java_scanner import JavaScanner
 from .java_pom_issue import JavaPomIssue
@@ -32,13 +31,12 @@ class JavaPomScanner(JavaScanner):
 
     AARCH64_INCOMPATILE_ARTIFACTS = []
 
-    def __init__(self, output_format, arch, march):
+    def __init__(self, output_format, march):
         self.output_format = output_format
-        self.arch = arch
         self.march = march
 
         self.with_highlights = bool(
-            output_format == ReportOutputFormat.HTML or self.output_format == ReportOutputFormat.JSON)
+            self.output_format == ReportOutputFormat.HTML or self.output_format == ReportOutputFormat.JSON)
         self.load_checkpoints()
 
     def accepts_file(self, filename):

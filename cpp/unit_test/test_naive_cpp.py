@@ -22,18 +22,18 @@ from advisor.naive_cpp import *
 
 class TestNaiveCpp(unittest.TestCase):
     def setUp(self):
-        self.arch = 'arm64'
+        self.march = 'armv8-a'
 
     def tearDown(self):
         pass
 
     def test_parse_line_arch(self):
         try:
-            naive_cpp = NaiveCpp(arch="unknown_arch")
+            naive_cpp = NaiveCpp(march="unknown_arch")
         except RuntimeError as e:
             print(e.args)
 
-        naive_cpp = NaiveCpp(arch=self.arch)
+        naive_cpp = NaiveCpp(march=self.march)
         naive_cpp.parse_line('/* a comment */')
         self.assertFalse(naive_cpp.in_arch_specific_code())
 
@@ -318,23 +318,23 @@ class TestNaiveCpp(unittest.TestCase):
         self.assertFalse(naive_cpp.in_other_arch_specific_code())
 
     def test_in_compiler_specific_code(self):
-        naive_cpp = NaiveCpp(arch=self.arch)
+        naive_cpp = NaiveCpp(march=self.march)
         naive_cpp.parse_line('#ifdef __INTEL_COMPILER\n\tto_words[0] = from_words[0]\n#else')
         self.assertTrue(naive_cpp.in_compiler_specific_code())
 
-        naive_cpp = NaiveCpp(arch=self.arch)
+        naive_cpp = NaiveCpp(march=self.march)
         naive_cpp.parse_line('#ifdef xxx')
         self.assertFalse(naive_cpp.in_compiler_specific_code())
 
     def test_parse_line_pragma(self):
-        naive_cpp = NaiveCpp(arch=self.arch)
+        naive_cpp = NaiveCpp(march=self.march)
 
         result = naive_cpp.parse_line('#pragma simd foo')
         self.assertEqual(result.directive_type,
                          PreprocessorDirective.TYPE_PRAGMA)
 
     def test_parse_line_error(self):
-        naive_cpp = NaiveCpp(arch=self.arch)
+        naive_cpp = NaiveCpp(march=self.march)
 
         result = naive_cpp.parse_line('#error foo')
         self.assertEqual(result.directive_type,
@@ -379,7 +379,7 @@ class TestNaiveCpp(unittest.TestCase):
         self.assertIsNone(match)
 
     def test_macro_body(self):
-        naive_cpp = NaiveCpp(arch=self.arch)
+        naive_cpp = NaiveCpp(march=self.march)
 
         result = naive_cpp.parse_line('#define MACRO BODY')
         self.assertEqual(result.directive_type,
@@ -394,7 +394,7 @@ class TestNaiveCpp(unittest.TestCase):
         self.assertEqual(result.body, 'BODY')
 
     def test_parse_line_if_else(self):
-        naive_cpp = NaiveCpp(arch=self.arch)
+        naive_cpp = NaiveCpp(march=self.march)
 
         naive_cpp.parse_line('/* a comment */')
         self.assertFalse(naive_cpp.in_arch_specific_code())
@@ -427,7 +427,7 @@ class TestNaiveCpp(unittest.TestCase):
         self.assertFalse(naive_cpp.in_other_arch_else_code())
 
     def test_parse_line_if_elif_else(self):
-        naive_cpp = NaiveCpp(arch=self.arch)
+        naive_cpp = NaiveCpp(march=self.march)
 
         naive_cpp.parse_line('/* a comment */')
         self.assertFalse(naive_cpp.in_arch_specific_code())
@@ -470,7 +470,7 @@ class TestNaiveCpp(unittest.TestCase):
         self.assertFalse(naive_cpp.in_other_arch_else_code())
 
     def test_parse_line_if_elif_elif_else(self):
-        naive_cpp = NaiveCpp(arch=self.arch)
+        naive_cpp = NaiveCpp(march=self.march)
 
         naive_cpp.parse_line('/* a comment */')
         self.assertFalse(naive_cpp.in_arch_specific_code())

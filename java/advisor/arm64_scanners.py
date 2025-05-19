@@ -27,16 +27,16 @@ class Arm64Scanners:
     files from x86_64 processors to aarch64 processors.
     """
 
-    def __init__(self, issue_type_config, output_format, arch, march):
+    def __init__(self, issue_type_config, output_format, march):
         """
         Args:
             issue_type_config (IssueTypeConfig): issue type filter
             configuration.
         """
         self.scanners = [
-                         Arm64JarScanner(output_format=output_format, arch=arch, march=march),
-                         Arm64PomScanner(output_format=output_format, arch=arch, march=march),
-                         Arm64JavaSourceScanner(output_format=output_format, arch=arch, march=march)
+                         Arm64JarScanner(output_format=output_format, march=march),
+                         Arm64PomScanner(output_format=output_format, march=march),
+                         Arm64JavaSourceScanner(output_format=output_format, march=march)
                         ]
 
         self.filters = []

@@ -24,13 +24,13 @@ class RustLinkLibraryIssue(Issue):
     def __init__(self,
                  filename,
                  lineno=None,
-                 arch=None,
+                 march=None,
                  issue_type=RUST_LINKLIBRARY,
                  checkpoint=None,
                  description=None):
 
         if not description:
-            description = _("Rust Link Library: %s not support on arch: %s") % (filename, arch)
+            description = _("Rust Link Library: %s not support on target processor architecture: %s") % (filename, march)
 
         super().__init__(description=description,
                          filename=filename,

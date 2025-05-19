@@ -22,10 +22,10 @@ from .report_item import PYTHON_LINKLIBRARY
 
 class PythonLinkLibraryIssue(Issue):
 
-    def __init__(self, filename, lineno=None, arch=None, issue_type=PYTHON_LINKLIBRARY, checkpoint=None, description=None):
+    def __init__(self, filename, lineno=None, march=None, issue_type=PYTHON_LINKLIBRARY, checkpoint=None, description=None):
 
         if not description:
-            description = _("Python Link Library: %s not support on arch: %s") % (filename, arch)
+            description = _("Python Link Library: %s not support on taget processor architecture: %s") % (filename, march)
 
         super().__init__(description=description,
                          filename=filename,

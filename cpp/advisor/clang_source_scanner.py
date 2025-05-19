@@ -65,28 +65,29 @@ class ClangSourceScanner(CppScanner):
 
     inlineAsm_pattern = re.compile(r'\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+[_]*goto[_]*)?')
 
-    def __init__(self, output_format, arch, march, compiler='gcc', warning_level='L1'):
+    def __init__(self, output_format, march, compiler='gcc', warning_level='L1'):
         self.output_format = output_format
-        self.arch = arch
         self.march = march
         self.compiler = compiler
         self.warning_level = warning_level
         self.check_state = True
 
         self.with_highlights = bool(
-            output_format == ReportOutputFormat.HTML or self.output_format == ReportOutputFormat.JSON)
+            self.output_format == ReportOutputFormat.HTML or self.output_format == ReportOutputFormat.JSON)
 
-        if self.arch == N2_MARCH or self.arch == AARCH64_ARCH:
-            if self.arch == N2_MARCH:
-                json_file = 'macros_n2.json'
+        if self.march in SUPPORTED_MARCH:
+            if self.march == ARMV8_6_SVE2:
+                json_file = 'macros_armv8.6-a+sve2.json'
             else:
-                json_file= 'macros_aarch64.json'
+                json_file= 'macros_armv8-a.json'
             cur_dir = os.path.dirname(__file__)
             re_path = os.path.join('..', 'db', json_file)
             path = os.path.join(cur_dir, re_path)
             with open(path) as file:
                 macros = json.load(file)
                 self.macros = macros[self.compiler]
+        else:
+            raise RuntimeError('unknown target processor architecuture: %s.' % self.march)
 
         self.load_checkpoints()
         self.set_checkpoints()
@@ -132,18 +133,12 @@ class ClangSourceScanner(CppScanner):
         print('[C/C++] Initialization of checkpoints took %f seconds.' % (end_time - start_time))
 
     def set_checkpoints(self):
-        if self.arch in AARCH64_ARCHS:
-            if self.compiler == 'gcc':
-                self.INCOMPATIBLE_INTRINSICS = self.AARCH64_GCC_INCOMPATIBLE_INTRINSICS
-            else:
-                self.INCOMPATIBLE_INTRINSICS = self.AARCH64_CLANG_INCOMPATIBLE_INTRINSICS
-            self.ASSEMBLY_CHECKPOINTS = self.AARCH64_INLINE_ASSEMBLY_CHECKPOINTS
-            self.PRAGMA_CHECKPOINTS = self.X86_PRAGMA
-
+        if self.compiler == 'gcc':
+            self.INCOMPATIBLE_INTRINSICS = self.AARCH64_GCC_INCOMPATIBLE_INTRINSICS
         else:
-            self.INCOMPATIBLE_INTRINSICS = None
-            self.ASSEMBLY_CHECKPOINTS = None
-            self.PRAGMA_CHECKPOINTS = None
+            self.INCOMPATIBLE_INTRINSICS = self.AARCH64_CLANG_INCOMPATIBLE_INTRINSICS
+        self.ASSEMBLY_CHECKPOINTS = self.AARCH64_INLINE_ASSEMBLY_CHECKPOINTS
+        self.PRAGMA_CHECKPOINTS = self.X86_PRAGMA
 
     def accepts_file(self, filename):
 
@@ -169,12 +164,8 @@ class ClangSourceScanner(CppScanner):
         comment_parser = NaiveCommentParser()
         function_parser = NaiveFunctionParser()
 
-        # migration to N2 need to pass the additional information
-        if self.arch == N2_MARCH or self.arch == AARCH64_ARCH:
-            naive_cpp = NaiveCpp(arch=self.arch, march=self.march, macros=self.macros,
+        naive_cpp = NaiveCpp(march=self.march, macros=self.macros,
                                  warning_level=self.warning_level)
-        else:
-            naive_cpp = NaiveCpp(arch=self.arch, march=self.march)
 
         issues: List[Issue] = []
         lines = {lineno: line for lineno, line in enumerate(_lines, 1)}
@@ -313,7 +304,7 @@ class ClangSourceScanner(CppScanner):
             if match:
                 issues.append(IntrinsicIssue(filename,
                                              lineno=joined_lineno,
-                                             arch=self.arch,
+                                             march=self.march,
                                              intrinsic=match.string.strip(),
                                              checkpoint=c.pattern,
                                              description='' if not c.help else '\n' + c.help))

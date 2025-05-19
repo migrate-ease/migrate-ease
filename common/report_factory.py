@@ -58,7 +58,6 @@ class ReportFactory:
 
     def createReport(self,
                      root_directory,
-                     arch=None,
                      march=None,
                      target_os=None,
                      output=None,
@@ -84,7 +83,6 @@ class ReportFactory:
             report = HtmlReport(root_directory,
                                 quiet=quiet,
                                 progress=progress,
-                                arch=arch,
                                 march=march,
                                 output=output,
                                 target_os=target_os,
@@ -95,7 +93,6 @@ class ReportFactory:
 
         elif output_format == ReportOutputFormat.JSON:
             report = JsonReport(root_directory,
-                                arch=arch,
                                 march=march,
                                 target_os=target_os,
                                 issue_type_config=issue_type_config,

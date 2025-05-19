@@ -22,10 +22,10 @@ from .report_item import GOLANG_LINKLIBRARY
 
 class GolangLinkLibraryIssue(Issue):
 
-    def __init__(self, filename, lineno=None, arch=None, issue_type=GOLANG_LINKLIBRARY, checkpoint=None, description=None):
+    def __init__(self, filename, lineno=None, march=None, issue_type=GOLANG_LINKLIBRARY, checkpoint=None, description=None):
 
         if not description:
-            description = _("Golang Link Library: %s not support on arch: %s") % (filename, arch)
+            description = _("Golang Link Library: %s not support on target precessor architecture: %s") % (filename, march)
 
         super().__init__(description=description,
                          filename=filename,

@@ -32,13 +32,12 @@ class RustLinkLibraryScanner(RustScanner):
 
     SO_RE = re.compile(r'.*[.](so)[.]?')
 
-    def __init__(self, output_format, arch, march):
+    def __init__(self, output_format, march):
         self.output_format = output_format
-        self.arch = arch
         self.march = march
 
         self.with_highlights = bool(
-            output_format == ReportOutputFormat.HTML or self.output_format == ReportOutputFormat.JSON)
+            self.output_format == ReportOutputFormat.HTML or self.output_format == ReportOutputFormat.JSON)
 
     def accepts_file(self, filename):
 
@@ -60,7 +59,7 @@ class RustLinkLibraryScanner(RustScanner):
 
     def scan_file_arch(self, match, file_arch):
 
-        if self.arch in AARCH64_ARCHS:
+        if self.march in SUPPORTED_MARCH:
             if file_arch not in self.__class__.EM_AARCH64:
                 match = True
 
@@ -91,7 +90,7 @@ class RustLinkLibraryScanner(RustScanner):
             match = self.scan_file_arch(match, file_arch)
             if match:
                 issues.append(RustLinkLibraryIssue(filename=filename,
-                                                   arch=self.arch,
+                                                   march=self.march,
                                                    lineno=0,
                                                    checkpoint=None))
 
@@ -110,7 +109,7 @@ class RustLinkLibraryScanner(RustScanner):
                 match = self.scan_file_arch(match, file_arch)
                 if match:
                     issues.append(RustLinkLibraryIssue(filename=filename,
-                                                       arch=self.arch,
+                                                       march=self.march,
                                                        lineno=0,
                                                        checkpoint=None))
                     break

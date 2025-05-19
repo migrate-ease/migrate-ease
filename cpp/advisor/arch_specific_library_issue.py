@@ -22,12 +22,12 @@ from .report_item import ARCH_SPECIFIC_LIBRARY
 
 class ArchSpecificLibraryIssue(Issue):
 
-    def __init__(self, filename, lineno, lib_name, arch=None):
+    def __init__(self, filename, lineno, lib_name, march=None):
 
-        if not arch:
+        if not march:
             description = _("architecture-specific library is not available: lib%s") % lib_name
         else:
-            description = _("architecture-specific library is not available on %s: lib%s") % (arch, lib_name)
+            description = _("architecture-specific library is not available on %s: lib%s") % (march, lib_name)
 
         super().__init__(description=description,
                          filename=filename,

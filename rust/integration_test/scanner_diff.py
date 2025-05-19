@@ -43,7 +43,7 @@ parser.add_argument("--json-report",
                     default=None)
 
 parser.add_argument("--test-dir",
-                    metavar="test_aarch64",
+                    metavar="test_armv8-a",
                     help='the record of test dir.',
                     default=None)
 

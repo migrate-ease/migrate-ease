@@ -25,7 +25,7 @@ class IncompatibleHeaderFileIssue(Issue):
     def __init__(self,
                  filename,
                  lineno,
-                 arch=None,
+                 march=None,
                  intrinsic=None,
                  item_type=INTRINSIC,
                  checkpoint=None,

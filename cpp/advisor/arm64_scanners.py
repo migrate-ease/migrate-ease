@@ -29,17 +29,17 @@ class Arm64Scanners:
     files from x86 Intel processors to aarch64 processors.
     """
 
-    def __init__(self, issue_type_config, output_format, arch, march, compiler, warning_level):
+    def __init__(self, issue_type_config, output_format, march, compiler, warning_level):
         """
         Args:
             issue_type_config (IssueTypeConfig): issue type filter
             configuration.
         """
-        self.scanners = [Arm64SourceScanner(output_format=output_format, arch=arch, march=march,
+        self.scanners = [Arm64SourceScanner(output_format=output_format, march=march,
                                             compiler=compiler, warning_level=warning_level),
-                         Arm64MakefileScanner(output_format=output_format, arch=arch, march=march),
-                         Arm64AsmSourceScanner(output_format=output_format, arch=arch, march=march),
-                         Arm64ConfigGuessScanner(output_format=output_format, arch=arch, march=march)]
+                         Arm64MakefileScanner(output_format=output_format, march=march),
+                         Arm64AsmSourceScanner(output_format=output_format, march=march),
+                         Arm64ConfigGuessScanner(output_format=output_format, march=march)]
 
         self.filters = []
         self.filters += [IssueTypeFilter(issue_type_config),

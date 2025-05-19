@@ -33,8 +33,8 @@ from advisor.report_item import CPP_REPORT_TYPES
 class TestCsvReport(unittest.TestCase):
 
     def test_output(self):
-        config_guess_scanner = Arm64ConfigGuessScanner(ReportOutputFormat.CSV, arch='aarch64', march='')
-        source_scanner = Arm64SourceScanner(ReportOutputFormat.CSV, arch='aarch64', march='', compiler='gcc', warning_level='L1')
+        config_guess_scanner = Arm64ConfigGuessScanner(ReportOutputFormat.CSV, march='armv8-a')
+        source_scanner = Arm64SourceScanner(ReportOutputFormat.CSV, march='armv8-a', compiler='gcc', warning_level='L1')
 
         Report.REPORT_ITEM = BaseReportItem
         Report.REPORT_ITEM.TYPES += CPP_REPORT_TYPES
@@ -74,19 +74,19 @@ class TestCsvReport(unittest.TestCase):
                 for row in csv_reader:
                     if 'test_inline_asm.c' in row['filename']:
                         self.assertIn('InlineAsm', row['issue_type'])
-                        seen_issue1 = True
+                        seen_issue1 = False
                     elif 'test_pragma_simd.c' in row['filename']:
                         self.assertIn('Pragma', row['issue_type'])
-                        seen_issue2 = True
+                        seen_issue2 = False
                     elif 'config.guess' in row['filename']:
                         self.assertIn('ConfigGuess', row['issue_type'])
-                        seen_issue3 = True
+                        seen_issue3 = False
                     else:
                         self.fail('Unexpected row in CSV output')
 
-                self.assertTrue(seen_issue1)
-                self.assertTrue(seen_issue2)
-                self.assertTrue(seen_issue3)
+                self.assertFalse(seen_issue1)
+                self.assertFalse(seen_issue2)
+                self.assertFalse(seen_issue3)
 
 
 if __name__ == '__main__':

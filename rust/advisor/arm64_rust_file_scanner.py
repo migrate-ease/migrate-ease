@@ -24,8 +24,7 @@ class Arm64RustFileScanner(RustFileScanner):
     porting issues.
     """
 
-    def __init__(self, output_format, arch, march):
+    def __init__(self, output_format, march):
 
         super().__init__(output_format=output_format,
-                         arch=arch,
                          march=march)

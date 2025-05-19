@@ -17,7 +17,7 @@ import os
 import re
 import time
 
-from common.arch_strings import AARCH64_ARCHS
+from common.arch_strings import SUPPORTED_MARCH
 from common.checkpoint import Checkpoint, init_checkpoints
 from common.continuation_parser import ContinuationParser
 from common.find_port import find_matching_line_num
@@ -40,13 +40,12 @@ class AsmFileScanner(GoScanner):
 
     AARCH64_INCOMPATIBLE_PLAN9_GOLANG_INTRINSICS = []
 
-    def __init__(self, output_format, arch, march):
+    def __init__(self, output_format, march):
         self.output_format = output_format
-        self.arch = arch
         self.march = march
 
         self.with_highlights = bool(
-            output_format == ReportOutputFormat.HTML or self.output_format == ReportOutputFormat.JSON)
+            self.output_format == ReportOutputFormat.HTML or self.output_format == ReportOutputFormat.JSON)
         self.load_checkpoints()
 
     def load_checkpoints(self):
@@ -84,7 +83,7 @@ class AsmFileScanner(GoScanner):
         issues = []  # type: List[Issue]
         lines = {}
 
-        if self.arch in AARCH64_ARCHS:
+        if self.march in SUPPORTED_MARCH:
 
             match_arch = self.__class__.AARCH64_NAME_RE.search(os.path.basename(filename))
             match_non_arch = self.__class__.NON_AARCH64_NAME_RE.search(os.path.basename(filename))
@@ -96,10 +95,10 @@ class AsmFileScanner(GoScanner):
 
         elif not match_arch and match_non_arch:
 
-            lines[0] = "File: " + filename + " is not supported on arch: " + self.arch
+            lines[0] = "File: " + filename + " is not supported on target processor architecture: " + self.amrch
 
             issues.append(AsmIssue(filename=filename,
-                                   arch=self.arch,
+                                   march=self.march,
                                    lineno=0,
                                    checkpoint=None,
                                    description=lines[0]))
@@ -127,7 +126,7 @@ class AsmFileScanner(GoScanner):
                         issues.append(AsmIssue(filename=filename,
                                                lineno=find_matching_line_num(lines, lineno, c.pattern),
                                                intrinsic=match.string.strip(),
-                                               arch=self.arch,
+                                               march=self.march,
                                                checkpoint=c.pattern,
                                                description='' if not c.help else '\n' + c.help))
 

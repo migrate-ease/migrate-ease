@@ -18,7 +18,7 @@ import os
 import re
 import time
 
-from common.arch_strings import AARCH64_ARCHS, NON_AARCH64_ARCHS
+from common.arch_strings import NON_AARCH64_ARCHS, SUPPORTED_MARCH
 from common.continuation_parser import ContinuationParser
 from common.naive_comment_parser import NaiveCommentParser
 from common.report_factory import ReportOutputFormat
@@ -42,13 +42,12 @@ class DockerfileScanner(DockerScanner):
 
     AARCH64_INCOMPATIBLE_EXTENSION_PACKAGES = []
 
-    def __init__(self, output_format, arch, march):
+    def __init__(self, output_format, march):
         self.output_format = output_format
-        self.arch = arch
         self.march = march
 
         self.with_highlights = bool(
-            output_format == ReportOutputFormat.HTML or self.output_format == ReportOutputFormat.JSON)
+            self.output_format == ReportOutputFormat.HTML or self.output_format == ReportOutputFormat.JSON)
         self.load_checkpoints()
 
     def load_checkpoints(self):
@@ -82,22 +81,17 @@ class DockerfileScanner(DockerScanner):
             self.FILE_SUMMARY[self.DOCKERFILE]['loc'] += len(_lines)
 
         continuation_parser = ContinuationParser()
-        naive_dockerfile = NaiveDockerfile(arch=self.arch, march=self.march)
+        naive_dockerfile = NaiveDockerfile(march=self.march)
         comment_parser = NaiveCommentParser()
 
-        if self.arch in AARCH64_ARCHS:
-
+        if self.march in SUPPORTED_MARCH:
             PACKAGE_CHECKPOINTS = self.AARCH64_INCOMPATIBLE_EXTENSION_PACKAGES
             ARCH_RE = self.NON_AARCH64_RE
-
         else:
-
-            PACKAGE_CHECKPOINTS = None
-            ARCH_RE = None
+            raise RuntimeError('unknown target processor architecuture: %s.' % self.march)
 
         issues = []  # type: List[Issue]
         lines = {}
-        match_cffi = ''
 
         for lineno, line in enumerate(_lines, 1):
             lines[lineno] = line
@@ -123,7 +117,7 @@ class DockerfileScanner(DockerScanner):
 
                 issues.append(ImageIssue(filename,
                                          lineno,
-                                         arch=self.arch,
+                                         march=self.march,
                                          image=parts,
                                          checkpoint=None))
 
@@ -137,7 +131,7 @@ class DockerfileScanner(DockerScanner):
                     if match:
                         issues.append(PluginIssue(filename,
                                                   lineno,
-                                                  arch=self.arch,
+                                                  march=self.march,
                                                   plugin=c.pattern,
                                                   checkpoint=c.pattern,
                                                   description='' if not c.help else '\n' + c.help))
@@ -149,7 +143,7 @@ class DockerfileScanner(DockerScanner):
                 if match:
                     issues.append(ConfigurationInfoIssue(filename,
                                                          lineno,
-                                                         arch=self.arch,
+                                                         march=self.march,
                                                          checkpoint=line,
                                                          description=None))
 

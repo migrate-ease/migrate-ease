@@ -31,7 +31,7 @@ from advisor.report_item import CPP_REPORT_TYPES
 
 class TestSourceScanner(unittest.TestCase):
     def setUp(self):
-        self.source_scanner = Arm64SourceScanner(output_format=ReportOutputFormat.HTML, arch='aarch64', march='', compiler='gcc', warning_level='L1')
+        self.source_scanner = Arm64SourceScanner(output_format=ReportOutputFormat.HTML, march='armv8-a', compiler='gcc', warning_level='L1')
 
     def tearDown(self):
         pass

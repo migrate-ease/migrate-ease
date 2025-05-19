@@ -29,7 +29,7 @@ from common.report_factory import ReportFactory, ReportOutputFormat
 
 def init_main(project, summary, version, ISSUE_TYPES):
     epilog = _('Target ISA Type:') + '\n' + \
-             textwrap.fill(('%s' % (','.join(AARCH64_ARCHS))),
+             textwrap.fill(('%s' % (','.join(SUPPORTED_MARCH))),
                            initial_indent='  ',
                            subsequent_indent='  ') + '\n\n' + \
              _('Use:') + '\n' + \
@@ -72,13 +72,9 @@ def init_main(project, summary, version, ISSUE_TYPES):
                         help=_('git repository code commit id (default: HEAD).'),
                         default=None)
 
-    parser.add_argument('--arch',
-                        help=_('target instruction set architecture (default: %s).') % DEFAULT_ARCH,
-                        default=DEFAULT_ARCH)
-
     parser.add_argument('--march',
-                        help=_('target microarchitecture name, required when arch is x86 (default: None).'),
-                        default=None)
+                        help=_('the target processor architecture (default: %s).') % DEFAULT_ARCH,
+                        default=DEFAULT_ARCH)
 
     parser.add_argument('--target-os',
                         help=_(
@@ -119,9 +115,10 @@ def init_main(project, summary, version, ISSUE_TYPES):
 
 
 def check(args):
-    if not args.arch in AARCH64_ARCHS:
-        print(_('unknown/unsupported arch: %s') % args.arch,
+    if not args.march in SUPPORTED_MARCH:
+        print(_('unknown/unsupported processor archtecture: %s') % args.march,
               file=sys.stderr)
+        print(_('supported architectures: %s') % SUPPORTED_MARCH, file=sys.stderr)
         sys.exit(1)
 
     if args.target_os not in SUPPORTED_OS:
