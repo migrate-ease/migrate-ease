@@ -34,8 +34,8 @@ from advisor.report_item import CPP_REPORT_TYPES
 class TestJsonReport(unittest.TestCase):
 
     def test_output(self):
-        config_guess_scanner = Arm64ConfigGuessScanner(ReportOutputFormat.JSON, arch='aarch64', march='')
-        source_scanner = Arm64SourceScanner(ReportOutputFormat.JSON, arch='aarch64', march='', compiler='gcc', warning_level='L1')
+        config_guess_scanner = Arm64ConfigGuessScanner(ReportOutputFormat.JSON, march='armv8-a')
+        source_scanner = Arm64SourceScanner(ReportOutputFormat.JSON, march='armv8-a', compiler='gcc', warning_level='L1')
 
         issue_type_config = IssueTypeConfig()
         Report.REPORT_ITEM = BaseReportItem
@@ -107,7 +107,7 @@ class TestJsonReport(unittest.TestCase):
 
     def test_issue_count_equals_zero(self):
 
-        source_scanner = Arm64SourceScanner(ReportOutputFormat.JSON, arch='aarch64', march='', compiler='gcc', warning_level='L1')
+        source_scanner = Arm64SourceScanner(ReportOutputFormat.JSON, march='armv8-a', compiler='gcc', warning_level='L1')
 
         issue_type_config = IssueTypeConfig()
         Report.REPORT_ITEM = BaseReportItem

@@ -33,7 +33,7 @@ from advisor.report_item import CPP_REPORT_TYPES
 class TestCsvIssueTypeCountByFileReport(unittest.TestCase):
 
     def test_output(self):
-        source_scanner = Arm64SourceScanner(ReportOutputFormat.CSV_ISSUE_TYPE_COUNT_BY_FILE, arch='aarch64', march='', compiler='gcc', warning_level='L1')
+        source_scanner = Arm64SourceScanner(ReportOutputFormat.CSV_ISSUE_TYPE_COUNT_BY_FILE, march='armv8-a', compiler='gcc', warning_level='L1')
 
         issue_type_config = IssueTypeConfig()
         Report.REPORT_ITEM = BaseReportItem

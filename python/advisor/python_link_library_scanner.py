@@ -15,7 +15,7 @@ limitations under the License.
 """
 import re
 
-from common.arch_strings import AARCH64_ARCHS
+from common.arch_strings import SUPPORTED_MARCH
 from common.binary_tools import *
 from common.report_factory import ReportOutputFormat
 from .python_link_library_issue import PythonLinkLibraryIssue
@@ -33,13 +33,11 @@ class PythonLinkLibraryScanner(PythonScanner):
     SO_RE = re.compile(r'.*[.](so)[.]?')
 
 
-    def __init__(self, output_format, arch, march):
+    def __init__(self, output_format, march):
         self.output_format = output_format
-        self.arch = arch
         self.march = march
-
         self.with_highlights = bool(
-            output_format == ReportOutputFormat.HTML or self.output_format == ReportOutputFormat.JSON)
+            self.output_format == ReportOutputFormat.HTML or output_format == ReportOutputFormat.JSON)
 
     def accepts_file(self, filename):
 
@@ -58,7 +56,7 @@ class PythonLinkLibraryScanner(PythonScanner):
 
     def scan_file_arch(self, match, file_arch):
 
-        if self.arch in AARCH64_ARCHS:
+        if self.march in SUPPORTED_MARCH:
             if file_arch not in self.__class__.EM_AARCH64:
                 match = True
 
@@ -89,7 +87,7 @@ class PythonLinkLibraryScanner(PythonScanner):
             match = self.scan_file_arch(match, file_arch)
             if match:
                 issues.append(PythonLinkLibraryIssue(filename=filename,
-                                                     arch=self.arch,
+                                                     march=self.march,
                                                      lineno=0,
                                                      checkpoint=None))
 
@@ -108,7 +106,7 @@ class PythonLinkLibraryScanner(PythonScanner):
                 match = self.scan_file_arch(match, file_arch)
                 if match:
                     issues.append(PythonLinkLibraryIssue(filename=filename,
-                                                         arch=self.arch,
+                                                         march=self.march,
                                                          lineno=0,
                                                          checkpoint=None))
                     break

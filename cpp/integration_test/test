@@ -32,7 +32,7 @@ for test_folder in test_*/; do
                     echo "running test for warning-level $level-$compiler"
                     python3 "$main_dir"/__main__.py --output-format json \
                         --output "./$test_folder/$level-$compiler/$arch.json" \
-                        --arch "$arch" --warning-level "$level" \
+                        --march "$arch" --warning-level "$level" \
                         --target-compiler "$compiler" "./$test_folder/$level-$compiler"
                     if [[ $? -eq 0 ]]; then
                         echo "running scanner diff"
@@ -45,7 +45,7 @@ for test_folder in test_*/; do
         continue
         ;;
         *)
-            python3 "$main_dir"/__main__.py --output-format json --output "./$test_folder/$arch.json" --arch "$arch" ./"$test_folder"
+            python3 "$main_dir"/__main__.py --output-format json --output "./$test_folder/$arch.json" --march "$arch" ./"$test_folder"
             if [[ $? -eq 0 ]]; then
                 echo "running scanner diff"
                 python3 "$script_dir"/scanner_diff.py --src-dir "./$test_folder/" --json-report "./$test_folder/$arch.json"

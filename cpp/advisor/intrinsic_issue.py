@@ -22,10 +22,10 @@ from .report_item import INTRINSIC, AVX256_INTRINSIC, AVX512_INTRINSIC
 
 class IntrinsicIssue(Issue):
 
-    def __init__(self, filename, lineno, arch=None, intrinsic=None, issue_type=INTRINSIC, checkpoint=None, description=None):
+    def __init__(self, filename, lineno, march=None, intrinsic=None, issue_type=INTRINSIC, checkpoint=None, description=None):
 
         if not description:
-            description = _("Intrinsic not supported on %s: %s") % (arch, intrinsic)
+            description = _("Intrinsic not supported on %s: %s") % (march, intrinsic)
 
         super().__init__(description=description,
                          filename=filename,
@@ -40,12 +40,12 @@ class Avx256IntrinsicIssue(IntrinsicIssue):
     Class for AVX-256 intrinsic issues
     """
 
-    def __init__(self, filename, lineno, arch, intrinsic, checkpoint=None):
-        description = _("AVX-256 intrinsic not supported on %s: %s") % (arch, intrinsic)
+    def __init__(self, filename, lineno, march, intrinsic, checkpoint=None):
+        description = _("AVX-256 intrinsic not supported on %s: %s") % (march, intrinsic)
 
         super().__init__(filename=filename,
                          lineno=lineno,
-                         arch=arch,
+                         march=march,
                          intrinsic=intrinsic,
                          issue_type=AVX256_INTRINSIC,
                          checkpoint=checkpoint,
@@ -58,12 +58,12 @@ class Avx512IntrinsicIssue(IntrinsicIssue):
     Class for AVX-512 intrinsic issues
     """
 
-    def __init__(self, filename, lineno, arch, intrinsic, checkpoint=None):
-        description = _("AVX-512 intrinsic not supported on %s: %s") % (arch, intrinsic)
+    def __init__(self, filename, lineno, march, intrinsic, checkpoint=None):
+        description = _("AVX-512 intrinsic not supported on %s: %s") % (march, intrinsic)
 
         super().__init__(filename=filename,
                          lineno=lineno,
-                         arch=arch,
+                         march=march,
                          intrinsic=intrinsic,
                          issue_type=AVX512_INTRINSIC,
                          checkpoint=checkpoint,

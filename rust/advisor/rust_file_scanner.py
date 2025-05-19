@@ -46,13 +46,12 @@ class RustFileScanner(RustScanner):
     ARCH_INCOMPATIBLE_INTRINSICS = []
     ASSEMBLY_CHECKPOINTS = []
 
-    def __init__(self, output_format, arch, march):
+    def __init__(self, output_format, march):
         self.output_format = output_format
-        self.arch = arch
         self.march = march
 
         self.with_highlights = bool(
-            output_format == ReportOutputFormat.HTML or self.output_format == ReportOutputFormat.JSON)
+            self.output_format == ReportOutputFormat.HTML or self.output_format == ReportOutputFormat.JSON)
         self.load_checkpoints()
 
     def load_checkpoints(self):
@@ -87,12 +86,11 @@ class RustFileScanner(RustScanner):
             self.FILE_SUMMARY[self.RUST]['count'] += 1
             self.FILE_SUMMARY[self.RUST]['loc'] += len(_lines)
 
-        if self.arch in AARCH64_ARCHS:
+        if self.march in SUPPORTED_MARCH:
             self.ARCH_INCOMPATIBLE_INTRINSICS = self.AARCH64_INCOMPATIBLE_INTRINSICS
             self.ASSEMBLY_CHECKPOINTS = self.AARCH64_INLINE_ASSEMBLY_CHECKPOINTS
         else:
-            self.ARCH_INCOMPATIBLE_INTRINSICS = None
-            self.ASSEMBLY_CHECKPOINTS = None
+            raise RuntimeError('no scanner available for target processor architecture %s.' % self.march)
 
         continuation_parser = ContinuationParser()
         comment_parser = NaiveCommentParser()
@@ -169,7 +167,7 @@ class RustFileScanner(RustScanner):
             if match:
                 issues.append(RustIntrinsicIssue(filename,
                                              lineno=joined_lineno,
-                                             arch=self.arch,
+                                             march=self.march,
                                              intrinsic=match.string.strip(),
                                              checkpoint=c.pattern,
                                              description='' if not c.help else '\n' + c.help))

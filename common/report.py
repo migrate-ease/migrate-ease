@@ -31,7 +31,6 @@ class Report:
 
     def __init__(self,
                  root_directory,
-                 arch=None,
                  march=None,
                  target_os=None,
                  output=None,
@@ -49,7 +48,6 @@ class Report:
         self.errors = []
         self.remarks = []
         self.root_directory = root_directory
-        self.arch = arch
         self.march = march
         self.target_os = target_os
         self.output = output

@@ -21,10 +21,10 @@ from .report_item import JAVA_POM
 
 class JavaPomIssue(Issue):
 
-    def __init__(self, filename, lineno=None, arch=None, issue_type=JAVA_POM, checkpoint=None, description=None):
+    def __init__(self, filename, lineno=None, march=None, issue_type=JAVA_POM, checkpoint=None, description=None):
 
         if not description:
-            description = _("Dependency imported by POM: %s does not support arch: %s") % (filename, arch)
+            description = _("Dependency imported by POM: %s does not support target processor architecture: %s") % (filename, march)
 
         super().__init__(description=description,
                          filename=filename,

@@ -104,15 +104,15 @@ def main():
                         help='report file name.',
                         type=argparse.FileType('w'),
                         default='-')
-    parser.add_argument('--arch',
-                        help='target instruction set architecture (default: aarch64).',
+    parser.add_argument('--march',
+                        help='target processor architecture (default: armv8-a).',
                         default='aarch64')
     args = parser.parse_args()
-    if args.arch != 'aarch64':
-        parser.exit(1, f'unknown/unsupported arch: {args.arch}')
+    if args.march != 'aarch64':
+        parser.exit(1, f'unknown/unsupported arch: {args.march}')
 
     results = {
-        "arch": args.arch,
+        "arch": args.march,
         "errors": [],
         "file_summary": {
             "npm": {

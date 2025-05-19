@@ -21,10 +21,10 @@ from .report_item import PLUGIN
 
 class PluginIssue(Issue):
 
-    def __init__(self, filename, lineno, arch=None, plugin=None, issue_type=PLUGIN, checkpoint=None, description=None):
+    def __init__(self, filename, lineno, march=None, plugin=None, issue_type=PLUGIN, checkpoint=None, description=None):
 
         if not description:
-            description = _("Plugin not supported on %s: %s") % (arch, plugin)
+            description = _("Plugin not supported on %s: %s") % (march, plugin)
 
         super().__init__(description=description,
                          filename=filename,

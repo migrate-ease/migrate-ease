@@ -35,9 +35,8 @@ class AsmSourceScanner(CppScanner):
     #  syntaxes.
     INSTRUCTION_RE = re.compile('%[re][a-z]+|r[0-9],|^[a-z][ \t]+[0-9]')
 
-    def __init__(self, output_format, arch, march):
+    def __init__(self, output_format, march):
         self.output_format = output_format
-        self.arch = arch
         self.march = march
 
         self.highlight_code_snippet = bool(

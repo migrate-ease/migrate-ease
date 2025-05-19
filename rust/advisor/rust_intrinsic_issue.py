@@ -21,10 +21,10 @@ from .report_item import RUST_INTRINSIC
 
 class RustIntrinsicIssue(Issue):
 
-    def __init__(self, filename, lineno, arch=None, intrinsic=None, issue_type=RUST_INTRINSIC, checkpoint=None, description=None):
+    def __init__(self, filename, lineno, march=None, intrinsic=None, issue_type=RUST_INTRINSIC, checkpoint=None, description=None):
 
         if not description:
-            description = _("Intrinsic not supported on %s: %s") % (arch, intrinsic)
+            description = _("Intrinsic not supported on %s: %s") % (march, intrinsic)
 
         super().__init__(description=description,
                          filename=filename,

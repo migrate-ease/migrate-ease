@@ -21,10 +21,10 @@ from .report_item import CONFIGURATION_INFO
 
 class ConfigurationInfoIssue(Issue):
 
-    def __init__(self, filename, lineno, arch=None, issue_type=CONFIGURATION_INFO, checkpoint=None, description=None):
+    def __init__(self, filename, lineno, march=None, issue_type=CONFIGURATION_INFO, checkpoint=None, description=None):
 
         if not description:
-            description = _("Configuration information needs modification on %s: %s") % (arch, lineno)
+            description = _("Configuration information needs modification on %s: %s") % (march, lineno)
 
         super().__init__(description=description,
                          filename=filename,

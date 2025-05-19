@@ -44,13 +44,12 @@ class GolangFileScanner(GoScanner):
     #In Go, import "C" is the standard way to import C code and cannot be replaced by other forms.
     C_IMPORT_RE = re.compile(r'^import\s+"C"$')
 
-    def __init__(self, output_format, arch, march):
+    def __init__(self, output_format, march):
         self.output_format = output_format
-        self.arch = arch
         self.march = march
 
         self.with_highlights = bool(
-            output_format == ReportOutputFormat.HTML or self.output_format == ReportOutputFormat.JSON)
+            self.output_format == ReportOutputFormat.HTML or self.output_format == ReportOutputFormat.JSON)
         self.load_checkpoints()
 
     def accepts_file(self, filename):
@@ -70,7 +69,7 @@ class GolangFileScanner(GoScanner):
         match_c = ''
         continuation_parser = ContinuationParser()
         comment_parser = NaiveCommentParser()
-        cpp_scanner = ClangSourceScanner(self.output_format, self.arch, self.march)
+        cpp_scanner = ClangSourceScanner(self.output_format, self.march)
         issues: List[Issue] = []
         lines = {lineno: line for lineno, line in enumerate(_lines, 1)}
 

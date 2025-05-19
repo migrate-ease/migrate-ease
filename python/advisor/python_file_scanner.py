@@ -19,7 +19,7 @@ import re
 import time
 from typing import List
 
-from common.arch_strings import AARCH64_ARCHS
+from common.arch_strings import SUPPORTED_MARCH
 from common.checkpoint import Checkpoint, init_checkpoints
 from common.continuation_parser import ContinuationParser
 from common.naive_comment_parser import NaiveCommentParser
@@ -48,13 +48,12 @@ class PythonFileScanner(PythonScanner):
     # import cffi
     LINK_CFFI_RE = re.compile(r'^\s*(from\s+cffi\s+import\s+FFI|import\s+cffi)\s*$')
 
-    def __init__(self, output_format, arch, march):
+    def __init__(self, output_format, march):
         self.output_format = output_format
-        self.arch = arch
         self.march = march
 
         self.with_highlights = bool(
-            output_format == ReportOutputFormat.HTML or self.output_format == ReportOutputFormat.JSON)
+            self.output_format == ReportOutputFormat.HTML or self.output_format == ReportOutputFormat.JSON)
         self.load_checkpoints()
 
     def load_checkpoints(self):
@@ -85,14 +84,14 @@ class PythonFileScanner(PythonScanner):
             self.FILE_SUMMARY[self.PY]['count'] += 1
             self.FILE_SUMMARY[self.PY]['loc'] += len(_lines)
 
-        if self.arch in AARCH64_ARCHS:
+        if self.march in SUPPORTED_MARCH:
             self.PACKAGE_CHECKPOINTS = self.AARCH64_INCOMPATIBLE_EXTENSION_PACKAGES
         else:
-            self.PACKAGE_CHECKPOINTS = None
+            raise RuntimeError('no scanner available for target processor architecture %s.' % self.march)
 
         continuation_parser = ContinuationParser()
         comment_parser = NaiveCommentParser()
-        cpp_scanner = ClangSourceScanner(self.output_format, self.arch, self.march)
+        cpp_scanner = ClangSourceScanner(self.output_format, self.march)
 
         issues: List[Issue] = []
         lines = {lineno: line for lineno, line in enumerate(_lines, 1)}

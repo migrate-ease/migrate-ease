@@ -57,9 +57,8 @@ class NaiveDockerfile(object):
     which source lines will/will not be compiled on target platforms.
     """
 
-    def __init__(self, arch: str, march: str):
+    def __init__(self, march: str):
 
-        self.arch = arch
         self.march = march
 
     def parse_line(self, line):

@@ -32,12 +32,12 @@ from advisor.arm64_source_scanner import Arm64SourceScanner
 class TestHtmlReport(unittest.TestCase):
 
     def test_item_icons(self):
-        config_guess_scanner = Arm64ConfigGuessScanner(ReportOutputFormat.HTML, arch='aarch64', march='')
-        source_scanner = Arm64SourceScanner(ReportOutputFormat.HTML, arch='aarch64', march='', compiler='gcc', warning_level='L1')
+        config_guess_scanner = Arm64ConfigGuessScanner(ReportOutputFormat.HTML, march='armv8-a')
+        source_scanner = Arm64SourceScanner(ReportOutputFormat.HTML, march='armv8-a', compiler='gcc', warning_level='L1')
 
         Report.REPORT_ITEM = BaseReportItem
         Report.REPORT_ITEM.TYPES += CPP_REPORT_TYPES
-        report = HtmlReport('/root', arch='aarch64')
+        report = HtmlReport('/root', march='armv8-a')
 
         io_object = io.StringIO(' __asm__ __volatile__( "pause" : : : "memory" )')
         source_scanner.scan_file_object('test_inline_asm.c',

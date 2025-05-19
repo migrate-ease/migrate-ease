@@ -22,10 +22,10 @@ from .report_item import JAVA_SOURCE
 
 class JavaSourceIssue(Issue):
 
-    def __init__(self, filename, lineno=None, arch=None, issue_type=JAVA_SOURCE, checkpoint=None, description=None):
+    def __init__(self, filename, lineno=None, march=None, issue_type=JAVA_SOURCE, checkpoint=None, description=None):
 
         if not description:
-            description = _("Java source: %s contains native call that may need to modify/rebuild for arch: %s") % (filename, arch)
+            description = _("Java source: %s contains native call that may need to modify/rebuild for target processor architecture: %s") % (filename, march)
 
         super().__init__(description=description,
                          filename=filename,

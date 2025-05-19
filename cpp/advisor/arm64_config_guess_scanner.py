@@ -29,9 +29,8 @@ class Arm64ConfigGuessScanner(ConfigGuessScanner):
 
     TARGET_ARCH_RE = re.compile(r'(aarch64|arm64).*:Linux')
 
-    def __init__(self, output_format, arch, march):
+    def __init__(self, output_format, march):
         self.output_format = output_format
-        self.arch = arch
         self.march = march
 
     def scan_file_object(self, filename, file_obj, report):
