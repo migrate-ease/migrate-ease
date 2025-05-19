@@ -131,17 +131,48 @@ def scan_dir(prj_path, git_info= None, scan_cat='all', target_march='aarch64'):
         current_job['output'].append('No targets to scan')
 
 # Process git repo
+class CloneProgress(git.RemoteProgress):
+    # See: https://gitpython.readthedocs.io/en/stable/reference.html#git.remote.RemoteProgress
+    OP_CODES = [
+        "BEGIN",
+        "CHECKING_OUT",
+        "COMPRESSING",
+        "COUNTING",
+        "END",
+        "FINDING_SOURCES",
+        "RECEIVING",
+        "RESOLVING",
+        "WRITING",
+    ]
+    OP_CODE_MAP = {
+        getattr(git.RemoteProgress, _op_code): _op_code for _op_code in OP_CODES
+    }
+    def get_curr_op(self, op_code):
+        op_code_masked = op_code & self.OP_MASK
+        return self.OP_CODE_MAP.get(op_code_masked, "?").title()
+
+    def update(self, op_code, cur_count, max_count=None, *args, **kwargs):
+        if op_code & self.BEGIN:
+            self.curr_op = self.get_curr_op(op_code)
+            current_job['output'].append(f"{self.curr_op} ...")
+        with app.app_context():
+            if max_count is not None:
+                status = f"{self.curr_op} ... {int(cur_count)}/{int(max_count)} objects"
+                current_job['output'][-1] = status
+
 def process_git(repo_url, repo_branch=None):
     repo_path = '/tmp/' + current_job['id']
 
     if not os.path.exists(repo_path):
         try:
+            current_job['output'].insert(0, f'Cloning {repo_url} {repo_branch} ...')
+            # set depth to 1 to reduce clone time
             if repo_branch:
-                repo = git.Repo.clone_from(repo_url, repo_path, branch=repo_branch)
+                repo = git.Repo.clone_from(repo_url, repo_path, branch=repo_branch, depth=1, progress=CloneProgress())
             else:
-                repo = git.Repo.clone_from(repo_url, repo_path)
+                repo = git.Repo.clone_from(repo_url, repo_path, depth=1, progress=CloneProgress())
+            current_job['output'].append("Successfully cloned")
             print(f"Successfully cloned {repo_branch} from {repo_url} to {repo_path}")
-
             # Run scanners
             scan_dir(repo_path, git_info={'url':repo_url, 'branch':repo_branch})
         except Exception as e:
