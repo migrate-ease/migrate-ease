@@ -37,16 +37,14 @@ class NaiveCommentParser:
         """
         if line.lstrip().startswith('//'):
             return True
-        elif line.lstrip().startswith('/*'):
-            if not line.lstrip().endswith('*/'):
-                self.in_comment = True
+
+        # multi-line comment.
+        if line.lstrip().startswith('/*'):
+            self.in_comment = not line.rstrip().endswith('*/')
             return True
-        elif line.lstrip().endswith('*/'):
+        elif line.rstrip().endswith('*/'):
             if self.in_comment:
                 self.in_comment = False
                 return True
 
-        if self.in_comment:
-            return True
-
-        return False
+        return self.in_comment
