@@ -34,6 +34,9 @@ class TestNaiveCommentParser(unittest.TestCase):
         self.assertTrue(comment_parser.parse_line('/* single line comment */'))
         self.assertFalse(comment_parser.parse_line('is not a comment'))
         self.assertFalse(comment_parser.parse_line('comment in /* middle of */ line'))
+        self.assertTrue(comment_parser.parse_line('/*'))
+        self.assertTrue(comment_parser.parse_line('multi-line comments'))
+        self.assertTrue(comment_parser.parse_line('*/'))
 
 
 if __name__ == '__main__':
