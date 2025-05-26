@@ -7,58 +7,49 @@ GREEN=$(printf '\033[0;32m')
 ENDMARK=$(printf '\033[m')
 
 # Note that you need to run it in the directory where the test script is located.
-test_folders="$*"
-[[ "$test_folders" = "" ]] && test_folders=$(find -L . -type d -name 'test_*')
 
-for c in $test_folders ; do
-    echo "=============== Running $c ... ==============="
-
-    cd "$script_dir"/"$c" || { echo "Failure"; exit 1; }
-    if [[ -e "disabled" ]]; then
-        echo "$GREEN""$c is disabled, skip.""$ENDMARK"
+for test_folder in test_*/; do
+    if [ ! -d "$test_folder" ]; then
+        echo "Skipping non-directory: $test_folder"
         continue
     fi
 
-    archs=""
-    if [[ -d "./aarch64" ]]; then
-        archs+=" aarch64"
-    fi
-    if [[ -d "./armv8.6-a+sve2" ]]; then
-        archs+=" armv8.6-a+sve2"
-    fi
-    if [[ "$archs" = "" ]]; then
-        echo "$GREEN""$c is empty, skip.""$ENDMARK"
+    echo "=============== Running $test_folder ... ==============="
+    # get the target precessor architecture.
+    # remove the trailing /.
+    test_folder=${test_folder%/}
+    arch=${test_folder#test_}
+    if [[ "$arch" = "" ]]; then
+        echo "$GREEN""$test_folder is invalid, should be test_<arch_name>, skip.""$ENDMARK"
         continue
     fi
 
-    for arch in $archs; do
-        echo "running sub-test for $arch"
-        case "$arch" in
-            "armv8.6-a+sve2")
-                for level in L1 L2; do
-                    for compiler in gcc clang; do
-                        echo "running test for warning-level $level-$compiler"
-                        python3 "$main_dir"/__main__.py --output-format json \
-                          --output "./$arch/$level-$compiler/$arch.json" \
-                          --arch "$arch" --warning-level "$level" \
-                          --target-compiler "$compiler" "./$arch/$level-$compiler"
-                        if [[ $? -eq 0 ]]; then
-                            echo "running scanner diff"
-                            python3 "$script_dir"/scanner_diff.py \
-                              --src-dir "./$arch/$level-$compiler/" \
-                              --json-report "./$arch/$level-$compiler/$arch.json"
-                        fi
-                    done
+    echo "running sub-test for $arch"
+    case "$arch" in
+        "armv8.6-a+sve2")
+            for level in L1 L2; do
+                for compiler in gcc clang; do
+                    echo "running test for warning-level $level-$compiler"
+                    python3 "$main_dir"/__main__.py --output-format json \
+                        --output "./$test_folder/$level-$compiler/$arch.json" \
+                        --arch "$arch" --warning-level "$level" \
+                        --target-compiler "$compiler" "./$test_folder/$level-$compiler"
+                    if [[ $? -eq 0 ]]; then
+                        echo "running scanner diff"
+                        python3 "$script_dir"/scanner_diff.py \
+                            --src-dir "./$test_folder/$level-$compiler/" \
+                            --json-report "./$test_folder/$level-$compiler/$arch.json"
+                    fi
                 done
-                continue
-            ;;
-            *)
-                python3 "$main_dir"/__main__.py --output-format json --output "./$arch/$arch.json" --arch "$arch" ./"$arch"
-                if [[ $? -eq 0 ]]; then
-                    echo "running scanner diff"
-                    python3 "$script_dir"/scanner_diff.py --src-dir "./$arch/" --json-report "./$arch/$arch.json"
-                fi
-            ;;
-        esac
-    done
+            done
+        continue
+        ;;
+        *)
+            python3 "$main_dir"/__main__.py --output-format json --output "./$test_folder/$arch.json" --arch "$arch" ./"$test_folder"
+            if [[ $? -eq 0 ]]; then
+                echo "running scanner diff"
+                python3 "$script_dir"/scanner_diff.py --src-dir "./$test_folder/" --json-report "./$test_folder/$arch.json"
+            fi
+        ;;
+    esac
 done
