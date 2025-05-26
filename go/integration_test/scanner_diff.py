@@ -43,7 +43,7 @@ parser.add_argument("--json-report",
                     default=None)
 
 parser.add_argument("--test-dir",
-                    metavar="test_1",
+                    metavar="test_aarch64",
                     help='the record of test dir.',
                     default=None)
 
@@ -56,24 +56,21 @@ with open(args.json_report) as f2:
 for i in range(nof_issues):
     report['issues'][i]['tig_of_first_traversal'] = 'false'
 
+lib_aarch = ['cygrpc_arm.so', 'libhello_arm.so', 'libnumber_aarch.a', 'libotsclient_aarch.a', '_speedups.so']
+issue_lib_aarch = ['_speedups.so']
+
 for filename in os.listdir(args.src_dir):
-
     if os.path.splitext(filename)[1] != ".json":
-
-        if args.test_dir == 'test_1' or args.test_dir == "./test_1":
+        if filename in lib_aarch:
             issue = ''
-
-            lib_aarch = ['cygrpc_arm.so', 'libhello_arm.so', 'libnumber_aarch.a', 'libotsclient_aarch.a']
-
-            if args.src_dir == './aarch64/':
-                if filename not in lib_aarch:
+            if filename in issue_lib_aarch:
                     issue = 'GolangLinkLibraryIssue'
 
             if issue:
                 file_detect = False
 
                 for i in range(nof_issues):
-                    if report['issues'][i]['filename'] == args.src_dir + filename and issue == 'GolangLinkLibraryIssue':
+                    if report['issues'][i]['filename'] == args.src_dir + filename and report['issues'][i]["issue_type"]['type'] == issue:
                         file_detect = True
                         report['issues'][i]['tig_of_first_traversal'] = 'true'
 
@@ -82,7 +79,6 @@ for filename in os.listdir(args.src_dir):
 
         else:
             with open(os.path.join(args.src_dir, filename)) as f1:
-
                 lno = 0  # the line number of var l in file "cc_filename"
 
                 for l in f1.readlines():

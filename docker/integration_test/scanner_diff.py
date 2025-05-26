@@ -44,7 +44,7 @@ parser.add_argument("--json-report",
                     default=None)
 
 parser.add_argument("--test-dir",
-                    metavar="test_1",
+                    metavar="test_aarch64",
                     help='the record of test dir.',
                     default=None)
 
