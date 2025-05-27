@@ -18,13 +18,15 @@ from common.localization import _
 
 GOLANG_LINKLIBRARY = {'type': 'GolangLinkLibraryIssue', 'des': _("Use of libraries that are incompatible with the target platform")}
 GOLANG_INLINE_ASM = {'type': 'GolangInlineAsmIssue',
-                     'des': _("Use of inline assembly may lead to target platform compatibility issues")}
-GOLANG_INTRINSIC = {'type': 'GolangIntrinsicIssue', 'des': _("Use of intrinsic functions that have compatibility issues with the target platform")}
+                     'des': _("cgo: Use of inline assembly may lead to target platform compatibility issues")}
+GOLANG_INTRINSIC = {'type': 'GolangIntrinsicIssue', 'des': _("cgo: Use of intrinsic functions that have compatibility issues with the target platform")}
+GOLANG_CPP_STD_CODES = {'type': 'GolangCPPStdCodes', 'des': _("cgo: Compatibility issues or optimization opportunities related to Cpp source and memory order on the target platform")}
 ASM = {'type': 'AsmIssue', 'des': _("Potentially architecture-specific assembly code in the source files that requires manual inspection")}
 
 GOLANG_REPORT_TYPES = [
     GOLANG_LINKLIBRARY,
     GOLANG_INLINE_ASM,
     GOLANG_INTRINSIC,
+    GOLANG_CPP_STD_CODES,
     ASM
 ]

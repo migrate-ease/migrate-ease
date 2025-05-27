@@ -33,8 +33,9 @@ def _transitive_closure(cls):
 
 #  ISSUE_TYPES Runtime value
 #  ===
-#   'GolangLinkLibraryIssue': <class 'advisor.python_link_library_issue.PythonLinkLibraryIssue'>
-#   'GolangInlineAsmIssue'  : <class 'advisor.python_inline_asm_issue.PythonInlineAsmIssue'>
-#   'GolangIntrinsicIssue'  : <class 'advisor.python_intrinsic_issue.PythonIntrinsicIssue'>
+#   'GolangLinkLibraryIssue': <class 'advisor.golang_link_library_issue.GolangLinkLibraryIssue'>
+#   'GolangInlineAsmIssue'  : <class 'advisor.golang_inline_asm_issue.GolangInlineAsmIssue'>
+#   'GolangIntrinsicIssue'  : <class 'advisor.golang_intrinsic_issue.GolangIntrinsicIssue'>
+#   'GolangCPPStdCodes'     : <class 'advisor.golang_cpp_std_issue.GolangCPPStdCodes'>
 #   'AsmIssue'              : <class 'advisor.asm_issue.AsmIssue'>}
 ISSUE_TYPES = {cls.display_name(): cls for cls in _transitive_closure(Issue)}
