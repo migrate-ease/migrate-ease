@@ -52,15 +52,16 @@ class ClangSourceScanner(CppScanner):
     C_SOURCE_EXTENSIONS = ['.c', '.h', '.i']
     CPP_SOURCE_EXTENSIONS = ['.cc', '.cpp', '.cxx', '.h', '.hxx', '.hpp', '.ii']
 
-    ARM_INCOMPATIBLE_INTRINSICS = []
     AARCH64_INLINE_ASSEMBLY_CHECKPOINTS = []
     AARCH64_GCC_INCOMPATIBLE_INTRINSICS = []
     AARCH64_CLANG_INCOMPATIBLE_INTRINSICS = []
     CPP_STD_CODES = []
     INCOMPATIBLE_HEADER_FILE = []
-    N2_CLANG_INCOMPATIBLE_INTRINSICS = []
-    N2_GCC_INCOMPATIBLE_INTRINSICS = []
     X86_PRAGMA = []
+
+    INCOMPATIBLE_INTRINSICS = []
+    ASSEMBLY_CHECKPOINTS = []
+    PRAGMA_CHECKPOINTS = []
 
     inlineAsm_pattern = re.compile(r'\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+[_]*goto[_]*)?')
 
@@ -88,23 +89,13 @@ class ClangSourceScanner(CppScanner):
                 self.macros = macros[self.compiler]
 
         self.load_checkpoints()
+        self.set_checkpoints()
 
     def load_checkpoints(self):
         super().load_checkpoints()
 
         start_time = time.time()
 
-
-        self.ARM_INCOMPATIBLE_INTRINSICS = init_checkpoints(
-            self.checkpoints_content['X86_INTRINSICS'] +
-            self.checkpoints_content['OTHER_ARCH_INTRINSICS'] +
-            self.checkpoints_content['INCOMPATIBLE_UCRT_INTRINSICS'] +
-            self.checkpoints_content['ARM_MSVC_INTRINSICS'] +
-            self.checkpoints_content['AARCH64_GCC_INTRINSICS'] +
-            self.checkpoints_content['AARCH64_NEON_INTRINSICS'] +
-            self.checkpoints_content['AARCH64_MSVC_INTRINSICS'],
-            self.checkpoints_content["COMMON_INTRINSICS"] + self.checkpoints_content["ARM_INTRINSICS"]
-        )
         self.AARCH64_INLINE_ASSEMBLY_CHECKPOINTS = init_checkpoints(
             self.checkpoints_content["AARCH64_INLINE_ASSEMBLY_CHECKPOINTS"]
         )
@@ -134,13 +125,25 @@ class ClangSourceScanner(CppScanner):
             self.checkpoints_content['AARCH64_GCC_INTRINSICS'],
             self.checkpoints_content["COMMON_INTRINSICS"]
         )
-        self.N2_GCC_INCOMPATIBLE_INTRINSICS = self.AARCH64_GCC_INCOMPATIBLE_INTRINSICS
-        self.N2_CLANG_INCOMPATIBLE_INTRINSICS = self.AARCH64_CLANG_INCOMPATIBLE_INTRINSICS
 
         # please remember to remove lines for profiling after optimizing :)
         end_time = time.time()
 
         print('[C/C++] Initialization of checkpoints took %f seconds.' % (end_time - start_time))
+
+    def set_checkpoints(self):
+        if self.arch in AARCH64_ARCHS:
+            if self.compiler == 'gcc':
+                self.INCOMPATIBLE_INTRINSICS = self.AARCH64_GCC_INCOMPATIBLE_INTRINSICS
+            else:
+                self.INCOMPATIBLE_INTRINSICS = self.AARCH64_CLANG_INCOMPATIBLE_INTRINSICS
+            self.ASSEMBLY_CHECKPOINTS = self.AARCH64_INLINE_ASSEMBLY_CHECKPOINTS
+            self.PRAGMA_CHECKPOINTS = self.X86_PRAGMA
+
+        else:
+            self.INCOMPATIBLE_INTRINSICS = None
+            self.ASSEMBLY_CHECKPOINTS = None
+            self.PRAGMA_CHECKPOINTS = None
 
     def accepts_file(self, filename):
 
@@ -173,30 +176,6 @@ class ClangSourceScanner(CppScanner):
         else:
             naive_cpp = NaiveCpp(arch=self.arch, march=self.march)
 
-        PRAGMA_CHECKPOINTS: List[Checkpoint]
-
-        if self.arch in AARCH64_ARCHS:
-            if self.arch == N2_MARCH:
-                if self.compiler == 'gcc':
-                    ARCH_INCOMPATIBLE_INTRINSICS = self.N2_GCC_INCOMPATIBLE_INTRINSICS
-                else:
-                    ARCH_INCOMPATIBLE_INTRINSICS = self.N2_CLANG_INCOMPATIBLE_INTRINSICS
-            elif self.arch == AARCH64_ARCH:
-                if self.compiler == 'gcc':
-                    ARCH_INCOMPATIBLE_INTRINSICS = self.AARCH64_GCC_INCOMPATIBLE_INTRINSICS
-                else:
-                    ARCH_INCOMPATIBLE_INTRINSICS = self.AARCH64_CLANG_INCOMPATIBLE_INTRINSICS
-            else:
-                ARCH_INCOMPATIBLE_INTRINSICS = self.ARM_INCOMPATIBLE_INTRINSICS
-            ASSEMBLY_CHECKPOINTS = self.AARCH64_INLINE_ASSEMBLY_CHECKPOINTS
-            PRAGMA_CHECKPOINTS = self.X86_PRAGMA
-
-        else:
-
-            ARCH_INCOMPATIBLE_INTRINSICS = None
-            ASSEMBLY_CHECKPOINTS = None
-            PRAGMA_CHECKPOINTS = None
-
         issues: List[Issue] = []
         lines = {lineno: line for lineno, line in enumerate(_lines, 1)}
 
@@ -220,7 +199,6 @@ class ClangSourceScanner(CppScanner):
             if not line:
                 lineno += 1
                 continue
-            # result = naive_cpp.parse_line(line)  # type: PreprocessorDirective
 
             #  header file check
             if self.check_state:
@@ -240,22 +218,16 @@ class ClangSourceScanner(CppScanner):
                 if result.directive_type == PreprocessorDirective.TYPE_DEFINE \
                         and result.body is not None and self.check_state:
                     next_lineno = self.check_clang(lines, line, lineno, continuation_parser.joined_lineno, filename,
-                                      ASSEMBLY_CHECKPOINTS, ARCH_INCOMPATIBLE_INTRINSICS, issues)
+                                                   InlineAsmIssue, IntrinsicIssue, CPPStdCodesIssue,
+                                                   issues)
                 self._check_directive(result, filename,
                                       lineno, line,
-                                      function_parser, PRAGMA_CHECKPOINTS, issues)
+                                      function_parser, self.PRAGMA_CHECKPOINTS, issues)
             elif self.check_state:
                 next_lineno = self.check_clang(lines, line, lineno, continuation_parser.joined_lineno, filename,
-                                  ASSEMBLY_CHECKPOINTS, ARCH_INCOMPATIBLE_INTRINSICS, issues)
+                                               InlineAsmIssue, IntrinsicIssue, CPPStdCodesIssue,
+                                               issues)
 
-            # if result:
-            #     self._check_directive(result, filename, file_obj, report,
-            #                           lineno, line,
-            #                           function_parser, PRAGMA_CHECKPOINTS,
-            #                           directive_stack, issues)
-            # else:
-            #     self._check_clang(lines, lineno, line, naive_cpp, filename,
-            #                       ASSEMBLY_CHECKPOINTS, ARCH_INCOMPATIBLE_INTRINSICS, issues)
 
             if next_lineno != 1:
                 # check_clang already parses multiple lines of code, so there's no need to repeat the parsing logic here.
@@ -308,7 +280,7 @@ class ClangSourceScanner(CppScanner):
     def check_clang(self,
                      # context
                      lines, line, lineno, joined_lineno, filename,
-                     ASSEMBLY_CHECKPOINTS, ARCH_INCOMPATIBLE_INTRINSICS,
+                     InlineAsmIssue, IntrinsicIssue, CPPStdCodesIssue,
                      # results
                      issues: List[Issue]):
         continuation_parser = ContinuationParser()
@@ -326,7 +298,7 @@ class ClangSourceScanner(CppScanner):
                 line = "".join([str(line), str(join_line)])
 
 
-            for c in ASSEMBLY_CHECKPOINTS:
+            for c in self.ASSEMBLY_CHECKPOINTS:
                 match = c.pattern_compiled.search(line)
                 if match:
                     issues.append(InlineAsmIssue(filename,
@@ -336,7 +308,7 @@ class ClangSourceScanner(CppScanner):
                     break
 
         #  intrinsics check
-        for c in ARCH_INCOMPATIBLE_INTRINSICS:
+        for c in self.INCOMPATIBLE_INTRINSICS:
             match = c.pattern_compiled.search(line)
             if match:
                 issues.append(IntrinsicIssue(filename,
