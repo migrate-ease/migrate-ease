@@ -35,6 +35,28 @@ class TestOsFilter(unittest.TestCase):
         line = continuation_parser.parse_line('second line of macro')
         self.assertEqual(line, '#define MACRO first line of macro second line of macro')
 
+    def test_join_line(self):
+        continuation_parser = ContinuationParser()
+        line = continuation_parser.join_line('p_->Print(absl::Substitute(')
+        self.assertIsNone(line, '')
+        line = continuation_parser.join_line(' R"(')
+        self.assertIsNone(line, '')
+        line = continuation_parser.join_line('#endif  // $0')
+        self.assertIsNone(line, '')
+        line = continuation_parser.join_line(')",')
+        self.assertIsNone(line, '')
+        line = continuation_parser.join_line('ifdef_identifier_))')
+        self.assertEqual(line, 'p_->Print(absl::Substitute(R"(#endif  // $0)",ifdef_identifier_))')
+
+    def test_join_line_not_join(self):
+        # The parentheses used as string assignments should not be treated as counting parentheses
+        continuation_parser = ContinuationParser()
+        line = continuation_parser.join_line('mini_descriptor = "$1,((jG"')
+        line = continuation_parser.join_line('f_identifier_')
+        self.assertEqual(line, 'f_identifier_')
+        line = continuation_parser.join_line('a = "(ahgn)"    // ( is a flag.')
+        line = continuation_parser.join_line('do not join')
+        self.assertEqual(line, 'do not join')
 
 if __name__ == '__main__':
     unittest.main()

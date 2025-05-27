@@ -62,6 +62,8 @@ class ClangSourceScanner(CppScanner):
     N2_GCC_INCOMPATIBLE_INTRINSICS = []
     X86_PRAGMA = []
 
+    inlineAsm_pattern = re.compile(r'\A(#define \S+)?\s*([_]*asm[_]*)(\s+[_]*volatile[_]*)?(\s+[_]*inline[_]*)?(\s+[_]*goto[_]*)?')
+
     def __init__(self, output_format, arch, march, compiler='gcc', warning_level='L1'):
         self.output_format = output_format
         self.arch = arch
@@ -199,21 +201,25 @@ class ClangSourceScanner(CppScanner):
         lines = {lineno: line for lineno, line in enumerate(_lines, 1)}
 
         self.check_state = True
-
         # directive_stack: List[List[Issue]] = []
-
-        for lineno in lines.keys():  # type: int, str
-
+        lineno = 1
+        while lineno <= len(lines.keys()):  # type: int, str
             line = lines[lineno]
-
-            line = continuation_parser.parse_line(line)
-            if not line or line.strip() == '' or line.strip() == '#':
+            if line.strip() == "":
+                lineno += 1
                 continue
-
+            line = continuation_parser.parse_line(line)
+            if not line:
+                lineno += 1
+                continue
             is_comment = comment_parser.parse_line(line)
             if is_comment:
+                lineno += 1
                 continue
-
+            line = continuation_parser.join_line(line, lineno)
+            if not line:
+                lineno += 1
+                continue
             # result = naive_cpp.parse_line(line)  # type: PreprocessorDirective
 
             #  header file check
@@ -222,24 +228,24 @@ class ClangSourceScanner(CppScanner):
                     match = c.pattern_compiled.search(line)
                     if match:
                         issues.append(IncompatibleHeaderFileIssue(filename,
-                                                                  lineno=find_matching_line_num(lines, lineno, c.pattern),
+                                                                  lineno=continuation_parser.joined_lineno,
                                                                   checkpoint=c.pattern,
                                                                   description='' if not c.help else '\n' + c.help))
                         break
-
+            next_lineno=1
             # if the line is a PreprocessorDirective, process the possible '\' in the end
             # and combine to a complete macro for latter parsing.
             if line.lstrip().startswith('#'):
                 result = naive_cpp.parse_line(line.strip())
                 if result.directive_type == PreprocessorDirective.TYPE_DEFINE \
                         and result.body is not None and self.check_state:
-                    self._check_clang(lines, lineno, line, naive_cpp, filename,
+                    next_lineno = self.check_clang(lines, line, lineno, continuation_parser.joined_lineno, filename,
                                       ASSEMBLY_CHECKPOINTS, ARCH_INCOMPATIBLE_INTRINSICS, issues)
                 self._check_directive(result, filename,
                                       lineno, line,
                                       function_parser, PRAGMA_CHECKPOINTS, issues)
             elif self.check_state:
-                self._check_clang(lines, lineno, line, naive_cpp, filename,
+                next_lineno = self.check_clang(lines, line, lineno, continuation_parser.joined_lineno, filename,
                                   ASSEMBLY_CHECKPOINTS, ARCH_INCOMPATIBLE_INTRINSICS, issues)
 
             # if result:
@@ -250,6 +256,15 @@ class ClangSourceScanner(CppScanner):
             # else:
             #     self._check_clang(lines, lineno, line, naive_cpp, filename,
             #                       ASSEMBLY_CHECKPOINTS, ARCH_INCOMPATIBLE_INTRINSICS, issues)
+
+            if next_lineno != 1:
+                # check_clang already parses multiple lines of code, so there's no need to repeat the parsing logic here.
+                lineno = next_lineno+1
+            else:
+                lineno += 1
+
+            # reset the continuation parser's joined line number.
+            continuation_parser.joined_lineno = -1
 
         # to extract code snippets
         for issue in issues:
@@ -290,48 +305,42 @@ class ClangSourceScanner(CppScanner):
             #                                         checkpoint=function_parser.current_function))
             self.check_state = result.is_support
 
-    def _check_clang(self,
+    def check_clang(self,
                      # context
-                     lines, lineno, line, naive_cpp, filename,
+                     lines, line, lineno, joined_lineno, filename,
                      ASSEMBLY_CHECKPOINTS, ARCH_INCOMPATIBLE_INTRINSICS,
                      # results
                      issues: List[Issue]):
-        # blank line
-        if not lines[lineno].strip() or lines[lineno].strip() == '\n':
-            return
+        continuation_parser = ContinuationParser()
+        # inline assemly check.
+        # Check for GCC/Clang inline asm (e.g., `asm volatile` or `__asm__`)
+        match = self.inlineAsm_pattern.match(line.strip())
+        if match:
+            if lineno < len(lines) and lines[lineno+1].strip().startswith('('):
+                # The inline assembly function is written across multiple lines.
+                lineno = lineno+1
+                join_line = continuation_parser.join_line(lines[lineno])
+                while continuation_parser.joined_line != None:
+                    lineno = lineno+1
+                    join_line = continuation_parser.join_line(lines[lineno])
+                line = "".join([str(line), str(join_line)])
 
-        #  inline assembly check
-        for c in ASSEMBLY_CHECKPOINTS:
 
-            #  NOTE: inline asm can expand no more than two lines
-            if (lineno + 4) <= len(lines.keys()):
-                multiline = "".join([lines[_] for _ in range(lineno, lineno + 5)])
-                match = c.pattern_compiled.search(multiline)
-            elif (lineno + 3) <= len(lines.keys()):
-                multiline = "".join([lines[_] for _ in range(lineno, lineno + 4)])
-                match = c.pattern_compiled.search(multiline)
-            elif (lineno + 2) <= len(lines.keys()):
-                multiline = "".join([lines[_] for _ in range(lineno, lineno + 3)])
-                match = c.pattern_compiled.search(multiline)
-            elif (lineno + 1) <= len(lines.keys()):
-                multiline = "".join([lines[_] for _ in range(lineno, lineno + 2)])
-                match = c.pattern_compiled.search(multiline)
-            else:
+            for c in ASSEMBLY_CHECKPOINTS:
                 match = c.pattern_compiled.search(line)
-
-            if match and not naive_cpp.in_other_arch_specific_code():
-                issues.append(InlineAsmIssue(filename,
-                                             lineno=lineno,
-                                             checkpoint=c.pattern,
-                                             description='' if not c.help else '\n' + c.help))
-                break
+                if match:
+                    issues.append(InlineAsmIssue(filename,
+                                            lineno=joined_lineno,
+                                            checkpoint=c.pattern,
+                                            description='' if not c.help else '\n' + c.help))
+                    break
 
         #  intrinsics check
         for c in ARCH_INCOMPATIBLE_INTRINSICS:
             match = c.pattern_compiled.search(line)
-            if match and not naive_cpp.in_other_arch_specific_code():
+            if match:
                 issues.append(IntrinsicIssue(filename,
-                                             lineno=find_matching_line_num(lines, lineno, c.pattern),
+                                             lineno=joined_lineno,
                                              arch=self.arch,
                                              intrinsic=match.string.strip(),
                                              checkpoint=c.pattern,
@@ -341,15 +350,11 @@ class ClangSourceScanner(CppScanner):
         #  cpp language check
         for c in self.CPP_STD_CODES:
             match = c.pattern_compiled.search(line)
-            if match and not naive_cpp.in_other_arch_specific_code():
-                # search for multiple lines
-                if c.pattern_compiled.flags & re.MULTILINE:
-                    multiple_lines = ''.join((lines.get(i, '') for i in range(lineno, lineno+3)))
-                    match_multilines = c.pattern_compiled.search(multiple_lines)
-                    if not match_multilines:
-                        continue
+            if match:
                 issues.append(CPPStdCodesIssue(filename,
-                                               lineno=find_matching_line_num(lines, lineno, c.pattern),
+                                               lineno=joined_lineno,
                                                checkpoint=c.pattern,
                                                description='' if not c.help else '\n' + c.help))
                 break
+
+        return lineno
