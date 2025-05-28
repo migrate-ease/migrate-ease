@@ -36,5 +36,6 @@ def _transitive_closure(cls):
 #   'PythonLinkLibraryIssue': <class 'advisor.python_link_library_issue.PythonLinkLibraryIssue'>
 #   'PythonInlineAsmIssue'  : <class 'advisor.python_inline_asm_issue.PythonInlineAsmIssue'>
 #   'PythonIntrinsicIssue'  : <class 'advisor.python_intrinsic_issue.PythonIntrinsicIssue'>
-#   'PythonPackageIssue'    : <class 'advisor.python_package_issue.PythonPackageIssue'>}
+#   'PythonPackageIssue'    : <class 'advisor.python_package_issue.PythonPackageIssue'>
+#   'PythonCPPStdCodes'     : <class 'advisor.python_cpp_std_issue.PythonCPPStdCodes'>
 ISSUE_TYPES = {cls.display_name(): cls for cls in _transitive_closure(Issue)}
