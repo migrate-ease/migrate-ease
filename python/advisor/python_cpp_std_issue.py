@@ -1,5 +1,5 @@
 """
-Copyright 2020-2023 Alibaba Inc.
+Copyright 2017-2025 Arm Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -16,18 +16,18 @@ limitations under the License.
 
 from common.issue import Issue
 from common.localization import _
-from .report_item import PYTHON_INLINE_ASM
+from .report_item import PYTHON_CPP_STD_CODES
 
 
-class PythonInlineAsmIssue(Issue):
+class PythonCPPStdCodesIssue(Issue):
 
-    def __init__(self, filename, lineno, checkpoint=None, description=None):
+    def __init__(self, filename, lineno, arch=None, intrinsic=None, item_type=PYTHON_CPP_STD_CODES, checkpoint=None, description=None):
 
         if not description:
-            description = _("cffi: architecture-specific inline assembly")
+            description = _("cffi: cpp standard language check")
 
         super().__init__(description=description,
                          filename=filename,
                          lineno=lineno,
-                         issue_type=PYTHON_INLINE_ASM,
+                         issue_type=PYTHON_CPP_STD_CODES,
                          checkpoint=checkpoint)
