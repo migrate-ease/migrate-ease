@@ -181,3 +181,38 @@ The `issues` provide specific descriptions of the detected issues, including whi
 - `issue_type`: The types of issues, including detailed descriptions of the errors.
 - `lineno`: The line number of the problematic code.
 - `snippet`: The code segment of the problematic code.
+
+
+# migrate_to_CSP.sh
+
+This script automatically scans your codebase to ensure compatibility with Arm-based cloud instances. It runs all supported language scanners with the correct architecture settings for the instance type you selected and outputs the scan results to JSON files named after the instance type and language scanner.
+
+## Usage
+
+```bash
+./migrate_to_CSP.sh [OPTIONS] [SCAN_PATH]
+```
+
+* Options
+    * `-v, --vendor VENDOR` : Specify the cloud vendor (currently only aliCloud is supported).
+    * `-i, --instance TYPE` : Specify the instance type (e.g., g8y, c8y, r8y, g6r, c6r).
+    * `-h, --help` : Show help message.
+* `SCAN_PATH` : Path to the code directory to scan.
+
+## Examples
+
+```bash
+./migrate_to_CSP.sh -v alicloud -i g8y /path/to/code
+```
+
+## Output
+
+For each scanner, a JSON report named `migrate_to_INSTANCE_SCANNER.json` will be generated in the current directory.
+
+## Help
+
+To display usage instructions:
+
+```bash
+./migrate_to_CSP.sh -h
+```
