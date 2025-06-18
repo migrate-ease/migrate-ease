@@ -198,14 +198,14 @@ def scan_git():
 
 @app.route('/scan/file', methods=['POST'])
 def upload_file():
-    if 'file' not in request.files:
+    if 'archive-file' not in request.files:
         return jsonify({'status':'ERROR', 'message': 'No file part'})
 
     # Check if a job with this uid is already in progress
     if current_job['status'] and current_job['status'] != 'completed':
         return jsonify({'status':'ERROR', 'message':'A job is running'})
 
-    file = request.files['file']
+    file = request.files['archive-file']
     if file:
         # Initialize job
         current_job['status'] = 'uploading'
