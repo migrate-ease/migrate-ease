@@ -14,18 +14,17 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-from .clang_source_scanner import ClangSourceScanner
+from .python_file_scanner import PythonFileScanner
 
 
-class Arm64SourceScanner(ClangSourceScanner):
+class Arm64SourceScanner(PythonFileScanner):
 
     """
     Scanner that scans .py source files for ARM64 potential
     porting issues.
     """
 
-    def __init__(self, output_format, arch, march):
+    def __init__(self, output_format, march):
 
         super().__init__(output_format=output_format,
-                         arch=arch,
                          march=march)

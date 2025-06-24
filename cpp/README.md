@@ -29,7 +29,7 @@ python3 -m pip install -r requirements.txt --user
 
 # Usage
 ```
-usage: porting-advisor [-h] [--arch ARCH] [--issue-types ISSUE_TYPES]
+usage: porting-advisor [-h] [--march ARCH] [--issue-types ISSUE_TYPES]
                        [--no-progress] [--output OUTPUT]
                        [--output-format OUTPUT_FORMAT] [--quiet]
                        [--target-os TARGET_OS] [--target-compiler COMPILER]
@@ -43,7 +43,7 @@ positional arguments:
 
 optional arguments:
   -h, --help            show this help message and exit
-  --arch ARCH           Instruction set schema name (armv8.6-a+sve2, arm64, default: armv8.6-a+sve2)
+  --march ARCH          target processor architecture (armv8-a, armv8.6-a+sve2, default: armv8-a)
   --issue-types ISSUE_TYPES
                         modify the types of issue that are reported (default:
                         -CompilerSpecific,-CrossCompile,-NoEquivalent)
@@ -87,8 +87,7 @@ Available issue types:
 
 # Hints:
 - CompilerSpecificIssue is not supported by the scanner now.
-- armv8.6-a+sve2 parameter indicates target arch is N2 and target os is with linux.
-- warning level and target compiler only works when arch is armv8.6-a+sve2.
+- warning level and target compiler only works when -march option is armv8.6-a+sve2.
 
 And refer to `./run.sh` for more details.
 

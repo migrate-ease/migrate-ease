@@ -18,16 +18,19 @@ import os
 import re
 import time
 
-from common.arch_strings import AARCH64_ARCHS
-from common.checkpoint import Checkpoint, init_checkpoints
+from typing import List
+
 from common.continuation_parser import ContinuationParser
-from common.find_port import find_matching_line_num
 from common.naive_comment_parser import NaiveCommentParser
 from common.report_factory import ReportOutputFormat
+from common.issue import Issue
+
+from cpp.advisor.clang_source_scanner import ClangSourceScanner
 
 from .go_scanner import GoScanner
 from .golang_inline_asm_issue import GolangInlineAsmIssue
 from .golang_intrinsic_issue import GolangIntrinsicIssue
+from .golang_cpp_std_issue import GolangCPPStdCodesIssue
 
 
 class GolangFileScanner(GoScanner):
@@ -41,34 +44,13 @@ class GolangFileScanner(GoScanner):
     #In Go, import "C" is the standard way to import C code and cannot be replaced by other forms.
     C_IMPORT_RE = re.compile(r'^import\s+"C"$')
 
-    AARCH64_INCOMPATIBLE_INTRINSICS = []
-    AARCH64_INLINE_ASSEMBLY_CHECKPOINTS = []
-
-    def __init__(self, output_format, arch, march):
+    def __init__(self, output_format, march):
         self.output_format = output_format
-        self.arch = arch
         self.march = march
 
         self.with_highlights = bool(
-            output_format == ReportOutputFormat.HTML or self.output_format == ReportOutputFormat.JSON)
+            self.output_format == ReportOutputFormat.HTML or self.output_format == ReportOutputFormat.JSON)
         self.load_checkpoints()
-
-    def load_checkpoints(self):
-        super().load_checkpoints()
-
-        start_time = time.time()
-
-        self.AARCH64_INCOMPATIBLE_INTRINSICS = init_checkpoints(
-            self.checkpoints_content['X86_INTRINSICS'] + self.checkpoints_content['OTHER_ARCH_INTRINSICS'] + self.checkpoints_content['INCOMPATIBLE_UCRT_INTRINSICS'],
-            self.checkpoints_content["COMMON_INTRINSICS"] + self.checkpoints_content["AARCH64_INTRINSICS"]
-        )
-        self.AARCH64_INLINE_ASSEMBLY_CHECKPOINTS = init_checkpoints(
-            self.checkpoints_content["AARCH64_INLINE_ASSEMBLY_CHECKPOINTS"]
-        )
-
-        end_time = time.time()
-
-        print('[Go] Initialization of checkpoints took %f seconds.' % (end_time - start_time))
 
     def accepts_file(self, filename):
 
@@ -81,96 +63,71 @@ class GolangFileScanner(GoScanner):
         _, ext = os.path.splitext(filename)
 
         if ext.lower() in self.__class__.GO_SOURCE_EXTENSIONS:
-
             self.FILE_SUMMARY[self.GO]['count'] += 1
             self.FILE_SUMMARY[self.GO]['loc'] += len(_lines)
 
+        match_c = ''
         continuation_parser = ContinuationParser()
         comment_parser = NaiveCommentParser()
+        cpp_scanner = ClangSourceScanner(self.output_format, self.march)
+        issues: List[Issue] = []
+        lines = {lineno: line for lineno, line in enumerate(_lines, 1)}
 
-        if self.arch in AARCH64_ARCHS:
-
-            ARCH_INCOMPATIBLE_INTRINSICS = self.AARCH64_INCOMPATIBLE_INTRINSICS
-            ASSEMBLY_CHECKPOINTS = self.AARCH64_INLINE_ASSEMBLY_CHECKPOINTS
-
-        else:
-
-            ARCH_INCOMPATIBLE_INTRINSICS = None
-            ASSEMBLY_CHECKPOINTS = None
-
-        issues = []  # type: List[Issue]
-        lines = {}
-        match_c = ''
-
-        for lineno, line in enumerate(_lines, 1):
-
-            lines[lineno] = line
-
-        for lineno in lines.keys():
-
+        for lineno in range (1, len(lines.keys())+1):
             line = lines[lineno]
-
-            line = continuation_parser.parse_line(line)
-            if not line:
-                continue
-
-            is_comment = comment_parser.parse_line(line)
-            if is_comment:
-                continue
-
+            match_c = self.__class__.C_IMPORT_RE.search(line)
+            # Check whether C code blocks are referenced via cgo in the Go source.
             if not match_c:
+                continue
 
-                match_c = self.__class__.C_IMPORT_RE.search(line)
+            # The C code block is enclosed in /* ... */.
+            # By identifying the start and end lines of this block, we can prevent it from
+            # being mistakenly parsed as a regular comment later.
+            for lineno_s in range(1, lineno):
+                if lines[lineno_s].strip() == "/*":
+                    break
+            for lineno_e in range(lineno, lineno_s, -1):
+                if lines[lineno_e].strip() == "*/":
+                    break
 
-            if match_c:
+            # Parse the C code block enclosed in /* ... */ before import "C".
+            lineno_c = lineno_s+1
+            while lineno_c < lineno_e:
+                line = lines[lineno_c]
+                if line.strip() == "":
+                    lineno_c += 1
+                    continue
+                line = continuation_parser.parse_line(line)
+                if not line:
+                    lineno_c += 1
+                    continue
+                is_comment = comment_parser.parse_line(line)
+                if is_comment:
+                    lineno_c += 1
+                    continue
+                line = continuation_parser.join_line(line, lineno_c)
+                if not line:
+                    lineno_c += 1
+                    continue
+                next_lineno = 1
+                next_lineno = cpp_scanner.check_clang(lines, line, lineno_c, continuation_parser.joined_lineno, filename,
+                                                      GolangInlineAsmIssue, GolangIntrinsicIssue, GolangCPPStdCodesIssue,
+                                                      issues)
+                if next_lineno != 1:
+                    # check_clang already parses multiple lines of code, so there's no need to repeat the parsing logic here.
+                    lineno_c = next_lineno+1
+                else:
+                    lineno_c += 1
 
-                for lineno_2 in range(1, lineno):
-                    line_2 = lines[lineno_2]
+                # Reset the joined line number.
+                continuation_parser.joined_lineno = -1
 
-                    c: Checkpoint
-                    for c in ASSEMBLY_CHECKPOINTS:
-                        #  NOTE: inline asm can expand no more that two lines
-                        if (lineno_2 + 4) <= lineno:
-                            multiline = "".join([lines[_] for _ in range(lineno_2, lineno_2 + 5)])
-                            match = c.pattern_compiled.search(multiline)
-                        elif (lineno_2 + 3) <= lineno:
-                            multiline = "".join([lines[_] for _ in range(lineno_2, lineno_2 + 4)])
-                            match = c.pattern_compiled.search(multiline)
-                        elif (lineno_2 + 2) <= lineno:
-                            multiline = "".join([lines[_] for _ in range(lineno_2, lineno_2 + 3)])
-                            match = c.pattern_compiled.search(multiline)
-                        elif (lineno_2 + 1) <= lineno:
-                            multiline = "".join([lines[_] for _ in range(lineno_2, lineno_2 + 2)])
-                            match = c.pattern_compiled.search(multiline)
-                        else:
-                            match = c.pattern_compiled.search(line_2)
+            #  to extract code snippets
+            for issue in issues:
+                issue.set_code_snippet(issue.get_code_snippets(lines, with_highlights=self.with_highlights))
+                report.add_issue(issue)
+            break
 
-                        if match:
-                            issues.append(GolangInlineAsmIssue(filename,
-                                                               lineno=lineno_2,
-                                                               checkpoint=c.pattern,
-                                                               description='' if not c.help else '\n' + c.help))
-                            break
-
-                    #  intrinsics check
-                    for c in ARCH_INCOMPATIBLE_INTRINSICS:
-                        match = c.pattern_compiled.search(line_2)
-
-                        if match:
-                            issues.append(GolangIntrinsicIssue(filename,
-                                                               lineno=find_matching_line_num(lines, lineno_2, c.pattern),
-                                                               arch=self.arch,
-                                                               intrinsic=match.string.strip(),
-                                                               checkpoint=c.pattern,
-                                                               description='' if not c.help else '\n' + c.help))
-                            break
-
-                #  to extract code snippets
-                for issue in issues:
-                    issue.set_code_snippet(issue.get_code_snippets(lines, with_highlights=self.with_highlights))
-                    report.add_issue(issue)
-
-                break
 
     def finalize_report(self, report):
         pass

@@ -21,12 +21,12 @@ from .report_item import IMAGE
 
 class ImageIssue(Issue):
 
-    def __init__(self, filename, lineno, arch=None, image=None, issue_type=IMAGE, checkpoint=None, description=None):
+    def __init__(self, filename, lineno, march=None, image=None, issue_type=IMAGE, checkpoint=None, description=None):
 
         if not description:
             description = _("The dockerfile is build based on the Base Image:%s, \
 please confirm whether the Base Image supports the architecture: %s by scanning the dockerfile of the Base Image \
-or by yourself.") % (image, arch)
+or by yourself.") % (image, march)
 
         super().__init__(description=description,
                          filename=filename,

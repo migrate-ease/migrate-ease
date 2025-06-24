@@ -202,7 +202,7 @@ class CommonConditionEvaluator:
         return False
 
 
-class N2ConditionEvaluator:
+class AARCH64ConditionEvaluator:
     keywords = {'==': 3, '!=': 3, '>=': 3, '<=': 3, '>': 3, '<': 3, '&&': 2, '||': 1, '!': 4, '(': 5, ')': 5}
     DEFINED_RE = re.compile(r'defined\((\w+)\)')
     END_COMMENT_RE = re.compile(r'//.*$')  # simple process of end comment in directive without consideration of ''

@@ -36,7 +36,7 @@ def main():
 
     parser.add_argument('--target-compiler',
                         help=_(
-                            'target compiler(default: %s), supported OS (%s).') % (DEFAULT_COMPILER, SUPPORTED_COMPILERS_ARM),
+                            'target compiler(default: %s), supported OS (%s).') % (DEFAULT_COMPILER, SUPPORTED_OS),
                         metavar='COMPILER',
                         default=DEFAULT_COMPILER)
 
@@ -58,7 +58,6 @@ def main():
     Report.REPORT_ITEM.TYPES += CPP_REPORT_TYPES
 
     report = report_factory.createReport(args.root,
-                                         arch=args.arch,
                                          march=args.march,
                                          target_os=args.target_os,
                                          output=args.output,
@@ -71,18 +70,18 @@ def main():
                                          progress=args.progress)
 
     issue_type_config_instance = IssueTypeConfig(args.issue_types, ISSUE_TYPES)
-    if args.arch == N2_MARCH:
+    if args.march ==  ARMV8_0 or args.march == ARMV8_6_SVE2:
         try:
             if args.target_compiler not in SUPPORTED_COMPILERS_ARM:
                 raise ValueError
         except ValueError:
-            print(_('%s: invalid compiler for %s') % args.arch, args.target_compiler, file=sys.stderr)
+            print(_('%s: invalid compiler for %s') % args.march, args.target_compiler, file=sys.stderr)
             sys.exit(1)
         try:
             if args.warning_level not in ['L1', 'L2']:
                 raise ValueError
         except ValueError:
-            print(_('%s: invalid warning_level for %s') % args.arch, args.warning_level, file=sys.stderr)
+            print(_('%s: invalid warning_level for %s') % args.march, args.warning_level, file=sys.stderr)
             sys.exit(1)
 
     # Check if a git repo is specified
@@ -94,16 +93,15 @@ def main():
             print(f"Error occurred while cloning [{args.git_repo}] : {e}")
             sys.exit(1)
 
-    if args.arch in AARCH64_ARCHS:
+    if args.march in SUPPORTED_MARCH:
         scanners = Arm64Scanners(issue_type_config_instance,
                                  output_format=args.output_format,
-                                 arch=args.arch,
                                  march=args.march,
                                  compiler=args.target_compiler,
                                  warning_level=args.warning_level)
 
     else:
-        raise RuntimeError('no scanner available for arch %s.' % args.arch)
+        raise RuntimeError('no scanner available for target processor architecture %s.' % args.march)
 
     scanners.initialize_report(report)
     scanner = AutoScanner(scanners)

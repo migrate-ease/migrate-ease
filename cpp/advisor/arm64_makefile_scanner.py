@@ -62,9 +62,8 @@ class Arm64MakefileScanner(MakefileScanner):
                                           [('__%s__' % x) for x in NON_AARCH64_ARCHS] +
                                           [('__%s__' % x.upper()) for x in NON_AARCH64_ARCHS]))
 
-    def __init__(self, output_format, arch, march):
+    def __init__(self, output_format, march):
         self.output_format = output_format
-        self.arch = arch
         self.march = march
         self.highlight_code_snippet = bool(self.output_format == ReportOutputFormat.HTML or self.output_format == ReportOutputFormat.JSON)
         self.load_checkpoints()
@@ -105,14 +104,14 @@ class Arm64MakefileScanner(MakefileScanner):
             if not line:
                 continue
 
-            #  check of arch specifc libs
+            #  check of target processor architecture specifc libs
             match = self.__class__.ARCH_SPECIFIC_LIBS_RE.search(line)
             if match:
                 lib_name = match.group(1)
                 issues.append(ArchSpecificLibraryIssue(filename,
                                                        lineno,
                                                        lib_name=lib_name,
-                                                       arch=self.arch))
+                                                       march=self.march))
 
             #  check of old C Runtime libs, if universal CRT found
             #  then it will not be seen as an issue, be note that
@@ -132,7 +131,7 @@ class Arm64MakefileScanner(MakefileScanner):
                                                     lineno,
                                                     line))
 
-            #  check of arch specific macros
+            #  check of target processor architecture specific macros
             match = self.__class__.D_OTHER_ARCH_RE.search(line)
             if match:
                 d_other_arch = match.group(0)

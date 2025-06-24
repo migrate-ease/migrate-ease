@@ -40,7 +40,6 @@ def main():
     Report.REPORT_ITEM.TYPES += JAVA_REPORT_TYPES
 
     report = report_factory.createReport(args.root,
-                                         arch=args.arch,
                                          march=args.march,
                                          target_os=args.target_os,
                                          output=args.output,
@@ -63,14 +62,13 @@ def main():
             print(f"Error occurred while cloning [{args.git_repo}] : {e}")
             sys.exit(1)
 
-    if args.arch in AARCH64_ARCHS:
+    if args.march in SUPPORTED_MARCH:
         scanners = Arm64Scanners(issue_type_config_instance,
                                  output_format=args.output_format,
-                                 arch=args.arch,
                                  march=args.march)
 
     else:
-        raise RuntimeError('no scanner available for arch %s.' % args.arch)
+        raise RuntimeError('no scanner available for target processor architecture: %s.' % args.march)
 
     scanners.initialize_report(report)
     scanner = AutoScanner(scanners)

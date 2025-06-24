@@ -23,7 +23,6 @@ import subprocess
 from collections import defaultdict
 
 from common.localization import _
-from common.arch_strings import AARCH64_ARCHS
 from common.report_factory import ReportOutputFormat
 
 from .java_scanner import JavaScanner
@@ -38,13 +37,12 @@ class JavaJarScanner(JavaScanner):
     ARM64_ELF_RE = re.compile(r'ELF 64-bit.*, ARM aarch64,.*')
     LIBNAME_RE = re.compile(r'^(.*?)-(linux|osx|windows|win)(32|64)?(-\w+)?.*$')
 
-    def __init__(self, output_format, arch, march):
+    def __init__(self, output_format, march):
         self.output_format = output_format
-        self.arch = arch
         self.march = march
 
         self.with_highlights = bool(
-            output_format == ReportOutputFormat.HTML or self.output_format == ReportOutputFormat.JSON)
+            self.output_format == ReportOutputFormat.HTML or self.output_format == ReportOutputFormat.JSON)
 
     def accepts_file(self, filename):
 
@@ -113,7 +111,7 @@ class JavaJarScanner(JavaScanner):
                     exist_libs = '\n\t'.join(libs_list_dict[this_lib])
                     lines[lib_idx] = _("No native lib [%s] for aarch64. Existing libs are:\n\t%s") % (this_lib, exist_libs)
                     issues.append(JavaJarIssue(filename=filename,
-                                                 arch=self.arch,
+                                                 march=self.march,
                                                  lineno=0,
                                                  checkpoint=None))
                     lib_idx += 1

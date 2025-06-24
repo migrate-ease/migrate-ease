@@ -21,10 +21,10 @@ from .report_item import PYTHON_INTRINSIC
 
 class PythonIntrinsicIssue(Issue):
 
-    def __init__(self, filename, lineno, arch=None, intrinsic=None, issue_type=PYTHON_INTRINSIC, checkpoint=None, description=None):
+    def __init__(self, filename, lineno, march=None, intrinsic=None, issue_type=PYTHON_INTRINSIC, checkpoint=None, description=None):
 
         if not description:
-            description = _("Intrinsic not supported on %s: %s") % (arch, intrinsic)
+            description = _("cffi: Intrinsic not supported on %s: %s") % (march, intrinsic)
 
         super().__init__(description=description,
                          filename=filename,

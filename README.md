@@ -74,24 +74,24 @@ export PYTHONPATH=/path/to/migrate-ease
 **Run tool (console output)**
 
 ```bash
-python3 -m {scanner_name} --arch {arch} {scan_path}
+python3 -m {scanner_name} --march {arch} {scan_path}
 ```
 
 **Run tool (JSON report)**
 
 ```bash
-python3 -m {scanner_name} --output {result_file_name}.json --arch {arch} {scan_path}
+python3 -m {scanner_name} --output {result_file_name}.json --march {arch} {scan_path}
 ```
 
 Parameters:
 - `{scanner_name}`: The name of the scanner, which can be one of `cpp`, `docker`, `go`, `js`, `java`, `python`, `rust`.
 - `{result_file_name}`: The name of the output result file (without the extension).
-- `{arch}`: The target instruction set architecture (default: aarch64).
+- `{arch}`: The target processor architecture (default: armv8-a).
 - `{scan_path}`: The path to the code directory that needs to be scanned.
 
 You can also specify the code to be scanned through the Git repository address.
 ```bash
-python3 -m {scanner_name} --output {result_file_name}.json --arch {arch} --git-repo {repo} {scan_path}
+python3 -m {scanner_name} --output {result_file_name}.json --march {arch} --git-repo {repo} {scan_path}
 ```
 **NOTE: `{scan_path}` is a directory that user would like to this tool to create and clone to.**
 
@@ -115,14 +115,13 @@ cd <scanner_name>/integration_test
 
 # Example to generate JSON report
 ```
-$ python3 -m cpp --git-repo https://github.com/protocolbuffers/protobuf.git --branch v2.5.0 --output result.json --arch aarch64 /home/my_repo
+$ python3 -m cpp --git-repo https://github.com/protocolbuffers/protobuf.git --branch v2.5.0 --output result.json --march armv8-a /home/my_repo
 ```
 After the above has been executed successfully, you will see a JSON format file at current directory as `result.json`.
 
 # How to read JSON output
 ```json
 {
-    "arch": "aarch64",
     "branch": null,
     "commit": null,
     "errors": [],
@@ -146,7 +145,7 @@ After the above has been executed successfully, you will see a JSON format file 
         },
     ],
     "language_type": "cpp",
-    "march": null,
+    "march": "armv8-a",
     "output": null,
     "progress": true,
     "quiet": false,

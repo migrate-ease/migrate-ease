@@ -18,12 +18,15 @@ import os
 import re
 import time
 
+from typing import List
+
 from common.arch_strings import *
 from common.continuation_parser import ContinuationParser
 from common.find_port import find_matching_line_num
 from common.naive_comment_parser import NaiveCommentParser
 from common.report_factory import ReportOutputFormat
 from common.checkpoint import init_checkpoints
+from common.issue import Issue
 
 from .rust_inline_asm_issue import RustInlineAsmIssue
 from .rust_intrinsic_issue import RustIntrinsicIssue
@@ -36,17 +39,19 @@ class RustFileScanner(RustScanner):
     """
 
     RS_SOURCE_EXTENSIONS = ['.rs']
+    inlineAsm_pattern = re.compile(r'(?mis)\A\s*(global_asm!|asm!|llvm_asm!)')
 
     AARCH64_INCOMPATIBLE_INTRINSICS = []
     AARCH64_INLINE_ASSEMBLY_CHECKPOINTS = []
+    ARCH_INCOMPATIBLE_INTRINSICS = []
+    ASSEMBLY_CHECKPOINTS = []
 
-    def __init__(self, output_format, arch, march):
+    def __init__(self, output_format, march):
         self.output_format = output_format
-        self.arch = arch
         self.march = march
 
         self.with_highlights = bool(
-            output_format == ReportOutputFormat.HTML or self.output_format == ReportOutputFormat.JSON)
+            self.output_format == ReportOutputFormat.HTML or self.output_format == ReportOutputFormat.JSON)
         self.load_checkpoints()
 
     def load_checkpoints(self):
@@ -81,80 +86,94 @@ class RustFileScanner(RustScanner):
             self.FILE_SUMMARY[self.RUST]['count'] += 1
             self.FILE_SUMMARY[self.RUST]['loc'] += len(_lines)
 
+        if self.march in SUPPORTED_MARCH:
+            self.ARCH_INCOMPATIBLE_INTRINSICS = self.AARCH64_INCOMPATIBLE_INTRINSICS
+            self.ASSEMBLY_CHECKPOINTS = self.AARCH64_INLINE_ASSEMBLY_CHECKPOINTS
+        else:
+            raise RuntimeError('no scanner available for target processor architecture %s.' % self.march)
+
         continuation_parser = ContinuationParser()
         comment_parser = NaiveCommentParser()
+        issues: List[Issue] = []
+        lines = {lineno: line for lineno, line in enumerate(_lines, 1)}
 
-        if self.arch in AARCH64_ARCHS:
-
-            ARCH_INCOMPATIBLE_INTRINSICS = self.AARCH64_INCOMPATIBLE_INTRINSICS
-            ASSEMBLY_CHECKPOINTS = self.AARCH64_INLINE_ASSEMBLY_CHECKPOINTS
-
-        else:
-
-            ARCH_INCOMPATIBLE_INTRINSICS = None
-            ASSEMBLY_CHECKPOINTS = None
-
-        issues = []  # type: List[Issue]
-        lines = {}
-
-        for lineno, line in enumerate(_lines, 1):
-            lines[lineno] = line
-
-        for lineno in lines.keys():
-
+        for lineno in range(1, len(lines.keys())+1):
             line = lines[lineno]
-
+            if line.strip() == "":
+                lineno += 1
+                continue
             line = continuation_parser.parse_line(line)
             if not line:
+                lineno += 1
                 continue
-
             is_comment = comment_parser.parse_line(line)
             if is_comment:
+                lineno += 1
+                continue
+            line = continuation_parser.join_line(line, lineno)
+            if not line:
+                lineno += 1
                 continue
 
-            #  inline assembly check
-            for c in ASSEMBLY_CHECKPOINTS:
-                #  NOTE: inline asm can expand no more than two lines
-                if (lineno + 4) <= len(lines.keys()):
-                    multiline = "".join([lines[_] for _ in range(lineno, lineno + 5)])
-                    match = c.pattern_compiled.search(multiline)
-                elif (lineno + 3) <= len(lines.keys()):
-                    multiline = "".join([lines[_] for _ in range(lineno, lineno + 4)])
-                    match = c.pattern_compiled.search(multiline)
-                elif (lineno + 2) <= len(lines.keys()):
-                    multiline = "".join([lines[_] for _ in range(lineno, lineno + 3)])
-                    match = c.pattern_compiled.search(multiline)
-                elif (lineno + 1) <= len(lines.keys()):
-                    multiline = "".join([lines[_] for _ in range(lineno, lineno + 2)])
-                    match = c.pattern_compiled.search(multiline)
-                else:
-                    match = c.pattern_compiled.search(line)
+            next_lineno = 1
+            next_lineno = self.check_issues(lines, line, lineno, continuation_parser.joined_lineno, filename, issues)
+            if next_lineno != 1:
+                # check_clang already parses multiple lines of code, so there's no need to repeat the parsing logic here.
+                lineno = next_lineno+1
+            else:
+                lineno += 1
 
-                if match:
-                    issues.append(RustInlineAsmIssue(filename,
-                                                     lineno=lineno,
-                                                     checkpoint=c.pattern,
-                                                     description='' if not c.help else '\n' + c.help))
-                    break
-
-            #  intrinsics check
-            for c in ARCH_INCOMPATIBLE_INTRINSICS:
-
-                match = c.pattern_compiled.search(line)
-
-                if match:
-                    issues.append(RustIntrinsicIssue(filename,
-                                                     lineno=find_matching_line_num(lines, lineno, c.pattern),
-                                                     arch=self.arch,
-                                                     intrinsic=match.string.strip(),
-                                                     checkpoint=c.pattern,
-                                                     description='' if not c.help else '\n' + c.help))
-                    break
+            # Reset the joined line number.
+            continuation_parser.joined_lineno = -1
 
         #  to extract code snippets
         for issue in issues:
             issue.set_code_snippet(issue.get_code_snippets(lines, with_highlights=self.with_highlights))
             report.add_issue(issue)
+
+    def check_issues(self,
+                     # context
+                     lines, line, lineno, joined_lineno, filename,
+                     # results
+                     issues: List[Issue]):
+
+        continuation_parser = ContinuationParser()
+        # inline assemly check.
+        # Check for inline asm (e.g., 'asm!(...)' or 'global_asm!(...)')
+        match = self.inlineAsm_pattern.match(line.strip())
+        if match:
+            if lineno < len(lines) and lines[lineno+1].strip().startswith('('):
+                # The inline assembly function is written across multiple lines.
+                lineno = lineno+1
+                join_line = continuation_parser.join_line(lines[lineno])
+                while continuation_parser.joined_line != None:
+                    lineno = lineno+1
+                    join_line = continuation_parser.join_line(lines[lineno])
+                line = "".join([str(line), str(join_line)])
+
+
+            for c in self.ASSEMBLY_CHECKPOINTS:
+                match = c.pattern_compiled.search(line)
+                if match:
+                    issues.append(RustInlineAsmIssue(filename,
+                                            lineno=joined_lineno,
+                                            checkpoint=c.pattern,
+                                            description='' if not c.help else '\n' + c.help))
+                    break
+
+        #  intrinsics check
+        for c in self.ARCH_INCOMPATIBLE_INTRINSICS:
+            match = c.pattern_compiled.search(line)
+            if match:
+                issues.append(RustIntrinsicIssue(filename,
+                                             lineno=joined_lineno,
+                                             march=self.march,
+                                             intrinsic=match.string.strip(),
+                                             checkpoint=c.pattern,
+                                             description='' if not c.help else '\n' + c.help))
+                break
+
+        return lineno
 
     def finalize_report(self, report):
         pass

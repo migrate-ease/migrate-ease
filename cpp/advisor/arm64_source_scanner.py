@@ -25,10 +25,9 @@ class Arm64SourceScanner(ClangSourceScanner):
     porting issues.
     """
 
-    def __init__(self, output_format, arch, march, compiler, warning_level):
+    def __init__(self, output_format, march, compiler, warning_level):
 
         super().__init__(output_format=output_format,
-                         arch=arch,
                          march=march,
                          compiler=compiler,
                          warning_level=warning_level)

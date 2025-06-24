@@ -24,7 +24,7 @@ class PythonInlineAsmIssue(Issue):
     def __init__(self, filename, lineno, checkpoint=None, description=None):
 
         if not description:
-            description = _("architecture-specific inline assembly")
+            description = _("cffi: architecture-specific inline assembly")
 
         super().__init__(description=description,
                          filename=filename,

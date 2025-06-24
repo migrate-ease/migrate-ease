@@ -19,13 +19,15 @@ from common.localization import _
 #class ReportItem(BaseReportItem):
 PYTHON_LINKLIBRARY = {'type': 'PythonLinkLibraryIssue', 'des': _('Use of libraries that are incompatible with the target platform')}
 PYTHON_INLINE_ASM = {'type': 'PythonInlineAsmIssue',
-                     'des': _("Use of inline assembly in the target platform may lead to compatibility issues")}
-PYTHON_INTRINSIC = {'type': 'PythonIntrinsicIssue', 'des': _("Use of intrinsic functions that have compatibility issues with the target platform")}
+                     'des': _("cffi: Use of inline assembly in the target platform may lead to compatibility issues")}
+PYTHON_INTRINSIC = {'type': 'PythonIntrinsicIssue', 'des': _("cffi: Use of intrinsic functions that have compatibility issues with the target platform")}
+PYTHON_CPP_STD_CODES = {'type': 'PythonCPPStdCodes', 'des': _("cffi: Compatibility issues or optimization opportunities related to Cpp source and memory order on the target platform")}
 PYTHON_PACKAGE = {'type': 'PythonPackageIssue', 'des': _("Use of packages that are incompatible with the target platform")}
 
 PYTHON_REPORT_TYPES = [
     PYTHON_LINKLIBRARY,
     PYTHON_INLINE_ASM,
     PYTHON_INTRINSIC,
+    PYTHON_CPP_STD_CODES,
     PYTHON_PACKAGE
 ]
