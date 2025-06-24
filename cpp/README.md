@@ -65,7 +65,7 @@ optional arguments:
   --version             show program's version number and exit
 
 ArchType:
-  armv8.6-a+sve2, arm64
+  armv8-a, armv8.6-a+sve2
 
 Use:
   --issue-types=+CompilerSpecific to enable reporting of use of
