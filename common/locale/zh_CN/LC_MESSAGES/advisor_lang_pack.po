@@ -11,7 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: migrate-ease\n"
@@ -88,57 +88,56 @@ msgid "git repository code commit id (default: HEAD)."
 msgstr "Git 仓库代码提交 ID（默认：HEAD）。"
 
 #: common/main.py:76
-msgid "target instruction set architecture (default: %s)."
-msgstr "目标指令集架构（默认：%s）。"
+msgid "the target processor architecture (default: %s)."
+msgstr "目标处理器架构（默认值：%s）。"
 
 #: common/main.py:80
-msgid ""
-"target microarchitecture name, required when arch is x86 (default: None)."
-msgstr "目标微架构名称，当架构为 x86 时必需（默认：无）。"
-
-#: common/main.py:84
 msgid "target operating system (default: %s), supported OS (%s)."
 msgstr "目标操作系统（默认：%s），支持的操作系统（%s）。"
 
-#: common/main.py:90
+#: common/main.py:86
 msgid "report file name."
 msgstr "报告文件名称。"
 
-#: common/main.py:94
+#: common/main.py:90
 msgid "output format: %s (default: %s)."
 msgstr "输出格式：%s（默认：%s）。”"
 
-#: common/main.py:102
+#: common/main.py:98
 msgid "types of issue that are reported (default: \"%s\")."
 msgstr "报告的问题类型（默认：%s）。"
 
-#: common/main.py:106
+#: common/main.py:102
 msgid "when set, there will be no progress bar."
 msgstr "设置后，将不会显示进度条。"
 
-#: common/main.py:111
+#: common/main.py:107
 msgid "suppress file errors."
-msgstr "抑制文件错误。"
+msgstr "忽略文件错误。"
 
-#: common/main.py:123
-msgid "unknown/unsupported arch: %s"
-msgstr "未知/不支持的架构：%s。"
+#: common/main.py:119
+msgid "unknown/unsupported processor archtecture: %s"
+msgstr "未知/不支持的架构：%s"
 
-#: common/main.py:128
+#: common/main.py:121
+msgid "supported architectures: %s"
+msgstr "支持的架构：%s"
+
+#: common/main.py:125
 msgid ""
 "OS \"%s\" is not supported.\n"
 "Supported OS: %s"
 msgstr "操作系统 %s 不受支持。\n 支持的操作系统：%s。"
 
-#: common/main.py:135
+#: common/main.py:132
 msgid "%s: directory not found."
 msgstr "%s：目录未找到。"
 
-#: common/main.py:140
+#: common/main.py:137
 msgid "%s: not a directory."
 msgstr "%s：不是一个目录。"
 
-#: common/main.py:160
+#: common/main.py:157
 msgid "%s: invalid output format"
 msgstr "%s：无效的输出格式。"
 
@@ -184,15 +183,11 @@ msgstr "其他特定架构的条件行（可能不适合交叉编译）：%s"
 msgid "incompatible header file check"
 msgstr "不兼容的头文件检查"
 
-#: cpp/advisor/inline_asm_issue.py:28 go/advisor/golang_inline_asm_issue.py:27
-#: python/advisor/python_inline_asm_issue.py:27
-#: rust/advisor/rust_inline_asm_issue.py:27
+#: cpp/advisor/inline_asm_issue.py:28 rust/advisor/rust_inline_asm_issue.py:27
 msgid "architecture-specific inline assembly"
 msgstr "特定架构的内联汇编"
 
 #: cpp/advisor/intrinsic_issue.py:28 go/advisor/asm_issue.py:27
-#: go/advisor/golang_intrinsic_issue.py:27
-#: python/advisor/python_intrinsic_issue.py:27
 #: rust/advisor/rust_intrinsic_issue.py:27
 msgid "Intrinsic not supported on %s: %s"
 msgstr "Intrinsic不被%s架构支持：%s"
@@ -216,11 +211,11 @@ msgid ""
 "certainty,L2 ---- report a warning with less certainty"
 msgstr "警告级别（默认：L1，支持的级别（L1, L2），指示报告警告时的确定性。L1：仅在非常确定时报告警告；L2：在较确定时报告警告。"
 
-#: cpp/advisor/main.py:79
+#: cpp/advisor/main.py:78
 msgid "%s: invalid compiler for %s"
 msgstr "%s：%s不支持的编译器。"
 
-#: cpp/advisor/main.py:85
+#: cpp/advisor/main.py:84
 msgid "%s: invalid warning_level for %s"
 msgstr "%s：无效的警告级别。"
 
@@ -240,12 +235,12 @@ msgstr "使用了Arm不支持的其他特定架构的intrinsic。"
 msgid "links with old C runtime %s, prefer Universal C Runtime libs (libucrt)"
 msgstr "链接到旧的C运行时%s，建议使用通用C运行时库（libucrt）。"
 
-#: cpp/advisor/ported_inline_asm_remark.py:26
+#: cpp/advisor/ported_inline_asm_remark.py:27
 msgid ""
 "%d inline assembly statements or intrinsics already have aarch64 equivalents"
 msgstr "%d个内联汇编或intrinsics已经有aarch64等效项。"
 
-#: cpp/advisor/ported_source_files_remark.py:26
+#: cpp/advisor/ported_source_files_remark.py:27
 msgid "%d source files are already ported to aarch64"
 msgstr "%d个源文件已经移植到aarch64。"
 
@@ -290,7 +285,7 @@ msgstr "与目标平台上的c++源代码和内存顺序相关的兼容性问题
 msgid "Incompatible header files"
 msgstr "不兼容的头文件。"
 
-#: cpp/advisor/report_item.py:29 go/advisor/report_item.py:21
+#: cpp/advisor/report_item.py:29
 msgid "Use of inline assembly may lead to target platform compatibility issues"
 msgstr "使用内联汇编可能导致目标平台的兼容性问题。"
 
@@ -321,7 +316,7 @@ msgstr "代码中检查其他处理器平台类型的逻辑可能会导致兼容
 msgid "Cross-compilation compatibility issues"
 msgstr "交叉编译兼容性问题。"
 
-#: cpp/advisor/report_item.py:38 go/advisor/report_item.py:23
+#: cpp/advisor/report_item.py:38 go/advisor/report_item.py:24
 msgid ""
 "Potentially architecture-specific assembly code in the source files that "
 "requires manual inspection"
@@ -413,39 +408,65 @@ msgstr "插件"
 msgid "CONFIGURATION_INFO"
 msgstr "配置信息"
 
+#: go/advisor/golang_cpp_std_issue.py:27
+msgid "cgo: cpp standard language check"
+msgstr "cgo：c++标准语言检查"
+
+#: go/advisor/golang_inline_asm_issue.py:27
+msgid "cgo: architecture-specific inline assembly"
+msgstr "cgo：特定架构的内联汇编"
+
+#: go/advisor/golang_intrinsic_issue.py:27
+msgid "cgo: Intrinsic not supported on %s: %s"
+msgstr "cgo：Intrinsic不被%s架构支持：%s"
+
 #: go/advisor/golang_link_library_issue.py:28
-msgid "Golang Link Library: %s not support on arch: %s"
-msgstr "链接库%s在平台%s上不支持。"
+msgid ""
+"Golang Link Library: %s not support on target precessor architecture: %s"
+msgstr "Golang链接库%s在平台%s上不支持。"
 
 #: go/advisor/report_item.py:19 python/advisor/report_item.py:20
 #: rust/advisor/report_item.py:19
 msgid "Use of libraries that are incompatible with the target platform"
 msgstr "使用与目标平台不兼容的库。"
 
-#: go/advisor/report_item.py:22 python/advisor/report_item.py:23
+#: go/advisor/report_item.py:21
 msgid ""
-"Use of intrinsic functions that have compatibility issues with the target "
-"platform"
-msgstr "使用与目标平台存在兼容性问题的intrinsic函数。"
+"cgo: Use of inline assembly may lead to target platform compatibility issues"
+msgstr "cgo：使用内联汇编可能导致目标平台的兼容性问题。"
+
+#: go/advisor/report_item.py:22
+msgid ""
+"cgo: Use of intrinsic functions that have compatibility issues with the "
+"target platform"
+msgstr "cgo：使用与目标平台存在兼容性问题的intrinsic函数。"
+
+#: go/advisor/report_item.py:23
+msgid ""
+"cgo: Compatibility issues or optimization opportunities related to Cpp "
+"source and memory order on the target platform"
+msgstr "cgo：与目标平台上的c++源代码和内存顺序相关的兼容性问题或优化机会"
 
 #: java/advisor/java_jar_issue.py:28
 msgid "Java Jar package: %s does not support arch: %s"
 msgstr "Java Jar包：%s，不支持%s架构。"
 
-#: java/advisor/java_jar_scanner.py:114
+#: java/advisor/java_jar_scanner.py:112
 msgid ""
 "No native lib [%s] for aarch64. Existing libs are:\n"
 "\t%s"
 msgstr "没有适用于 aarch64 的原生库：%s。现有的库有：\n\t%s"
 
 #: java/advisor/java_pom_issue.py:27
-msgid "Dependency imported by POM: %s does not support arch: %s"
+msgid ""
+"Dependency imported by POM: %s does not support target processor "
+"architecture: %s"
 msgstr "由POM导入的依赖项：%s，不支持%s架构。"
 
 #: java/advisor/java_source_issue.py:28
 msgid ""
 "Java source: %s contains native call that may need to modify/rebuild for "
-"arch: %s"
+"target processor architecture: %s"
 msgstr "Java源代码：%s，包含可能需要为%s架构修改或重建的本地调用。"
 
 #: java/advisor/report_item.py:18
@@ -498,25 +519,55 @@ msgstr "grpc已被弃用。请使用@grpc/grpc-js代替。"
 msgid "Incompatible NPM packages"
 msgstr "不兼容的 NPM 包。"
 
+#: python/advisor/python_cpp_std_issue.py:27
+msgid "cffi: cpp standard language check"
+msgstr "cffi：c++标准语言检查"
+
+#: python/advisor/python_inline_asm_issue.py:27
+msgid "cffi: architecture-specific inline assembly"
+msgstr "cffi：特定架构的内联汇编"
+
+#: python/advisor/python_intrinsic_issue.py:27
+msgid "cffi: Intrinsic not supported on %s: %s"
+msgstr "cffi：Intrinsic不被%s架构支持：%s"
+
 #: python/advisor/python_link_library_issue.py:28
-msgid "Python Link Library: %s not support on arch: %s"
-msgstr "链接库%s在%s平台上不支持。"
+msgid "Python Link Library: %s not support on taget processor architecture: %s"
+msgstr "Python链接库%s在%s平台上不支持。"
 
 #: python/advisor/python_package_issue.py:27
 msgid ""
 "This third-party python package is not support on current CPU architecture"
 msgstr "此第三方 Python 包不支持当前的 CPU 架构。"
 
-#: python/advisor/report_item.py:22 rust/advisor/report_item.py:20
+#: python/advisor/report_item.py:22
+msgid ""
+"cffi: Use of inline assembly in the target platform may lead to "
+"compatibility issues"
+msgstr "cffi：在目标平台中使用内联汇编可能会导致兼容性问题。"
+
+#: python/advisor/report_item.py:23
+msgid ""
+"cffi: Use of intrinsic functions that have compatibility issues with the "
+"target platform"
+msgstr "cffi：使用与目标平台存在兼容性问题的intrinsic函数。"
+
+#: python/advisor/report_item.py:24
+msgid ""
+"cffi: Compatibility issues or optimization opportunities related to Cpp "
+"source and memory order on the target platform"
+msgstr "cffi：与目标平台上的c++源代码和内存顺序相关的兼容性问题或优化机会"
+
+#: python/advisor/report_item.py:25
+msgid "Use of packages that are incompatible with the target platform"
+msgstr "使用与目标平台不兼容的软件包"
+
+#: rust/advisor/report_item.py:20
 msgid ""
 "Use of inline assembly in the target platform may lead to compatibility "
 "issues"
-msgstr "在目标平台中使用内联汇编可能会导致兼容性问题。"
-
-#: python/advisor/report_item.py:24
-msgid "Use of packages that are incompatible with the target platform"
-msgstr "使用与目标平台不兼容的软件包。"
+msgstr "在目标平台中使用内联汇编可能会导致兼容性问题"
 
 #: rust/advisor/rust_link_library_issue.py:33
 msgid "Rust Link Library: %s not support on arch: %s"
-msgstr "链接库%s在%s平台上不支持。"
+msgstr "Rust链接库%s在%s平台上不支持。"
