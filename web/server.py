@@ -58,19 +58,13 @@ def index():
     current_job['status'] = None
     return render_template('index.html', job_status=current_job['status'])
 
-def scan_dir(prj_path, git_info= None, scan_cat='all', target_march='aarch64'):
+def scan_dir(prj_path, git_info= None, scan_cat='all', target_march='armv8-a'):
     scan_jobs = []
 
     env = os.environ.copy()
     if 'PYTHONPATH' not in os.environ:
         env['PYTHONPATH'] = os.path.abspath(app.root_path + '/../')
 
-    march_map = {
-        "aarch64": "armv8-a",
-        "arm_n1" : "armv8.6+sve2",
-        "arm_n2" : "armv8.6+sve2"
-    }
-    march = march_map.get(target_march, "armv8-a")
     if git_info:
         git_params = '--git-repo '+git_info['url']
         if git_info['branch']:
@@ -82,17 +76,17 @@ def scan_dir(prj_path, git_info= None, scan_cat='all', target_march='aarch64'):
         # Scan all possible categories
         for this_cat in supported_scan_cats:
             if this_cat == 'cpp':
-                cmdline = ['python3 '+ env['PYTHONPATH'] + '/' + this_cat + '/__main__.py ' + git_params + ' --output ' + app.config['RESULT_FOLDER'] + '/' + current_job['id'] + '_' + this_cat + '.json --warning-level L2 --arch aarch64 --march ' + march + ' .']
+                cmdline = ['python3 '+ env['PYTHONPATH'] + '/' + this_cat + '/__main__.py ' + git_params + ' --output ' + app.config['RESULT_FOLDER'] + '/' + current_job['id'] + '_' + this_cat + '.json --warning-level L2 --march ' + target_march + ' .']
 
             else:
-                cmdline = ['python3 '+ env['PYTHONPATH'] + '/' + this_cat + '/__main__.py ' + git_params + ' --output ' + app.config['RESULT_FOLDER'] + '/' + current_job['id'] + '_' + this_cat + '.json --arch aarch64 --march ' + march + ' .']
+                cmdline = ['python3 '+ env['PYTHONPATH'] + '/' + this_cat + '/__main__.py ' + git_params + ' --output ' + app.config['RESULT_FOLDER'] + '/' + current_job['id'] + '_' + this_cat + '.json --march ' + target_march + ' .']
             s = ' '.join(cmdline)
             scan_jobs.append({'category':this_cat, 'cmd':cmdline})
     elif scan_cat in supported_scan_cats:
         if scan_cat == 'cpp':
-            cmdline = ['python3 '+ env['PYTHONPATH'] + '/' + scan_cat + '/__main__.py ' + git_params + ' --output ' + app.config['RESULT_FOLDER'] + '/' + current_job['id'] + '_' + scan_cat + '.json --warning-level L2 --arch aarch64 --march ' + march + ' .']
+            cmdline = ['python3 '+ env['PYTHONPATH'] + '/' + scan_cat + '/__main__.py ' + git_params + ' --output ' + app.config['RESULT_FOLDER'] + '/' + current_job['id'] + '_' + scan_cat + '.json --warning-level L2 --march ' + target_march + ' .']
         else:
-            cmdline = ['python3 '+ env['PYTHONPATH'] + '/' + scan_cat + '/__main__.py ' + git_params + ' --output ' + app.config['RESULT_FOLDER'] + '/' + current_job['id'] + '_' + scan_cat + '.json --arch aarch64 --march ' + march + ' .']
+            cmdline = ['python3 '+ env['PYTHONPATH'] + '/' + scan_cat + '/__main__.py ' + git_params + ' --output ' + app.config['RESULT_FOLDER'] + '/' + current_job['id'] + '_' + scan_cat + '.json --march ' + target_march + ' .']
         s = ' '.join(cmdline)
         scan_jobs.append({'category':scan_cat, 'cmd':cmdline})
     else:
@@ -278,14 +272,9 @@ def show_result():
             # Convert to a human-readable format
             modified_time_readable = datetime.fromtimestamp(modified_time).strftime('%Y-%m-%d %H:%M:%S')
             json_data = json.load(f)
-            if 'march' not in this_result:
-                march = json_data['arch']
-            elif this_result['march'] is None:
-                march = json_data['arch']
             march_map = {
                 "armv8-a": "Armv8-a Generic",
                 "armv8.6+sve2": "Arm Neoverse N2",
-                "aarch64": "Armv8-a Generic"
             }
             json_data['march'] = march_map.get(json_data['march'], "Unknow Architecture")
             results.append({'name':this_result['category'], 'result':json_data, 'modified_time':modified_time_readable})
