@@ -69,14 +69,19 @@ class DockerfileScanner(DockerScanner):
     def accepts_file(self, filename):
 
         ext = os.path.basename(filename)
-        return ext.lower() in self.__class__.DOCKERFILE_SOURCE
+        # allow to check Dockfile in different naming format like:
+        # Dockerfile.debug, Dockerfile.release
+        # worker.Dockerfile, tests.dockerfile
+        ext = ext.lower().split('.')
+        return 'dockerfile' in ext
 
     def scan_file_object(self, filename, file_obj, report):
 
         _lines = file_obj.readlines()
         ext = os.path.basename(filename)
+        ext = ext.lower().split('.')
 
-        if ext.lower() in self.__class__.DOCKERFILE_SOURCE:
+        if 'dockerfile' in ext:
             self.FILE_SUMMARY[self.DOCKERFILE]['count'] += 1
             self.FILE_SUMMARY[self.DOCKERFILE]['loc'] += len(_lines)
 
