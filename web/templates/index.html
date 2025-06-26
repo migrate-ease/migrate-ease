@@ -4,6 +4,26 @@
   <title>Migrate-ease Scanner</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
   <link rel="stylesheet" href="https://bootswatch.com/5/lumen/bootstrap.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+  <style>
+    .dropdown-submenu {
+      position: relative;
+    }
+    .dropdown-submenu.show > .dropdown-menu {
+      display: block;
+    }
+    .dropdown-submenu > .dropdown-menu {
+      bottom: 0;
+      top: auto;
+      right: 100%;
+    }
+
+    .dropdown-menu .dropdown-item {
+      font-weight: bold;
+    }
+
+
+  </style>
 </head>
 <body>
   <div class="container mt-5">
@@ -27,6 +47,29 @@
       </li>
       <li class="nav-item">
           <a class="nav-link" data-bs-toggle="tab" data-bs-target="#scan-archive-pane" role="tab">Source archive</a>
+      </li>
+      <!-- Nested Dropdown -->
+      <li class="nav-item dropdown ms-auto dropup">    <!-- first level menu -->
+        <button class="btn btn-outline-primary dropdown-toggle" type="button" id="moreoptions-btn" data-bs-toggle="dropdown" aria-expanded="false">
+          <i class="bi bi-gear-fill"></i>
+        </button>
+        <ul class="dropdown-menu">
+          <li class="dropdown-submenu">  <!-- second level menu -->
+            <a class="dropdown-item dropdown-toggle" href="#"> CSP &raquo; </a>
+            <ul class="dropdown-menu">
+              <li class="dropdown-submenu"> <!-- third level menu -->
+                <a class="dropdown-item dropdown-toggle" href="#" data-csp="AliCloud"> AliCloud &raquo;</a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="#" data-instance="c8y">c8y</a></li>
+                  <li><a class="dropdown-item" href="#" data-instance="c6r">c6r</a></li>
+                  <li><a class="dropdown-item" href="#" data-instance="g8y">g8y</a></li>
+                  <li><a class="dropdown-item" href="#" data-instance="g6r">g6r</a></li>
+                  <li><a class="dropdown-item" href="#" data-instance="r8y">r8y</a></li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
       </li>
     </ul>
 
@@ -85,11 +128,39 @@
   <script>
         $(document).ready(function() {
             $('[data-bs-toggle="tooltip"]').tooltip();
+            // Handle dropdown submenu toggle
+            $('.dropdown-submenu > a').on("click", function (e) {
+              e.preventDefault();
+              e.stopPropagation();
+
+              var $submenu = $(this).next('.dropdown-menu');
+              var $parent = $(this).parent();
+              $parent.siblings('.dropdown-submenu').removeClass('show').find('.dropdown-menu').hide();
+              $submenu.toggle();
+              $parent.toggleClass('show');
+            });
+
+            $('.dropdown-submenu .dropdown-menu a.dropdown-item').on('click', function (e) {
+              e.preventDefault();
+              $('.dropdown-submenu .dropdown-menu a.dropdown-item').removeClass('active');
+              $(this).addClass('active');
+            });
+
             // Form submission
             $('#scan-git-form').on('submit', function(e) {
                 e.preventDefault();
 
                 var formData = new FormData(this);
+                // Add csp and instance value to formData
+                var $instanceItem = $('.dropdown-submenu .dropdown-menu a.dropdown-item.active');
+                var csp = $instanceItem.closest('.dropdown-submenu').children('a[data-csp]').data('csp') || '';
+                var instance = $instanceItem.data('instance') || '';
+                if (csp != '' && instance == ''){
+                    alert("Please select an instance for the selected CSP!");
+                    return;
+                }
+                formData.append('csp', csp);
+                formData.append('instance', instance);
                 console.log($(this).serialize())
 
                 $.ajax({
@@ -159,6 +230,16 @@
                 e.preventDefault();
 
                 var formData = new FormData(this);
+                // Add csp and instance value to formData
+                var $instanceItem = $('.dropdown-submenu .dropdown-menu a.dropdown-item.active');
+                var csp = $instanceItem.closest('.dropdown-submenu').children('a[data-csp]').data('csp') || '';
+                var instance = $instanceItem.data('instance') || '';
+                if (csp != '' && instance == ''){
+                    alert("Please select an instance for the selected CSP!");
+                    return;
+                }
+                formData.append('csp', csp);
+                formData.append('instance', instance);
 
                 $.ajax({
                     url: '/scan/file',
