@@ -47,6 +47,16 @@ current_job = {
     'results': []   # Scan results for each category
 }
 
+# Ali cloud instances to march map
+# This is used to map the instance type to the corresponding architecture
+ali_instance_march_map = {
+        "g8y": "armv8.6-a+sve2",
+        "g6r": "armv8-a",
+        "c8y": "armv8.6-a+sve2",
+        "c6r": "armv8-a",
+        "r8y": "armv8.6-a+sve2"
+}
+
 # Ensure upload and result directory exists
 os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
 os.makedirs(app.config['RESULT_FOLDER'], exist_ok=True)
@@ -58,9 +68,13 @@ def index():
     current_job['status'] = None
     return render_template('index.html', job_status=current_job['status'])
 
-def scan_dir(prj_path, git_info= None, scan_cat='all', target_march='armv8-a'):
-    scan_jobs = []
+def get_march(csp, instance):
+    default_march = 'armv8-a'
+    if csp.lower() == 'alicloud':
+        return default_march if not instance else ali_instance_march_map.get(instance, default_march)
 
+def scan_dir(prj_path, target_march, git_info= None, scan_cat='all'):
+    scan_jobs = []
     env = os.environ.copy()
     if 'PYTHONPATH' not in os.environ:
         env['PYTHONPATH'] = os.path.abspath(app.root_path + '/../')
@@ -154,7 +168,7 @@ class CloneProgress(git.RemoteProgress):
                 status = f"{self.curr_op} ... {int(cur_count)}/{int(max_count)} objects"
                 current_job['output'][-1] = status
 
-def process_git(repo_url, repo_branch=None):
+def process_git(repo_url, march, repo_branch=None):
     repo_path = '/tmp/' + current_job['id']
 
     if not os.path.exists(repo_path):
@@ -168,7 +182,7 @@ def process_git(repo_url, repo_branch=None):
             current_job['output'].append("Successfully cloned")
             print(f"Successfully cloned {repo_branch} from {repo_url} to {repo_path}")
             # Run scanners
-            scan_dir(repo_path, git_info={'url':repo_url, 'branch':repo_branch})
+            scan_dir(repo_path, target_march=march, git_info={'url':repo_url, 'branch':repo_branch})
         except Exception as e:
             print(f"An error occurred: {e}")
             return jsonify({'status':'ERROR', 'message':'Clone failure: {e}'})
@@ -177,7 +191,7 @@ def process_git(repo_url, repo_branch=None):
 
 
 # Process uploaded file
-def process_file(filepath):
+def process_file(filepath, march):
     extract_dir = os.path.join('/tmp/', current_job['id'])
     os.makedirs(extract_dir, exist_ok=True)
 
@@ -193,7 +207,7 @@ def process_file(filepath):
             shutil.copy(filepath, extract_dir + '/' + os.path.basename(filepath))
 
         # Run scanners
-        scan_dir(extract_dir)
+        scan_dir(extract_dir, target_march=march)
 
     except Exception as e:
         current_job['status'] = 'failed'
@@ -203,6 +217,9 @@ def process_file(filepath):
 def scan_git():
     repo_url = request.form.get('git-repo')
     branch = request.form.get('git-branch')
+    csp = request.form.get('csp')
+    instance = request.form.get('instance')
+    march = get_march(csp, instance)
     # Check if a job with this uid is already in progress
     if current_job['status'] and current_job['status'] != 'completed':
         return jsonify({'status':'ERROR', 'message':'A job is running'})
@@ -214,7 +231,7 @@ def scan_git():
         current_job['results'] = []
 
         # Start processing in background
-        thread = threading.Thread(target=process_git, args=(repo_url, branch))
+        thread = threading.Thread(target=process_git, args=(repo_url, march, branch))
         thread.start()
 
         return jsonify({'status':current_job['status'].upper(), 'access_key':current_job['id']}), 200
@@ -231,6 +248,9 @@ def upload_file():
         return jsonify({'status':'ERROR', 'message':'A job is running'})
 
     file = request.files['archive-file']
+    csp = request.form.get('csp')
+    instance = request.form.get('instance')
+    march = get_march(csp, instance)
     if file:
         # Initialize job
         current_job['status'] = 'uploading'
@@ -243,7 +263,7 @@ def upload_file():
         file.save(filepath)
 
         # Start processing in background
-        thread = threading.Thread(target=process_file, args=(filepath,))
+        thread = threading.Thread(target=process_file, args=(filepath, march))
         thread.start()
 
         return jsonify({'status': current_job['status'].upper()})
@@ -274,7 +294,7 @@ def show_result():
             json_data = json.load(f)
             march_map = {
                 "armv8-a": "Armv8-a Generic",
-                "armv8.6+sve2": "Arm Neoverse N2",
+                "armv8.6-a+sve2": "Arm Neoverse N2",
             }
             json_data['march'] = march_map.get(json_data['march'], "Unknow Architecture")
             results.append({'name':this_result['category'], 'result':json_data, 'modified_time':modified_time_readable})
