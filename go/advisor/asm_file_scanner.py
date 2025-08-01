@@ -25,7 +25,7 @@ from common.report_factory import ReportOutputFormat
 
 from .asm_issue import AsmIssue
 from .go_scanner import GoScanner
-from .golang_asm_strings import GOLANG_ASM_AARCH64, NON_GOLANG_ASM_AARCH64
+from .golang_asm_strings import GOLANG_ASM_AARCH64, GOLANG_ASM_NON_AARCH64, GOLANG_ASM_ALL_ARCHS
 
 
 class AsmFileScanner(GoScanner):
@@ -34,11 +34,9 @@ class AsmFileScanner(GoScanner):
     """
 
     PY_SOURCE_EXTENSIONS = ['.s']
-
     AARCH64_NAME_RE = re.compile(r'.*(%s).*' % '|'.join([(r'%s' % x) for x in GOLANG_ASM_AARCH64]))
-    NON_AARCH64_NAME_RE = re.compile(r'.*(%s).*' % '|'.join([(r'%s' % x) for x in NON_GOLANG_ASM_AARCH64]))
-
-    AARCH64_INCOMPATIBLE_PLAN9_GOLANG_INTRINSICS = []
+    NON_AARCH64_NAME_RE = re.compile(r'.*(%s).*' % '|'.join([(r'%s' % x) for x in GOLANG_ASM_NON_AARCH64]))
+    aarch64_prefix = 'arm64'
 
     def __init__(self, output_format, march):
         self.output_format = output_format
@@ -46,7 +44,6 @@ class AsmFileScanner(GoScanner):
 
         self.with_highlights = bool(
             self.output_format == ReportOutputFormat.HTML or self.output_format == ReportOutputFormat.JSON)
-        self.load_checkpoints()
 
     def load_checkpoints(self):
         super().load_checkpoints()
@@ -75,60 +72,58 @@ class AsmFileScanner(GoScanner):
             self.FILE_SUMMARY[self.S]['count'] += 1
             self.FILE_SUMMARY[self.S]['loc'] += len(_lines)
 
-        match_arch = ''
-        match_non_arch = ''
-
-        continuation_parser = ContinuationParser()
-
         issues = []  # type: List[Issue]
         lines = {}
-
+        # Go assembly file naming usually follows any of the following patterns:
+        #   *_<goos>.s or *_<goarch>.s or *_<goos>_<goarch>.s
+        #   where <goarch> is the architecture suffix.
+        # See the go docs for more details: https://pkg.go.dev/cmd/go#hdr-Build_constraints
         if self.march in SUPPORTED_MARCH:
+            directory, fname = os.path.split(filename)
+            if '_' in fname:
+                # If the file name contains a suffix, check whether it is an architecture suffix,
+                # and verify if it matches the target architecture.
+                base_name = os.path.splitext(fname)[0]
+                # The file extension may be .s or .S, so we extract it separately.
+                ext_name = os.path.splitext(fname)[1]
+                fname_prefix = base_name.rsplit('_', 1)[0]
+                arch_suffix = base_name.rsplit('_', 1)[1]
+                match_other_archs = self.__class__.NON_AARCH64_NAME_RE.search(arch_suffix)
+                match_aarch64 = self.__class__.AARCH64_NAME_RE.search(arch_suffix)
 
-            match_arch = self.__class__.AARCH64_NAME_RE.search(os.path.basename(filename))
-            match_non_arch = self.__class__.NON_AARCH64_NAME_RE.search(os.path.basename(filename))
-            PLAN9_ASSEMBLY_CHECKPOINTS = self.AARCH64_INCOMPATIBLE_PLAN9_GOLANG_INTRINSICS
-
-        if match_arch and not match_non_arch:
-
-            issues = []
-
-        elif not match_arch and match_non_arch:
-
-            lines[0] = "File: " + filename + " is not supported on target processor architecture: " + self.amrch
-
-            issues.append(AsmIssue(filename=filename,
+                if match_aarch64:
+                    # Detect '_arm64' suffix in file name to confirm it matches the target architecture.
+                    issues = []
+                elif match_other_archs:
+                    # If the file does not match the aarch64 architecture, attempt to find a corresponding
+                    # "_arm64.s" version.
+                    expected_aarch64_file = f"{fname_prefix}_{self.aarch64_prefix}{ext_name}"
+                    aarch64_file_path = os.path.join(directory, expected_aarch64_file)
+                    if not os.path.exists(aarch64_file_path):
+                        lines[0] = "File: " + filename + " is not supported on target processor architecture: " + self.march
+                        issues.append(AsmIssue(filename=filename,
                                    march=self.march,
                                    lineno=0,
                                    checkpoint=None,
                                    description=lines[0]))
-
-        else:
-
-            for lineno, line in enumerate(_lines, 1):
-                lines[lineno] = line
-
-            match = ''
-
-            for lineno in lines.keys():
-
-                line = lines[lineno]
-
-                line = continuation_parser.parse_line(line)
-                if not line:
-                    continue
-
-                c: Checkpoint
-                for c in PLAN9_ASSEMBLY_CHECKPOINTS:
-                    match = c.pattern_compiled.search(line)
-
-                    if match:
-                        issues.append(AsmIssue(filename=filename,
-                                               lineno=find_matching_line_num(lines, lineno, c.pattern),
-                                               intrinsic=match.string.strip(),
-                                               march=self.march,
-                                               checkpoint=c.pattern,
-                                               description='' if not c.help else '\n' + c.help))
+                else:
+                    # If the suffix is not a known architecture suffix or does not have a architecture suffix, manual check is required.
+                    lines[0] = "File: " + filename + " is not implemented for known architectures: " + ", ".join(GOLANG_ASM_ALL_ARCHS) + \
+                                "\ncheck that it is compatible with the target architecture."
+                    issues.append(AsmIssue(filename=filename,
+                                march=self.march,
+                                lineno=0,
+                                checkpoint=None,
+                                description=lines[0]))
+            else:
+                # If the file has no suffix, it may be a generic file, and needs to be checked manually.
+                lines[0] = "File: " + filename + " may be a generic file, \n" + \
+                            "check that it is compatible with the target architecture."
+                issues.append(AsmIssue(filename=filename,
+                            march=self.march,
+                            lineno=0,
+                            checkpoint=None,
+                            description=lines[0]))
 
         #  to extract code snippets
         for issue in issues:

@@ -58,9 +58,30 @@ for i in range(nof_issues):
 
 lib_aarch = ['cygrpc_arm.so', 'libhello_arm.so', 'libnumber_aarch.a', 'libotsclient_aarch.a', '_speedups.so']
 issue_lib_aarch = ['_speedups.so']
+asm_test_folder="asm_test"
+asm_files = ['a_arm64.s', 'b_amd64.s', 'b_amd64.s']
+issue_asm_files = ['b_amd64.s']
 
 for filename in os.listdir(args.src_dir):
-    if os.path.splitext(filename)[1] != ".json":
+    if filename == asm_test_folder:
+        for asm_filename in os.listdir(os.path.join(args.src_dir, asm_test_folder)):
+            if asm_filename in asm_files:
+                issue = ''
+                if asm_filename in issue_asm_files:
+                    issue = 'AsmIssue'
+
+                if issue:
+                    file_detect = False
+
+                    for i in range(nof_issues):
+                        if report['issues'][i]['filename'] == args.src_dir + asm_test_folder + '/' + asm_filename and report['issues'][i]["issue_type"]['type'] == issue:
+                            file_detect = True
+                            report['issues'][i]['tig_of_first_traversal'] = 'true'
+
+                    if file_detect == False:
+                        print("\033[1;31;40mError: issue %s from file %s is expected but was not detected\033[0m" % (issue, os.path.join(args.src_dir, asm_test_folder, asm_filename)))
+
+    elif os.path.splitext(filename)[1] != ".json":
         if filename in lib_aarch:
             issue = ''
             if filename in issue_lib_aarch:
