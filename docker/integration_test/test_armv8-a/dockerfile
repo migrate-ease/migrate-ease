@@ -1,4 +1,10 @@
-FROM debian:stretch //expect: ImageIssue
+FROM registry.openanolis.cn/openanolis/anolisos:23.3
+FROM registry-1.docker.io/openanolis/anolisos:23.3 //expect: ImageIssue
+FROM debian:stretch
+FROM rancher/rancher-agent:v2.12-head
+FROM amd64/clearlinux //expect: ImageIssue
+ARG base=amd64/ubuntu:20.04 //expect: ConfigurationInfoIssue
+FROM ${base} //expect: ImageIssue
 
 RUN apt-get update
 RUN apt-get install -y gcc libc6-dev make wget

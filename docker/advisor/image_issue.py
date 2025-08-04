@@ -25,8 +25,8 @@ class ImageIssue(Issue):
 
         if not description:
             description = _("The dockerfile is build based on the Base Image:%s, \
-please confirm whether the Base Image supports the architecture: %s by scanning the dockerfile of the Base Image \
-or by yourself.") % (image, march)
+please confirm whether the Base Image supports the architecture: arm64 by scanning the dockerfile of the Base Image \
+or by yourself.") % (image)
 
         super().__init__(description=description,
                          filename=filename,
