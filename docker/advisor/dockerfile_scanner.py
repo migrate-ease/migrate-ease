@@ -18,6 +18,9 @@ import os
 import re
 import time
 
+import requests
+from typing import Tuple
+
 from common.arch_strings import NON_AARCH64_ARCHS, SUPPORTED_MARCH
 from common.continuation_parser import ContinuationParser
 from common.naive_comment_parser import NaiveCommentParser
@@ -75,6 +78,93 @@ class DockerfileScanner(DockerScanner):
         ext = ext.lower().split('.')
         return 'dockerfile' in ext
 
+    def parse_image_name(self, image_string: str) -> Tuple[str, str, str]:
+        # Parse image name string to <registry>/<repository>:<tag>
+        # registry and tag are optional, repository = <namespace>/<image> or library/<image>
+        # Default values for optional fields
+        registry = "registry-1.docker.io"
+        repository = ""
+        tag = "latest"
+
+        parts = image_string.split('/', 1)
+        if '.' in parts[0]:
+            # A registry is given
+            registry = parts[0]
+            parts.pop(0)
+            repository = parts[0]
+        else:
+            repository = "/".join(parts)
+
+        if '/' not in repository:
+            # An official image is specified
+            repository = f"library/{repository}"
+
+        if ':' in repository:
+            # A tag is specified
+            repository, tag = repository.rsplit(':', 1)
+
+        return registry, repository, tag
+
+    def check_arm64_support(self, registry, repo, tag):
+        supported = False
+        if registry == "registry-1.docker.io":
+            # For docker hub, use a simple way to check
+            tag_info_url = f"https://hub.docker.com/v2/repositories/{repo}/tags/{tag}/"
+            try:
+                response = requests.get(tag_info_url)
+                response.raise_for_status()
+                # Parse the JSON output
+                data = response.json()
+                for image in data.get('images', []):
+                    if image['architecture'] == "arm64":
+                        supported = True
+                        break
+            except Exception as err:
+                print(f"An error occurred: {err}")
+        else:
+            # Other registry
+            # Follow APIs defined at https://github.com/distribution/distribution/blob/main/docs/content/spec/api.md and https://github.com/distribution/distribution/blob/main/docs/content/spec/auth/token.md
+            registry_base_url = f"https://{registry}/v2/"
+
+            # Get URL for requesting access token
+            response = requests.get(registry_base_url)
+            if response.status_code == 401:
+                for key, value in response.headers.items():
+                    if 'www-authenticate' == key.lower():
+                        auth_scheme = "Bearer" # See https://datatracker.ietf.org/doc/html/rfc6750#section-3
+                        realm = re.search(r'realm="([^"]+)"', value).group(1)
+                        service = re.search(r'service="([^"]+)"', value).group(1)
+
+                try:
+                    # Get access token
+                    token_url = f"{realm}?service={service}&scope=repository:{repo}:pull"
+                    response = requests.get(token_url)
+                    response.raise_for_status()
+                    data = response.json()
+                    access_token = data['access_token']
+
+                    # Query manifest with tag
+                    tag_info_url = f"https://{registry}/v2/{repo}/manifests/{tag}"
+                    headers = {
+                        'Authorization': f"Bearer {access_token}",
+                        'Accept': 'application/vnd.docker.distribution.manifest.list.v2+json'
+                    }
+                    response = requests.get(tag_info_url, headers=headers)
+                    response.raise_for_status()
+
+                    # Parse the JSON output
+                    data = response.json()
+                    for image in data.get('manifests', []):
+                        if image['platform']['architecture'] == "arm64":
+                            supported = True
+                            break
+                except requests.exceptions.HTTPError as http_err:
+                    print(f"HTTP error occurred: {http_err} ")
+                except Exception as err:
+                    print(f"An error occurred: {err}")
+
+        return supported
+
     def scan_file_object(self, filename, file_obj, report):
 
         _lines = file_obj.readlines()
@@ -119,8 +209,17 @@ class DockerfileScanner(DockerScanner):
             if result.directive_type == PreprocessorDirective.TYPE_FROM:
 
                 parts = line.strip(result.directive_type)
-
-                issues.append(ImageIssue(filename,
+                base_img = re.search(r'^\s+([^\s]+)', parts).group().lstrip()
+                if '$' in base_img:
+                    issues.append(ImageIssue(filename,
+                                         lineno,
+                                         march=self.march,
+                                         image=parts,
+                                         checkpoint=None))
+                else:
+                    registry, repo, tag = self.parse_image_name(base_img)
+                    if False == self.check_arm64_support(registry, repo, tag):
+                        issues.append(ImageIssue(filename,
                                          lineno,
                                          march=self.march,
                                          image=parts,
