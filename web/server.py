@@ -71,7 +71,8 @@ def index():
 def get_march(csp, instance):
     default_march = 'armv8-a'
     if csp.lower() == 'alicloud':
-        return default_march if not instance else ali_instance_march_map.get(instance, default_march)
+        return ali_instance_march_map.get(instance, default_march)
+    return default_march
 
 def scan_dir(prj_path, target_march, git_info= None, scan_cat='all'):
     scan_jobs = []
