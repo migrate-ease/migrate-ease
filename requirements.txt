@@ -7,3 +7,4 @@ lxml~=5.3.2
 python-magic~=0.4.27
 flask
 uuid
+requests
