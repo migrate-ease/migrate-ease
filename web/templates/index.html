@@ -156,8 +156,7 @@
                 var csp = $instanceItem.closest('.dropdown-submenu').children('a[data-csp]').data('csp') || '';
                 var instance = $instanceItem.data('instance') || '';
                 if (csp != '' && instance == ''){
-                    alert("Please select an instance for the selected CSP!");
-                    return;
+                    csp = ''; // if instance is not defined, remove csp info
                 }
                 formData.append('csp', csp);
                 formData.append('instance', instance);

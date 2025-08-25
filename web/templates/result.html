@@ -89,7 +89,7 @@
                     {% set categories = {} %}
                     {% for issue in element.result.issues %}
                       {% if issue.issue_type.type not in categories %}
-                          {% set _ = categories.update({issue.issue_type.type: []}) %}
+                        {% set _ = categories.update({issue.issue_type.type: []}) %}
                       {% endif %}
                       {% set _ = categories[issue.issue_type.type].append(issue) %}
                     {% endfor %}
@@ -116,7 +116,7 @@
                                               data-bs-target="#{{ element.name }}-details-issue-collapse-{{ category|replace(' ', '-') }}-{{ loop.index }}">
                                         <div class="d-flex w-100 justify-content-between align-items-center">
                                             <span>{{ file_path }}</span>
-                                            {% if issue.lineno > 0 %}
+                                            {% if issue.lineno %}
                                             <span class="badge bg-secondary ms-2" style="margin-right: 1em;">line:
                                                 {{ issue.lineno }}
                                             </span>
