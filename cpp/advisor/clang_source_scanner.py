@@ -175,7 +175,7 @@ class ClangSourceScanner(CppScanner):
         lineno = 1
         while lineno <= len(lines.keys()):  # type: int, str
             line = lines[lineno]
-            if line.strip() == "":
+            if line.strip() == "" or line.strip() == '#':
                 lineno += 1
                 continue
             line = continuation_parser.parse_line(line)
