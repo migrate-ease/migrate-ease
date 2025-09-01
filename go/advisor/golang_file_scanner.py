@@ -51,6 +51,7 @@ class GolangFileScanner(GoScanner):
         self.with_highlights = bool(
             self.output_format == ReportOutputFormat.HTML or self.output_format == ReportOutputFormat.JSON)
         self.load_checkpoints()
+        self.cpp_scanner = None
 
     def accepts_file(self, filename):
 
@@ -69,7 +70,6 @@ class GolangFileScanner(GoScanner):
         match_c = ''
         continuation_parser = ContinuationParser()
         comment_parser = NaiveCommentParser()
-        cpp_scanner = ClangSourceScanner(self.output_format, self.march)
         issues: List[Issue] = []
         lines = {lineno: line for lineno, line in enumerate(_lines, 1)}
 
@@ -90,37 +90,40 @@ class GolangFileScanner(GoScanner):
                 if lines[lineno_e].strip() == "*/":
                     break
 
-            # Parse the C code block enclosed in /* ... */ before import "C".
             lineno_c = lineno_s+1
-            while lineno_c < lineno_e:
-                line = lines[lineno_c]
-                if line.strip() == "":
-                    lineno_c += 1
-                    continue
-                line = continuation_parser.parse_line(line)
-                if not line:
-                    lineno_c += 1
-                    continue
-                is_comment = comment_parser.parse_line(line)
-                if is_comment:
-                    lineno_c += 1
-                    continue
-                line = continuation_parser.join_line(line, lineno_c)
-                if not line:
-                    lineno_c += 1
-                    continue
-                next_lineno = 1
-                next_lineno = cpp_scanner.check_clang(lines, line, lineno_c, continuation_parser.joined_lineno, filename,
-                                                      GolangInlineAsmIssue, GolangIntrinsicIssue, GolangCPPStdCodesIssue,
-                                                      issues)
-                if next_lineno != 1:
-                    # check_clang already parses multiple lines of code, so there's no need to repeat the parsing logic here.
-                    lineno_c = next_lineno+1
-                else:
-                    lineno_c += 1
+            if lineno_c < lineno_e:
+                # Parse the C code block enclosed in /* ... */ before import "C".
+                if self.cpp_scanner is None:
+                    self.cpp_scanner = ClangSourceScanner(self.output_format, self.march)
+                while lineno_c < lineno_e:
+                    line = lines[lineno_c]
+                    if line.strip() == "":
+                        lineno_c += 1
+                        continue
+                    line = continuation_parser.parse_line(line)
+                    if not line:
+                        lineno_c += 1
+                        continue
+                    is_comment = comment_parser.parse_line(line)
+                    if is_comment:
+                        lineno_c += 1
+                        continue
+                    line = continuation_parser.join_line(line, lineno_c)
+                    if not line:
+                        lineno_c += 1
+                        continue
+                    next_lineno = 1
+                    next_lineno = self.cpp_scanner.check_clang(lines, line, lineno_c, continuation_parser.joined_lineno, filename,
+                                                            GolangInlineAsmIssue, GolangIntrinsicIssue, GolangCPPStdCodesIssue,
+                                                            issues)
+                    if next_lineno != 1:
+                        # check_clang already parses multiple lines of code, so there's no need to repeat the parsing logic here.
+                        lineno_c = next_lineno+1
+                    else:
+                        lineno_c += 1
 
-                # Reset the joined line number.
-                continuation_parser.joined_lineno = -1
+                    # Reset the joined line number.
+                    continuation_parser.joined_lineno = -1
 
             #  to extract code snippets
             for issue in issues:

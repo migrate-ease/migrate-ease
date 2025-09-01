@@ -55,6 +55,7 @@ class PythonFileScanner(PythonScanner):
         self.with_highlights = bool(
             self.output_format == ReportOutputFormat.HTML or self.output_format == ReportOutputFormat.JSON)
         self.load_checkpoints()
+        self.cpp_scanner = None
 
     def load_checkpoints(self):
         super().load_checkpoints()
@@ -91,7 +92,6 @@ class PythonFileScanner(PythonScanner):
 
         continuation_parser = ContinuationParser()
         comment_parser = NaiveCommentParser()
-        cpp_scanner = ClangSourceScanner(self.output_format, self.march)
 
         issues: List[Issue] = []
         lines = {lineno: line for lineno, line in enumerate(_lines, 1)}
@@ -116,6 +116,8 @@ class PythonFileScanner(PythonScanner):
                 #
                 # Identify and scan the embedded C code.
                 if 'ffi.set_source' in line:
+                    if self.cpp_scanner is None:
+                        self.cpp_scanner = ClangSourceScanner(self.output_format, self.march)
                     while lineno <= len(lines):
                         line = lines[lineno]
                         if '\"\"\"' in line:
@@ -141,7 +143,7 @@ class PythonFileScanner(PythonScanner):
                             lineno += 1
                             continue
                         next_lineno = 1
-                        next_lineno = cpp_scanner.check_clang(lines, line, lineno, continuation_parser.joined_lineno, filename,
+                        next_lineno = self.cpp_scanner.check_clang(lines, line, lineno, continuation_parser.joined_lineno, filename,
                                                       PythonInlineAsmIssue, PythonIntrinsicIssue, PythonCPPStdCodesIssue,
                                                       issues)
                         if next_lineno != 1:
