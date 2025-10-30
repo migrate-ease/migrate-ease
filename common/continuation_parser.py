@@ -88,9 +88,9 @@ class ContinuationParser:
                     while index > 0 and line[index-1] == '\\':
                         backslash_count += 1
                         index -= 1
-                        # If there is an odd number of backslashes, the double quote is escaped.
-                        if backslash_count % 2 == 1:
-                            continue
+                    # If there is an odd number of backslashes, the double quote is escaped.
+                    if backslash_count % 2 == 1:
+                        continue
                 elif i > 0 and line[i-1] == "'" and i < len(line) -1:
                     # Characters enclosed in single quotes represent a character constant and cannot be treated
                     # as counted double quotes.
