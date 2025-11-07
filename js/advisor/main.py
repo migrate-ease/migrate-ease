@@ -133,7 +133,7 @@ def main():
                         default=None)
     parser.add_argument('--march',
                         help='target processor architecture (default: armv8-a).',
-                        default='aarch64')
+                        default='armv8-a')
     parser.add_argument('--git-repo',
                         help=_('git repository address to scan, when present, repo will be cloned to local.'),
                         metavar='REPO',
@@ -146,7 +146,7 @@ def main():
                         default=None)
 
     args = parser.parse_args()
-    if args.march != 'aarch64':
+    if args.march != 'armv8-a':
         parser.exit(1, f'unknown/unsupported arch: {args.march}')
 
     # Check if a git repo is specified
