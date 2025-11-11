@@ -130,7 +130,8 @@ def main():
                         default='.')
     parser.add_argument('--output', metavar='OUTPUT',
                         help='report file name.',
-                        default=None)
+                        type=argparse.FileType('w'),
+                        default='-')
     parser.add_argument('--march',
                         help='target processor architecture (default: armv8-a).',
                         default='armv8-a')
@@ -201,9 +202,4 @@ def main():
     if args.git_repo:
         results['git_repo'] = args.git_repo
 
-    # Write output to file or stdout
-    if args.output:
-        with open(args.output, 'w') as f:
-            json.dump(results, f)
-    else:
-        json.dump(results, sys.stdout)
+    json.dump(results, args.output)
