@@ -2,6 +2,7 @@ import argparse
 import functools
 import json
 import pathlib
+import sys
 from pathlib import Path
 from common.localization import _
 
@@ -89,8 +90,35 @@ def handle_package_json(cont, result, file, file_lines):
 
 @load_file
 def handle_package_lock_json(cont, result, file, file_lines):
-    for k, v in cont.get('dependencies', {}).items():
-        _check_blacklist(k, v['version'], result, file, file_lines)
+    # Support both old (v1) and new (v2/v3) package-lock.json formats
+    # v1 format has top-level 'dependencies'
+    # v2/v3 format has 'packages' with keys like 'node_modules/package-name'
+
+    # Try v1 format first
+    if 'dependencies' in cont:
+        for k, v in cont.get('dependencies', {}).items():
+            _check_blacklist(k, v['version'], result, file, file_lines)
+
+    # Try v2/v3 format (packages field)
+    if 'packages' in cont:
+        for k, v in cont.get('packages', {}).items():
+            # Skip the root package (empty key or '')
+            if not k or k == '':
+                continue
+            # Extract package name from 'node_modules/package-name' format
+            if k.startswith('node_modules/'):
+                package_name = k.replace('node_modules/', '')
+                # Handle scoped packages like '@scope/package'
+                if package_name.startswith('@'):
+                    parts = package_name.split('/')
+                    if len(parts) >= 2:
+                        package_name = '/'.join(parts[:2])
+                else:
+                    # Regular packages might have nested paths
+                    package_name = package_name.split('/')[0]
+
+                if 'version' in v:
+                    _check_blacklist(package_name, v['version'], result, file, file_lines)
 
 
 def main():
@@ -106,10 +134,32 @@ def main():
                         default='-')
     parser.add_argument('--march',
                         help='target processor architecture (default: armv8-a).',
-                        default='aarch64')
+                        default='armv8-a')
+    parser.add_argument('--git-repo',
+                        help=_('git repository address to scan, when present, repo will be cloned to local.'),
+                        metavar='REPO',
+                        default=None)
+    parser.add_argument('--branch',
+                        help=_('git repository branch.'),
+                        default=None)
+    parser.add_argument('--commit',
+                        help=_('git repository code commit id (default: HEAD).'),
+                        default=None)
+
     args = parser.parse_args()
-    if args.march != 'aarch64':
+    if args.march != 'armv8-a':
         parser.exit(1, f'unknown/unsupported arch: {args.march}')
+
+    # Check if a git repo is specified
+    if args.git_repo:
+        # Import here to avoid circular dependency
+        from common.main import clone_git_repo
+        # Clone it with given repo, branch or commit
+        try:
+            clone_git_repo(args.git_repo, args.branch, args.commit, args.root)
+        except Exception as e:
+            print(f"Error occurred while cloning [{args.git_repo}] : {e}")
+            sys.exit(1)
 
     results = {
         "arch": args.march,
@@ -141,13 +191,15 @@ def main():
     }
 
     root = Path(args.root)
+    # Scan all directories for package files, not just the first one
     for folder in root.glob('**/'):
         if (folder / 'package-lock.json').exists():
             handle_package_lock_json(folder / 'package-lock.json', results)
         elif (folder / 'package.json').exists():
             handle_package_json(folder / 'package.json', results)
-        else:
-            continue
-        break
+
+    # Store git repo info if provided
+    if args.git_repo:
+        results['git_repo'] = args.git_repo
 
     json.dump(results, args.output)
