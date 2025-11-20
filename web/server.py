@@ -28,14 +28,17 @@ import uuid
 import git
 import shutil
 import argparse
+import tempfile
+import sys
 from werkzeug.utils import secure_filename
 from threading import Thread
 from datetime import datetime
 
 app = Flask(__name__)
 
-app.config['UPLOAD_FOLDER'] = os.path.abspath(app.root_path + '/uploads')
-app.config['RESULT_FOLDER'] = os.path.abspath(app.root_path + '/results')
+# Use os.path.join for cross-platform paths.
+app.config['UPLOAD_FOLDER'] = os.path.abspath(os.path.join(app.root_path, 'uploads'))
+app.config['RESULT_FOLDER'] = os.path.abspath(os.path.join(app.root_path, 'results'))
 app.config['MAX_CONTENT_LENGTH'] = 128 * 1024 * 1024  # 128MB max file size
 supported_scan_cats = ['cpp', 'docker', 'go', 'java', 'python', 'rust']
 
@@ -77,67 +80,68 @@ def get_march(csp, instance):
 def scan_dir(prj_path, target_march, git_info= None, scan_cat='all'):
     scan_jobs = []
     env = os.environ.copy()
-    if 'PYTHONPATH' not in os.environ:
-        env['PYTHONPATH'] = os.path.abspath(app.root_path + '/../')
-
+    if not env.get('PYTHONPATH'):
+        env['PYTHONPATH'] = os.path.abspath(os.path.join(app.root_path, '..'))
     if git_info:
-        git_params = '--git-repo '+git_info['url']
+        git_params = ['--git-repo', git_info['url']]
         if git_info['branch']:
-            git_params += ' --branch ' + git_info['branch']
+            git_params += ['--branch', git_info['branch']]
     else:
-        git_params = ''
+        git_params = []
+
+    def make_cmd(cat):
+        main_py = os.path.join(env['PYTHONPATH'], cat, '__main__.py')
+        result_file = os.path.join(app.config['RESULT_FOLDER'], f"{current_job['id']}_{cat}.json")
+        # Construct proper argument list
+        # Use the same interpreter as this process
+        cmd = [sys.executable, main_py] + git_params + ['--output', result_file, '--march', target_march]
+        if cat == 'cpp':
+            cmd += ['--warning-level', 'L2']
+        cmd += ['.']
+        return cmd
 
     if scan_cat == 'all':
         # Scan all possible categories
         for this_cat in supported_scan_cats:
-            if this_cat == 'cpp':
-                cmdline = ['python3 '+ env['PYTHONPATH'] + '/' + this_cat + '/__main__.py ' + git_params + ' --output ' + app.config['RESULT_FOLDER'] + '/' + current_job['id'] + '_' + this_cat + '.json --warning-level L2 --march ' + target_march + ' .']
-
-            else:
-                cmdline = ['python3 '+ env['PYTHONPATH'] + '/' + this_cat + '/__main__.py ' + git_params + ' --output ' + app.config['RESULT_FOLDER'] + '/' + current_job['id'] + '_' + this_cat + '.json --march ' + target_march + ' .']
-            s = ' '.join(cmdline)
-            scan_jobs.append({'category':this_cat, 'cmd':cmdline})
+            scan_jobs.append({'category':this_cat, 'cmd':make_cmd(this_cat)})
     elif scan_cat in supported_scan_cats:
-        if scan_cat == 'cpp':
-            cmdline = ['python3 '+ env['PYTHONPATH'] + '/' + scan_cat + '/__main__.py ' + git_params + ' --output ' + app.config['RESULT_FOLDER'] + '/' + current_job['id'] + '_' + scan_cat + '.json --warning-level L2 --march ' + target_march + ' .']
-        else:
-            cmdline = ['python3 '+ env['PYTHONPATH'] + '/' + scan_cat + '/__main__.py ' + git_params + ' --output ' + app.config['RESULT_FOLDER'] + '/' + current_job['id'] + '_' + scan_cat + '.json --march ' + target_march + ' .']
-        s = ' '.join(cmdline)
-        scan_jobs.append({'category':scan_cat, 'cmd':cmdline})
+        scan_jobs.append({'category':scan_cat, 'cmd':make_cmd(scan_cat)})
     else:
         print(f'[ERROR] Wrong scan category: {scan_cat}')
 
-    if len(scan_jobs) > 0:
-        current_job['status'] = 'scanning'
-        # Read output in real-time
-        for this_job in scan_jobs:
-            print(this_job['cmd'])
-            process = subprocess.Popen(
-                this_job['cmd'],
-                env = env,
-                cwd = prj_path,
-                stdout = subprocess.PIPE,
-                stderr = subprocess.STDOUT,
-                universal_newlines = True,
-                shell = True
-            )
-            while True:
-                output = process.stdout.readline()
-                if output == '' and process.poll() is not None:
-                    break
-                if output:
-                    current_job['output'].append(output.strip())
-
-            # Save result
-            if process.returncode == 0:
-                current_job['results'].append({'category':this_job['category'], 'status':'success', 'result':app.config['RESULT_FOLDER'] + '/' + current_job['id'] + '_' + this_job['category'] + '.json'})
-            else:
-                current_job['results'].append({'category':this_job['category'], 'status':'failed'})
-        current_job['status'] = 'completed'
-        shutil.rmtree(prj_path)
-    else:
+    if not scan_jobs:
         current_job['status'] = 'failed'
         current_job['output'].append('No targets to scan')
+        return
+
+    current_job['status'] = 'scanning'
+    # Read output in real-time
+    for this_job in scan_jobs:
+        print('Run:', this_job['cmd'])
+        process = subprocess.Popen(
+            this_job['cmd'],
+            env = env,
+            cwd = prj_path,
+            stdout = subprocess.PIPE,
+            stderr = subprocess.STDOUT,
+            universal_newlines = True,
+            shell = False
+        )
+        while True:
+            output = process.stdout.readline()
+            if output == '' and process.poll() is not None:
+                break
+            if output:
+                current_job['output'].append(output.strip())
+
+        # Save result
+        if process.returncode == 0:
+            result_path = os.path.join(app.config['RESULT_FOLDER'], f"{current_job['id']}_{this_job['category']}.json")
+            current_job['results'].append({'category':this_job['category'], 'status':'success', 'result':result_path})
+        else:
+            current_job['results'].append({'category':this_job['category'], 'status':'failed'})
+    current_job['status'] = 'completed'
+    shutil.rmtree(prj_path)
 
 # Process git repo
 class CloneProgress(git.RemoteProgress):
@@ -170,7 +174,7 @@ class CloneProgress(git.RemoteProgress):
                 current_job['output'][-1] = status
 
 def process_git(repo_url, march, repo_branch=None):
-    repo_path = '/tmp/' + current_job['id']
+    repo_path = os.path.join(tempfile.gettempdir(), current_job['id'])
 
     if not os.path.exists(repo_path):
         try:
@@ -193,7 +197,7 @@ def process_git(repo_url, march, repo_branch=None):
 
 # Process uploaded file
 def process_file(filepath, march):
-    extract_dir = os.path.join('/tmp/', current_job['id'])
+    extract_dir = os.path.join(tempfile.gettempdir(), current_job['id'])
     os.makedirs(extract_dir, exist_ok=True)
 
     try:
@@ -205,7 +209,7 @@ def process_file(filepath, march):
             with tarfile.open(filepath, 'r') as tar_ref:
                 tar_ref.extractall(extract_dir)
         else:
-            shutil.copy(filepath, extract_dir + '/' + os.path.basename(filepath))
+            shutil.copy(filepath, os.path.join(extract_dir, os.path.basename(filepath)))
 
         # Run scanners
         scan_dir(extract_dir, target_march=march)
@@ -308,7 +312,7 @@ def download_report():
         return redirect(url_for('index'))
 
     # Create a zip file
-    zip_filename = app.config['RESULT_FOLDER'] + f"/report-{current_job['id']}.zip"
+    zip_filename = os.path.join(app.config['RESULT_FOLDER'], f"report-{current_job['id']}.zip")
     with zipfile.ZipFile(zip_filename, 'w') as zipf:
         for this_result in current_job['results']:
             cleaned_file_name = os.path.basename(this_result['result']).split('_', 1)[1]
