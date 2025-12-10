@@ -43,11 +43,6 @@ parser.add_argument("--json-report",
                     help='the relative or absolute path of the report in json format.',
                     default=None)
 
-parser.add_argument("--test-dir",
-                    metavar="test_aarch64",
-                    help='the record of test dir.',
-                    default=None)
-
 args = parser.parse_args()
 
 with open(args.json_report) as f2:
@@ -77,7 +72,7 @@ for filename in os.listdir(args.src_dir):
                         num_lno = 0  # Record the number of lno values corresponding to "expect: InlineAsmIssue" in report
                         for i in range(nof_issues):
                             if report['issues'][i]['lineno'] == lno:
-                                if report['issues'][i]["filename"] == args.src_dir + filename and report['issues'][i]["issue_type"]['type'] == issue:
+                                if report['issues'][i]["filename"] == os.path.join(args.src_dir, filename) and report['issues'][i]["issue_type"]['type'] == issue:
                                     num_lno += 1
                                     report['issues'][i]['tig_of_first_traversal'] = "true"
 

@@ -42,11 +42,6 @@ parser.add_argument("--json-report",
                     help='the relative or absolute path of the report in json format.',
                     default=None)
 
-parser.add_argument("--test-dir",
-                    metavar="test_armv8-a",
-                    help='the record of test dir.',
-                    default=None)
-
 args = parser.parse_args()
 
 with open(args.json_report) as f2:
@@ -59,7 +54,7 @@ for i in range(nof_issues):
 lib_aarch = ['cygrpc_arm.so', 'libhello_arm.so', 'libnumber_aarch.a', 'libotsclient_aarch.a', '_speedups.so']
 issue_lib_aarch = ['_speedups.so']
 asm_test_folder="asm_test"
-asm_files = ['a_arm64.s', 'b_amd64.s', 'b_amd64.s']
+asm_files = ['a_arm64.s', 'a_amd64.s', 'b_amd64.s']
 issue_asm_files = ['b_amd64.s']
 
 for filename in os.listdir(args.src_dir):
@@ -74,7 +69,7 @@ for filename in os.listdir(args.src_dir):
                     file_detect = False
 
                     for i in range(nof_issues):
-                        if report['issues'][i]['filename'] == args.src_dir + asm_test_folder + '/' + asm_filename and report['issues'][i]["issue_type"]['type'] == issue:
+                        if report['issues'][i]['filename'] == os.path.join(args.src_dir, asm_test_folder, asm_filename) and report['issues'][i]["issue_type"]['type'] == issue:
                             file_detect = True
                             report['issues'][i]['tig_of_first_traversal'] = 'true'
 
@@ -91,12 +86,12 @@ for filename in os.listdir(args.src_dir):
                 file_detect = False
 
                 for i in range(nof_issues):
-                    if report['issues'][i]['filename'] == args.src_dir + filename and report['issues'][i]["issue_type"]['type'] == issue:
+                    if report['issues'][i]['filename'] == os.path.join(args.src_dir, filename) and report['issues'][i]["issue_type"]['type'] == issue:
                         file_detect = True
                         report['issues'][i]['tig_of_first_traversal'] = 'true'
 
                 if file_detect == False:
-                    print("\033[1;31;40mError: issue %s from file %s is expected but was not detected\033[0m" % (issue, args.src_dir + filename))
+                    print("\033[1;31;40mError: issue %s from file %s is expected but was not detected\033[0m" % (issue, os.path.join(args.src_dir, filename)))
 
         else:
             with open(os.path.join(args.src_dir, filename)) as f1:
@@ -114,7 +109,7 @@ for filename in os.listdir(args.src_dir):
                         num_lno = 0  # Record the number of lno values corresponding to "expect: InlineAsmIssue" in report
                         for i in range(nof_issues):
                             if report['issues'][i]['lineno'] == lno:
-                                if report['issues'][i]["filename"] == args.src_dir + filename and report['issues'][i]["issue_type"]['type'] == issue:
+                                if report['issues'][i]["filename"] == os.path.join(args.src_dir, filename) and report['issues'][i]["issue_type"]['type'] == issue:
                                     num_lno += 1
                                     report['issues'][i]['tig_of_first_traversal'] = "true"
 

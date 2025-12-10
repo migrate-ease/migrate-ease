@@ -35,7 +35,6 @@ for i in range(nof_issues):
     report['issues'][i]['tig_of_first_traversal'] = 'false'
 
 for filename in os.listdir(args.src_dir):
-
     if os.path.splitext(filename)[1] != ".json":
 
         with open(os.path.join(args.src_dir, filename)) as f1:
@@ -59,7 +58,7 @@ for filename in os.listdir(args.src_dir):
                     num_lno = 0  # Record the number of lno values corresponding to "expect: InlineAsmIssue" in report
                     for i in range(nof_issues):
                         if report['issues'][i]['lineno'] == lno:
-                            if report['issues'][i]["filename"] == args.src_dir + filename and report['issues'][i]["issue_type"]['type'] == issue:
+                            if report['issues'][i]["filename"] == os.path.join(args.src_dir, filename) and report['issues'][i]["issue_type"]['type'] == issue:
                                 num_lno += 1
                                 report['issues'][i]['tig_of_first_traversal'] = "true"
 
