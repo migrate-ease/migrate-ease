@@ -4,8 +4,8 @@ show_help() {
     echo "Migrate to ARM cloud instances with specified architecture."
     echo
     echo "Options:"
-    echo "  -v, --vendor VENDOR   Specify the cloud vendor (e.g., aliCloud)."
-    echo "  -i, --instance TYPE   Specify the instance type (e.g., g8y, c8y, r8y, g6r, c6r)."
+    echo "  -v, --vendor VENDOR   Specify the cloud vendor (e.g., aliCloud, GCP)."
+    echo "  -i, --instance TYPE   Specify the instance type (e.g., g8y, c8y, r8y, g6r, c6r, C4A, N4A)."
     echo "  -h, --help            Show help message."
     echo
     echo "SCAN_PATH is the path to the code directory that needs to be scanned."
@@ -20,6 +20,30 @@ migrate_to_aliCloud() {
         ["c8y"]="armv8.6-a+sve2"
         ["c6r"]="armv8-a"
         ["r8y"]="armv8.6-a+sve2"
+    )
+    local valid_instances=("${!instance_arch_map[@]}")
+    local arch="${instance_arch_map[$instance]}"
+    if [[ -z "$arch" ]]; then
+        echo "Error: No architecture mapping found for instance '$instance'."
+        echo "Supported instances are: ${valid_instances[*]}."
+        return 1
+    fi
+
+    local valid_scanners=("cpp" "docker" "go" "js" "java" "python" "rust")
+
+    echo "Run all scanners for instance '$instance' with architecture '$arch'."
+    for s in "${valid_scanners[@]}"; do
+        echo "Executing: python3 -m $s --march $arch --output migrate_to_${instance}_$s.json $scan_path"
+        python3 -m "$s" --march "$arch" --output migrate_to_"$instance"_"$s".json "$scan_path"
+    done
+}
+
+migrate_to_GCP() {
+    local instance="$1"
+    local scan_path="$2"
+    declare -A instance_arch_map=(
+        ["C4A"]="armv9-a"
+        ["N4A"]="armv9.2-a"
     )
     local valid_instances=("${!instance_arch_map[@]}")
     local arch="${instance_arch_map[$instance]}"
@@ -86,8 +110,11 @@ case "${vendor,,}" in
     "alicloud")
         migrate_to_aliCloud "$instance" "$scan_path"
         ;;
+    "gcp")
+        migrate_to_GCP "$instance" "$scan_path"
+        ;;
     *)
-        echo "Error: Unsupported vendor '$vendor'. Only 'aliCloud' is supported."
+        echo "Error: Unsupported vendor '$vendor'. Only 'aliCloud' and 'GCP' are supported."
         exit 1
         ;;
 esac

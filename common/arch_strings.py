@@ -20,7 +20,9 @@ limitations under the License.
 
 ARMV8_0 = 'armv8-a'
 ARMV8_6_SVE2 = 'armv8.6-a+sve2'
-SUPPORTED_MARCH = [ARMV8_0, ARMV8_6_SVE2]
+ARMV9_0 = 'armv9-a'
+ARMV9_2 = 'armv9.2-a'
+SUPPORTED_MARCH = [ARMV8_0, ARMV8_6_SVE2, ARMV9_0, ARMV9_2]
 DEFAULT_ARCH = SUPPORTED_MARCH[0]
 
 AARCH64_ARCHS = ['aarch64','arm64', 'arm', 'neon', 'sve2', 'sve', 'aes', 'sha',

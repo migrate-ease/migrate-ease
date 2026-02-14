@@ -5,6 +5,7 @@ import pathlib
 import sys
 from pathlib import Path
 from common.localization import _
+from common.arch_strings import SUPPORTED_MARCH
 
 
 def _check_blacklist(package_name, version, result, file, file_lines):
@@ -147,7 +148,7 @@ def main():
                         default=None)
 
     args = parser.parse_args()
-    if args.march != 'armv8-a':
+    if args.march not in SUPPORTED_MARCH:
         parser.exit(1, f'unknown/unsupported arch: {args.march}')
 
     # Check if a git repo is specified
