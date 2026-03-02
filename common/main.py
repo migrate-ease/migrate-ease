@@ -14,12 +14,19 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-import argparse
 import os
 import sys
-import textwrap
-import git
 
+from common.preflight import preflight_dependency_check
+# Run once (guarded) before importing anything that may require pip deps.
+
+if not globals().get("_MIGRATE_EASE_PREFLIGHT_DONE", False):
+    _MIGRATE_EASE_PREFLIGHT_DONE = True
+    preflight_dependency_check()
+
+# Now it's safe to import the rest.
+import argparse, textwrap
+import git
 from common.arch_strings import *
 from common.issue_type_config import IssueTypeConfig
 from common.localization import _
@@ -148,7 +155,6 @@ def init_main(project, summary, version, ISSUE_TYPES):
                         version='%(prog)s ' + version)
 
     return parser
-
 
 def check(args):
     if not args.march in SUPPORTED_MARCH:
