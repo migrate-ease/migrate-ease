@@ -63,6 +63,7 @@ def main():
                                          output=args.output,
                                          output_format=args.output_format,
                                          issue_type_config=args.issue_types,
+                                         issue_types=ISSUE_TYPES,
                                          git_repo=args.git_repo,
                                          branch=args.branch,
                                          commit=args.commit,
@@ -75,13 +76,13 @@ def main():
             if args.target_compiler not in SUPPORTED_COMPILERS_ARM:
                 raise ValueError
         except ValueError:
-            print(_('%s: invalid compiler for %s') % args.march, args.target_compiler, file=sys.stderr)
+            print(_('%s: invalid compiler for %s') % (args.target_compiler, args.march), file=sys.stderr)
             sys.exit(1)
         try:
             if args.warning_level not in ['L1', 'L2']:
                 raise ValueError
         except ValueError:
-            print(_('%s: invalid warning_level for %s') % args.march, args.warning_level, file=sys.stderr)
+            print(_('%s: invalid warning_level for %s') % (args.warning_level, args.march), file=sys.stderr)
             sys.exit(1)
 
     # Check if a git repo is specified

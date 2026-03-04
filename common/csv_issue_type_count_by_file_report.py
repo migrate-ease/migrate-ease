@@ -18,6 +18,7 @@ limitations under the License.
 import csv
 
 from common.report import Report
+from common.issue_type_config import IssueTypeConfig
 
 
 class CsvIssueTypeCountByFileReport(Report):
@@ -26,10 +27,17 @@ class CsvIssueTypeCountByFileReport(Report):
     """
 
     def write_items(self, output_file, items):
-        issue_types = self.issue_type_config.filter_issue_types(self.ISSUE_TYPES)
+        if not getattr(self, 'ISSUE_TYPES', None):
+            raise RuntimeError('ISSUE_TYPES registry not set for CsvIssueTypeCountByFileReport.')
+
+        # self.issue_type_config is a string (from --issue-types). Build filter config here.
+        issue_type_config = IssueTypeConfig(self.issue_type_config, self.ISSUE_TYPES)
+        issue_types = issue_type_config.filter_issue_types(self.ISSUE_TYPES)
+
         csv_writer = csv.writer(output_file)
         header = ['filename'] + [issue_type.display_name() for issue_type in issue_types]
         csv_writer.writerow(header)
+
         sorted_source_files = sorted(self.source_files)
         issue_type_totals_by_file = {}
 
@@ -42,5 +50,5 @@ class CsvIssueTypeCountByFileReport(Report):
 
         for source_file in sorted_source_files:
             issue_type_totals = issue_type_totals_by_file[source_file]
-            row = [source_file] + [issue_type_totals[issue_type] for issue_type in issue_types]
+            row = [source_file] + [issue_type_totals.get(issue_type, 0) for issue_type in issue_types]
             csv_writer.writerow(row)
