@@ -57,7 +57,7 @@ Currently, the tool supports the following languages/dependencies:
 
 ### 1) Pre-requisites
 - Python 3.6.8 or above (with PIP3 module installed)
-- unzip
+- libmagic - Required on mac0S (not included by default)
 
 ### 2) Enable Python environment
 
@@ -67,6 +67,13 @@ python3 -m venv .venv
 source .venv/bin/activate
 ```
 
+Windows (PowerShell)
+```shell
+python -m venv .venv
+Set-ExecutionPolicy RemoteSigned
+.\.venv\Scripts\Activate.ps1
+```
+
 ### 3) Install requirements
 
 Linux/macOS
@@ -74,14 +81,24 @@ Linux/macOS
 pip3 install -r requirements.txt
 ```
 
-### 4) Setup environment
+Windows (PowerShell)
+```shell
+pip install -r requirements.txt
+```
+
+### 4) Set up environment
 
 Linux/macOS
 ```bash
 export PYTHONPATH=/path/to/migrate-ease
 ```
 
-### 5) Run the tool
+Windows (PowerShell)
+```shell
+$env:PYTHONPATH = "\path\to\migrate-ease"
+```
+
+### 5) Scan from a code directory
 
 #### Console output
 
@@ -109,13 +126,31 @@ python3 -m {scanner_name} --output {result_file_name}.json --march {arch} --git-
 
 **Note:** `{scan_path}` is a directory that user would like this tool to create and clone to.
 
-### Built-in help
+---
+
+## `--vendor` and `--instance-type` options
+
+You can optionally derive the target ISA (`--march`) from a **cloud vendor** and **instance type**, instead of specifying `--march` manually.
+
+- `--vendor`: Cloud vendor (e.g., `AWS`, `GCP`, `AliCloud`).
+- `--instance-type`: Instance type under the selected vendor (e.g., `c7g`, `c4a`, `c8y`). Requires `--vendor`.
+- When `-vendor` and `--instance-type` are provided, the tool derives the target ISA and uses it as `--march` (falling back to the default architecture `-armv8-a` if the derived ISA is not supported).
+
+Usage:
+
+```bash
+python3 -m {scanner_name} --vendor <VENDOR> --instance-type <INSTANCE> {scan_path}
+```
+
+See the full guide: [vendor-instance-type-usage.md](docs/vendor-instance-type-usage.md)
+
+---
+
+## Built-in help
 
 ```bash
 python3 -m {scanner_name} -h
 ```
-
-> See also: [Using `--csp` and `--instance`](docs/csp-instance-options.md) for instance-based `--march` selection.
 
 ---
 
@@ -148,6 +183,31 @@ After the above has been executed successfully, you will see a JSON format file 
 
 ---
 
+## Web UI
+
+The tool provides a Web UI that makes it easier to run migration compatibility scans and review results in a browser. You can scan a Git repository or upload a source archive, watch live progress logs, and then view/download the final report.
+
+### How to start
+```bash
+python3 web/server.py {--port <PORT>}
+```
+- Default port is `8080` if `--port` is not provided.
+
+In your browser, visit:
+```
+http://<server-host>:8080
+```
+
+If you are using the Web UI, a step-by-step guided overlay is available on first visit to help you complete your first scan (Git repository or source archive), configure options (**CSP & Instance**, **Report format**, **Scanner**), and locate the result/download links.
+
+For detailed explanations of each option (CSP/Report Format/Scanner) and what happens during scanning, follow the [Web UI Quick Start Guide](docs/webui-quick-start.md)
+
+---
+
 ## Documentation
 
 - [How to read JSON output](docs/json-output.md)
+- [Using `--vendor` and `--instance-type` options](docs/vendor-instance-type-usage.md)
+- [Web UI quick start guide](docs/webui-quick-start.md)
+
+---
