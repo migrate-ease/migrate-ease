@@ -76,6 +76,13 @@ aws_instance_march_map = {
     "r8g": "armv9-a",
     "x2gd": "armv8.2-a"
 }
+# reference: https://docs.cloud.google.com/compute/docs/cpu-platforms#arm_processors
+gcp_instance_march_map = {
+    "A4X": "armv9-a",
+    "C4A": "armv9-a",
+    "N4A": "armv9.2-a",
+    "T2A": "armv8.2-a"
+}
 
 default_march = 'armv8-a'
 supported_march = ['armv8-a', 'armv8.6-a+sve2']
@@ -105,6 +112,9 @@ def get_march(csp, instance):
         march = ali_instance_march_map.get(instance, default_march)
     elif csp.lower() == 'aws':
         march = aws_instance_march_map.get(instance, default_march)
+        print("debug: instance type: ", instance, "arch: ", march)
+    elif csp.lower() == 'gcp':
+        march = gcp_instance_march_map.get(instance, default_march)
         print("debug: instance type: ", instance, "arch: ", march)
     if march not in supported_march:
         print(f'[Warning] Unsupported architecture [{march}] for instance [{instance}]. Use default [{default_march}] instead.')
