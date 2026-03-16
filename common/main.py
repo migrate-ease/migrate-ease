@@ -27,31 +27,12 @@ if not globals().get("_MIGRATE_EASE_PREFLIGHT_DONE", False):
 # Now it's safe to import the rest.
 import argparse, textwrap
 import git
+from common.instance_strings import *
 from common.arch_strings import *
 from common.issue_type_config import IssueTypeConfig
 from common.localization import _
 from common.os_strings import *
 from common.report_factory import ReportFactory, ReportOutputFormat
-
-
-# Define mappings for vendors, instance types, and their respective ISAs
-PLATFORM_CONFIG = {
-    "AWS": {
-        "Graviton": ARMV8_0,  # Example: Graviton uses Armv8-A
-    },
-    "GCP": {
-        "C4A": ARMV9_0,  # C4A uses Armv9-A
-        "N4A": ARMV9_2,  # N4A uses Armv9.2-A
-    }
-}
-
-SUPPORTED_VENDORS = list(PLATFORM_CONFIG.keys())
-
-def get_supported_instance_types(vendor):
-    return list(PLATFORM_CONFIG.get(vendor, {}).keys())
-
-def get_isa_for_instance_type(vendor, instance_type):
-    return PLATFORM_CONFIG.get(vendor, {}).get(instance_type)
 
 
 def init_main(project, summary, version, ISSUE_TYPES):
@@ -112,11 +93,11 @@ def init_main(project, summary, version, ISSUE_TYPES):
                         default=DEFAULT_ARCH)
 
     parser.add_argument('--vendor',
-                        help=_('the cloud vendor (e.g., GCP, AWS).'),
+                        help=_('the cloud vendor (e.g., GCP, AWS, AliCloud).'),
                         default=None)
 
     parser.add_argument('--instance-type',
-                        help=_('the instance type (e.g., C4A, N4A, Graviton).'),
+                        help=_('the instance type (e.g., C4A, N4A, Graviton, c8y).'),
                         default=None)
 
     parser.add_argument('--target-os',
@@ -169,26 +150,31 @@ def check(args):
                   file=sys.stderr)
             print(_('supported vendors: %s') % SUPPORTED_VENDORS, file=sys.stderr)
             sys.exit(1)
+        if not args.instance_type:
+            args.march = DEFAULT_ARCH
+            print(_('[INFO]: --instance_type is not provided, defaulting to --march=%s.') % DEFAULT_ARCH)
 
     if args.instance_type:
         if not args.vendor:
             print(_('--instance-type requires --vendor to be specified.'), file=sys.stderr)
             sys.exit(1)
         supported_instance_types = get_supported_instance_types(args.vendor)
-        if args.instance_type not in supported_instance_types:
+        if args.instance_type.lower() not in supported_instance_types:
             print(_('unknown/unsupported instance type: %s for vendor %s') % (args.instance_type, args.vendor),
                   file=sys.stderr)
             print(_('supported instance types for %s: %s') % (args.vendor, supported_instance_types), file=sys.stderr)
             sys.exit(1)
         
         derived_march = get_isa_for_instance_type(args.vendor, args.instance_type)
-        if derived_march:
-            if args.march != DEFAULT_ARCH and args.march != derived_march:
-                print(_('specified --march %s conflicts with derived ISA %s from --vendor %s and --instance-type %s') %
-                      (args.march, derived_march, args.vendor, args.instance_type), file=sys.stderr)
-                sys.exit(1)
-            elif args.march == DEFAULT_ARCH:
-                args.march = derived_march
+        if derived_march not in SUPPORTED_MARCH:
+            # Use default march if the mapped march is not supported.
+            print(_('[WARNING] derived ISA %s from --vendor %s and --instance-type %s is not supported, defaulting to --march=%s.') %
+                    (derived_march, args.vendor, args.instance_type, DEFAULT_ARCH))
+            args.march = DEFAULT_ARCH
+        else:
+            print(_('[INFO] Set target architecture to %s, derived from --vendor %s and --instance-type %s.') %
+                  (derived_march, args.vendor, args.instance_type))
+            args.march = derived_march
 
     if args.target_os not in SUPPORTED_OS:
         print(_('OS "%s" is not supported.\nSupported OS: %s') % (args.target_os, SUPPORTED_OS),
