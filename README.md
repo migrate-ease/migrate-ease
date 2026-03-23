@@ -1,111 +1,129 @@
-MigrateEase
-============
+# MigrateEase
 
-Migrate-ease is maintained by the OpenAnolis Arm Working Group. This is a fork of [Porting advisor](https://github.com/arm-hpc/porting-advisor), an open source project by the ARM High Performance Computeing group.
+Migrate-ease is maintained by the OpenAnolis Arm Working Group. This is a fork of [Porting advisor](https://github.com/arm-hpc/porting-advisor), an open source project by the ARM High Performance Computing group.
 
 It is an innovative project designed to analyze codebases specifically for x86_64 architectures and offers tailored suggestions aimed at facilitating the migration process to aarch64. This tool streamlines the transition, ensuring a smooth and efficient evolution of your software to leverage the benefits of aarch64 architecture. At present, this tool only supports codebase migration to Linux. It can be run on Arm or non-Arm based machines. The tool does not modify any code, it does not provide API level recommendations, and it does not send any data back to OpenAnolis.
 
-**PLEASE NOTE: Even though we do our best to identify known incompatibilities, we still recommend performing appropriate tests on your application before going to Production.**
+**Please note:** Even though we do our best to identify known incompatibilities, we still recommend performing appropriate tests on your application before going to production.
 
-This tool scans all files in a source tree, regardless of whether they are included by the build system or not. Currently, the tool supports the following languages/dependencies:
+---
 
-* C, C++
-    * Inline assembly with no corresponding aarch64 inline assembly
-    * Assembly code with no corresponding aarch64 assembly code
-    * Use of architecture specific intrinsic
-    * Use of architecture specific compilation options
-    * Preprocessor errors that trigger when compiling on aarch64
-    * Compiler specific code guarded by compiler specific pre-defined macros
-    * Missing aarch64 architecture detection in Makefile, Config.guess scripts
-    * Linking against libraries that are not available on the aarch64 architecture
+## What it scans (languages & dependencies)
 
-* Go
-    * Inline assembly with no corresponding aarch64 inline assembly
-    * Assembly code with no corresponding aarch64 assembly code
-    * Use of architecture specific intrinsic
-    * Linking against libraries that are not available on the aarch64 architecture
+This tool scans **all files in a source tree**, regardless of whether they are included by the build system or not.
 
-* Python
-    * Inline assembly with no corresponding aarch64 inline assembly
-    * Use of architecture specific intrinsic
-    * Linking against libraries that are not available on the aarch64 architecture
-    * Use of architecture specific packages
+Currently, the tool supports the following languages/dependencies:
 
-* Rust
-    * Inline assembly with no corresponding aarch64 inline assembly
-    * Use of architecture specific intrinsic
-    * Linking against libraries that are not available on the aarch64 architecture
+### C / C++
+- Inline assembly with no corresponding aarch64 inline assembly
+- Assembly code with no corresponding aarch64 assembly code
+- Use of architecture specific intrinsic
+- Use of architecture specific compilation options
+- Preprocessor errors that trigger when compiling on aarch64
+- Compiler specific code guarded by compiler specific pre-defined macros
+- Missing aarch64 architecture detection in Makefile, Config.guess scripts
+- Linking against libraries that are not available on the aarch64 architecture
 
-* Java
-    * Use of architecture specific JAR packages
-    * Dependency versions in pom.xml file
-    * A feature to detect native calls in Java source code
-    * Compatible version recommendation
+### Go
+- Inline assembly with no corresponding aarch64 inline assembly
+- Assembly code with no corresponding aarch64 assembly code
+- Use of architecture specific intrinsic
+- Linking against libraries that are not available on the aarch64 architecture
 
-* Dockerfile
-    * Use of architecture specific plugin
-    * The base image that dockfile is based on does not support aarch64
+### Python
+- Inline assembly with no corresponding aarch64 inline assembly
+- Use of architecture specific intrinsic
+- Linking against libraries that are not available on the aarch64 architecture
+- Use of architecture specific packages
 
-# How to run:
+### Rust
+- Inline assembly with no corresponding aarch64 inline assembly
+- Use of architecture specific intrinsic
+- Linking against libraries that are not available on the aarch64 architecture
 
-**Pre-requisites**
-- Python 3.6.8 or above (with PIP3 module installed).
+### Java
+- Use of architecture specific JAR packages
+- Dependency versions in pom.xml file
+- A feature to detect native calls in Java source code
+- Compatible version recommendation
+
+### Dockerfile
+- Use of architecture specific plugin
+- The base image that dockerfile is based on does not support aarch64
+
+---
+
+## How to run
+
+### 1) Pre-requisites
+- Python 3.6.8 or above (with PIP3 module installed)
 - unzip
 
-**Enable Python Environment**
+### 2) Enable Python environment
 
-Linux/Mac:
+Linux/macOS
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
 ```
 
-**Install requirements**
+### 3) Install requirements
 
+Linux/macOS
 ```bash
 pip3 install -r requirements.txt
 ```
 
-**Setup environment**
+### 4) Setup environment
+
+Linux/macOS
 ```bash
 export PYTHONPATH=/path/to/migrate-ease
 ```
 
-**Run tool (console output)**
+### 5) Run the tool
+
+#### Console output
 
 ```bash
 python3 -m {scanner_name} --march {arch} {scan_path}
 ```
 
-**Run tool (JSON report)**
+#### JSON report output
 
 ```bash
 python3 -m {scanner_name} --output {result_file_name}.json --march {arch} {scan_path}
 ```
 
-Parameters:
-- `{scanner_name}`: The name of the scanner, which can be one of `cpp`, `docker`, `go`, `js`, `java`, `python`, `rust`.
-- `{result_file_name}`: The name of the output result file (without the extension).
-- `{arch}`: The target processor architecture (default: armv8-a).
-- `{scan_path}`: The path to the code directory that needs to be scanned.
+**Parameters:**
+- `{scanner_name}`: Scanner name: `cpp`, `docker`, `go`, `js`, `java`, `python`, `rust`
+- `{result_file_name}`: Output result file name (without extension)
+- `{arch}`: Target processor architecture.  It follows the same semantics as GCC's `-march`, specifying the target architecutre and feature set. Supported: `armv8-a` (default) and `armv8.6-a+sve2`.
+- `{scan_path}`: Path to the code directory to scan
 
-You can also specify the code to be scanned through the Git repository address.
+### 6) Scan from a Git repository
+
 ```bash
 python3 -m {scanner_name} --output {result_file_name}.json --march {arch} --git-repo {repo} {scan_path}
 ```
-**NOTE: `{scan_path}` is a directory that user would like to this tool to create and clone to.**
 
-For more information on how to modify issues reported, use the tool's built-in help:
+**Note:** `{scan_path}` is a directory that user would like this tool to create and clone to.
 
-```
+### Built-in help
+
+```bash
 python3 -m {scanner_name} -h
 ```
 
-# Integration test
+> See also: [Using `--csp` and `--instance`](docs/csp-instance-options.md) for instance-based `--march` selection.
 
-This tool also includes comprehensive integration tests. Integration tests ensure that various modules work correctly together after integration, identify interface issues, verify functionality, detect defects, improve system stability, and ensure compatibility. Through integration tests, this tool can provide higher quality and reliability, meeting various user needs.
+---
 
-**NOTE: Need to set the PYTHONPATH to the root directory of the migrate-ease.**
+## Integration test
+
+This tool includes comprehensive integration tests. Integration tests ensure that various modules work correctly together after integration, identify interface issues, verify functionality, and detect regressions.
+
+**Note:** Need to set the `PYTHONPATH` to the root directory of the migrate-ease.
 
 ```bash
 export PYTHONPATH=/path/to/migrate-ease
@@ -113,106 +131,23 @@ cd <scanner_name>/integration_test
 ./test
 ```
 
-# Example to generate JSON report
+---
+
+## Example: generate a JSON report
+
+```bash
+python3 -m cpp \
+  --git-repo https://github.com/protocolbuffers/protobuf.git \
+  --branch v2.5.0 \
+  --output result.json \
+  --march armv8-a \
+  /home/my_repo
 ```
-$ python3 -m cpp --git-repo https://github.com/protocolbuffers/protobuf.git --branch v2.5.0 --output result.json --march armv8-a /home/my_repo
-```
+
 After the above has been executed successfully, you will see a JSON format file at current directory as `result.json`.
 
-# How to read JSON output
-```json
-{
-    "branch": null,
-    "commit": null,
-    "errors": [],
-    "file_summary": {
-    },
-    "git_repo": null,
-    "issue_summary": {
-    },
-    "issue_type_config": null,
-    "issues": [
-        {
-            "checkpoint": null,
-            "description": "preprocessor error: #error \"We require at least vs2005 for MemoryBarrier\"",
-            "filename": "/home/my_repo/src/google/protobuf/stubs/atomicops_internals_x86_msvc.h",
-            "issue_type": {
-                "des": "Target platform may enter the #error preprocessing logic.",
-                "type": "PreprocessorErrorIssue"
-            },
-            "lineno": 46,
-            "snippet": "namespace google {\nnamespace protobuf {\nnamespace internal {\n\ninline Atomic32 NoBarrier_AtomicIncrement(volatile Atomic32* ptr,\n                                          Atomic32 increment) {\n  return Barrier_AtomicIncrement(ptr, increment);\n}\n\n#if !(defined(_MSC_VER) && _MSC_VER >= 1400)\n<font style='color:red;'>#error \"We require at least vs2005 for MemoryBarrier\"</font>\n#endif\n\ninline Atomic32 Acquire_CompareAndSwap(volatile Atomic32* ptr,\n                                       Atomic32 old_value,\n                                       Atomic32 new_value) {\n  return NoBarrier_CompareAndSwap(ptr, old_value, new_value);\n}\n\ninline Atomic32 Release_CompareAndSwap(volatile Atomic32* ptr,\n                                       Atomic32 old_value,\n"
-        },
-    ],
-    "language_type": "cpp",
-    "march": "armv8-a",
-    "output": null,
-    "progress": true,
-    "quiet": false,
-    "remarks": [],
-    "root_directory": "/home/my_repo",
-    "source_dirs": [
-    ],
-    "source_files": [
-    ],
-    "target_os": "OpenAnolis",
-    "total_issue_count": 14
-}
-```
+---
 
-The `issue_summary` is a statistical summary of the types of issues that the current scanner supports checking. For `cpp` scanner, the available issue types are:
+## Documentation
 
-- ArchSpecificLibrary, AsmSource, Avx256Intrinsic, Avx512Intrinsic,
-  BuildCommand, CompilerSpecific, ConfigGuess, CrossCompile,
-  DefineOtherArch, HostCpuDetection, InlineAsm, Intrinsic,
-  NoEquivalent, NoEquivalentInlineAsm, NoEquivalentIntrinsic, OldCrt,
-  PragmaSimd, PreprocessorError
-
-To get issue types of other language scanner, use the tool's built-in help:
-
-```
-python3 -m {scanner_name} -h
-```
-
-The `issues` provide specific descriptions of the detected issues, including which files and specific code segments may have potential issues.
-- `checkpoint`: A pattern to identify potential incompatibilities.
-- `description`: The descriptions of the detected issues.
-- `filename`: The file in which issues were detected.
-- `issue_type`: The types of issues, including detailed descriptions of the errors.
-- `lineno`: The line number of the problematic code.
-- `snippet`: The code segment of the problematic code.
-
-
-# migrate_to_CSP.sh
-
-This script automatically scans your codebase to ensure compatibility with Arm-based cloud instances. It runs all supported language scanners with the correct architecture settings for the instance type you selected and outputs the scan results to JSON files named after the instance type and language scanner.
-
-## Usage
-
-```bash
-./migrate_to_CSP.sh [OPTIONS] [SCAN_PATH]
-```
-
-* Options
-    * `-v, --vendor VENDOR` : Specify the cloud vendor (currently only aliCloud is supported).
-    * `-i, --instance TYPE` : Specify the instance type (e.g., g8y, c8y, r8y, g6r, c6r).
-    * `-h, --help` : Show help message.
-* `SCAN_PATH` : Path to the code directory to scan.
-
-## Examples
-
-```bash
-./migrate_to_CSP.sh -v alicloud -i g8y /path/to/code
-```
-
-## Output
-
-For each scanner, a JSON report named `migrate_to_INSTANCE_SCANNER.json` will be generated in the current directory.
-
-## Help
-
-To display usage instructions:
-
-```bash
-./migrate_to_CSP.sh -h
-```
+- [How to read JSON output](docs/json-output.md)
