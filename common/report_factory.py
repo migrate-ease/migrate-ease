@@ -63,6 +63,7 @@ class ReportFactory:
                      output=None,
                      output_format=ReportOutputFormat.JSON,
                      issue_type_config=None,
+                     issue_types=None,
                      git_repo=None,
                      branch=None,
                      commit=None,
@@ -78,6 +79,8 @@ class ReportFactory:
         elif output_format == ReportOutputFormat.CSV_ISSUE_TYPE_COUNT_BY_FILE:
             report = CsvIssueTypeCountByFileReport(root_directory,
                                                    issue_type_config=issue_type_config)
+            # Attach issue type registry for CSV header generation
+            report.ISSUE_TYPES = issue_types
 
         elif output_format == ReportOutputFormat.HTML:
             report = HtmlReport(root_directory,

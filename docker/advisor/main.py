@@ -45,6 +45,7 @@ def main():
                                          output=args.output,
                                          output_format=args.output_format,
                                          issue_type_config=args.issue_types,
+                                         issue_types=ISSUE_TYPES,
                                          git_repo=args.git_repo,
                                          branch=args.branch,
                                          commit=args.commit,
