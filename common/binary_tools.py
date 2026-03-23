@@ -21,7 +21,10 @@ import subprocess
 import shutil
 import re
 import struct
+import tempfile
 from typing import Tuple
+import sys
+from ar import Archive
 
 
 def is_binary(filename):
@@ -210,7 +213,8 @@ def is_library(filename):
     LIB_PATTERNS = [ELF_RE, WIN_DLL_RE, MACOS_DLL_RE, OTHERS_FORMAT_RE, STATIC_LIB_RE]
 
     is_lib_obj = False
-    f_type = magic.from_file(filename)
+    with open(filename, "rb") as f:
+        f_type = magic.from_buffer(f.read(512))
     for this_pattern in LIB_PATTERNS:
         if re.search(this_pattern, f_type):
             is_lib_obj = True
@@ -220,7 +224,8 @@ def is_library(filename):
 
 def get_target_machin(filename):
     machine_RE = re.compile(r'(Intel 80386|i386|x86_64|x86-64|IA-64|armv7|arm64|ARM aarch64|PowerPC|IBM S/390|MIPS|SPARC|SPARC32PLUS|SPARC V9|SPARC32PLUS|PA-RISC|Alpha|Renesas SH|RISC-V 64)')
-    f_type = magic.from_file(filename)
+    with open(filename, "rb") as f:
+        f_type = magic.from_buffer(f.read(512))
     match = re.search(machine_RE, f_type)
     if match:
         return match.group(0)
@@ -231,20 +236,20 @@ def get_machine_of_static_lib(filename):
     # Make sure this is an AR file
     if magic.from_file(filename) != 'current ar archive':
         return None
-    files = subprocess.run(['ar', 't', filename], capture_output=True, text=True, check=True)
-    # Get first file name
-    object_files = files.stdout.splitlines()
-    test_obj = object_files[0] if object_files else None
+    with open(filename, 'rb') as f:
+        archive = Archive(f)
+        files = [entry.name for entry in archive if entry.name.endswith('.o')]
+        if not files:
+            print(f"No .o files found in archive {filename}")
+            return None
+        first_file = files[0]
+        # Extract the first object file to a temporary dir.
+        with tempfile.TemporaryDirectory(prefix='ar_extract_') as temp_dir:
+            out_path = os.path.join(temp_dir, os.path.basename(first_file))
+            with archive.open(first_file, 'rb') as src, open(out_path, 'wb') as dst:
+                shutil.copyfileobj(src, dst)
 
-    # Create a temporary directory
-    process_id = os.getpid()
-    temp_dir = f"/tmp/{process_id}/"
-    os.makedirs(temp_dir, exist_ok=True)
-    # Extract the first object file
-    subprocess.run(['ar', 'x', filename, test_obj], cwd=temp_dir)
-    test_obj = os.path.join(temp_dir, test_obj)
+            # Compute machine code(s) from the extracted object
+            code = get_a_elf_machine(out_path)
+            return code
 
-    code = get_a_elf_machine(test_obj)
-    shutil.rmtree(temp_dir)
-
-    return code

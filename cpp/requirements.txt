@@ -1,5 +1,0 @@
-jinja2
-progressbar33
-ruamel_yaml
-pycryptodome
-python-magic

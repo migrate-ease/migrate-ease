@@ -77,7 +77,7 @@ class Checkpoint:
 def load_checkpoints(file_path):
     if not os.path.isfile(file_path):
         raise RuntimeError('[%s] not found!' % file_path)
-    with open(file_path, 'r') as f:
+    with open(file_path, 'r', encoding='utf-8') as f:
         cnt = f.read()
         yaml = YAML(typ='rt')
         _content = yaml.load(cnt)

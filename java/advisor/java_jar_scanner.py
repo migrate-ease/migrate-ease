@@ -62,14 +62,13 @@ class JavaJarScanner(JavaScanner):
         if "zip" in pkg_type or "(jar)" in pkg_type:
             # decompress
             decompress_path = filename[:filename.rfind('.')]
-            if not os.path.exists(decompress_path):
-                decompress_command = "mkdir {} && unzip -o {} -d {} > /dev/null 2>&1" \
-                    .format(decompress_path, filename, decompress_path)
-            else:
-                decompress_command = "rm -rf {} && mkdir {} && unzip -o {} -d {} > /dev/null 2>&1" \
-                    .format(decompress_path, decompress_path, filename, decompress_path)
-
-            subprocess.call(decompress_command, shell=True)
+            # Ensure a clean decompress path.
+            if os.path.exists(decompress_path):
+                shutil.rmtree(decompress_path)
+            os.mkdir(decompress_path)
+            # Use python's zipfile to extract files for cross-platform compatibility
+            with zipfile.ZipFile(filename, 'r') as zf:
+                zf.extractall(decompress_path)
 
             # search for libraries
             extensions = self.__class__.JAVA_DYNAMIC_LINK_LIBRARY_EXTENSIONS + self.__class__.JAVA_STATIC_LINK_LIBRARY_EXTENSIONS
