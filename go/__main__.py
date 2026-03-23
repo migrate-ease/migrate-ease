@@ -1,4 +1,4 @@
-#!/usr/bin/go
+#!/usr/bin/python3
 """
 Copyright 2020-2023 Alibaba Inc.
 
@@ -17,9 +17,27 @@ limitations under the License.
 
 import os
 import sys
-sys.path.append(os.path.dirname(os.path.realpath(__file__)))
 
-from advisor import main
 
-if __name__ == '__main__':
-    main.main()
+def main(argv=None) :
+    """
+    Entry point for: python -m go
+
+    Keep compatibility with the existing layout where 'advisor' is imported
+    as a top-level module by adding the package directory to sys.path.
+    """
+    # Keep existing behavior: allow "from advisor import main"
+    sys.path.append(os.path.dirname(os.path.realpath(__file__)))
+
+    # If called programmatically, allow passing argv.
+    if argv is not None:
+        sys.argv = [sys.argv[0], *argv]
+
+    from advisor import main as advisor_main
+
+    advisor_main.main()
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
