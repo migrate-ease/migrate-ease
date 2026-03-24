@@ -54,19 +54,31 @@
           <i class="bi bi-gear-fill"></i>
         </button>
         <ul class="dropdown-menu">
+          <!-- CSP and instance submenu -->
           <li class="dropdown-submenu">  <!-- second level menu -->
             <a class="dropdown-item dropdown-toggle" href="#"> CSP &raquo; </a>
             <ul class="dropdown-menu">
               <li class="dropdown-submenu"> <!-- third level menu -->
                 <a class="dropdown-item dropdown-toggle" href="#" data-csp="AliCloud"> AliCloud &raquo;</a>
                 <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="#" data-instance="c8y">c8y</a></li>
-                  <li><a class="dropdown-item" href="#" data-instance="c6r">c6r</a></li>
-                  <li><a class="dropdown-item" href="#" data-instance="g8y">g8y</a></li>
-                  <li><a class="dropdown-item" href="#" data-instance="g6r">g6r</a></li>
-                  <li><a class="dropdown-item" href="#" data-instance="r8y">r8y</a></li>
+                  <li><a class="dropdown-item csp-instance-item" href="#" data-instance="c8y">c8y</a></li>
+                  <li><a class="dropdown-item csp-instance-item" href="#" data-instance="c6r">c6r</a></li>
+                  <li><a class="dropdown-item csp-instance-item" href="#" data-instance="g8y">g8y</a></li>
+                  <li><a class="dropdown-item csp-instance-item" href="#" data-instance="g6r">g6r</a></li>
+                  <li><a class="dropdown-item csp-instance-item" href="#" data-instance="r8y">r8y</a></li>
                 </ul>
               </li>
+            </ul>
+          </li>
+          <!-- Report format submenu -->
+          <li><hr class="dropdown-divider"></li>
+          <li class="dropdown-submenu">
+            <a class="dropdown-item dropdown-toggle" href="#"> Report Format &raquo; </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item report-format-item active" href="#" data-output-format="json">JSON</a></li>
+              <li><a class="dropdown-item report-format-item" href="#" data-output-format="html">HTML</a></li>
+              <li><a class="dropdown-item report-format-item" href="#" data-output-format="text">Text</a></li>
+              <li><a class="dropdown-item report-format-item" href="#" data-output-format="csv">CSV</a></li>
             </ul>
           </li>
         </ul>
@@ -140,11 +152,36 @@
               $parent.toggleClass('show');
             });
 
-            $('.dropdown-submenu .dropdown-menu a.dropdown-item').on('click', function (e) {
+            // CSP instance selection
+            $('.dropdown-submenu .dropdown-menu a.csp-instance-item').on('click', function (e) {
               e.preventDefault();
-              $('.dropdown-submenu .dropdown-menu a.dropdown-item').removeClass('active');
+              $('.dropdown-submenu .dropdown-menu a.csp-instance-item').removeClass('active');
               $(this).addClass('active');
             });
+
+            // Report format selection
+            $('.dropdown-submenu .dropdown-menu a.report-format-item').on('click', function (e) {
+              e.preventDefault();
+              $('.dropdown-submenu .dropdown-menu a.report-format-item').removeClass('active');
+              $(this).addClass('active');
+            });
+
+            // Read CSP and instance
+            function get_selected_csp_and_instance() {
+              var $instanceItem = $('.dropdown-submenu .dropdown-menu a.csp-instance-item.active');
+              var csp = $instanceItem.closest('.dropdown-submenu').children('a[data-csp]').data('csp') || '';
+              var instance = $instanceItem.data('instance') || '';
+              if (csp !== '' && instance === '') {
+                csp = ''; // if instance is not defined, remove csp info
+              }
+              return { csp: csp, instance: instance };
+            }
+
+            // Read selected report format (default json).
+            function get_selected_output_format() {
+              var $fmt = $('.dropdown-submenu .dropdown-menu a.report-format-item.active');
+              return ($fmt.data('output-format') || 'json');
+            }
 
             // Form submission
             $('#scan-git-form').on('submit', function(e) {
@@ -152,14 +189,11 @@
 
                 var formData = new FormData(this);
                 // Add csp and instance value to formData
-                var $instanceItem = $('.dropdown-submenu .dropdown-menu a.dropdown-item.active');
-                var csp = $instanceItem.closest('.dropdown-submenu').children('a[data-csp]').data('csp') || '';
-                var instance = $instanceItem.data('instance') || '';
-                if (csp != '' && instance == ''){
-                    csp = ''; // if instance is not defined, remove csp info
-                }
-                formData.append('csp', csp);
-                formData.append('instance', instance);
+                var selectedCspInstance = get_selected_csp_and_instance();
+                formData.append('csp', selectedCspInstance.csp);
+                formData.append('instance', selectedCspInstance.instance);
+                // Add report format value to formData
+                formData.append('output-format', get_selected_output_format());
                 console.log($(this).serialize())
 
                 $.ajax({
@@ -230,15 +264,11 @@
 
                 var formData = new FormData(this);
                 // Add csp and instance value to formData
-                var $instanceItem = $('.dropdown-submenu .dropdown-menu a.dropdown-item.active');
-                var csp = $instanceItem.closest('.dropdown-submenu').children('a[data-csp]').data('csp') || '';
-                var instance = $instanceItem.data('instance') || '';
-                if (csp != '' && instance == ''){
-                    alert("Please select an instance for the selected CSP!");
-                    return;
-                }
-                formData.append('csp', csp);
-                formData.append('instance', instance);
+                var selectedCspInstance = get_selected_csp_and_instance();
+                formData.append('csp', selectedCspInstance.csp);
+                formData.append('instance', selectedCspInstance.instance);
+                // Add report format value to formData
+                formData.append('output-format', get_selected_output_format());
 
                 $.ajax({
                     url: '/scan/file',
