@@ -11,6 +11,28 @@
     .dropdown-submenu > .dropdown-menu { bottom: 0; top: auto; right: 100%; }
     .dropdown-menu .dropdown-item { font-weight: bold; }
 
+    /* ===== Instance dropdown item with info link ===== */
+    .dropdown-menu .csp-instance-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-right: 8px;
+    }
+    .dropdown-menu .csp-instance-item .instance-name { flex: 1; }
+    .dropdown-menu .csp-instance-item .instance-info-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+      border-radius: 4px;
+      font-size: 12px;
+      text-decoration: none;
+      transition: all 0.15s ease;
+      flex-shrink: 0;
+      margin-left: 8px;
+    }
+
     .dropdown-menu.scanner-menu {
       min-width: 240px;
       padding: 0.75rem 1rem;
@@ -54,18 +76,7 @@
           <!-- CSP and instance submenu -->
           <li class="dropdown-submenu">
             <a class="dropdown-item dropdown-toggle" href="#"> CSP &raquo; </a>
-            <ul class="dropdown-menu">
-              <li class="dropdown-submenu">
-                <a class="dropdown-item dropdown-toggle" href="#" data-csp="AliCloud"> AliCloud &raquo;</a>
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item csp-instance-item" href="#" data-instance="c8y">c8y</a></li>
-                  <li><a class="dropdown-item csp-instance-item" href="#" data-instance="c6r">c6r</a></li>
-                  <li><a class="dropdown-item csp-instance-item" href="#" data-instance="g8y">g8y</a></li>
-                  <li><a class="dropdown-item csp-instance-item" href="#" data-instance="g6r">g6r</a></li>
-                  <li><a class="dropdown-item csp-instance-item" href="#" data-instance="r8y">r8y</a></li>
-                </ul>
-              </li>
-            </ul>
+            <ul class="dropdown-menu" id="csp-menu"></ul>
           </li>
           <!-- Report format submenu -->
           <li><hr class="dropdown-divider"></li>
@@ -178,6 +189,78 @@
 
   <script>
         $(document).ready(function() {
+            // ========================================
+            //  CSP / Instance Data
+            // ========================================
+            var instance_list = [
+              {
+                name: "AliCloud",
+                types: [
+                  { name: 'c8y', doc_link: 'https://www.alibabacloud.com/help/en/ecs/user-guide/overview-of-instance-families#c8y' },
+                  { name: 'c6r', doc_link: 'https://www.alibabacloud.com/help/en/ecs/user-guide/overview-of-instance-families#c6r' },
+                  { name: 'g8y', doc_link: 'https://www.alibabacloud.com/help/en/ecs/user-guide/overview-of-instance-families#g8y' },
+                  { name: 'g6r', doc_link: 'https://www.alibabacloud.com/help/en/ecs/user-guide/overview-of-instance-families#g6r' },
+                  { name: 'r8y', doc_link: 'https://www.alibabacloud.com/help/en/ecs/user-guide/overview-of-instance-families#r8y' },
+                ]
+              }
+            ];
+
+            // ========================================
+            //  Dynamically build the CSP dropdown menu
+            // ========================================
+            function buildCspMenu() {
+              var $cspMenu = $('#csp-menu');
+              $cspMenu.empty();
+
+              instance_list.forEach(function (csp) {
+                // CSP-level submenu
+                var $cspLi = $('<li class="dropdown-submenu"></li>');
+                var $cspLink = $('<a class="dropdown-item dropdown-toggle" href="#"></a>')
+                  .attr('data-csp', csp.name)
+                  .text(' ' + csp.name).append(' &raquo;');
+                var $instanceMenu = $('<ul class="dropdown-menu"></ul>');
+
+                // Instance items
+                csp.types.forEach(function (inst) {
+                  var $li = $('<li></li>');
+                  var $a = $('<a class="dropdown-item csp-instance-item" href="#"></a>')
+                    .attr('data-instance', inst.name);
+
+                  var $name = $('<span class="instance-name"></span>').text(inst.name);
+                  var $infoLink = $('<span class="instance-info-link"></span>')
+                    .attr('data-info-url', inst.doc_link)
+                    .attr('title', 'View ' + inst.name + ' instance docs')
+                    .html('<i class="fas fa-external-link-alt"></i>');
+
+                  $a.append($name).append($infoLink);
+                  $li.append($a);
+                  $instanceMenu.append($li);
+                });
+
+                $cspLi.append($cspLink).append($instanceMenu);
+                $cspMenu.append($cspLi);
+              });
+
+              // Instance selection click handler
+              $cspMenu.find('a.dropdown-item[data-instance]').on('click', function (e) {
+                e.preventDefault();
+                // If click was on the info-link icon, open docs instead
+                if ($(e.target).closest('.instance-info-link').length) {
+                  e.stopPropagation();
+                  var url = $(e.target).closest('.instance-info-link').data('info-url');
+                  if (url) {
+                    window.open(url, '_blank', 'noopener');
+                  }
+                  return;
+                }
+                $cspMenu.find('a.dropdown-item[data-instance]').removeClass('active');
+                $(this).addClass('active');
+              });
+            }
+
+            // Initialize CSP menu
+            buildCspMenu();
+
             $('[data-bs-toggle="tooltip"]').tooltip();
             // Handle dropdown submenu toggle
             $('.dropdown-submenu > a').on("click", function (e) {
@@ -273,7 +356,6 @@
                 formData.append('output-format', get_selected_output_format());
                 // Add selected scanners to formData
                 formData.append('language', getSelectedScannersString());
-                console.log($(this).serialize())
 
                 $.ajax({
                     url: '/scan/git',
