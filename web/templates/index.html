@@ -166,12 +166,158 @@
     .scan-area-hidden {
       display: none !important;
     }
+
+    .guide-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 10000;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      opacity: 0;
+      visibility: hidden;
+    }
+    .guide-overlay.active {
+      pointer-events: auto;
+      opacity: 1;
+      visibility: visible;
+    }
+    .guide-overlay svg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+    .guide-tooltip {
+      position: absolute;
+      z-index: 10002;
+      background: #ffffff;
+      color: #333;
+      border-radius: 12px;
+      padding: 20px 24px;
+      max-width: 340px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      display: none;
+    }
+    .guide-tooltip::before {
+      content: '';
+      position: absolute;
+      width: 14px;
+      height: 14px;
+      background: #ffffff;
+      transform: rotate(45deg);
+    }
+    .guide-tooltip.arrow-top::before {
+      top: -7px;
+      left: 45%;
+    }
+    .guide-tooltip.arrow-bottom::before {
+      bottom: -7px;
+      left: 45%;
+    }
+    .guide-tooltip.arrow-left::before {
+      left: -7px;
+      top: 20px;
+    }
+    .guide-tooltip.arrow-right::before {
+      right: -7px;
+      top: 20px;
+    }
+    .guide-tooltip-step {
+      display: inline-block;
+      background: linear-gradient(135deg, #158cba, #0d6efd);
+      color: #fff;
+      border-radius: 50%;
+      width: 28px;
+      height: 28px;
+      text-align: center;
+      line-height: 28px;
+      font-weight: 700;
+      font-size: 14px;
+      margin-right: 10px;
+      vertical-align: middle;
+    }
+    .guide-tooltip-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: #158cba;
+      display: inline;
+      vertical-align: middle;
+    }
+    .guide-tooltip-body {
+      margin-top: 10px;
+      font-size: 14px;
+      line-height: 1.6;
+      color: #555;
+    }
+    .guide-tooltip-footer {
+      margin-top: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .guide-tooltip-progress {
+      font-size: 12px;
+      color: #999;
+    }
+    .guide-tooltip-actions {
+      display: flex;
+      gap: 8px;
+    }
+    .guide-btn {
+      border: none;
+      border-radius: 8px;
+      padding: 6px 16px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .guide-btn-skip {
+      background: transparent;
+      color: #999;
+    }
+    .guide-btn-skip:hover {
+      color: #666;
+    }
+    .guide-btn-prev {
+      background: #e9ecef;
+      color: #495057;
+    }
+    .guide-btn-prev:hover {
+      background: #dee2e6;
+    }
+    .guide-btn-next {
+      background-color: #158cba;
+      color: #fff;
+    }
+    .guide-btn-next:hover {
+      background-color: #1178a5;
+      transform: translateY(-1px);
+    }
+    .guide-highlight-ring {
+      position: absolute;
+      z-index: 10001;
+      border: 2px solid #158cba;
+      border-radius: 6px;
+      pointer-events: none;
+      transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      display: none;
+    }
   </style>
 </head>
 <body>
   <div class="container mt-5">
-    <div class="jumbotron">
-      <h1 class="display-3 text-primary">AArch64 Migration Advisor</h1>
+    <div class="jumbotron" style="display: flex;justify-content: space-between;align-items: center;">
+      <h1 class="display-3 text-primary" style="width:88%;">AArch64 Migration Advisor</h1>
+      <!-- Quick Guide Button -->
+      <button class="btn btn-outline-primary" style="display:none;" id="guideStartBtn">
+        <i class="bi bi-question-circle-fill"></i> Quick Guide
+      </button>
       <hr class="bg-primary">
     </div>
   </div>
@@ -332,6 +478,35 @@
         <button type="button" class="report-action-btn report-action-rescan" id="rescan-btn" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Start a new scan">
           <i class="fas fa-redo-alt"></i> New Scan
         </button>
+      </div>
+    </div>
+
+    <!-- Quick guide Overlay Container -->
+    <div class="guide-overlay" id="guideOverlay">
+      <svg id="guideSvg">
+        <defs>
+          <mask id="guideMask">
+            <rect x="0" y="0" width="100%" height="100%" fill="white"/>
+            <rect id="guideCutout" x="0" y="0" width="0" height="0" rx="6" ry="6" fill="black"/>
+          </mask>
+        </defs>
+        <rect x="0" y="0" width="100%" height="100%" fill="rgba(0,0,0,0.55)" mask="url(#guideMask)"/>
+      </svg>
+      <div class="guide-highlight-ring " id="guideRing"></div>
+      <div class="guide-tooltip arrow-top" id="guideTooltip">
+        <div>
+          <span class="guide-tooltip-step" id="guideStepNum">1</span>
+          <span class="guide-tooltip-title" id="guideStepTitle">Title</span>
+        </div>
+        <div class="guide-tooltip-body" id="guideStepBody">Description</div>
+        <div class="guide-tooltip-footer">
+          <span class="guide-tooltip-progress">&nbsp;</span>
+          <div class="guide-tooltip-actions">
+            <button class="guide-btn guide-btn-skip" id="guideSkipBtn">Skip</button>
+            <button class="guide-btn guide-btn-prev" id="guidePrevBtn">Back</button>
+            <button class="guide-btn guide-btn-next" id="guideNextBtn">Next</button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -664,6 +839,276 @@
                     }
                 }
             });
+
+            // ========================================
+            //  Step-by-Step Guide
+            // ========================================
+            function hideAllReportPanes() {
+              $('.report-pane').addClass('d-none').removeClass('pulse');
+            }
+            var guideSteps = [
+              {
+                // Step 1: Git Repo input
+                target: '#scan-git-pane .col-md-7 .input-group',
+                title: 'Git Repository URL',
+                body: 'Enter the URL of the Git repository you want to scan for AArch64 compatibility. Supports HTTPS.',
+                arrowPosition: 'top',
+                beforeShow: function () {
+                  showScanArea();
+                  var gitTab = document.querySelector('a[data-bs-target="#scan-git-pane"]');
+                  if (gitTab && !gitTab.classList.contains('active')) {
+                    bootstrap.Tab.getOrCreateInstance(gitTab).show();
+                  }
+                }
+              },
+              {
+                // Step 2: Branch input
+                target: '#scan-git-pane .col-md-3 .input-group',
+                title: 'Branch Name',
+                body: 'Optionally specify a branch to scan. Leave empty to use the repository\'s default branch (usually <code>main</code> or <code>master</code>).',
+                arrowPosition: 'top',
+                beforeShow: function () {
+                  var gitTab = document.querySelector('a[data-bs-target="#scan-git-pane"]');
+                  if (gitTab && !gitTab.classList.contains('active')) {
+                    bootstrap.Tab.getOrCreateInstance(gitTab).show();
+                  }
+                }
+              },
+              {
+                // Step 3: Source archive tab
+                target: 'a[data-bs-target="#scan-archive-pane"]',
+                title: 'Source Archive Tab',
+                body: 'Switch to this tab if you want to upload a local source archive (<code>.zip</code> or <code>.tar</code>) instead of scanning a Git repository.',
+                arrowPosition: 'top',
+                beforeShow: null
+              },
+              {
+                // Step 4: Choose file input
+                target: '#scan-archive-pane .col-md-10 .input-group',
+                title: 'Choose Archive File',
+                body: 'Click here to select a <code>.zip</code> or <code>.tar</code> archive from your local machine to upload and scan.',
+                arrowPosition: 'top',
+                beforeShow: function () {
+                  var archiveTab = document.querySelector('a[data-bs-target="#scan-archive-pane"]');
+                  if (archiveTab) {
+                    bootstrap.Tab.getOrCreateInstance(archiveTab).show();
+                  }
+                }
+              },
+              {
+                // Step 5: Options button
+                target: '#moreoptions-btn',
+                title: 'Options',
+                body: 'Open this menu to configure scan options before running <strong>SCAN</strong>:'
+                    + '<ul style="margin:8px 0 0 0;padding-left:18px;font-size:13px;line-height:1.8">'
+                    + '<li><strong>CSP &amp; Instance</strong> — Select your target cloud provider and instance type (optional)</li>'
+                    + '<li><strong>Report format</strong> — Choose the output format (json/html/text/csv)</li>'
+                    + '<li><strong>Scanner</strong> — Choose which scanner (language) to run (or pick <em>All</em>)</li>'
+                    + '</ul>'
+                    + '<p style="margin-top:8px;margin-bottom:0;">These options will be applied to both Git Repo and Source archive scans.</p>',
+                arrowPosition: 'bottom',
+                beforeShow: null
+              },
+              {
+                // Step 6: Scan button
+                target: '#action-git-btn',
+                title: 'Start Scan',
+                body: 'Click <strong>SCAN</strong> to start the compatibility analysis.',
+                arrowPosition: 'bottom',
+                beforeShow: function () {
+                  var gitTab = document.querySelector('a[data-bs-target="#scan-git-pane"]');
+                  if (gitTab) {
+                    bootstrap.Tab.getOrCreateInstance(gitTab).show();
+                  }
+                }
+              },
+              {
+                // Step 7: Report area
+                target: '#report-pane',
+                title: 'Scan Results',
+                body: '<p>When the scan completes, this result banner is shown here:</p>'
+                    + '<ul style="margin:0;padding-left:18px;font-size:13px;line-height:2">'
+                    + '<li><i class="fas fa-eye text-primary"></i> <strong>View Report</strong> — Opens the full compatibility report in a new browser tab</li>'
+                    + '<li><i class="fas fa-download text-primary"></i> <strong>Download</strong> — Saves the report file to your machine</li>'
+                    + '<li><i class="fas fa-redo-alt" style="color:#6c757d"></i> <strong>New Scan</strong> — Returns to the scan form to start over</li>'
+                    + '</ul>'
+                    + '<p>The guide will now close so you can start using the scanner. Enjoy!</p>',
+                arrowPosition: 'bottom',
+                isFinal: true,
+                beforeShow: function () {
+                  // Hide scan area and show report pane for preview
+                  $('#scan-area').addClass('scan-area-hidden');
+                  $('#report-pane').removeClass('d-none');
+                },
+                afterHide: function () {
+                  // Restore: show scan area, hide report pane
+                  $('#report-pane').addClass('d-none');
+                  $('#scan-area').removeClass('scan-area-hidden');
+                }
+              }
+            ];
+            var currentStep = 0;
+            var guideActive = false;
+            var $overlay = $('#guideOverlay');
+            var $tooltip = $('#guideTooltip');
+            var $ring = $('#guideRing');
+            var $cutout = $('#guideCutout');
+            var $stepNum = $('#guideStepNum');
+            var $stepTitle = $('#guideStepTitle');
+            var $stepBody = $('#guideStepBody');
+            var $nextBtn = $('#guideNextBtn');
+            var $prevBtn = $('#guidePrevBtn');
+            var $skipBtn = $('#guideSkipBtn');
+            var $startBtn = $('#guideStartBtn');
+            function showGuide() {
+              currentStep = 0;
+              guideActive = true;
+              $overlay.addClass('active');
+              $startBtn.hide();
+              renderStep();
+            }
+            function hideGuide() {
+              var step = guideSteps[currentStep];
+              if (step && step.afterHide) {
+                step.afterHide();
+              }
+              guideActive = false;
+              $overlay.removeClass('active');
+              $ring.hide();
+              $tooltip.hide();
+              // Reset the SVG cutout so nothing remains visible
+              $cutout.attr({ x: 0, y: 0, width: 0, height: 0 });
+              $startBtn.show();
+            }
+            function leaveStep(stepIndex) {
+              var step = guideSteps[stepIndex];
+              if (step && step.afterHide) {
+                step.afterHide();
+              }
+            }
+            function renderStep() {
+              var step = guideSteps[currentStep];
+              // Run any pre-show setup (e.g. switch tabs)
+              if (step.beforeShow) {
+                step.beforeShow();
+              }
+              // Small delay to allow tab transitions to complete
+              setTimeout(function () {
+                var $target = $(step.target);
+                if (!$target.length) return;
+                var rect = $target[0].getBoundingClientRect();
+                var padding = 6;
+                // Position the SVG cutout (transparent hole in the mask)
+                $cutout.attr({
+                  x: rect.left - padding,
+                  y: rect.top - padding,
+                  width: rect.width + padding * 2,
+                  height: rect.height + padding * 2
+                });
+                // Position the highlight ring
+                $ring.css({
+                  left: rect.left - padding,
+                  top: rect.top - padding,
+                  width: rect.width + padding * 2,
+                  height: rect.height + padding * 2
+                }).show();
+                // Update tooltip content
+                $stepNum.text(currentStep + 1);
+                $stepTitle.text(step.title);
+                $stepBody.html(step.body);
+                // Arrow direction class
+                $tooltip.removeClass('arrow-top arrow-bottom arrow-left arrow-right').addClass('arrow-' + step.arrowPosition);
+                // Position tooltip
+                var tooltipWidth = 340;
+                var tooltipHeight = $tooltip.outerHeight() || 180;
+                var tooltipLeft, tooltipTop;
+                switch (step.arrowPosition) {
+                  case "top":
+                    tooltipLeft = rect.left + (rect.width / 2) - (tooltipWidth / 2);
+                    tooltipTop = rect.bottom + padding + 16;
+                    break;
+                  case "bottom":
+                    tooltipLeft = rect.left + (rect.width / 2) - (tooltipWidth / 2);
+                    tooltipTop = rect.top - padding - tooltipHeight - 16;
+                    break;
+                  case "left":
+                    tooltipLeft = rect.right + padding + 16;
+                    tooltipTop = rect.top + (rect.height / 2) - (tooltipHeight / 2);
+                    break;
+                  default:
+                    tooltipLeft = rect.left - padding - tooltipWidth - 16;
+                    tooltipTop = rect.top + (rect.height / 2) - (tooltipHeight / 2);
+                    break;
+                }
+                // Keep tooltip within viewport
+                tooltipLeft = Math.max(12, Math.min(tooltipLeft, window.innerWidth - tooltipWidth - 12));
+                tooltipTop = Math.max(12, tooltipTop);
+                $tooltip.css({ left: tooltipLeft, top: tooltipTop }).show();
+                // Button states
+                $prevBtn.toggle(currentStep > 0);
+                // On the final step, change the Next button to "Got it"
+                if (step.isFinal) {
+                  $nextBtn.text('Got it');
+                } else {
+                  $nextBtn.text('Next');
+                }
+              }, 200);
+            }
+            // --- Guide navigation events ---
+            $nextBtn.on('click', function (e) {
+              e.stopPropagation();
+              if (currentStep < guideSteps.length - 1) {
+                leaveStep(currentStep);
+                currentStep++;
+                renderStep();
+              } else {
+                // last step — close everything
+                hideGuide();
+              }
+            });
+            $prevBtn.on('click', function (e) {
+              e.stopPropagation();
+              if (currentStep > 0) {
+                leaveStep(currentStep);
+                currentStep--;
+                renderStep();
+              }
+            });
+            $skipBtn.on('click', function (e) {
+              e.stopPropagation();
+              hideGuide();
+            });
+            // Click on overlay (outside tooltip & cutout) advances to next step
+            $overlay.on('click', function (e) {
+              if (!$(e.target).closest('.guide-tooltip').length) {
+                if (currentStep < guideSteps.length - 1) {
+                  leaveStep(currentStep);
+                  currentStep++;
+                  renderStep();
+                } else {
+                  hideGuide();
+                }
+              }
+            });
+            // Start button
+            $startBtn.on('click', function () {
+              showGuide();
+            });
+            // Re-render on window resize while guide is active
+            $(window).on('resize', function () {
+              if (guideActive) {
+                renderStep();
+              }
+            });
+            // Auto-show guide on first visit
+            shown = localStorage.getItem('guideShown');
+            if (!shown) {
+              setTimeout(function () {
+                showGuide();
+                localStorage.setItem('guideShown', 'true');
+              }, 800);
+              $startBtn.show();
+            }
         });
 
   </script>
