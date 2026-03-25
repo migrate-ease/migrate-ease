@@ -40,7 +40,132 @@
     .dropdown-menu.scanner-menu .form-check { margin-bottom: 0.35rem; }
     .dropdown-menu.scanner-menu .form-check-label { font-weight: 600; }
 
+    /* ===== Report Pane Styles ===== */
+    .report-pane {
+      background: linear-gradient(135deg, #f0f9ff, #e8f5e9);
+      border: 2px solid #158cba;
+      border-radius: 12px;
+      padding: 24px 32px;
+      margin-top: 12px;
+      animation: reportSlideIn 0.5s ease-out;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
 
+    @keyframes reportSlideIn {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .report-pane .report-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .report-pane .report-icon-circle {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #158cba, #0d6efd);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .report-pane .report-icon-circle i {
+      color: #fff;
+      font-size: 22px;
+    }
+
+    .report-pane .report-text h6 {
+      margin: 0 0 2px 0;
+      font-size: 16px;
+      font-weight: 700;
+      color: #158cba;
+    }
+
+    .report-pane .report-text p {
+      margin: 0;
+      font-size: 13px;
+      color: #666;
+    }
+
+    .report-pane .report-actions {
+      display: flex;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+
+    .report-pane .report-action-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 10px 22px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      border: 1.5px solid transparent;
+      white-space: nowrap;
+    }
+
+    .report-pane .report-action-btn i {
+      font-size: 15px;
+    }
+
+    .report-pane .report-action-view {
+      background: linear-gradient(135deg, #158cba, #0d6efd);
+      color: #fff;
+      border-color: #158cba;
+    }
+
+    .report-pane .report-action-view:hover {
+      background: linear-gradient(135deg, #1178a5, #0b5ed7);
+      color: #fff;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(21,140,186,0.3);
+    }
+
+    .report-pane .report-action-download {
+      background: #fff;
+      color: #158cba;
+      border-color: #158cba;
+    }
+
+    .report-pane .report-action-download:hover {
+      background: #f0f9ff;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(21,140,186,0.15);
+    }
+
+    .report-pane .report-action-rescan {
+      background: transparent;
+      color: #6c757d;
+      border-color: #adb5bd;
+    }
+
+    .report-pane .report-action-rescan:hover {
+      background: #f8f9fa;
+      color: #495057;
+      border-color: #6c757d;
+      transform: translateY(-1px);
+    }
+
+    /* Scan area hide/show transitions */
+    .scan-area-hidden {
+      display: none !important;
+    }
   </style>
 </head>
 <body>
@@ -59,128 +184,155 @@
       </div>
     </div>
 
-    <ul class="nav nav-underline mb-3" role="tablist">
-      <li class="nav-item">
-          <a class="nav-link active" data-bs-toggle="tab" data-bs-target="#scan-git-pane" role="tab">Git Repo</a>
-      </li>
-      <li class="nav-item">
-          <a class="nav-link" data-bs-toggle="tab" data-bs-target="#scan-archive-pane" role="tab">Source archive</a>
-      </li>
+    <!-- Scan area: tabs + forms (hidden when scan completes) -->
+    <div id="scan-area">
+      <ul class="nav nav-underline mb-3" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" data-bs-toggle="tab" data-bs-target="#scan-git-pane" role="tab">Git Repo</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="tab" data-bs-target="#scan-archive-pane" role="tab">Source archive</a>
+        </li>
 
-      <!-- Nested Dropdown -->
-      <li class="nav-item dropdown ms-auto dropup">
-        <button class="btn btn-outline-primary dropdown-toggle" type="button" id="moreoptions-btn" data-bs-toggle="dropdown" aria-expanded="false">
-          <i class="bi bi-gear-fill"></i>
+        <!-- Nested Dropdown -->
+        <li class="nav-item dropdown ms-auto dropup">
+          <button class="btn btn-outline-primary dropdown-toggle" type="button" id="moreoptions-btn" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="bi bi-gear-fill"></i>
+          </button>
+          <ul class="dropdown-menu">
+            <!-- CSP and instance submenu -->
+            <li class="dropdown-submenu">
+              <a class="dropdown-item dropdown-toggle" href="#"> CSP &raquo; </a>
+              <ul class="dropdown-menu" id="csp-menu"></ul>
+            </li>
+            <!-- Report format submenu -->
+            <li><hr class="dropdown-divider"></li>
+            <li class="dropdown-submenu">
+              <a class="dropdown-item dropdown-toggle" href="#"> Report Format &raquo; </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item report-format-item active" href="#" data-output-format="json">JSON</a></li>
+                <li><a class="dropdown-item report-format-item" href="#" data-output-format="html">HTML</a></li>
+                <li><a class="dropdown-item report-format-item" href="#" data-output-format="text">Text</a></li>
+                <li><a class="dropdown-item report-format-item" href="#" data-output-format="csv">CSV</a></li>
+              </ul>
+            </li>
+
+            <li><hr class="dropdown-divider"></li>
+
+            <!-- Scanner (multi-select) -->
+            <li class="dropdown-submenu">
+              <a class="dropdown-item dropdown-toggle" href="#"> Scanner &raquo; </a>
+              <ul class="dropdown-menu scanner-menu">
+                <!-- Default: all checked -->
+                <li class="form-check">
+                  <input class="form-check-input scanner-checkbox" type="checkbox" value="all" id="scanner-all" checked>
+                  <label class="form-check-label" for="scanner-all">All</label>
+                </li>
+
+                <li><hr class="dropdown-divider"></li>
+
+                <li class="form-check">
+                  <input class="form-check-input scanner-checkbox" type="checkbox" value="cpp" id="scanner-cpp">
+                  <label class="form-check-label" for="scanner-cpp">C/C++</label>
+                </li>
+                <li class="form-check">
+                  <input class="form-check-input scanner-checkbox" type="checkbox" value="go" id="scanner-go">
+                  <label class="form-check-label" for="scanner-go">Go</label>
+                </li>
+                <li class="form-check">
+                  <input class="form-check-input scanner-checkbox" type="checkbox" value="rust" id="scanner-rust">
+                  <label class="form-check-label" for="scanner-rust">Rust</label>
+                </li>
+                <li class="form-check">
+                  <input class="form-check-input scanner-checkbox" type="checkbox" value="java" id="scanner-java">
+                  <label class="form-check-label" for="scanner-java">Java</label>
+                </li>
+                <li class="form-check">
+                  <input class="form-check-input scanner-checkbox" type="checkbox" value="python" id="scanner-python">
+                  <label class="form-check-label" for="scanner-python">Python</label>
+                </li>
+                <li class="form-check">
+                  <input class="form-check-input scanner-checkbox" type="checkbox" value="docker" id="scanner-docker">
+                  <label class="form-check-label" for="scanner-docker">Docker</label>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+
+      <div class="tab-content">
+         <div class="tab-pane fade show active" id="scan-git-pane" role="tabpanel">
+          <form id="scan-git-form" class="" name="scan-git-form">
+            <div class="row mb-3">
+              <div class="col-md-7">
+                <div class="input-group">
+                  <span class="input-group-text">Git Repo</span>
+                  <input type="text" name="git-repo" class="form-control" required>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="input-group">
+                  <span class="input-group-text">Branch</span>
+                  <input type="text" name="git-branch" class="form-control">
+                </div>
+              </div>
+              <div class="col-md-2">
+                <button class="btn btn-outline-primary" type="button" id="action-git-btn" style="width: 100%;">SCAN</button>
+                <div class="d-none report-pane">
+                  <span class="label-success">Report:</span>
+                  <a href="/report" class="btn border-0" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Download report"><i class="fas fa-download text-primary"></i></a>
+                  <a href="/result" target="_blank" class="btn border-0" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="View report"><i class="fas fa-eye text-primary"></i></a>
+                </div>
+              </div>
+            </div>
+          </form>
+         </div>
+
+         <div class="tab-pane fade" id="scan-archive-pane" role="tabpanel">
+          <form id="scan-archive-form" class="" name="scan-archive-form">
+            <div class="row mb-3">
+              <div class="col-md-10">
+                <div class="input-group">
+                  <input type="file" class="form-control" name="archive-file" accept=".zip,.tar">
+                </div>
+              </div>
+              <div class="col-md-2">
+                <button class="btn btn-outline-primary" type="button" id="action-archive-btn" style="width: 100%;">SCAN</button>
+                <div class="d-none report-pane">
+                  <span class="label-success">Report:</span>
+                  <a href="/report" class="btn border-0" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Download report"><i class="fas fa-download text-primary"></i></a>
+                  <a href="/result" target="_blank" class="btn border-0" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="View report"><i class="fas fa-eye text-primary"></i></a>
+                </div>
+              </div>
+            </div>
+          </form>
+         </div>
+      </div>
+    </div>
+
+    <!-- Report pane: shown when scan completes, replaces scan-area -->
+    <div class="d-none report-pane" id="report-pane">
+      <div class="report-left">
+        <div class="report-icon-circle">
+          <i class="fas fa-check-circle"></i>
+        </div>
+        <div class="report-text">
+          <h6><i class="fas fa-file-alt"></i> Scan Complete</h6>
+          <p>Your AArch64 compatibility report is ready.</p>
+        </div>
+      </div>
+      <div class="report-actions">
+        <a href="/result" target="_blank" class="report-action-btn report-action-view" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Open report in a new tab">
+          <i class="fas fa-eye"></i> View Report
+        </a>
+        <a href="/report" class="report-action-btn report-action-download" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Save report to your machine">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <button type="button" class="report-action-btn report-action-rescan" id="rescan-btn" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Start a new scan">
+          <i class="fas fa-redo-alt"></i> New Scan
         </button>
-        <ul class="dropdown-menu">
-          <!-- CSP and instance submenu -->
-          <li class="dropdown-submenu">
-            <a class="dropdown-item dropdown-toggle" href="#"> CSP &raquo; </a>
-            <ul class="dropdown-menu" id="csp-menu"></ul>
-          </li>
-          <!-- Report format submenu -->
-          <li><hr class="dropdown-divider"></li>
-          <li class="dropdown-submenu">
-            <a class="dropdown-item dropdown-toggle" href="#"> Report Format &raquo; </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item report-format-item active" href="#" data-output-format="json">JSON</a></li>
-              <li><a class="dropdown-item report-format-item" href="#" data-output-format="html">HTML</a></li>
-              <li><a class="dropdown-item report-format-item" href="#" data-output-format="text">Text</a></li>
-              <li><a class="dropdown-item report-format-item" href="#" data-output-format="csv">CSV</a></li>
-            </ul>
-          </li>
-
-          <li><hr class="dropdown-divider"></li>
-
-          <!-- Scanner (multi-select) -->
-          <li class="dropdown-submenu">
-            <a class="dropdown-item dropdown-toggle" href="#"> Scanner &raquo; </a>
-            <ul class="dropdown-menu scanner-menu">
-              <!-- Default: all checked -->
-              <li class="form-check">
-                <input class="form-check-input scanner-checkbox" type="checkbox" value="all" id="scanner-all" checked>
-                <label class="form-check-label" for="scanner-all">All</label>
-              </li>
-
-              <li><hr class="dropdown-divider"></li>
-
-              <li class="form-check">
-                <input class="form-check-input scanner-checkbox" type="checkbox" value="cpp" id="scanner-cpp">
-                <label class="form-check-label" for="scanner-cpp">C/C++</label>
-              </li>
-              <li class="form-check">
-                <input class="form-check-input scanner-checkbox" type="checkbox" value="go" id="scanner-go">
-                <label class="form-check-label" for="scanner-go">Go</label>
-              </li>
-              <li class="form-check">
-                <input class="form-check-input scanner-checkbox" type="checkbox" value="rust" id="scanner-rust">
-                <label class="form-check-label" for="scanner-rust">Rust</label>
-              </li>
-              <li class="form-check">
-                <input class="form-check-input scanner-checkbox" type="checkbox" value="java" id="scanner-java">
-                <label class="form-check-label" for="scanner-java">Java</label>
-              </li>
-              <li class="form-check">
-                <input class="form-check-input scanner-checkbox" type="checkbox" value="python" id="scanner-python">
-                <label class="form-check-label" for="scanner-python">Python</label>
-              </li>
-              <li class="form-check">
-                <input class="form-check-input scanner-checkbox" type="checkbox" value="docker" id="scanner-docker">
-                <label class="form-check-label" for="scanner-docker">Docker</label>
-              </li>
-            </ul>
-          </li>
-        </ul>
-      </li>
-    </ul>
-
-    <div class="tab-content">
-       <div class="tab-pane fade show active" id="scan-git-pane" role="tabpanel">
-        <form id="scan-git-form" class="" name="scan-git-form">
-          <div class="row mb-3">
-            <div class="col-md-7">
-              <div class="input-group">
-                <span class="input-group-text">Git Repo</span>
-                <input type="text" name="git-repo" class="form-control" required>
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div class="input-group">
-                <span class="input-group-text">Branch</span>
-                <input type="text" name="git-branch" class="form-control">
-              </div>
-            </div>
-            <div class="col-md-2">
-              <button class="btn btn-outline-primary" type="button" id="action-git-btn" style="width: 100%;">SCAN</button>
-              <div class="d-none report-pane">
-                <span class="label-success">Report:</span>
-                <a href="/report" class="btn border-0" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Download report"><i class="fas fa-download text-primary"></i></a>
-                <a href="/result" target="_blank" class="btn border-0" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="View report"><i class="fas fa-eye text-primary"></i></a>
-              </div>
-            </div>
-          </div>
-        </form>
-       </div>
-
-       <div class="tab-pane fade" id="scan-archive-pane" role="tabpanel">
-        <form id="scan-archive-form" class="" name="scan-archive-form">
-          <div class="row mb-3">
-            <div class="col-md-10">
-              <div class="input-group">
-                <input type="file" class="form-control" name="archive-file" accept=".zip,.tar">
-              </div>
-            </div>
-            <div class="col-md-2">
-              <button class="btn btn-outline-primary" type="button" id="action-archive-btn" style="width: 100%;">SCAN</button>
-              <div class="d-none report-pane">
-                <span class="label-success">Report:</span>
-                <a href="/report" class="btn border-0" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Download report"><i class="fas fa-download text-primary"></i></a>
-                <a href="/result" target="_blank" class="btn border-0" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="View report"><i class="fas fa-eye text-primary"></i></a>
-              </div>
-            </div>
-          </div>
-        </form>
-       </div>
+      </div>
     </div>
   </div>
 
@@ -278,6 +430,7 @@
             buildCspMenu();
 
             $('[data-bs-toggle="tooltip"]').tooltip();
+
             // Handle dropdown submenu toggle
             $('.dropdown-submenu > a').on("click", function (e) {
               e.preventDefault();
@@ -358,6 +511,32 @@
             // Default option is to scan all languages
             getSpecificScannerCheckboxes().prop('checked', true);
 
+            // ========================================
+            //  Show / hide scan area vs report pane
+            // ========================================
+            function showReport() {
+              $('#scan-area').addClass('scan-area-hidden');
+              $('#report-pane').removeClass('d-none');
+              // Re-init tooltips on newly visible elements
+              $('#report-pane [data-bs-toggle="tooltip"]').tooltip();
+            }
+
+            function showScanArea() {
+              $('#report-pane').addClass('d-none');
+              $('#scan-area').removeClass('scan-area-hidden');
+              // Reset both SCAN buttons to their original state
+              $('#action-git-btn').prop('disabled', false).text('SCAN').removeClass('btn-danger');
+              $('#action-archive-btn').prop('disabled', false).text('SCAN').removeClass('btn-danger');
+            }
+
+            // "New Scan" button resets back to scan area
+            $('#rescan-btn').on('click', function () {
+              showScanArea();
+              // clean console output
+              var consoleDiv = $('#console-output');
+              consoleDiv.html('');
+              consoleDiv.scrollTop(consoleDiv[0].scrollHeight);
+            });
 
             // Form submission
             $('#scan-git-form').on('submit', function(e) {
@@ -427,12 +606,14 @@
                       case "FAILED":
                       case "ERROR":
                           $(btn_name).addClass("btn-danger");
+                      case "COMPLETED":
                       default:
                           // Re-enable button
                           $(btn_name).prop('disabled', false);
                           $(btn_name).text(response.status);
                           if (response.status == 'COMPLETED')
-                            $(btn_name).next('.report-pane').removeClass('d-none')
+                            $('#scan-area').addClass('scan-area-hidden');
+                            $('#report-pane').removeClass('d-none');
                     }
                 });
             }
