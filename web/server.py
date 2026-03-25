@@ -88,7 +88,28 @@ def report_extension(report_format):
     }
     return ext_map.get(report_format, 'json')
 
-def scan_dir(prj_path, target_march, git_info=None, scan_cat='all', report_format='json'):
+def custom_languages(languages):
+    """
+    Customize language string to either:
+      - supported_scan_cats if 'all' is specified or no language is given
+      - or a filtered list of supported languages, e.g. ['cpp','go']
+    """
+    if not languages:
+        return supported_scan_cats
+
+    languages = languages.strip().lower()
+    if languages == 'all':
+        return supported_scan_cats
+
+    selected_scans = []
+    for x in languages.split(','):
+        if x.strip() not in supported_scan_cats:
+            print(f"[ERROR] Wrong scan category: {x.strip()}")
+            continue
+        selected_scans.append(x.strip())
+    return selected_scans
+
+def scan_dir(prj_path, target_march, git_info= None, report_format='json', languages='all'):
     scan_jobs = []
     env = os.environ.copy()
     git_params = []
@@ -133,14 +154,10 @@ def scan_dir(prj_path, target_march, git_info=None, scan_cat='all', report_forma
                 'kind': report_format
             })
 
-    if scan_cat == 'all':
-        # Scan all possible categories
-        for this_cat in supported_scan_cats:
-            enqueue_cat(this_cat)
-    elif scan_cat in supported_scan_cats:
-        enqueue_cat(scan_cat)
-    else:
-        print(f'[ERROR] Wrong scan category: {scan_cat}')
+    scan_cats = custom_languages(languages)
+    # Scan all selected categories
+    for this_cat in scan_cats:
+        enqueue_cat(this_cat)
 
     if len(scan_jobs) > 0:
         current_job['status'] = 'scanning'
@@ -214,8 +231,9 @@ class CloneProgress(git.RemoteProgress):
                 status = f"{self.curr_op} ... {int(cur_count)}/{int(max_count)} objects"
                 current_job['output'][-1] = status
 
-def process_git(repo_url, march, repo_branch=None, report_format='json'):
+def process_git(repo_url, march, repo_branch=None, report_format='json', languages='all'):
     repo_path = os.path.join(tempfile.gettempdir(), current_job['id'])
+
     if not os.path.exists(repo_path):
         try:
             current_job['output'].insert(0, f'Cloning {repo_url} {repo_branch} ...')
@@ -227,7 +245,7 @@ def process_git(repo_url, march, repo_branch=None, report_format='json'):
             current_job['output'].append("Successfully cloned")
             print(f"Successfully cloned {repo_branch} from {repo_url} to {repo_path}")
             # Run scanners
-            scan_dir(repo_path, target_march=march, git_info={'url':repo_url, 'branch':repo_branch}, report_format=report_format)
+            scan_dir(repo_path, target_march=march, git_info={'url':repo_url, 'branch':repo_branch}, report_format=report_format, languages=languages)
         except Exception as e:
             print(f"An error occurred: {e}")
             return jsonify({'status':'ERROR', 'message':'Clone failure: {e}'})
@@ -236,7 +254,7 @@ def process_git(repo_url, march, repo_branch=None, report_format='json'):
 
 
 # Process uploaded file
-def process_file(filepath, march, report_format='json'):
+def process_file(filepath, march, report_format='json', languages='all'):
     extract_dir = os.path.join(tempfile.gettempdir(), current_job['id'])
     os.makedirs(extract_dir, exist_ok=True)
 
@@ -252,7 +270,7 @@ def process_file(filepath, march, report_format='json'):
             shutil.copy(filepath, os.path.join(extract_dir, os.path.basename(filepath)))
 
         # Run scanners
-        scan_dir(extract_dir, target_march=march, report_format=report_format)
+        scan_dir(extract_dir, target_march=march, report_format=report_format, languages=languages)
 
     except Exception as e:
         current_job['status'] = 'failed'
@@ -263,6 +281,7 @@ def scan_git():
     repo_url = request.form.get('git-repo')
     branch = request.form.get('git-branch')
     csp = request.form.get('csp')
+    languages = request.form.get('language')
     instance = request.form.get('instance')
     report_format = request.form.get('output-format', 'json')
     march = get_march(csp, instance)
@@ -278,7 +297,7 @@ def scan_git():
         current_job['report_format'] = report_format
 
         # Start processing in background
-        thread = threading.Thread(target=process_git, args=(repo_url, march, branch, report_format))
+        thread = threading.Thread(target=process_git, args=(repo_url, march, branch, report_format, languages))
         thread.start()
 
         return jsonify({'status':current_job['status'].upper(), 'access_key':current_job['id']}), 200
@@ -296,6 +315,7 @@ def upload_file():
 
     file = request.files['archive-file']
     csp = request.form.get('csp')
+    languages = request.form.get('language')
     instance = request.form.get('instance')
     report_format = request.form.get('output-format', 'json')
     march = get_march(csp, instance)
@@ -312,7 +332,7 @@ def upload_file():
         file.save(filepath)
 
         # Start processing in background
-        thread = threading.Thread(target=process_file, args=(filepath, march, report_format))
+        thread = threading.Thread(target=process_file, args=(filepath, march, report_format, languages))
         thread.start()
 
         return jsonify({'status': current_job['status'].upper()})

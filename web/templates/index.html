@@ -6,21 +6,17 @@
   <link rel="stylesheet" href="https://bootswatch.com/5/lumen/bootstrap.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
   <style>
-    .dropdown-submenu {
-      position: relative;
-    }
-    .dropdown-submenu.show > .dropdown-menu {
-      display: block;
-    }
-    .dropdown-submenu > .dropdown-menu {
-      bottom: 0;
-      top: auto;
-      right: 100%;
-    }
+    .dropdown-submenu { position: relative; }
+    .dropdown-submenu.show > .dropdown-menu { display: block; }
+    .dropdown-submenu > .dropdown-menu { bottom: 0; top: auto; right: 100%; }
+    .dropdown-menu .dropdown-item { font-weight: bold; }
 
-    .dropdown-menu .dropdown-item {
-      font-weight: bold;
+    .dropdown-menu.scanner-menu {
+      min-width: 240px;
+      padding: 0.75rem 1rem;
     }
+    .dropdown-menu.scanner-menu .form-check { margin-bottom: 0.35rem; }
+    .dropdown-menu.scanner-menu .form-check-label { font-weight: 600; }
 
 
   </style>
@@ -48,17 +44,18 @@
       <li class="nav-item">
           <a class="nav-link" data-bs-toggle="tab" data-bs-target="#scan-archive-pane" role="tab">Source archive</a>
       </li>
+
       <!-- Nested Dropdown -->
-      <li class="nav-item dropdown ms-auto dropup">    <!-- first level menu -->
+      <li class="nav-item dropdown ms-auto dropup">
         <button class="btn btn-outline-primary dropdown-toggle" type="button" id="moreoptions-btn" data-bs-toggle="dropdown" aria-expanded="false">
           <i class="bi bi-gear-fill"></i>
         </button>
         <ul class="dropdown-menu">
           <!-- CSP and instance submenu -->
-          <li class="dropdown-submenu">  <!-- second level menu -->
+          <li class="dropdown-submenu">
             <a class="dropdown-item dropdown-toggle" href="#"> CSP &raquo; </a>
             <ul class="dropdown-menu">
-              <li class="dropdown-submenu"> <!-- third level menu -->
+              <li class="dropdown-submenu">
                 <a class="dropdown-item dropdown-toggle" href="#" data-csp="AliCloud"> AliCloud &raquo;</a>
                 <ul class="dropdown-menu">
                   <li><a class="dropdown-item csp-instance-item" href="#" data-instance="c8y">c8y</a></li>
@@ -81,6 +78,47 @@
               <li><a class="dropdown-item report-format-item" href="#" data-output-format="csv">CSV</a></li>
             </ul>
           </li>
+
+          <li><hr class="dropdown-divider"></li>
+
+          <!-- Scanner (multi-select) -->
+          <li class="dropdown-submenu">
+            <a class="dropdown-item dropdown-toggle" href="#"> Scanner &raquo; </a>
+            <ul class="dropdown-menu scanner-menu">
+              <!-- Default: all checked -->
+              <li class="form-check">
+                <input class="form-check-input scanner-checkbox" type="checkbox" value="all" id="scanner-all" checked>
+                <label class="form-check-label" for="scanner-all">All</label>
+              </li>
+
+              <li><hr class="dropdown-divider"></li>
+
+              <li class="form-check">
+                <input class="form-check-input scanner-checkbox" type="checkbox" value="cpp" id="scanner-cpp">
+                <label class="form-check-label" for="scanner-cpp">C/C++</label>
+              </li>
+              <li class="form-check">
+                <input class="form-check-input scanner-checkbox" type="checkbox" value="go" id="scanner-go">
+                <label class="form-check-label" for="scanner-go">Go</label>
+              </li>
+              <li class="form-check">
+                <input class="form-check-input scanner-checkbox" type="checkbox" value="rust" id="scanner-rust">
+                <label class="form-check-label" for="scanner-rust">Rust</label>
+              </li>
+              <li class="form-check">
+                <input class="form-check-input scanner-checkbox" type="checkbox" value="java" id="scanner-java">
+                <label class="form-check-label" for="scanner-java">Java</label>
+              </li>
+              <li class="form-check">
+                <input class="form-check-input scanner-checkbox" type="checkbox" value="python" id="scanner-python">
+                <label class="form-check-label" for="scanner-python">Python</label>
+              </li>
+              <li class="form-check">
+                <input class="form-check-input scanner-checkbox" type="checkbox" value="docker" id="scanner-docker">
+                <label class="form-check-label" for="scanner-docker">Docker</label>
+              </li>
+            </ul>
+          </li>
         </ul>
       </li>
     </ul>
@@ -90,7 +128,7 @@
         <form id="scan-git-form" class="" name="scan-git-form">
           <div class="row mb-3">
             <div class="col-md-7">
-                <div class="input-group">
+              <div class="input-group">
                 <span class="input-group-text">Git Repo</span>
                 <input type="text" name="git-repo" class="form-control" required>
               </div>
@@ -112,11 +150,12 @@
           </div>
         </form>
        </div>
+
        <div class="tab-pane fade" id="scan-archive-pane" role="tabpanel">
         <form id="scan-archive-form" class="" name="scan-archive-form">
           <div class="row mb-3">
             <div class="col-md-10">
-                <div class="input-group">
+              <div class="input-group">
                 <input type="file" class="form-control" name="archive-file" accept=".zip,.tar">
               </div>
             </div>
@@ -152,14 +191,14 @@
               $parent.toggleClass('show');
             });
 
-            // CSP instance selection
+            // CSP instance selection (single-select)
             $('.dropdown-submenu .dropdown-menu a.csp-instance-item').on('click', function (e) {
               e.preventDefault();
               $('.dropdown-submenu .dropdown-menu a.csp-instance-item').removeClass('active');
               $(this).addClass('active');
             });
 
-            // Report format selection
+            // Report format selection (single-select)
             $('.dropdown-submenu .dropdown-menu a.report-format-item').on('click', function (e) {
               e.preventDefault();
               $('.dropdown-submenu .dropdown-menu a.report-format-item').removeClass('active');
@@ -183,6 +222,44 @@
               return ($fmt.data('output-format') || 'json');
             }
 
+            // Scanner option behavior (multi-select):
+            // 1) default: all checked
+            // 2) check "all" => all specifics checked
+            // 3) uncheck "all" => all specifics unchecked
+            function getSpecificScannerCheckboxes() {
+              return $('.scanner-checkbox').not('#scanner-all');
+            }
+
+            $('#scanner-all').on('change', function() {
+              if ($(this).is(':checked')) {
+                getSpecificScannerCheckboxes().prop('checked', true);
+              } else {
+                getSpecificScannerCheckboxes().prop('checked', false);
+              }
+            });
+
+            // If user manually unchecks any specific scanner, also uncheck "all"
+            getSpecificScannerCheckboxes().on('change', function() {
+              if (!$(this).is(':checked')) {
+                $('#scanner-all').prop('checked', false);
+              }
+            });
+
+            function getSelectedScannersString() {
+              if ($('#scanner-all').is(':checked')) return 'all';
+
+              var scanners = [];
+              getSpecificScannerCheckboxes().each(function() {
+                if ($(this).is(':checked')) scanners.push($(this).val());
+              });
+
+              // Default to scan all
+              return scanners.length ? scanners.join(',') : 'all';
+            }
+            // Default option is to scan all languages
+            getSpecificScannerCheckboxes().prop('checked', true);
+
+
             // Form submission
             $('#scan-git-form').on('submit', function(e) {
                 e.preventDefault();
@@ -194,6 +271,8 @@
                 formData.append('instance', selectedCspInstance.instance);
                 // Add report format value to formData
                 formData.append('output-format', get_selected_output_format());
+                // Add selected scanners to formData
+                formData.append('language', getSelectedScannersString());
                 console.log($(this).serialize())
 
                 $.ajax({
@@ -215,6 +294,7 @@
                     }
                 });
             });
+
             $('#action-git-btn').click(function() {
                 current_status = $(this).text();
                 if ('SCAN' == current_status) {
@@ -269,6 +349,8 @@
                 formData.append('instance', selectedCspInstance.instance);
                 // Add report format value to formData
                 formData.append('output-format', get_selected_output_format());
+                // Add selected scanners to formData
+                formData.append('language', getSelectedScannersString());
 
                 $.ajax({
                     url: '/scan/file',
@@ -289,6 +371,7 @@
                     }
                 });
             });
+
             $('#action-archive-btn').click(function() {
                 current_status = $(this).text();
                 if ('SCAN' == current_status) {
