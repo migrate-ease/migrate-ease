@@ -51,14 +51,41 @@ current_job = {
     'report_format': 'json', # User selected report format for download
 }
 
-# Ali cloud instances to march map
 # This is used to map the instance type to the corresponding architecture
+#
+# reference: https://www.alibabacloud.com/help/en/ecs
 ali_instance_march_map = {
         "g8y": "armv8.6-a+sve2",
         "g6r": "armv8-a",
         "c8y": "armv8.6-a+sve2",
         "c6r": "armv8-a",
         "r8y": "armv8.6-a+sve2"
+}
+
+# reference: https://aws.amazon.com/ec2/instance-types/
+aws_instance_march_map = {
+    "t4g": "armv8.2-a",
+    "m6g": "armv8.2-a",
+    "m7g": "armv8.4-a",
+    "m8g": "armv9-a",
+    "c6g": "armv8.2-a",
+    "c7g": "armv8.4-a",
+    "c8g": "armv9-a",
+    "r6g": "armv8.2-a",
+    "r7g": "armv8.4-a",
+    "r8g": "armv9-a",
+    "x2gd": "armv8.2-a"
+}
+
+default_march = 'armv8-a'
+supported_march = ['armv8-a', 'armv8.6-a+sve2']
+
+# Global variables to track job status
+current_job = {
+    'id': None,
+    'status': None,
+    'output': [],   # Console output
+    'results': []   # Scan results for each category
 }
 
 # Ensure upload and result directory exists
@@ -73,10 +100,16 @@ def index():
     return render_template('index.html', job_status=current_job['status'])
 
 def get_march(csp, instance):
-    default_march = 'armv8-a'
+    march = default_march
     if csp.lower() == 'alicloud':
-        return ali_instance_march_map.get(instance, default_march)
-    return default_march
+        march = ali_instance_march_map.get(instance, default_march)
+    elif csp.lower() == 'aws':
+        march = aws_instance_march_map.get(instance, default_march)
+        print("debug: instance type: ", instance, "arch: ", march)
+    if march not in supported_march:
+        print(f'[Warning] Unsupported architecture [{march}] for instance [{instance}]. Use default [{default_march}] instead.')
+        march = default_march
+    return march
 
 def report_extension(report_format):
     ext_map = {
