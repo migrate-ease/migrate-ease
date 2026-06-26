@@ -98,10 +98,19 @@ def run_one(language, rest_args, base_output):
         call_args = strip_output_args(call_args)
         call_args += ['--output', output_path]
 
+    # Force UTF-8 on both ends of the pipe. The default on Windows is the
+    # system code page (cp1252/cp936/...), which can't encode non-ASCII
+    # scanner output (typographic quotes in snippets, CJK paths, etc.).
+    env = os.environ.copy()
+    env.setdefault('PYTHONIOENCODING', 'utf-8')
+
     proc = subprocess.run(cmd + call_args,
                           stdout=subprocess.PIPE,
                           stderr=subprocess.PIPE,
-                          text=True)
+                          text=True,
+                          encoding='utf-8',
+                          errors='replace',
+                          env=env)
 
     return {
         'language': language,

@@ -164,18 +164,19 @@ def scan_dir(prj_path, target_march, git_info= None, report_format='json', langu
             git_params += ['--branch', git_info['branch']]
 
     def build_cmd(cat, out_file, report_format):
-        fmt_params = ' --output-format ' + report_format
+        # Build an argv list (not a shell string) and run with shell=False so
+        # the command works on Windows too. Use sys.executable instead of a
+        # hardcoded 'python3' (which may not exist on Windows) and os.path.join
+        # so the script path uses the platform's native separator.
+        main_py = os.path.join(env['PYTHONPATH'], cat, '__main__.py')
+        cmd = [sys.executable, main_py] + git_params + [
+            '--output', out_file,
+            '--output-format', report_format,
+        ]
         if cat == 'cpp':
-            return ['python3 ' + env['PYTHONPATH'] + '/' + cat + '/__main__.py ' +
-                    ' '.join(git_params) +
-                    ' --output ' + out_file +
-                    fmt_params +
-                    ' --warning-level L2 --march ' + target_march + ' .']
-        return ['python3 ' + env['PYTHONPATH'] + '/' + cat + '/__main__.py ' +
-                ' '.join(git_params) +
-                ' --output ' + out_file +
-                fmt_params +
-                ' --march ' + target_march + ' .']
+            cmd += ['--warning-level', 'L2']
+        cmd += ['--march', target_march, '.']
+        return cmd
 
     def enqueue_cat(cat):
         # Always generate JSON for /result page rendering
@@ -214,7 +215,7 @@ def scan_dir(prj_path, target_march, git_info= None, report_format='json', langu
                 stdout=subprocess.PIPE,
                 stderr=subprocess.STDOUT,
                 universal_newlines=True,
-                shell=True
+                shell=False
             )
             while True:
                 output = process.stdout.readline()
